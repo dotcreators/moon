@@ -1,0 +1,45 @@
+{
+  "name": "dotpix-frontend",
+  "version": "0.1.0",
+  "private": true,
+  "scripts": {
+    "dev": "next dev",
+    "build": "next build",
+    "start": "next start",
+    "lint": "next lint"
+  },
+  "dependencies": {
+    "country-flag-icons": "^1.5.11",
+    "framer-motion": "^11.0.28",
+    "next": "14.1.4",
+    "react": "^18",
+    "react-dom": "^18",
+    "swr": "^2.2.5",
+    "unplugin-icons": "^0.18.5"
+  },
+  "devDependencies": {
+    "@iconify/json": "^2.2.197",
+    "@svgr/core": "^8.1.0",
+    "@svgr/plugin-jsx": "^8.1.0",
+    "@types/node": "^20",
+    "@types/react": "^18",
+    "@types/react-dom": "^18",
+    "autoprefixer": "^10.0.1",
+    "classnames": "^2.5.1",
+    "eslint": "^8",
+    "eslint-config-airbnb": "^19.0.4",
+    "eslint-config-next": "14.1.4",
+    "eslint-config-prettier": "^9.1.0",
+    "eslint-plugin-import": "^2.29.1",
+    "eslint-plugin-jsx-a11y": "^6.8.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "postcss": "^8",
+    "prettier": "^3.2.5",
+    "tailwindcss": "^3.3.0",
+    "typescript": "^5",
+    "unplugin-auto-import": "^0.17.5"
+  },
+  "main": "index.js",
+  "license": "MIT"
+}
