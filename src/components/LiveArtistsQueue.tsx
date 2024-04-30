@@ -1,22 +1,24 @@
 export default function LiveArtistsQueue() {
-    return (
-        <section className="flex flex-row gap-5 overflow-hidden justify-start items-center w-full">
-          <div className="flex flex-row gap-2 items-center">
-            <div className="bg-[#7BEF44]/10 w-5 h-5 rounded-full items-center mx-auto flex justify-center animate-pulse"><div className="bg-[#7BEF44]/80 w-2 h-2 rounded-full"/></div>
-            <p>Live</p>
-          </div>
-          <section className="flex flex-row gap-3">
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-            <div className="animate-pulse h-8 w-32 bg-dark-inner rounded-full"></div>
-          </section>
-        </section>
-    )
+  return (
+    <section className="flex w-full flex-row items-center justify-start gap-5 overflow-hidden">
+      <div className="flex flex-row items-center gap-2">
+        <div className="mx-auto flex h-5 w-5 animate-pulse items-center justify-center rounded-full bg-[#7BEF44]/10">
+          <div className="h-2 w-2 rounded-full bg-[#7BEF44]/80" />
+        </div>
+        <p>Live</p>
+      </div>
+      <section className="flex flex-row gap-3">
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+        <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+      </section>
+    </section>
+  )
 }

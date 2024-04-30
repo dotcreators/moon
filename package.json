@@ -1,5 +1,5 @@
 {
-  "name": "dotpix-frontend",
+  "name": "dotcreators-moon",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,7 +36,8 @@
     "eslint-plugin-react-hooks": "^4.6.0",
     "postcss": "^8",
     "prettier": "^3.2.5",
-    "tailwindcss": "^3.3.0",
+    "prettier-plugin-tailwindcss": "^0.5.14",
+    "tailwindcss": "^3.4.3",
     "typescript": "^5",
     "unplugin-auto-import": "^0.17.5"
   },

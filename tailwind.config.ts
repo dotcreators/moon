@@ -14,7 +14,7 @@ const config: Config = {
           "conic-gradient(from 180deg at 50% 50%, var(--tw-gradient-stops))",
       },
       fontFamily: {
-        "hubot-sans": ['var(--font-hubot-sans)']
+        "hubot-sans": ["var(--font-hubot-sans)"],
       },
       colors: {
         "dark-bg": "#0A0A0A",
@@ -22,12 +22,12 @@ const config: Config = {
         "dark-inner-hover": "#202020",
         "dark-double-inner": "#303030",
         "dark-double-inner-hover": "#454545",
-        "dark-text": "#FDFDFD"
+        "dark-text": "#FDFDFD",
       },
       transitionProperty: {
-        'max-height': 'max-height',
-        'padding': 'padding'
-      }
+        "max-height": "max-height",
+        padding: "padding",
+      },
     },
   },
   plugins: [],
