@@ -1,4 +1,4 @@
-export const CountryCodes = [
+export const countryCodes = [
   {
     title: 'Unknown',
     value: 'unk',
@@ -875,6 +875,6 @@ export const CountryCodes = [
     title: 'Zimbabwe',
     value: 'ZW',
   },
-] as const
+] as const;
 
-export type SelectCountry = (typeof CountryCodes)[number]
+export type SelectCountry = (typeof countryCodes)[number];

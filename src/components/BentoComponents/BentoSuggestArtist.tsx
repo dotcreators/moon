@@ -1,6 +1,6 @@
-import classNames from 'classnames'
-import { BentoQueueCard } from './BentoQueueCard'
-import { InnerButton } from '../InnerButton'
+import classNames from 'classnames';
+import { BentoQueueCard } from './BentoQueueCard';
+import { InnerButton } from '../InnerButton';
 
 export default function BentoSuggestArtist() {
   return (
@@ -30,5 +30,5 @@ export default function BentoSuggestArtist() {
       </div>
       <InnerButton title={'Suggest artists'} link="/suggest" />
     </section>
-  )
+  );
 }

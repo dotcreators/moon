@@ -1,29 +1,29 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import { FC, useState } from 'react'
-import RiImage2Line from '~icons/ri/image-2-line'
-import RiUserHeartLine from '~icons/ri/user-heart-line'
-import RiArrowDownSLine from '~icons/ri/arrow-down-s-line'
-import RiExternalLinkLine from '~icons/ri/external-link-line'
-import Link from 'next/link'
-import RiLoader5Line from '~icons/ri/loader-5-line'
-import { ArtistProfile } from '@/utils/models/ArtistProfile'
+import classNames from 'classnames';
+import Image from 'next/image';
+import { FC, useState } from 'react';
+import RiImage2Line from '~icons/ri/image-2-line';
+import RiUserHeartLine from '~icons/ri/user-heart-line';
+import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
+import RiExternalLinkLine from '~icons/ri/external-link-line';
+import Link from 'next/link';
+import RiLoader5Line from '~icons/ri/loader-5-line';
+import { ArtistProfile } from '@/utils/models/ArtistProfile';
 
 interface Props {
-  place: number
-  artist: ArtistProfile
-  isSmall: boolean
-  className?: string
+  place: number;
+  artist: ArtistProfile;
+  isSmall: boolean;
+  className?: string;
 }
 
 export const ArtistListCard: FC<Props> = props => {
-  const [isImageLoaded, setImageLoaded] = useState<boolean>(false)
+  const [isImageLoaded, setImageLoaded] = useState<boolean>(false);
 
   function formatValue(value: number): string {
     if (value >= 1000) {
-      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`
+      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`;
     } else {
-      return value.toString()
+      return value.toString();
     }
   }
 
@@ -141,5 +141,5 @@ export const ArtistListCard: FC<Props> = props => {
         </div>
       </section>
     </>
-  )
-}
+  );
+};

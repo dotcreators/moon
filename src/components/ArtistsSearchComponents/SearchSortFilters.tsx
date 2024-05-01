@@ -1,22 +1,34 @@
-import classNames from 'classnames'
-import { FC, useEffect, useState } from 'react'
-import RiArrowDownSLine from '~icons/ri/arrow-down-s-line'
-import RiUserHeartFill from '~icons/ri/user-heart-fill'
-import RiFilePaper2Fill from '~icons/ri/file-paper-2-fill'
-import RiLineChartFill from '~icons/ri/line-chart-fill'
-import RiAtFill from '~icons/ri/at-fill'
-import { useRouter } from 'next/router'
+import classNames from 'classnames';
+import { FC, useEffect, useState } from 'react';
+import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
+import RiUserHeartFill from '~icons/ri/user-heart-fill';
+import RiFilePaper2Fill from '~icons/ri/file-paper-2-fill';
+import RiLineChartFill from '~icons/ri/line-chart-fill';
+import RiAtFill from '~icons/ri/at-fill';
+import { useRouter } from 'next/router';
 
 interface Props {
-  onSortFilterChanges: Function
+  onSortFilterChanges: Function;
 }
 
 export const SearchSortFilters: FC<Props> = props => {
-  const sortFilters = ['Followers', 'Username', 'Posts', 'Trending']
-  const [toggleSortFilters, setToggleSortFilters] = useState<boolean>(false)
+  const sortFilters = ['Followers', 'Username', 'Posts', 'Trending'];
+  const [toggleSortFilters, setToggleSortFilters] = useState<boolean>(false);
   const [selectedSortFilter, setSelectedSortFilter] = useState<string>(
     sortFilters[0]
-  )
+  );
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const sortBy = router.query.sortBy as string;
+    const _sortBy = sortFilters.find(x => x.toLowerCase() === sortBy);
+    if (_sortBy !== undefined) {
+      setSelectedSortFilter(_sortBy);
+      props.onSortFilterChanges(_sortBy);
+    }
+  }, [router.isReady, router.query.sortBy]);
 
   return (
     <section>
@@ -78,8 +90,8 @@ export const SearchSortFilters: FC<Props> = props => {
           <button
             key={index}
             onClick={() => {
-              setSelectedSortFilter(filter)
-              props.onSortFilterChanges(filter)
+              setSelectedSortFilter(filter);
+              props.onSortFilterChanges(filter);
             }}
             className={classNames(
               'flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dark-inner p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-inner-hover',
@@ -100,8 +112,8 @@ export const SearchSortFilters: FC<Props> = props => {
         ))}
         <button
           onClick={() => {
-            setSelectedSortFilter('Followers')
-            props.onSortFilterChanges('Followers')
+            setSelectedSortFilter('Followers');
+            props.onSortFilterChanges('Followers');
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
         >
@@ -109,5 +121,5 @@ export const SearchSortFilters: FC<Props> = props => {
         </button>
       </section>
     </section>
-  )
-}
+  );
+};

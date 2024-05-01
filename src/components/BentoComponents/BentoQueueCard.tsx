@@ -1,15 +1,15 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import { FC } from 'react'
-import RiCheckLine from '~icons/ri/check-line'
+import classNames from 'classnames';
+import Image from 'next/image';
+import { FC } from 'react';
+import RiCheckLine from '~icons/ri/check-line';
 
 interface Props {
   user: {
-    username: string
-    tag: string
-  }
-  avatar: string
-  className?: string
+    username: string;
+    tag: string;
+  };
+  avatar: string;
+  className?: string;
 }
 
 export const BentoQueueCard: FC<Props> = props => {
@@ -35,5 +35,5 @@ export const BentoQueueCard: FC<Props> = props => {
       <p className="text-lg">{props.user.username}</p>
       <p className="text-zinc-400">@{props.user.tag}</p>
     </section>
-  )
-}
+  );
+};

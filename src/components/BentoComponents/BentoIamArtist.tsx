@@ -1,6 +1,6 @@
-import classNames from 'classnames'
-import { BentoUserCard } from './BentoUserCard'
-import { InnerButton } from '../InnerButton'
+import classNames from 'classnames';
+import { BentoUserCard } from './BentoUserCard';
+import { InnerButton } from '../InnerButton';
 
 export default function BentoIamArtist() {
   return (
@@ -39,5 +39,5 @@ export default function BentoIamArtist() {
       </div>
       <InnerButton title={'Submit'} func={() => {}} />
     </section>
-  )
+  );
 }

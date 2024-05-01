@@ -1,26 +1,39 @@
-import { FC, useState } from 'react'
-import Image from 'next/image'
-import classNames from 'classnames'
-import styles from '@/components/ArtistsSearchComponents/SearchCountries.module.css'
-import RiArrowDownSLine from '~icons/ri/arrow-down-s-line'
-import RiQuestionMark from '~icons/ri/question-mark'
-import { CountryCodes } from '@/utils/CountryCode'
+import { FC, useEffect, useState } from 'react';
+import Image from 'next/image';
+import classNames from 'classnames';
+import styles from '@/components/ArtistsSearchComponents/SearchCountries.module.css';
+import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
+import RiQuestionMark from '~icons/ri/question-mark';
+import { countryCodes } from '@/utils/CountryCode';
+import { useRouter } from 'next/router';
 
 interface Props {
-  onCountryChanges: Function
+  onCountryChanges: Function;
 }
 
 export const SearchCountries: FC<Props> = props => {
-  const [toggleCountries, setToggleCountries] = useState<boolean>(false)
+  const [toggleCountries, setToggleCountries] = useState<boolean>(false);
   const [selectedCountry, setSelectedCountry] = useState<{
-    title: string
-    value: string
-  }>({ title: '', value: '' })
-  const [searchText, setSearchText] = useState<string>('')
+    title: string;
+    value: string;
+  }>({ title: '', value: '' });
+  const [searchText, setSearchText] = useState<string>('');
+  const router = useRouter();
 
-  const filteredCountries = CountryCodes.filter(country =>
+  const filteredCountries = countryCodes.filter(country =>
     country.title.toLowerCase().includes(searchText.toLowerCase())
-  )
+  );
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    const country = router.query.country as string;
+    const foundCountry = countryCodes.find(x => x.value === country);
+    if (foundCountry !== undefined) {
+      setSelectedCountry(foundCountry);
+      props.onCountryChanges(foundCountry);
+    }
+  }, [router.isReady, router.query.country]);
 
   return (
     <section className="overflow-hidden rounded-3xl">
@@ -110,11 +123,11 @@ export const SearchCountries: FC<Props> = props => {
                 setSelectedCountry({
                   title: country.title,
                   value: country.value,
-                })
+                });
                 props.onCountryChanges({
                   title: country.title,
                   value: country.value,
-                })
+                });
               }}
               className={classNames(
                 'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-inner-hover',
@@ -140,8 +153,8 @@ export const SearchCountries: FC<Props> = props => {
         </section>
         <button
           onClick={() => {
-            setSelectedCountry({ title: '', value: '' })
-            props.onCountryChanges({ title: '', value: '' })
+            setSelectedCountry({ title: '', value: '' });
+            props.onCountryChanges({ title: '', value: '' });
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
         >
@@ -149,5 +162,5 @@ export const SearchCountries: FC<Props> = props => {
         </button>
       </section>
     </section>
-  )
-}
+  );
+};

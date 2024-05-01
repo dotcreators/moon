@@ -1,22 +1,22 @@
-import Image from 'next/image'
-import { FC } from 'react'
-import classNames from 'classnames'
-import { InnerButton } from './InnerButton'
+import Image from 'next/image';
+import { FC } from 'react';
+import classNames from 'classnames';
+import { InnerButton } from './InnerButton';
 
 interface Props {
-  title: string
-  emoji: string
-  additionalEmojis?: string[]
+  title: string;
+  emoji: string;
+  additionalEmojis?: string[];
   options?: {
-    rotateEmoji?: boolean
-    smallHeight?: boolean
-    flipX?: boolean
-  }
+    rotateEmoji?: boolean;
+    smallHeight?: boolean;
+    flipX?: boolean;
+  };
   button?: {
-    title: string
-    href: string
-  }
-  className?: string
+    title: string;
+    href: string;
+  };
+  className?: string;
 }
 
 export const BentoItem: FC<Props> = props => {
@@ -52,5 +52,5 @@ export const BentoItem: FC<Props> = props => {
         <InnerButton title={props.button.title} func={() => {}} />
       )}
     </section>
-  )
-}
+  );
+};

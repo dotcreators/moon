@@ -20,5 +20,5 @@ export default function LiveArtistsQueue() {
         <div className="h-8 w-32 animate-pulse rounded-full bg-dark-inner"></div>
       </section>
     </section>
-  )
+  );
 }

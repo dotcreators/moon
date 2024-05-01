@@ -1,6 +1,6 @@
-import classNames from 'classnames'
-import { InnerButton } from '../InnerButton'
-import Image from 'next/image'
+import classNames from 'classnames';
+import { InnerButton } from '../InnerButton';
+import Image from 'next/image';
 
 export default function BentoArtistsList() {
   return (
@@ -20,5 +20,5 @@ export default function BentoArtistsList() {
       />
       <InnerButton title={'Show'} link="/lists" />
     </section>
-  )
+  );
 }

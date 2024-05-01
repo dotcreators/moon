@@ -1,24 +1,24 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import { FC } from 'react'
+import classNames from 'classnames';
+import Image from 'next/image';
+import { FC } from 'react';
 
 interface Props {
   user: {
-    username: string
-    tag: string
-  }
-  avatar: string
-  followers: number
-  posts: number
-  className?: string
+    username: string;
+    tag: string;
+  };
+  avatar: string;
+  followers: number;
+  posts: number;
+  className?: string;
 }
 
 export const BentoUserCard: FC<Props> = props => {
   function formatValue(value: number): string {
     if (value >= 1000) {
-      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`
+      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`;
     } else {
-      return value.toString()
+      return value.toString();
     }
   }
   return (
@@ -61,5 +61,5 @@ export const BentoUserCard: FC<Props> = props => {
         </div>
       </div>
     </section>
-  )
-}
+  );
+};

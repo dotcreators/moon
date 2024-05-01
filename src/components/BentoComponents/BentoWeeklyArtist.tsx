@@ -1,6 +1,6 @@
-import classNames from 'classnames'
-import Image from 'next/image'
-import RiArrowDropUpLine from '~icons/ri/arrow-drop-up-line'
+import classNames from 'classnames';
+import Image from 'next/image';
+import RiArrowDropUpLine from '~icons/ri/arrow-drop-up-line';
 
 export default function BentoWeeklyArtist() {
   return (
@@ -60,5 +60,5 @@ export default function BentoWeeklyArtist() {
         className="absolute inset-0 z-10 m-auto h-full w-full opacity-25 blur-3xl transition-transform duration-200 ease-in-out group-hover:scale-75"
       />
     </section>
-  )
+  );
 }

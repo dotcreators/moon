@@ -1,8 +1,8 @@
-import BentoArtistsList from '@/components/BentoComponents/BentoArtistsList'
-import BentoIamArtist from '@/components/BentoComponents/BentoIamArtist'
-import BentoSuggestArtist from '@/components/BentoComponents/BentoSuggestArtist'
-import BentoWeeklyArtist from '@/components/BentoComponents/BentoWeeklyArtist'
-import LiveArtistsQueue from '@/components/LiveArtistsQueue'
+import BentoArtistsList from '@/components/BentoComponents/BentoArtistsList';
+import BentoIamArtist from '@/components/BentoComponents/BentoIamArtist';
+import BentoSuggestArtist from '@/components/BentoComponents/BentoSuggestArtist';
+import BentoWeeklyArtist from '@/components/BentoComponents/BentoWeeklyArtist';
+import LiveArtistsQueue from '@/components/LiveArtistsQueue';
 
 export default function Home() {
   return (
@@ -17,5 +17,5 @@ export default function Home() {
         </section>
       </section>
     </>
-  )
+  );
 }

@@ -1,9 +1,9 @@
-import classNames from 'classnames'
-import Link from 'next/link'
-import { usePathname } from 'next/navigation'
+import classNames from 'classnames';
+import Link from 'next/link';
+import { usePathname } from 'next/navigation';
 
 export default function TopNavigation() {
-  const path = usePathname()
+  const path = usePathname();
 
   return (
     <header className="fixed inset-x-0 top-5 z-40 mx-auto flex w-fit flex-row gap-1 rounded-full bg-dark-inner-hover/50 p-3 px-4 text-sm backdrop-blur-xl backdrop:brightness-200">
@@ -35,5 +35,5 @@ export default function TopNavigation() {
         Suggest artist
       </Link>
     </header>
-  )
+  );
 }

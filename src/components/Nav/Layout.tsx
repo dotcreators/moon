@@ -1,6 +1,6 @@
-import { Inter } from 'next/font/google'
-import localFont from 'next/font/local'
-import TopNavigation from './TopNavigation'
+import { Inter } from 'next/font/google';
+import localFont from 'next/font/local';
+import TopNavigation from './TopNavigation';
 
 export const hubotSans = localFont({
   src: '../../../public/Hubot-Sans.woff2',
@@ -9,18 +9,18 @@ export const hubotSans = localFont({
   declarations: [{ prop: 'font-stretch', value: '125%' }],
   display: 'block',
   preload: true,
-})
+});
 
 export const inter = Inter({
   display: 'block',
   subsets: ['cyrillic', 'latin'],
   preload: true,
-})
+});
 
 export default function Layout({
   children,
 }: Readonly<{
-  children: React.ReactNode
+  children: React.ReactNode;
 }>) {
   return (
     <div className={`${hubotSans.variable} font-sans`} style={inter.style}>
@@ -29,5 +29,5 @@ export default function Layout({
       </header>
       <main>{children}</main>
     </div>
-  )
+  );
 }

@@ -1,29 +1,29 @@
-import { ArtistListCard } from '@/components/ArtistsSearchComponents/ArtistListCard'
-import { BentoUserCard } from '@/components/BentoComponents/BentoUserCard'
-import { ArtistProfile } from '@/utils/models/ArtistProfile'
-import { ArtistsSearch } from '@/components/ArtistsSearchComponents/ArtistsSearch'
-import useSWR from 'swr'
-import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistListCardLoader'
-import { useState } from 'react'
-import { useRouter } from 'next/router'
+import { ArtistListCard } from '@/components/ArtistsSearchComponents/ArtistListCard';
+import { BentoUserCard } from '@/components/BentoComponents/BentoUserCard';
+import { ArtistProfile } from '@/utils/models/ArtistProfile';
+import { ArtistsSearch } from '@/components/ArtistsSearchComponents/ArtistsSearch';
+import useSWR from 'swr';
+import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistListCardLoader';
+import { useState } from 'react';
+import { useRouter } from 'next/router';
 
 export default function Lists() {
-  const router = useRouter()
-  const [searchString, setSearchString] = useState<string>('')
+  const router = useRouter();
+  const [searchString, setSearchString] = useState<string>('');
   const { data, error } = useSWR<{
-    status: string
-    response: { data: ArtistProfile[]; has_next: boolean }
+    status: string;
+    response: { data: ArtistProfile[]; has_next: boolean };
   }>(
     // `${process.env.API_URL}artists?page=1&limit=25&${searchString}`,
-    `http://127.0.0.1:8989/api/v1/artists?page=1&limit=25&${searchString}`,
+    `http://127.0.0.1:8989/api/v1/artists?${searchString}`,
     async (input: RequestInfo, init: RequestInit) => {
-      const res = await fetch(input, init)
-      return res.json()
+      const res = await fetch(input, init);
+      return res.json();
     },
     {}
-  )
+  );
 
-  const skeletonInstances = 25
+  const skeletonInstances = 25;
 
   return (
     <>
@@ -51,5 +51,5 @@ export default function Lists() {
         </section>
       </section>
     </>
-  )
+  );
 }

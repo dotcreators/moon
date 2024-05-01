@@ -1,16 +1,17 @@
-import classNames from 'classnames'
-import { FC, useState } from 'react'
-import RiArrowDownSLine from '~icons/ri/arrow-down-s-line'
-import RiMoneyDollarBoxFill from '~icons/ri/money-dollar-box-fill'
-import RiHeartFill from '~icons/ri/heart-fill'
-import RiCodeFill from '~icons/ri/code-fill'
-import RiInputMethodFill from '~icons/ri/input-method-fill'
-import RiSquareFill from '~icons/ri/square-fill'
-import RiShape2Fill from '~icons/ri/shape-2-fill'
-import RiBox3Fill from '~icons/ri/box-3-fill'
+import classNames from 'classnames';
+import { FC, useEffect, useState } from 'react';
+import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
+import RiMoneyDollarBoxFill from '~icons/ri/money-dollar-box-fill';
+import RiHeartFill from '~icons/ri/heart-fill';
+import RiCodeFill from '~icons/ri/code-fill';
+import RiInputMethodFill from '~icons/ri/input-method-fill';
+import RiSquareFill from '~icons/ri/square-fill';
+import RiShape2Fill from '~icons/ri/shape-2-fill';
+import RiBox3Fill from '~icons/ri/box-3-fill';
+import { useRouter } from 'next/router';
 
 interface Props {
-  onTagsChanged: Function
+  onTagsChanged: Function;
 }
 
 export const SearchTags: FC<Props> = props => {
@@ -23,20 +24,40 @@ export const SearchTags: FC<Props> = props => {
     'Lowpoly',
     'Voxel',
     'Gamedev',
-  ]
-  const [toggleTag, setToggledTag] = useState<boolean>(false)
-  const [selectedTags, setSelectedTags] = useState<string[]>([])
+  ];
+  const [toggleTag, setToggledTag] = useState<boolean>(false);
+  const [selectedTags, setSelectedTags] = useState<string[]>([]);
+  const router = useRouter();
+
+  useEffect(() => {
+    if (!router.isReady) return;
+
+    let tags = router.query.tags;
+    if (typeof tags === 'string') {
+      tags = [tags];
+    }
+
+    if (tags && tags.length > 0) {
+      const getTags = tags.map(tag =>
+        tag === 'workoffers'
+          ? 'Work offers'
+          : tag.charAt(0).toUpperCase() + tag.slice(1)
+      );
+      setSelectedTags(getTags);
+      props.onTagsChanged(getTags);
+    }
+  }, [router.isReady, router.query.tags]);
 
   function selectedTagsHandler(tag: string) {
     if (!selectedTags.includes(tag)) {
-      let newGenresArray: string[] = [...selectedTags]
-      newGenresArray.push(tag)
-      props.onTagsChanged(newGenresArray)
-      setSelectedTags(newGenresArray)
+      let newGenresArray: string[] = [...selectedTags];
+      newGenresArray.push(tag);
+      props.onTagsChanged(newGenresArray);
+      setSelectedTags(newGenresArray);
     } else {
-      let newGenresArray: string[] = selectedTags.filter(item => item !== tag)
-      props.onTagsChanged(newGenresArray)
-      setSelectedTags(newGenresArray)
+      let newGenresArray: string[] = selectedTags.filter(item => item !== tag);
+      props.onTagsChanged(newGenresArray);
+      setSelectedTags(newGenresArray);
     }
   }
 
@@ -84,6 +105,7 @@ export const SearchTags: FC<Props> = props => {
         >
           {selectedTags.map((tag, index) => (
             <span
+              key={index}
               className={classNames(
                 'flex flex-row items-center justify-center gap-1.5 rounded-full p-1 px-3 text-sm transition-colors duration-200 ease-in-out',
                 {
@@ -151,8 +173,8 @@ export const SearchTags: FC<Props> = props => {
         ))}
         <button
           onClick={() => {
-            setSelectedTags([])
-            props.onTagsChanged([])
+            setSelectedTags([]);
+            props.onTagsChanged([]);
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
         >
@@ -160,5 +182,5 @@ export const SearchTags: FC<Props> = props => {
         </button>
       </section>
     </section>
-  )
-}
+  );
+};
