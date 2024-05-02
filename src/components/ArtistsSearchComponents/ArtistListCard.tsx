@@ -36,13 +36,8 @@ export const ArtistListCard: FC<Props> = props => {
           { 'rounded-2xl ': !props.isSmall }
         )}
       >
-        <div
-          className={classNames('flex flex-row items-center', {
-            'gap-4': props.isSmall,
-            'gap-5 ': !props.isSmall,
-          })}
-        >
-          {props.artist.country && (
+        <div className={classNames('flex flex-row items-center gap-4')}>
+          {/* {props.artist.country && (
             <Image
               alt={`${props.artist.country}`}
               src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
@@ -50,7 +45,7 @@ export const ArtistListCard: FC<Props> = props => {
               height={20}
               className={'h-5 w-7 rounded-md'}
             />
-          )}
+          )} */}
           <Link
             href={props.artist.url}
             target="_blank"
@@ -89,12 +84,7 @@ export const ArtistListCard: FC<Props> = props => {
             </div>
             <RiExternalLinkLine className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-sm opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100" />
           </Link>
-          <div
-            className={classNames('flex flex-row items-center', {
-              'gap-3': props.isSmall,
-              'gap-5 ': !props.isSmall,
-            })}
-          >
+          <div className={classNames('flex flex-row items-center gap-4')}>
             <h1
               className={classNames(
                 'flex max-w-96 flex-row items-center gap-1.5 truncate text-ellipsis font-hubot-sans font-black',
@@ -119,7 +109,6 @@ export const ArtistListCard: FC<Props> = props => {
               { 'min-w-20': !props.isSmall, 'min-w-16': [props.isSmall] }
             )}
           >
-            {/* <p className="text-zinc-400"><RiUserHeartLine/></p> */}
             <h1 className={classNames('', { 'text-sm': props.isSmall })}>
               {formatValue(props.artist.followersCount)}
             </h1>
@@ -131,7 +120,6 @@ export const ArtistListCard: FC<Props> = props => {
               { 'min-w-20': !props.isSmall, 'min-w-16': [props.isSmall] }
             )}
           >
-            {/* <p className="text-zinc-400"><RiImage2Line/></p> */}
             <h1 className={classNames('', { 'text-sm': props.isSmall })}>
               {formatValue(props.artist.tweetsCount)}
             </h1>

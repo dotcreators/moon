@@ -4,7 +4,7 @@ import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import RiUserHeartFill from '~icons/ri/user-heart-fill';
 import RiFilePaper2Fill from '~icons/ri/file-paper-2-fill';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
-import RiAtFill from '~icons/ri/at-fill';
+import RiAtLine from '~icons/ri/at-line';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -61,7 +61,7 @@ export const SearchSortFilters: FC<Props> = props => {
               )}
             >
               {selectedSortFilter == 'Username' ? (
-                <RiAtFill className="text-zinc-400" />
+                <RiAtLine className="text-zinc-400" />
               ) : selectedSortFilter == 'Posts' ? (
                 <RiFilePaper2Fill className="text-zinc-400" />
               ) : selectedSortFilter == 'Followers' ? (
@@ -99,7 +99,7 @@ export const SearchSortFilters: FC<Props> = props => {
             )}
           >
             {filter == 'Username' ? (
-              <RiAtFill className="text-zinc-400" />
+              <RiAtLine className="text-zinc-400" />
             ) : filter == 'Posts' ? (
               <RiFilePaper2Fill className="text-zinc-400" />
             ) : filter == 'Followers' ? (

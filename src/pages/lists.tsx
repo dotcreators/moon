@@ -14,7 +14,7 @@ export default function Lists() {
     status: string;
     response: { data: ArtistProfile[]; has_next: boolean };
   }>(
-    // `${process.env.API_URL}artists?page=1&limit=25&${searchString}`,
+    // `${process.env.API_URL}artists?${searchString}`,
     `http://127.0.0.1:8989/api/v1/artists?${searchString}`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
