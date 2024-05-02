@@ -18,12 +18,12 @@ export const SearchTags: FC<Props> = props => {
   const tags = [
     'Commissions',
     'Work offers',
-    'NSFW',
     'Pixelart',
     'Textmode',
     'Lowpoly',
     'Voxel',
     'Gamedev',
+    'NSFW',
   ];
   const [toggleTag, setToggledTag] = useState<boolean>(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);

@@ -6,16 +6,7 @@ import { useEffect, useState } from 'react';
 import RiAtLine from '~icons/ri/at-line';
 import RiRefreshLine from '~icons/ri/refresh-line';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
-
-interface FetchedArtistProfile {
-  avatar: string;
-  followers: number;
-  tweets: number;
-  user: {
-    username: string;
-    name?: string;
-  };
-}
+import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 
 export default function Suggest() {
   const steps = [
@@ -33,25 +24,38 @@ export default function Suggest() {
     },
   ];
   const [suggestState, setSuggestState] = useState<number>(0);
-  const [searchArtistTag, setSearchArtistTag] = useState<string>('');
+  const [searchArtistTag, setSearchArtistTag] = useState<string | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(false);
   const [isError, setIsError] = useState<
     { message: string; error: boolean } | undefined
   >({
-    message: '__φ(．．)',
+    message: '__φ(．．) please select artist',
     error: false,
   });
   const [fetchedArtistsProfile, setFetchedArtistsProfile] = useState<
     FetchedArtistProfile | undefined
   >(undefined);
+  const [isAllowed, setIsAllowed] = useState<boolean>(false);
   const debouncedValue = useDebounce(searchArtistTag, 600);
 
   useEffect(() => {
-    fetchUser(searchArtistTag);
+    if (searchArtistTag) {
+      fetchUser(searchArtistTag);
+    }
   }, [debouncedValue]);
+
+  useEffect(() => {
+    if (searchArtistTag) {
+      console.log('start');
+      setIsLoading(true);
+      setIsAllowed(false);
+      setFetchedArtistsProfile(undefined);
+    }
+  }, [searchArtistTag]);
 
   async function fetchUser(tag: string) {
     if (tag === undefined || tag === '' || !tag) {
-      setIsError({ error: false, message: '__φ(．．)' });
+      setIsError({ error: false, message: '__φ(．．) please select artist' });
       return;
     }
 
@@ -70,6 +74,8 @@ export default function Suggest() {
               : 'error',
           error: true,
         });
+        setIsAllowed(false);
+        setIsLoading(false);
       }
 
       if (
@@ -79,6 +85,8 @@ export default function Suggest() {
       ) {
         setFetchedArtistsProfile(_apiResponse.response);
         setIsError(undefined);
+        setIsAllowed(true);
+        setIsLoading(false);
       }
     });
   }
@@ -106,18 +114,26 @@ export default function Suggest() {
         <section className="flex w-full flex-col gap-5">
           <label className="flex w-full flex-col gap-2">
             <span className="mx-3 text-sm text-zinc-400">Input user tag</span>
-            <section className="h-15 flex w-full flex-row items-center gap-3 rounded-3xl bg-dark-inner-hover p-3 px-5">
-              <RiAtLine />
-              <div className="flex w-full flex-row items-center">
-                <p className="text-zinc-400">twitter.com/</p>
-                <input
-                  onChange={e => setSearchArtistTag(e.target.value)}
-                  type="search"
-                  placeholder="tag"
-                  className="w-full bg-transparent outline-none placeholder:text-zinc-400"
-                />
-              </div>
-            </section>
+            <div className="flex flex-row items-center gap-3">
+              <section className="h-15 flex w-full flex-row items-center gap-3 rounded-3xl bg-dark-inner-hover p-3 px-5">
+                <RiAtLine />
+                <div className="flex w-full flex-row items-center">
+                  <p className="text-zinc-400">twitter.com/</p>
+                  <input
+                    onChange={e => setSearchArtistTag(e.target.value)}
+                    type="search"
+                    placeholder="tag"
+                    className="w-full bg-transparent outline-none placeholder:text-zinc-400"
+                  />
+                </div>
+              </section>
+              <button
+                onClick={() => searchArtistTag && fetchUser(searchArtistTag)}
+                className="rounded-full bg-dark-inner-hover p-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+              >
+                <RiRefreshLine />
+              </button>
+            </div>
           </label>
 
           <section>
@@ -136,7 +152,7 @@ export default function Suggest() {
             ) : (
               <section className="animation-all grid h-28 w-full place-items-center gap-5 rounded-2xl bg-dark-inner-hover p-5">
                 <div className="flex flex-row items-center gap-3">
-                  {isError ? (
+                  {/* {isError ? (
                     <p
                       className={classNames('text-sm font-medium', {
                         'text-rose-500': isError.error,
@@ -147,10 +163,32 @@ export default function Suggest() {
                         ? 'User not found.'
                         : isError.message}
                     </p>
-                  ) : (
+                  ) : isLoading ? (
+                    // TODO: create skeleton loader or smth other
                     <RiRefreshLine
                       className={classNames('animate-spin text-xl')}
                     />
+                  ) : (
+                    <></>
+                  )} */}
+                  {isLoading ? (
+                    // TODO: create skeleton loader or smth other
+                    <RiRefreshLine
+                      className={classNames('animate-spin text-xl')}
+                    />
+                  ) : (
+                    isError && (
+                      <p
+                        className={classNames('text-sm font-medium', {
+                          'text-rose-500': isError.error,
+                          'text-zinc-400': !isError.error,
+                        })}
+                      >
+                        {isError.message === 'rest_id not found.'
+                          ? 'User not found.'
+                          : isError.message}
+                      </p>
+                    )
                   )}
                 </div>
               </section>
@@ -160,7 +198,15 @@ export default function Suggest() {
 
         <button
           onClick={() => {}}
-          className="group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-gradient-to-r from-[#FF9D41] to-[#F97039] p-2 px-5 font-bold text-dark-bg transition-transform duration-200 ease-in-out"
+          disabled={true}
+          className={classNames(
+            'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dark-bg transition-colors duration-200 ease-in-out',
+            {
+              'md:hover:bg-c-amber-dark bg-c-amber-light cursor-pointer':
+                isAllowed,
+              'cursor-not-allowed bg-red-500 md:hover:bg-red-600': !isAllowed,
+            }
+          )}
         >
           Next
           <RiArrowRightLine />
