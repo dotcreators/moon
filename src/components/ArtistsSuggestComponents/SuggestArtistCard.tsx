@@ -1,5 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
+import Link from 'next/link';
 import { FC } from 'react';
 
 interface Props {
@@ -22,38 +23,27 @@ export const SuggestArtistCard: FC<Props> = props => {
     }
   }
   return (
-    <section
+    <Link
+      href={`https://twitter.com/${props.user.username}`}
+      target="_blank"
       className={classNames(
         'animation-all flex h-28 w-full flex-row items-center gap-5 rounded-2xl bg-dark-inner-hover p-5 duration-200 ease-in-out md:hover:cursor-pointer md:hover:bg-dark-double-inner',
         props.className
       )}
     >
-      <Image
-        alt="img"
-        src={props.avatar}
-        width={75}
-        height={75}
-        draggable={false}
-        className="rounded-2xl"
-      />
+      <Image alt="img" src={props.avatar} width={75} height={75} draggable={false} className="rounded-2xl" />
       <div className="line-clamp-2 grow">
-        <h1 className="truncate font-hubot-sans text-2xl font-black">
-          {props.user.name}
-        </h1>
+        <h1 className="truncate font-hubot-sans text-2xl font-black">{props.user.name}</h1>
         <p className="truncate text-zinc-400">@{props.user.username}</p>
       </div>
       <div>
-        <h1 className="font-hubot-sans text-2xl font-black">
-          {formatValue(props.followers)}
-        </h1>
+        <h1 className="font-hubot-sans text-2xl font-black">{formatValue(props.followers)}</h1>
         <p className="text-zinc-400">followers</p>
       </div>
       <div>
-        <h1 className="font-hubot-sans text-2xl font-black">
-          {formatValue(props.posts)}
-        </h1>
+        <h1 className="font-hubot-sans text-2xl font-black">{formatValue(props.posts)}</h1>
         <p className="text-zinc-400">posts</p>
       </div>
-    </section>
+    </Link>
   );
 };

@@ -12,7 +12,7 @@ interface Props {
   classNames?: string;
 }
 
-export const SearchCountries: FC<Props> = props => {
+export const SuggestCountries: FC<Props> = props => {
   const [toggleCountries, setToggleCountries] = useState<boolean>(false);
   const [selectedCountry, setSelectedCountry] = useState<{
     title: string;
@@ -38,19 +38,21 @@ export const SearchCountries: FC<Props> = props => {
     <section className={classNames('overflow-hidden rounded-3xl', props.classNames)}>
       <button
         onClick={() => setToggleCountries(!toggleCountries)}
-        className={classNames('h-15 flex w-full flex-row items-center gap-5 bg-dark-inner p-3 px-5 outline-none transition-colors duration-200 ease-in-out', {
-          'rounded-t-3xl bg-dark-inner-hover': toggleCountries,
-          'rounded-3xl': !toggleCountries,
-        })}
+        className={classNames(
+          'h-15 flex w-full flex-row items-center gap-5 bg-dark-inner-hover p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          {
+            'rounded-t-3xl bg-dark-inner-hover': toggleCountries,
+            'rounded-3xl': !toggleCountries,
+          }
+        )}
       >
         <p>Country</p>
         <div className="flex w-full flex-row items-center justify-end gap-3">
           {selectedCountry.title ? (
             <section
-              className={classNames('flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl p-2 px-3 text-sm', {
-                'bg-dark-double-inner': toggleCountries,
-                'bg-dark-inner-hover': !toggleCountries,
-              })}
+              className={classNames(
+                'flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl bg-dark-double-inner p-2 px-3 text-sm transition-colors duration-200 ease-in-out'
+              )}
             >
               {selectedCountry.title === 'Unknown' ? (
                 <RiQuestionMark />
@@ -68,11 +70,7 @@ export const SearchCountries: FC<Props> = props => {
           ) : (
             <p
               className={classNames(
-                'flex flex-wrap items-center justify-end gap-1 rounded-full p-1 px-3 text-sm text-zinc-400 transition-colors duration-200 ease-in-out',
-                {
-                  'bg-dark-double-inner': toggleCountries,
-                  'bg-dark-inner-hover': !toggleCountries,
-                }
+                'flex flex-wrap items-center justify-end gap-1 rounded-full bg-dark-double-inner p-1 px-3 text-sm text-zinc-400 transition-colors duration-200 ease-in-out'
               )}
             >
               Select country...
@@ -81,7 +79,11 @@ export const SearchCountries: FC<Props> = props => {
           <RiArrowDownSLine className={classNames('transition-transform duration-200 ease-in-out', { 'rotate-180': toggleCountries })} />
         </div>
       </button>
-      <section className={classNames('flex flex-col gap-2 scroll-smooth rounded-b-3xl bg-dark-inner p-3', { hidden: !toggleCountries })}>
+      <section
+        className={classNames('flex flex-col gap-2 scroll-smooth rounded-b-3xl border-4 border-t-0 border-dark-inner-hover bg-dark-inner p-3', {
+          hidden: !toggleCountries,
+        })}
+      >
         <div className="flex flex-row items-center justify-center gap-3">
           <input
             type="text"

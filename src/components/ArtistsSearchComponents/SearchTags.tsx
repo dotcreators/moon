@@ -9,22 +9,14 @@ import RiSquareFill from '~icons/ri/square-fill';
 import RiShape2Fill from '~icons/ri/shape-2-fill';
 import RiBox3Fill from '~icons/ri/box-3-fill';
 import { useRouter } from 'next/router';
+import { searchTagsArray } from '@/utils/Tags';
 
 interface Props {
   onTagsChanged: Function;
 }
 
 export const SearchTags: FC<Props> = props => {
-  const tags = [
-    'Commissions',
-    'Work offers',
-    'Pixelart',
-    'Textmode',
-    'Lowpoly',
-    'Voxel',
-    'Gamedev',
-    'NSFW',
-  ];
+  const tags = searchTagsArray;
   const [toggleTag, setToggledTag] = useState<boolean>(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const router = useRouter();
@@ -38,11 +30,7 @@ export const SearchTags: FC<Props> = props => {
     }
 
     if (tags && tags.length > 0) {
-      const getTags = tags.map(tag =>
-        tag === 'workoffers'
-          ? 'Work offers'
-          : tag.charAt(0).toUpperCase() + tag.slice(1)
-      );
+      const getTags = tags.map(tag => (tag === 'workoffers' ? 'Work offers' : tag.charAt(0).toUpperCase() + tag.slice(1)));
       setSelectedTags(getTags);
       props.onTagsChanged(getTags);
     }
@@ -89,28 +77,17 @@ export const SearchTags: FC<Props> = props => {
             >
               {selectedTags.length === 0 && 'Select tags...'}
             </p>
-            <RiArrowDownSLine
-              className={classNames(
-                'transition-transform duration-200 ease-in-out',
-                { 'rotate-180': toggleTag }
-              )}
-            />
+            <RiArrowDownSLine className={classNames('transition-transform duration-200 ease-in-out', { 'rotate-180': toggleTag })} />
           </div>
         </div>
-        <div
-          className={classNames(
-            'flex w-full flex-wrap items-start justify-start gap-2',
-            { hidden: selectedTags.length === 0 }
-          )}
-        >
+        <div className={classNames('flex w-full flex-wrap items-start justify-start gap-2', { hidden: selectedTags.length === 0 })}>
           {selectedTags.map((tag, index) => (
             <span
               key={index}
               className={classNames(
                 'flex flex-row items-center justify-center gap-1.5 rounded-full p-1 px-3 text-sm transition-colors duration-200 ease-in-out',
                 {
-                  'bg-dark-double-inner text-[#fdfdfd]':
-                    selectedTags.length > 0,
+                  'bg-dark-double-inner text-[#fdfdfd]': selectedTags.length > 0,
                   'bg-dark-inner-hover': !toggleTag,
                   'bg-dark-double-inner': toggleTag,
                 }
@@ -138,12 +115,7 @@ export const SearchTags: FC<Props> = props => {
           ))}
         </div>
       </button>
-      <section
-        className={classNames(
-          'grid grid-cols-2 flex-wrap place-items-start gap-1 rounded-b-3xl bg-dark-inner p-3 text-sm',
-          { hidden: !toggleTag }
-        )}
-      >
+      <section className={classNames('grid grid-cols-2 flex-wrap place-items-start gap-1 rounded-b-3xl bg-dark-inner p-3 text-sm', { hidden: !toggleTag })}>
         {tags.map((tag, index) => (
           <button
             key={index}
