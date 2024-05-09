@@ -43,7 +43,7 @@ export default function Suggest() {
 
   return (
     <>
-      {suggestState < 3 && (
+      {suggestState < 3 ? (
         <section className="relative mx-auto mt-32 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 rounded-2xl bg-dark-inner p-10">
           <section className="flex w-full flex-col gap-8">
             <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dark-inner-hover p-5 px-10">
@@ -119,8 +119,7 @@ export default function Suggest() {
             </button>
           </section>
         </section>
-      )}
-      {suggestState && suggestState === 3 && (
+      ) : (
         <section className="mx-auto mt-32 flex h-fit w-full max-w-xl flex-col items-start justify-center gap-10 rounded-2xl bg-dark-inner p-10">
           <section className="relative w-full overflow-hidden rounded-2xl bg-dark-inner-hover p-8">
             <div className="flex max-w-64 flex-col gap-3">
