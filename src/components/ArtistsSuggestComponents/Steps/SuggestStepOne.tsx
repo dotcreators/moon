@@ -44,8 +44,7 @@ export const SuggestStepOne: FC<Props> = props => {
       setIsError(undefined);
       return;
     }
-
-    fetch(`http://127.0.0.1:8989/api/v1/fetch/${tag}`).then(async res => {
+    fetch(`${process.env.API_URL}fetch/${tag}`).then(async res => {
       const _apiResponse: {
         status: string;
         response: FetchedArtistProfile | string;

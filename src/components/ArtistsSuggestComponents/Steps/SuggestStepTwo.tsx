@@ -1,22 +1,27 @@
 import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 import classNames from 'classnames';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import { SuggestArtistCard } from '../SuggestArtistCard';
 import { searchTagsArray } from '@/utils/Tags';
 import { SuggestCountries } from '../SuggestCountries';
+import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 
 interface Props {
   artist: FetchedArtistProfile;
+  onSelectedCountry: Function;
+  onSelectedTags: Function;
   classNames?: string;
 }
 
 export const SuggestStepTwo: FC<Props> = props => {
   const tags = searchTagsArray;
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<{
-    title: string;
-    value: string;
-  }>({ title: '', value: '' });
+  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>(countryCodes[0]);
+
+  useEffect(() => {
+    props.onSelectedCountry(selectedCountry);
+    props.onSelectedTags(selectedTags);
+  }, [selectedCountry, selectedTags]);
 
   function selectedTagsHandler(tag: string) {
     if (!selectedTags.includes(tag)) {
@@ -31,8 +36,8 @@ export const SuggestStepTwo: FC<Props> = props => {
 
   return (
     <section className={classNames('flex w-full flex-col gap-5', props.classNames)}>
-      <label className="flex w-full flex-col gap-2">
-        <span className="mx-3 text-sm text-zinc-400">Artist profile</span>
+      <section className="flex w-full flex-col gap-2">
+        <p className="mx-3 text-sm text-zinc-400">Artist profile</p>
         <SuggestArtistCard
           avatar={props.artist.avatar}
           followers={props.artist.followers}
@@ -42,10 +47,10 @@ export const SuggestStepTwo: FC<Props> = props => {
             name: props.artist.user.name || '',
           }}
         />
-      </label>
+      </section>
 
-      <label className="flex w-full flex-col gap-2">
-        <span className="mx-3 text-sm text-zinc-400">Tags</span>
+      <section className="flex w-full flex-col gap-2">
+        <p className="mx-3 text-sm text-zinc-400">Tags</p>
         <section className="grid w-full grid-cols-3 place-items-center overflow-hidden rounded-2xl bg-dark-inner-hover">
           {tags.map((tag, index) => {
             const row = Math.floor(index / 3);
@@ -54,25 +59,30 @@ export const SuggestStepTwo: FC<Props> = props => {
 
             return (
               <button
-                key={index}
+                key={tag}
                 onClick={() => selectedTagsHandler(tag)}
-                className={classNames('w-full border-dark-inner p-3 py-5 transition-colors duration-200 ease-in-out ', borderClass, {
-                  'col-span-3': index + 1 === tags.length,
-                  'bg-dark-double-inner md:hover:bg-dark-double-inner-hover': selectedTags.includes(tag),
-                  'md:hover:bg-dark-double-inner': !selectedTags.includes(tag),
-                })}
+                className={classNames(
+                  'w-full border-dark-inner p-3 py-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner',
+                  borderClass,
+                  {
+                    'col-span-3': index + 1 === tags.length,
+                    'bg-dark-double-inner md:hover:bg-dark-double-inner-hover': selectedTags.includes(tag),
+                    'md:hover:bg-dark-double-inner': !selectedTags.includes(tag),
+                  }
+                )}
               >
                 {tag}
               </button>
             );
           })}
         </section>
-      </label>
+      </section>
 
-      <label className="flex w-full flex-col gap-2">
-        <span className="mx-3 text-sm text-zinc-400">Country</span>
+      <section className="flex w-full flex-col gap-2">
+        <p className="mx-3 text-sm text-zinc-400">Country</p>
         <SuggestCountries onCountryChanges={setSelectedCountry} />
-      </label>
+      </section>
+      <p className="text-center text-sm text-zinc-400">Tags and country are optional.</p>
     </section>
   );
 };

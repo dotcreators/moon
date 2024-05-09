@@ -27,10 +27,12 @@ const config: Config = {
         'c-amber-dark': '#F97039',
         'c-rose-light': '#FC3E42',
         'c-rose-dark': '#C92020',
+        'c-emerald-light': '#94BD33',
+        'c-emerald-dark': '#3DC454',
       },
       transitionProperty: {
         'max-height': 'max-height',
-        padding: 'padding',
+        'padding': 'padding',
       },
     },
   },
