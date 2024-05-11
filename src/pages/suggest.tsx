@@ -8,6 +8,8 @@ import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiArrowGoBackFill from '~icons/ri/arrow-go-back-fill';
 import classNames from 'classnames';
 import Image from 'next/image';
+import Link from 'next/link';
+import { motion } from 'framer-motion';
 
 export default function Suggest() {
   const steps = ['Select artist', 'Select tags', 'Finish'];
@@ -44,81 +46,89 @@ export default function Suggest() {
   return (
     <>
       {suggestState < 3 ? (
-        <section className="relative mx-auto mt-32 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 rounded-2xl bg-dark-inner p-10">
-          <section className="flex w-full flex-col gap-8">
-            <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dark-inner-hover p-5 px-10">
-              <p className="text-lg">Suggest user</p>
-              <Image
-                src="/icons/thinking_face_anim.png"
-                alt="Thinking face"
-                width={150}
-                height={150}
-                draggable={false}
-                className="absolute -right-5 -rotate-12"
-              />
+        <motion.div className="w-full" initial={{ opacity: 0, y: 100 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.3 }}>
+          <section className="relative mx-auto mt-32 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dark-inner p-10">
+            <section className="flex w-full flex-col gap-8">
+              <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dark-inner-hover p-5 px-10">
+                <p className="text-lg">Suggest user</p>
+                <Image
+                  src="/icons/thinking_face_anim.png"
+                  alt="Thinking face"
+                  width={150}
+                  height={150}
+                  draggable={false}
+                  className="absolute -right-5 -rotate-12"
+                />
+              </section>
+
+              <section className="flex w-full flex-row gap-2">
+                {steps.map((step, index) => (
+                  <div key={index} className="flex w-full flex-col gap-1 text-center text-sm">
+                    <p>{step}</p>
+                    <div
+                      className={classNames('rounded-full py-1', {
+                        'bg-[#FF8C21]': index <= suggestState,
+                        'bg-dark-inner-hover': index > suggestState,
+                      })}
+                    />
+                  </div>
+                ))}
+              </section>
             </section>
 
-            <section className="flex w-full flex-row gap-2">
-              {steps.map((step, index) => (
-                <div key={index} className="flex w-full flex-col gap-1 text-center text-sm">
-                  <p>{step}</p>
-                  <div
-                    className={classNames('rounded-full py-1', {
-                      'bg-[#FF8C21]': index <= suggestState,
-                      'bg-dark-inner-hover': index > suggestState,
-                    })}
-                  />
-                </div>
-              ))}
-            </section>
-          </section>
+            {suggestState === 0 && <SuggestStepOne onArtistFetched={setFetchedArtistsProfile} onNextStepAllowed={setIsNextStepAllowed} />}
 
-          {suggestState === 0 && <SuggestStepOne onArtistFetched={setFetchedArtistsProfile} onNextStepAllowed={setIsNextStepAllowed} />}
-          {fetchedArtistsProfile && suggestState === 1 && (
-            <SuggestStepTwo
-              artist={fetchedArtistsProfile}
-              onSelectedCountry={setSelectedCountry}
-              onSelectedTags={setSelectedTags}
-              classNames={classNames('w-full')}
-            />
-          )}
-          {fetchedArtistsProfile && suggestState === 2 && (
-            <SuggestStepThree artist={fetchedArtistsProfile} country={selectedCountry} tags={selectedTags} classNames={classNames('w-full')} />
-          )}
-
-          <section className="flex w-full flex-row gap-3">
-            {suggestState !== 0 && (
-              <button
-                onClick={() => suggestState >= 1 && setSuggestState(suggestState - 1)}
-                className="rounded-xl bg-dark-inner-hover p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
-              >
-                <RiArrowGoBackFill />
-              </button>
+            {fetchedArtistsProfile && suggestState === 1 && (
+              <motion.div className="w-full overflow-hidden" initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}>
+                <SuggestStepTwo
+                  artist={fetchedArtistsProfile}
+                  onSelectedCountry={setSelectedCountry}
+                  onSelectedTags={setSelectedTags}
+                  classNames={classNames('w-full')}
+                />
+              </motion.div>
             )}
-            <button
-              onClick={() => {
-                if (suggestState === 2) {
-                  createSuggestion();
-                } else {
-                  setSuggestState(suggestState + 1);
-                  console.log(suggestState);
-                }
-              }}
-              disabled={!isNextStepAllowed}
-              className={classNames(
-                'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dark-bg transition-colors duration-200 ease-in-out',
-                {
-                  'cursor-pointer bg-c-amber-dark md:hover:bg-c-amber-light': isNextStepAllowed && suggestState !== 2,
-                  'cursor-pointer bg-lime-400 md:hover:bg-lime-200': isNextStepAllowed && suggestState === 2,
-                  'cursor-not-allowed bg-red-400 md:hover:bg-red-200': !isNextStepAllowed,
-                }
+
+            {fetchedArtistsProfile && suggestState === 2 && (
+              <motion.div className="w-full overflow-hidden" initial={{ opacity: 0, x: -100 }} animate={{ opacity: 1, x: 0 }} transition={{ duration: 0.3 }}>
+                <SuggestStepThree artist={fetchedArtistsProfile} country={selectedCountry} tags={selectedTags} classNames={classNames('w-full')} />
+              </motion.div>
+            )}
+
+            <section className="flex w-full flex-row gap-3">
+              {suggestState !== 0 && (
+                <button
+                  onClick={() => suggestState >= 1 && setSuggestState(suggestState - 1)}
+                  className="rounded-xl bg-dark-inner-hover p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+                >
+                  <RiArrowGoBackFill />
+                </button>
               )}
-            >
-              {suggestState === 2 ? 'Finish' : 'Next'}
-              <RiArrowRightLine />
-            </button>
+              <button
+                onClick={() => {
+                  if (suggestState === 2) {
+                    createSuggestion();
+                  } else {
+                    setSuggestState(suggestState + 1);
+                    console.log(suggestState);
+                  }
+                }}
+                disabled={!isNextStepAllowed}
+                className={classNames(
+                  'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dark-bg transition-colors duration-200 ease-in-out',
+                  {
+                    'cursor-pointer bg-c-amber-dark md:hover:bg-c-amber-light': isNextStepAllowed && suggestState !== 2,
+                    'cursor-pointer bg-lime-400 md:hover:bg-lime-200': isNextStepAllowed && suggestState === 2,
+                    'cursor-not-allowed bg-red-400 md:hover:bg-red-200': !isNextStepAllowed,
+                  }
+                )}
+              >
+                {suggestState === 2 ? 'Finish' : 'Next'}
+                <RiArrowRightLine />
+              </button>
+            </section>
           </section>
-        </section>
+        </motion.div>
       ) : (
         <section className="mx-auto mt-32 flex h-fit w-full max-w-xl flex-col items-start justify-center gap-10 rounded-2xl bg-dark-inner p-10">
           <section className="relative w-full overflow-hidden rounded-2xl bg-dark-inner-hover p-8">
@@ -128,13 +138,13 @@ export default function Suggest() {
             </div>
             <Image src="/icons/party_popper_anim.png" alt="Thinking face" width={300} height={300} draggable={false} className="absolute -right-20 -top-10" />
           </section>
-          <button
-            onClick={() => {}}
+          <Link
+            href={'/lists'}
             className="group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-dark-inner-hover p-2 px-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
           >
             Close
             <RiArrowRightLine />
-          </button>
+          </Link>
         </section>
       )}
     </>

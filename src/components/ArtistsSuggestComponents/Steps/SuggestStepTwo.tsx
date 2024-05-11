@@ -16,7 +16,7 @@ interface Props {
 export const SuggestStepTwo: FC<Props> = props => {
   const tags = searchTagsArray;
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>(countryCodes[0]);
+  const [selectedCountry, setSelectedCountry] = useState<SelectCountry | undefined>(undefined);
 
   useEffect(() => {
     props.onSelectedCountry(selectedCountry);

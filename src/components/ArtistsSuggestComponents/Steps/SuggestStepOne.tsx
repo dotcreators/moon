@@ -28,14 +28,15 @@ export const SuggestStepOne: FC<Props> = props => {
 
   // Update fetch request after username tag changes
   useEffect(() => {
-    if (searchArtistTag) {
-      setIsLoading(true);
-    }
-
+    setIsLoading(false);
     setFetchedArtistsProfile(undefined);
     props.onArtistFetched(undefined);
     props.onNextStepAllowed(false);
     setIsError(undefined);
+
+    if (searchArtistTag) {
+      setIsLoading(true);
+    }
   }, [searchArtistTag]);
 
   async function fetchArtistData(tag: string) {
