@@ -9,14 +9,18 @@ import RiRefreshLine from '~icons/ri/refresh-line';
 interface Props {
   onArtistFetched: Function;
   onNextStepAllowed: Function;
-  classNames?: string;
+  className?: string;
 }
 
 export const SuggestStepOne: FC<Props> = props => {
   const [searchArtistTag, setSearchArtistTag] = useState<string | null>(null);
-  const [fetchedArtistsProfile, setFetchedArtistsProfile] = useState<FetchedArtistProfile | undefined>(undefined);
+  const [fetchedArtistsProfile, setFetchedArtistsProfile] = useState<
+    FetchedArtistProfile | undefined
+  >(undefined);
   const [isLoading, setIsLoading] = useState<boolean>(false);
-  const [isError, setIsError] = useState<{ message: string; error: boolean } | undefined>(undefined);
+  const [isError, setIsError] = useState<
+    { message: string; error: boolean } | undefined
+  >(undefined);
 
   // Username search debouncer
   const debouncedValue = useDebounce(searchArtistTag, 600);
@@ -40,39 +44,49 @@ export const SuggestStepOne: FC<Props> = props => {
   }, [searchArtistTag]);
 
   async function fetchArtistData(tag: string) {
-    if (tag === undefined || tag === '' || !tag) {
+    if (!tag) {
       setIsLoading(false);
       setIsError(undefined);
       return;
     }
-    fetch(`${process.env.API_URL}fetch/${tag}`).then(async res => {
-      const _apiResponse: {
-        status: string;
-        response: FetchedArtistProfile | string;
-      } = await res.json();
 
-      if (!res.ok) {
+    setIsLoading(true);
+    try {
+      const res = await fetch(`${process.env.API_URL}fetch/${tag}`);
+      const _apiResponse = await res.json();
+
+      if (res.ok && typeof _apiResponse.response !== 'string') {
+        setFetchedArtistsProfile(_apiResponse.response);
+        props.onArtistFetched(_apiResponse.response);
+        props.onNextStepAllowed(true);
+        setIsError(undefined);
+        console.log('ok:fetchedArtistsProfile', fetchedArtistsProfile);
+        console.log('ok:_apiResponse.response', _apiResponse.response);
+      } else {
         setIsError({
-          message: typeof _apiResponse.response === 'string' ? _apiResponse.response : 'error',
+          message:
+            typeof _apiResponse.response === 'string'
+              ? _apiResponse.response
+              : 'Unknown error',
           error: true,
         });
         props.onArtistFetched(undefined);
         props.onNextStepAllowed(false);
-        setIsLoading(false);
+        console.log('!ok:fetchedArtistsProfile', fetchedArtistsProfile);
       }
-
-      if (_apiResponse && _apiResponse.response && typeof _apiResponse.response !== 'string') {
-        setFetchedArtistsProfile(_apiResponse.response);
-        props.onArtistFetched(_apiResponse.response);
-        props.onNextStepAllowed(true);
-        setIsLoading(false);
-        setIsError(undefined);
-      }
-    });
+    } catch (error) {
+      setIsError({ message: 'Failed to fetch data', error: true });
+      props.onArtistFetched(undefined);
+      props.onNextStepAllowed(false);
+    } finally {
+      setIsLoading(false);
+    }
   }
 
   return (
-    <section className={classNames('flex w-full flex-col gap-5', props.classNames)}>
+    <section
+      className={classNames('flex w-full flex-col gap-5', props.className)}
+    >
       <label className="flex w-full flex-col gap-2">
         <span className="mx-3 text-sm text-zinc-400">Input user tag</span>
         <div className="flex flex-row items-center gap-3">
@@ -92,7 +106,9 @@ export const SuggestStepOne: FC<Props> = props => {
       </label>
 
       <section>
-        {fetchedArtistsProfile && !isError && (searchArtistTag !== undefined || searchArtistTag !== '') ? (
+        {fetchedArtistsProfile &&
+        !isError &&
+        (searchArtistTag !== undefined || searchArtistTag !== '') ? (
           <SuggestArtistCard
             avatar={fetchedArtistsProfile.avatar}
             followers={fetchedArtistsProfile.followers}
@@ -104,9 +120,12 @@ export const SuggestStepOne: FC<Props> = props => {
           />
         ) : (
           <section
-            className={classNames('animation-all relative grid h-28 w-full place-items-center gap-5 overflow-hidden rounded-2xl bg-dark-inner-hover p-5', {
-              hidden: !isError && !isLoading,
-            })}
+            className={classNames(
+              'animation-all relative grid h-28 w-full place-items-center gap-5 overflow-hidden rounded-2xl bg-dark-inner-hover p-5',
+              {
+                hidden: !isError && !isLoading,
+              }
+            )}
           >
             {isLoading ? (
               // TODO: create skeleton loader or smth other
@@ -114,7 +133,11 @@ export const SuggestStepOne: FC<Props> = props => {
             ) : (
               isError &&
               isError.error == true && (
-                <p className="text-xs font-medium text-rose-500">{isError.message === 'rest_id not found.' ? 'User not found.' : isError.message}</p>
+                <p className="text-xs font-medium text-rose-500">
+                  {isError.message === 'rest_id not found.'
+                    ? 'User not found.'
+                    : isError.message}
+                </p>
               )
             )}
           </section>

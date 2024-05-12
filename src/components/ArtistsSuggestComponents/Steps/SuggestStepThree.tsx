@@ -6,14 +6,16 @@ import { SelectCountry } from '@/utils/CountryCode';
 
 interface Props {
   artist: FetchedArtistProfile;
-  country: SelectCountry;
-  tags: string[];
-  classNames?: string;
+  country: SelectCountry | undefined;
+  tags: string[] | undefined;
+  className?: string;
 }
 
 export const SuggestStepThree: FC<Props> = props => {
   return (
-    <section className={classNames('flex w-full flex-col gap-5', props.classNames)}>
+    <section
+      className={classNames('flex w-full flex-col gap-5', props.className)}
+    >
       <label className="flex w-full flex-col gap-2">
         <span className="mx-3 text-sm text-zinc-400">Artist profile</span>
         <SuggestArtistCardAlt

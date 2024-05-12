@@ -10,13 +10,15 @@ interface Props {
   artist: FetchedArtistProfile;
   onSelectedCountry: Function;
   onSelectedTags: Function;
-  classNames?: string;
+  className?: string;
 }
 
 export const SuggestStepTwo: FC<Props> = props => {
   const tags = searchTagsArray;
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<SelectCountry | undefined>(undefined);
+  const [selectedCountry, setSelectedCountry] = useState<
+    SelectCountry | undefined
+  >(undefined);
 
   useEffect(() => {
     props.onSelectedCountry(selectedCountry);
@@ -35,7 +37,9 @@ export const SuggestStepTwo: FC<Props> = props => {
   }
 
   return (
-    <section className={classNames('flex w-full flex-col gap-5', props.classNames)}>
+    <section
+      className={classNames('flex w-full flex-col gap-5', props.className)}
+    >
       <section className="flex w-full flex-col gap-2">
         <p className="mx-3 text-sm text-zinc-400">Artist profile</p>
         <SuggestArtistCard
@@ -55,7 +59,12 @@ export const SuggestStepTwo: FC<Props> = props => {
           {tags.map((tag, index) => {
             const row = Math.floor(index / 3);
             const col = index % 3;
-            const borderClass = [row !== 0 ? 'border-t' : '', row !== 2 ? 'border-b' : '', col !== 0 ? 'border-l' : '', col !== 2 ? 'border-r' : ''].join(' ');
+            const borderClass = [
+              row !== 0 ? 'border-t' : '',
+              row !== 2 ? 'border-b' : '',
+              col !== 0 ? 'border-l' : '',
+              col !== 2 ? 'border-r' : '',
+            ].join(' ');
 
             return (
               <button
@@ -65,9 +74,11 @@ export const SuggestStepTwo: FC<Props> = props => {
                   'w-full border-dark-inner p-3 py-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner',
                   borderClass,
                   {
-                    'col-span-3': index + 1 === tags.length,
-                    'bg-dark-double-inner md:hover:bg-dark-double-inner-hover': selectedTags.includes(tag),
-                    'md:hover:bg-dark-double-inner': !selectedTags.includes(tag),
+                    'col-span-3 border-r-0': index + 1 === tags.length,
+                    'bg-dark-double-inner md:hover:bg-dark-double-inner-hover':
+                      selectedTags.includes(tag),
+                    'md:hover:bg-dark-double-inner':
+                      !selectedTags.includes(tag),
                   }
                 )}
               >
@@ -82,7 +93,9 @@ export const SuggestStepTwo: FC<Props> = props => {
         <p className="mx-3 text-sm text-zinc-400">Country</p>
         <SuggestCountries onCountryChanges={setSelectedCountry} />
       </section>
-      <p className="text-center text-sm text-zinc-400">Tags and country are optional.</p>
+      <p className="text-center text-sm text-zinc-400">
+        Tags and country are optional.
+      </p>
     </section>
   );
 };

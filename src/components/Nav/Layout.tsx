@@ -1,6 +1,9 @@
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
-import TopNavigation from './TopNavigation';
+import { TopNavigation } from './TopNavigation';
+import StepController from '../ArtistsSuggestComponents/Steps/StepController';
+import { useState } from 'react';
+import classNames from 'classnames';
 
 export const hubotSans = localFont({
   src: '../../../public/Hubot-Sans.woff2',
@@ -22,12 +25,27 @@ export default function Layout({
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const [isSuggestModalOpened, setIsSuggestModalOpened] =
+    useState<boolean>(false);
+
   return (
     <div className={`${hubotSans.variable} font-sans`} style={inter.style}>
+      <dialog
+        className="fixed top-0 z-20 h-full w-full overflow-y-auto overscroll-y-none bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
+        open={isSuggestModalOpened}
+      >
+        <StepController />
+      </dialog>
       <header>
-        <TopNavigation />
+        <TopNavigation onSuggestModalOpened={setIsSuggestModalOpened} />
       </header>
-      <main>{children}</main>
+      <main
+        className={classNames('h-screen w-full', {
+          'overflow-y-hidden': isSuggestModalOpened,
+        })}
+      >
+        {children}
+      </main>
     </div>
   );
 }
