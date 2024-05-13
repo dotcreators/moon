@@ -5,6 +5,7 @@ import RiCloseLine from '~icons/ri/close-line';
 
 interface Props {
   onModalOpen: Function;
+  onClose: Function;
   className?: string;
 }
 
@@ -34,7 +35,10 @@ export const SuggestStepSuccess: FC<Props> = props => {
         />
       </section>
       <button
-        onClick={() => props.onModalOpen(false)}
+        onClick={() => {
+          props.onModalOpen(false);
+          props.onClose();
+        }}
         className="group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-dark-inner-hover p-2 px-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
       >
         Close

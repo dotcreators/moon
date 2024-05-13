@@ -29,6 +29,14 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
   );
   const [isNextStepAllowed, setIsNextStepAllowed] = useState<boolean>(false);
 
+  function resetForm() {
+    setCurrentFormStep(0);
+    setFetchedArtistsProfile(undefined);
+    setSelectedTags([]);
+    setSelectedCountry(countryCodes[0]);
+    setIsNextStepAllowed(false);
+  }
+
   function createSuggestion() {
     let _artist: any = {};
     _artist.username = fetchedArtistsProfile!.user.username;
@@ -143,11 +151,6 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
               onClick={() => {
                 if (currentFormStep === steps.length - 1) {
                   createSuggestion();
-
-                  setCurrentFormStep(0);
-                  setFetchedArtistsProfile(undefined);
-                  setSelectedTags([]);
-                  setSelectedCountry(countryCodes[0]);
                 } else {
                   setCurrentFormStep(currentFormStep + 1);
                 }
@@ -185,7 +188,10 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
         className="fixed top-0 z-20 h-full w-full overflow-y-auto  bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
       >
         <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center gap-16 overflow-hidden overscroll-y-auto rounded-2xl border border-zinc-400/10 bg-dark-inner p-10 shadow-xl">
-          <SuggestStepSuccess onModalOpen={setModalOpen} />
+          <SuggestStepSuccess
+            onModalOpen={setModalOpen}
+            onClose={() => resetForm()}
+          />
         </section>
       </motion.div>
     );
