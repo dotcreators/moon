@@ -20,7 +20,8 @@ export const ArtistsSearch: FC<Props> = props => {
     title: string;
     value: string;
   }>({ title: '', value: '' });
-  const [selectedSortFilter, setSelectedSortFilter] = useState<string>('Followers');
+  const [selectedSortFilter, setSelectedSortFilter] =
+    useState<string>('Followers');
   const [page, setPage] = useState<number>(1);
   const limit = 50;
 
@@ -32,18 +33,30 @@ export const ArtistsSearch: FC<Props> = props => {
     query.append('limit', limit.toString());
     if (searchQ) query.append('username', searchQ);
     if (selectedTags.length > 0) {
-      selectedTags.forEach(tag => query.append('tags', tag.toLowerCase().replace(/ /g, '')));
+      selectedTags.forEach(tag =>
+        query.append('tags', tag.toLowerCase().replace(/ /g, ''))
+      );
     }
-    if (selectedCountry.value) query.append('country', selectedCountry.value.toLowerCase());
-    if (selectedSortFilter) query.append('sortBy', selectedSortFilter.toLowerCase());
+    if (selectedCountry.value)
+      query.append('country', selectedCountry.value.toLowerCase());
+    if (selectedSortFilter)
+      query.append('sortBy', selectedSortFilter.toLowerCase());
 
     router.push(`/lists?${query.toString()}`, undefined, { shallow: true });
     props.onSearchStringChanges(query.toString());
-  }, [searchQ, selectedTags, selectedCountry, selectedSortFilter, page, limit, router.isReady]);
+  }, [
+    searchQ,
+    selectedTags,
+    selectedCountry,
+    selectedSortFilter,
+    page,
+    limit,
+    router.isReady,
+  ]);
 
   return (
     <>
-      <section className="flex h-fit max-w-96 flex-col gap-3 pb-6">
+      <section className="flex flex-col gap-3 overflow-y-auto pb-6">
         <SearchQ onQChanges={setSearchQ} />
         <SearchTags onTagsChanged={setSelectedTags} />
         <SearchCountries onCountryChanges={setSelectedCountry} />

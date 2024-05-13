@@ -1,9 +1,10 @@
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import { TopNavigation } from './TopNavigation';
-import StepController from '../ArtistsSuggestComponents/Steps/StepController';
+import { StepController } from '../ArtistsSuggestComponents/Steps/StepController';
 import { useState } from 'react';
 import classNames from 'classnames';
+import { motion } from 'framer-motion';
 
 export const hubotSans = localFont({
   src: '../../../public/Hubot-Sans.woff2',
@@ -30,14 +31,16 @@ export default function Layout({
 
   return (
     <div className={`${hubotSans.variable} font-sans`} style={inter.style}>
-      <dialog
-        className="fixed top-0 z-20 h-full w-full overflow-y-auto overscroll-y-none bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
-        open={isSuggestModalOpened}
-      >
-        <StepController />
-      </dialog>
+      <StepController
+        onModalOpen={isSuggestModalOpened}
+        setModalOpen={setIsSuggestModalOpened}
+      />
+
       <header>
-        <TopNavigation onSuggestModalOpened={setIsSuggestModalOpened} />
+        <TopNavigation
+          onSuggestModalOpened={setIsSuggestModalOpened}
+          isSuggestModalOpened={isSuggestModalOpened}
+        />
       </header>
       <main
         className={classNames('h-screen w-full', {

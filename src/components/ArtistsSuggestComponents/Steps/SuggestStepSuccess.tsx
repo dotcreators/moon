@@ -1,10 +1,10 @@
 import classNames from 'classnames';
 import Image from 'next/image';
-import Link from 'next/link';
 import { FC } from 'react';
 import RiCloseLine from '~icons/ri/close-line';
 
 interface Props {
+  onModalOpen: Function;
   className?: string;
 }
 
@@ -12,7 +12,7 @@ export const SuggestStepSuccess: FC<Props> = props => {
   return (
     <section
       className={classNames(
-        'mx-auto mt-32 flex h-fit w-full max-w-xl flex-col items-start justify-center gap-10 rounded-2xl bg-dark-inner p-10',
+        'mx-auto flex h-fit w-full flex-col items-start justify-center gap-10 rounded-2xl bg-dark-inner p-10',
         props.className
       )}
     >
@@ -33,13 +33,13 @@ export const SuggestStepSuccess: FC<Props> = props => {
           className="absolute -right-20 -top-10"
         />
       </section>
-      <Link
-        href={'/lists'}
+      <button
+        onClick={() => props.onModalOpen(false)}
         className="group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-dark-inner-hover p-2 px-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
       >
         Close
         <RiCloseLine />
-      </Link>
+      </button>
     </section>
   );
 };
