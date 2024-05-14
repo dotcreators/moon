@@ -72,10 +72,10 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
   if (currentFormStep !== steps.length) {
     return (
       <motion.div
-        initial={{ opacity: 0, y: -25, display: 'block' }}
+        initial={{ opacity: 0, display: 'block' }}
         animate={
           onModalOpen
-            ? { opacity: 1, y: 0, display: 'block' }
+            ? { opacity: 1, display: 'block' }
             : {
                 opacity: 0,
                 display: 'none',
@@ -83,7 +83,7 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
               }
         }
         transition={{ duration: 0.1 }}
-        className="fixed top-0 z-20 h-full w-full overflow-y-auto  bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
+        className="fixed top-0 z-20 h-screen w-full overflow-y-auto  bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
       >
         <section className="relative mx-auto my-32 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden overscroll-y-auto rounded-2xl border border-zinc-400/10 bg-dark-inner p-10 shadow-xl">
           <section className="flex w-full flex-col gap-8">
@@ -182,10 +182,10 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
   } else {
     return (
       <motion.div
-        initial={{ opacity: 0, y: -25, display: 'block' }}
+        initial={{ opacity: 0, display: 'block' }}
         animate={
           onModalOpen
-            ? { opacity: 1, y: 0, display: 'block' }
+            ? { opacity: 1, display: 'block' }
             : {
                 opacity: 0,
                 display: 'none',
@@ -193,7 +193,7 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
               }
         }
         transition={{ duration: 0.1 }}
-        className="fixed top-0 z-20 h-full w-full overflow-y-auto  bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
+        className="fixed top-0 z-20 h-screen w-full overflow-y-auto bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
       >
         <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden overscroll-y-auto rounded-2xl border border-zinc-400/10 bg-dark-inner p-10 shadow-xl">
           <SuggestStepSuccess
