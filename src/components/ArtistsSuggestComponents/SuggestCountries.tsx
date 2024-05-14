@@ -21,7 +21,9 @@ export const SuggestCountries: FC<Props> = props => {
   const [searchText, setSearchText] = useState<string>('');
   const router = useRouter();
 
-  const filteredCountries = countryCodes.filter(country => country.title.toLowerCase().includes(searchText.toLowerCase()));
+  const filteredCountries = countryCodes.filter(country =>
+    country.title.toLowerCase().includes(searchText.toLowerCase())
+  );
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -35,7 +37,9 @@ export const SuggestCountries: FC<Props> = props => {
   }, [router.isReady, router.query.country]);
 
   return (
-    <section className={classNames('overflow-hidden rounded-3xl', props.classNames)}>
+    <section
+      className={classNames('overflow-hidden rounded-3xl', props.classNames)}
+    >
       <button
         onClick={() => setToggleCountries(!toggleCountries)}
         className={classNames(
@@ -65,7 +69,9 @@ export const SuggestCountries: FC<Props> = props => {
                   className={'h-5 w-7 rounded-md'}
                 />
               )}
-              <p className="max-w-20 truncate text-ellipsis">{selectedCountry.title}</p>
+              <p className="max-w-20 truncate text-ellipsis">
+                {selectedCountry.title}
+              </p>
             </section>
           ) : (
             <p
@@ -76,13 +82,21 @@ export const SuggestCountries: FC<Props> = props => {
               Select country...
             </p>
           )}
-          <RiArrowDownSLine className={classNames('transition-transform duration-200 ease-in-out', { 'rotate-180': toggleCountries })} />
+          <RiArrowDownSLine
+            className={classNames(
+              'transition-transform duration-200 ease-in-out',
+              { 'rotate-180': toggleCountries }
+            )}
+          />
         </div>
       </button>
       <section
-        className={classNames('flex flex-col gap-2 scroll-smooth rounded-b-3xl border-4 border-t-0 border-dark-inner-hover bg-dark-inner p-3', {
-          hidden: !toggleCountries,
-        })}
+        className={classNames(
+          'flex flex-col gap-2 scroll-smooth rounded-b-3xl border-4 border-t-0 border-dark-inner-hover bg-dark-inner p-3',
+          {
+            hidden: !toggleCountries,
+          }
+        )}
       >
         <div className="flex flex-row items-center justify-center gap-3">
           <input
@@ -93,7 +107,12 @@ export const SuggestCountries: FC<Props> = props => {
             className="w-full rounded-md border-b-2 border-transparent bg-dark-inner-hover p-2 px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-dark-double-inner"
           />
         </div>
-        <section className={classNames('max-h-64 overflow-y-auto overscroll-none', styles['searchContainer'])}>
+        <section
+          className={classNames(
+            'max-h-64 overflow-y-auto overscroll-none',
+            styles['searchContainer']
+          )}
+        >
           {filteredCountries.map((country, index) => (
             <button
               key={index}
@@ -132,7 +151,7 @@ export const SuggestCountries: FC<Props> = props => {
         <button
           onClick={() => {
             setSelectedCountry({ title: '', value: '' });
-            props.onCountryChanges({ title: '', value: '' });
+            props.onCountryChanges(undefined);
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
         >

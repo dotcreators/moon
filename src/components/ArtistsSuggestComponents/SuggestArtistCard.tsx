@@ -33,6 +33,7 @@ export const SuggestArtistCard: FC<Props> = props => {
         props.className
       )}
     >
+      {/* TODO: create universal image loader */}
       <div className="relative">
         <div
           className={classNames(

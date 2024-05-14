@@ -26,6 +26,9 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
     }
   }
 
+  console.log(props.tags);
+  console.log(props.country);
+
   return (
     <Link
       href={`https://twitter.com/${props.user.username}`}
@@ -65,6 +68,10 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
       </section>
 
       {!props.country && !props.tags ? (
+        <></>
+      ) : props.country === undefined &&
+        props.tags &&
+        props.tags.length === 0 ? (
         <></>
       ) : (
         <section className="flex w-full flex-row flex-wrap gap-1">
