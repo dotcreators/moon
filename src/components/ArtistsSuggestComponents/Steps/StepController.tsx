@@ -76,7 +76,11 @@ export const StepController: FC<Props> = ({ onModalOpen, setModalOpen }) => {
         animate={
           onModalOpen
             ? { opacity: 1, y: 0, display: 'block' }
-            : { opacity: 0, transitionEnd: { display: 'none' } }
+            : {
+                opacity: 0,
+                display: 'none',
+                transitionEnd: { display: 'none' },
+              }
         }
         transition={{ duration: 0.1 }}
         className="fixed top-0 z-20 h-full w-full overflow-y-auto  bg-transparent backdrop-blur-lg backdrop-brightness-[25%]"
