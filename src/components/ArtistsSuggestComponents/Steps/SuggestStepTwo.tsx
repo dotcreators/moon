@@ -5,6 +5,7 @@ import { SuggestArtistCard } from '../SuggestArtistCard';
 import { searchTagsArray } from '@/utils/Tags';
 import { SuggestCountries } from '../SuggestCountries';
 import { SelectCountry, countryCodes } from '@/utils/CountryCode';
+import { SuggestArtistCardAlt } from '../SuggestArtistCardAlt';
 
 interface Props {
   artist: FetchedArtistProfile;
@@ -42,7 +43,7 @@ export const SuggestStepTwo: FC<Props> = props => {
     >
       <section className="flex w-full flex-col gap-2">
         <p className="mx-3 text-sm text-zinc-400">Artist profile</p>
-        <SuggestArtistCard
+        <SuggestArtistCardAlt
           avatar={props.artist.avatar}
           followers={props.artist.followers}
           posts={props.artist.tweets}
@@ -50,6 +51,8 @@ export const SuggestStepTwo: FC<Props> = props => {
             username: props.artist.user.username,
             name: props.artist.user.name || '',
           }}
+          country={undefined}
+          tags={undefined}
         />
       </section>
 

@@ -26,9 +26,6 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
     }
   }
 
-  console.log(props.tags);
-  console.log(props.country);
-
   return (
     <Link
       href={`https://twitter.com/${props.user.username}`}
@@ -45,7 +42,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
           width={75}
           height={75}
           draggable={false}
-          className="rounded-2xl"
+          className="h-18 w-18 rounded-2xl"
         />
         <div className="line-clamp-2 grow">
           <h1 className="truncate font-hubot-sans text-2xl font-black">

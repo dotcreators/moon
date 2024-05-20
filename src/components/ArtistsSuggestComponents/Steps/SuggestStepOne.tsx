@@ -5,6 +5,7 @@ import { FC, useEffect, useState } from 'react';
 import { SuggestArtistCard } from '../SuggestArtistCard';
 import RiAtLine from '~icons/ri/at-line';
 import RiRefreshLine from '~icons/ri/refresh-line';
+import { SuggestArtistCardAlt } from '../SuggestArtistCardAlt';
 
 interface Props {
   onArtistFetched: Function;
@@ -109,7 +110,7 @@ export const SuggestStepOne: FC<Props> = props => {
         {fetchedArtistsProfile &&
         !isError &&
         (searchArtistTag !== undefined || searchArtistTag !== '') ? (
-          <SuggestArtistCard
+          <SuggestArtistCardAlt
             avatar={fetchedArtistsProfile.avatar}
             followers={fetchedArtistsProfile.followers}
             posts={fetchedArtistsProfile.tweets}
@@ -117,6 +118,8 @@ export const SuggestStepOne: FC<Props> = props => {
               username: fetchedArtistsProfile.user.username,
               name: fetchedArtistsProfile.user.name || '',
             }}
+            country={undefined}
+            tags={undefined}
           />
         ) : (
           <section

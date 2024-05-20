@@ -1,7 +1,7 @@
 import Image from 'next/image';
 import { FC } from 'react';
 import classNames from 'classnames';
-import { InnerButton } from './InnerButton';
+import { InnerButton } from '../InnerButton';
 
 interface Props {
   title: string;

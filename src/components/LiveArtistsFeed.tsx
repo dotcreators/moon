@@ -1,4 +1,5 @@
 import { ArtistSuggestionProfile } from '@/utils/models/ArtistSuggestionProfile';
+import classNames from 'classnames';
 import Image from 'next/image';
 import useSWR from 'swr';
 
@@ -7,7 +8,7 @@ export default function LiveArtistsFeed() {
     status: String;
     response: { data: ArtistSuggestionProfile[]; has_next: boolean };
   }>(
-    `${process.env.API_URL}suggestions?page=1&limit=8&requestStatus=suggested`,
+    `${process.env.API_URL}suggestions?page=1&limit=8&requestStatus=all`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
@@ -51,7 +52,15 @@ export default function LiveArtistsFeed() {
                 height={24}
                 className="h-6 w-6 rounded-full"
               />
-              <p className="text-yellow-300">{artist.requestStatus}</p>
+              <p
+                className={classNames({
+                  'text-yellow-300': artist.requestStatus === 'suggested',
+                  'text-lime-300': artist.requestStatus === 'approved',
+                  'text-red-300': artist.requestStatus === 'declined',
+                })}
+              >
+                {artist.requestStatus}
+              </p>
               <p>{artist.username}</p>
             </div>
           ))

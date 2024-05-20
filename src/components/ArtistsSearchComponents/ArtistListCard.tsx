@@ -18,6 +18,7 @@ interface Props {
 
 export const ArtistListCard: FC<Props> = props => {
   const [isImageLoaded, setImageLoaded] = useState<boolean>(false);
+  const [isOpen, setIsOpen] = useState<boolean>(false);
 
   function formatValue(value: number): string {
     if (value >= 1000) {
@@ -37,15 +38,6 @@ export const ArtistListCard: FC<Props> = props => {
         )}
       >
         <div className={classNames('flex flex-row items-center gap-4')}>
-          {/* {props.artist.country && (
-            <Image
-              alt={`${props.artist.country}`}
-              src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-              width={24}
-              height={20}
-              className={'h-5 w-7 rounded-md'}
-            />
-          )} */}
           <Link
             href={props.artist.url}
             target="_blank"
@@ -87,10 +79,19 @@ export const ArtistListCard: FC<Props> = props => {
           <div className={classNames('flex flex-row items-center gap-4')}>
             <h1
               className={classNames(
-                'flex max-w-96 flex-row items-center gap-1.5 truncate text-ellipsis font-hubot-sans font-black',
+                'flex max-w-96 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black',
                 { 'text-sm': props.isSmall }
               )}
             >
+              {props.artist.country && (
+                <Image
+                  alt={`${props.artist.country}`}
+                  src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
+                  width={24}
+                  height={20}
+                  className={'h-5 w-7 rounded-md'}
+                />
+              )}
               {props.artist.name}
             </h1>
             <p

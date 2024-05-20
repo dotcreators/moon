@@ -2,7 +2,7 @@ import classNames from 'classnames';
 import { InnerButton } from '../InnerButton';
 import Image from 'next/image';
 
-export default function BentoArtistsList() {
+export default function BentoViewArtistsList() {
   return (
     <section
       className={classNames(
