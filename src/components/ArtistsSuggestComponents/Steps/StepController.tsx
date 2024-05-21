@@ -137,7 +137,7 @@ export default function StepController() {
   return (
     <>
       {currentFormStep !== steps.length ? (
-        <section className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl border border-zinc-400/10 bg-dark-inner p-10">
+        <section className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dark-inner p-10">
           {renderSteps()}
           <SuggestStepOne
             onArtistFetched={setFetchedArtistsProfile}
@@ -165,7 +165,7 @@ export default function StepController() {
           {renderButtons()}
         </section>
       ) : (
-        <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl border border-zinc-400/10 bg-dark-inner p-10">
+        <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dark-inner p-10">
           <SuggestStepSuccess
             onAddAnother={() => resetForm()}
             onClose={resetForm}

@@ -17,6 +17,7 @@ const config: Config = {
         'hubot-sans': ['var(--font-hubot-sans)'],
       },
       colors: {
+        'dot-white': '#FDFDFD',
         'dark-bg': '#0A0A0A',
         'dark-inner': '#151515',
         'dark-inner-hover': '#202020',

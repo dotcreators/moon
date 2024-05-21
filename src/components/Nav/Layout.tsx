@@ -31,9 +31,7 @@ export default function Layout({
       <header>
         <TopNavigation />
       </header>
-      <main className={classNames('mb-8 h-full min-h-screen w-full')}>
-        {children}
-      </main>
+      <main className={classNames('mb-8 h-full w-full')}>{children}</main>
       <footer>
         <BottomNavigation />
       </footer>

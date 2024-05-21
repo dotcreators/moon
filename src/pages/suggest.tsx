@@ -1,5 +1,9 @@
 import StepController from '@/components/ArtistsSuggestComponents/Steps/StepController';
 
 export default function Suggest() {
-  return <StepController />;
+  return (
+    <section className="min-h-screen">
+      <StepController />
+    </section>
+  );
 }

@@ -11,7 +11,7 @@ export default function Home() {
       <section className="m-auto mt-10 flex w-full max-w-7xl flex-col items-center justify-center">
         <Hero />
         <LiveArtistsFeed />
-        <section className="m-5 grid h-full w-full grid-cols-3 gap-5">
+        <section className="m-5 grid w-full grid-cols-3 gap-5">
           <BentoArtist />
           <BentoViewArtistsList />
           <BentoWeeklyArtist />
