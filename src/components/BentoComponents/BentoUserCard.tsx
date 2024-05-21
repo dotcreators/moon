@@ -1,6 +1,7 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import { FC } from 'react';
+import { ImageLoader } from '../ImageLoader';
 
 interface Props {
   user: {
@@ -29,12 +30,11 @@ export const BentoUserCard: FC<Props> = props => {
       )}
     >
       <div className="flex flex-row items-center gap-5">
-        <Image
-          alt="img"
+        <ImageLoader
+          alt={'Avatar for ' + props.user.tag}
           src={props.avatar}
           width={75}
           height={75}
-          draggable={false}
           className="rounded-2xl"
         />
         <div className="max-w-28">

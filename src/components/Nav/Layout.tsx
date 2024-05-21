@@ -27,11 +27,16 @@ export default function Layout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className={`${hubotSans.variable} font-sans`} style={inter.style}>
-      <header>
+    <div
+      className={`${hubotSans.variable} relative font-sans`}
+      style={inter.style}
+    >
+      <header className="absolute top-0 z-20 w-full">
         <TopNavigation />
       </header>
-      <main className={classNames('mb-8 h-full w-full')}>{children}</main>
+      <main className={classNames('mb-8 min-h-screen w-full pt-28')}>
+        {children}
+      </main>
       <footer>
         <BottomNavigation />
       </footer>

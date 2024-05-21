@@ -16,25 +16,25 @@ export default function BentoArtist() {
           user={{ username: 'anivire', tag: 'aniv1re' }}
           followers={640}
           posts={124}
-          avatar="https://pbs.twimg.com/profile_images/1373358165513940997/mpI3fLp-_bigger.jpg"
+          avatar="https://pbs.twimg.com/profile_images/1373358165513940997/mpI3fLp-_400x400.jpg"
         />
         <BentoUserCard
           user={{ username: '08games', tag: 'the08games' }}
           followers={159400}
           posts={5550}
-          avatar="https://pbs.twimg.com/profile_images/638296836629921792/iGrx8Wo5_bigger.png"
+          avatar="https://pbs.twimg.com/profile_images/638296836629921792/iGrx8Wo5_400x400.png"
         />
         <BentoUserCard
           user={{ username: 'galette', tag: 'galetitta' }}
           followers={3792}
           posts={6467}
-          avatar="https://pbs.twimg.com/profile_images/1646367427658227712/fwXOeFTH_bigger.jpg"
+          avatar="https://pbs.twimg.com/profile_images/1646367427658227712/fwXOeFTH_400x400.jpg"
         />
         <BentoUserCard
           user={{ username: 'NOP', tag: 'NOP_Pixels' }}
           followers={96700}
           posts={15700}
-          avatar="https://pbs.twimg.com/profile_images/1676628741533884418/myoEqu08_bigger.jpg"
+          avatar="https://pbs.twimg.com/profile_images/1676628741533884418/myoEqu08_400x400.jpg"
         />
       </div>
       <InnerButton title={'Submit'} func={() => {}} />

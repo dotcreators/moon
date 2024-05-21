@@ -1,12 +1,9 @@
 import classNames from 'classnames';
 import Link from 'next/link';
 import { usePathname } from 'next/navigation';
-import { FC, useState } from 'react';
 
 export default function TopNavigation() {
   const path = usePathname();
-  // const [isSuggestModalOpened, setIsSuggestModalOpened] =
-  //   useState<boolean>(false);
 
   return (
     <>

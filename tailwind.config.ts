@@ -18,6 +18,8 @@ const config: Config = {
       },
       colors: {
         'dot-white': '#FDFDFD',
+        'dot-primary': '#FF9D41',
+
         'dark-bg': '#0A0A0A',
         'dark-inner': '#151515',
         'dark-inner-hover': '#202020',

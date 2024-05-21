@@ -26,14 +26,14 @@ export const SearchQ: FC<Props> = props => {
   }, [debouncedValue]);
 
   return (
-    <section className="h-15 flex flex-row items-center gap-5 rounded-3xl bg-dark-inner p-3 px-5">
+    <section className="outline-dot-primary h-15 flex flex-row items-center gap-5 rounded-3xl bg-dark-inner p-3 px-5 group-focus:outline-2">
       <RiSearch2Line />
       <input
         onChange={e => setSearchQ(e.target.value)}
         type="search"
         placeholder="Input artist @tag..."
         value={searchQ}
-        className="h-full bg-transparent outline-none placeholder:text-sm placeholder:text-zinc-400"
+        className=" group h-full bg-transparent text-zinc-400 outline-none placeholder:text-sm"
       />
     </section>
   );
