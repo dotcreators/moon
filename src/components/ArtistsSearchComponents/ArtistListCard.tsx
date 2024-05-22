@@ -8,6 +8,7 @@ import RiExternalLinkLine from '~icons/ri/external-link-line';
 import Link from 'next/link';
 import RiLoader5Line from '~icons/ri/loader-5-line';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
+import { ImageLoader } from '../ImageLoader';
 
 interface Props {
   place: number;
@@ -44,33 +45,13 @@ export const ArtistListCard: FC<Props> = props => {
             className="group relative"
           >
             <div className="relative z-10 overflow-hidden rounded-full">
-              <Image
-                alt="img"
+              <ImageLoader
+                alt={'Avatar for ' + props.artist.username}
                 src={props.artist.images.avatar}
                 width={35}
                 height={35}
-                draggable={false}
-                onLoad={() => setImageLoaded(true)}
                 className={classNames(
-                  'z-20 transition-opacity duration-200 ease-in-out group-hover:opacity-0',
-                  { 'h-10 w-10': !props.isSmall, 'h-8 w-8': props.isSmall }
-                )}
-              />
-              <Image
-                alt="img"
-                src={props.artist.images.avatar}
-                width={35}
-                height={35}
-                draggable={false}
-                className={classNames(
-                  'absolute left-1/2 top-1/2 -z-10 h-10 w-10 -translate-x-1/2 -translate-y-1/2 transform blur-md transition-opacity duration-200 ease-in-out',
-                  { 'h-10 w-10': !props.isSmall, 'h-8 w-8': props.isSmall }
-                )}
-              />
-              <RiLoader5Line
-                className={classNames(
-                  'absolute left-1/2 top-1/2  -z-10 h-10 w-10 -translate-x-1/2 -translate-y-1/2 transform animate-spin group-hover:opacity-0',
-                  { hidden: isImageLoaded }
+                  'transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
                 )}
               />
             </div>

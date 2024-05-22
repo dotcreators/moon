@@ -3,6 +3,7 @@ import classNames from 'classnames';
 import Image from 'next/image';
 import Link from 'next/link';
 import { FC } from 'react';
+import { ImageLoader } from '../ImageLoader';
 
 interface Props {
   user: {
@@ -36,12 +37,11 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
       )}
     >
       <section className="flex w-full flex-row items-center gap-5">
-        <Image
-          alt="img"
+        <ImageLoader
+          alt={'Avatar for ' + props.user.username}
           src={props.avatar}
           width={75}
           height={75}
-          draggable={false}
           className="h-18 w-18 rounded-2xl"
         />
         <div className="line-clamp-2 grow">
