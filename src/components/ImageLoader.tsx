@@ -14,7 +14,12 @@ export const ImageLoader: FC<Props> = props => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   return (
-    <div className={classNames('relative overflow-hidden', props.className)}>
+    <div
+      className={classNames(
+        'relative h-fit w-fit overflow-hidden',
+        props.className
+      )}
+    >
       <Image
         src={props.src}
         alt={props.alt}
@@ -22,17 +27,17 @@ export const ImageLoader: FC<Props> = props => {
         height={props.height}
         draggable={false}
         className={classNames('transition-opacity', {
-          'opacity-0': !isLoaded,
-          'opacity-100': isLoaded,
+          'opacity-0 blur-sm': !isLoaded,
+          'opacity-100 blur-0 ': isLoaded,
         })}
         onLoad={() => setIsLoaded(true)}
       />
       <div
         className={classNames(
-          'absolute inset-0 h-full w-full animate-pulse bg-dark-inner-hover/50 transition-opacity',
+          'absolute inset-0 h-full w-full bg-dark-double-inner-hover/50 transition-opacity',
           {
             'opacity-0': isLoaded,
-            'opacity-100': !isLoaded,
+            'animate-pulse opacity-100': !isLoaded,
           }
         )}
       />

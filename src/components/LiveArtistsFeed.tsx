@@ -2,6 +2,7 @@ import { ArtistSuggestionProfile } from '@/utils/models/ArtistSuggestionProfile'
 import classNames from 'classnames';
 import Image from 'next/image';
 import useSWR from 'swr';
+import { motion } from 'framer-motion';
 
 export default function LiveArtistsFeed() {
   const { data: artists, isLoading } = useSWR<{
@@ -13,7 +14,7 @@ export default function LiveArtistsFeed() {
       const res = await fetch(input, init);
       return res.json();
     },
-    {}
+    { refreshInterval: 1000 * 3 }
   );
 
   return (
@@ -40,10 +41,13 @@ export default function LiveArtistsFeed() {
           </>
         ) : (
           artists &&
-          artists.response.data.map(artist => (
-            <div
+          artists.response.data.map((artist, index) => (
+            <motion.div
               key={artist.requestId}
               className="flex h-10 min-w-max flex-row items-center gap-2 rounded-full bg-dark-inner p-1 px-4 text-sm"
+              initial={{ opacity: 0, x: -50 }}
+              animate={{ opacity: 1, x: 0 }}
+              transition={{ delay: index * 0.1 }}
             >
               <Image
                 alt={'Avatar for ' + artist.username}
@@ -62,7 +66,7 @@ export default function LiveArtistsFeed() {
                 {artist.requestStatus}
               </p>
               <p>{artist.username}</p>
-            </div>
+            </motion.div>
           ))
         )}
       </section>
