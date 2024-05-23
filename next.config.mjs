@@ -1,8 +1,7 @@
 import Icons from "unplugin-icons/webpack";
-import withPlaiceholder from "@plaiceholder/next";
 
 /** @type {import('next').NextConfig} */
-const config = {
+export default {
   webpack(config) {
     config.plugins.push(
       Icons({
@@ -30,5 +29,3 @@ const config = {
     API_URL: process.env.API_URL
   }
 };
-
-export default withPlaiceholder(config);

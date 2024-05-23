@@ -10,11 +10,13 @@ export interface ArtistProfile {
     avatar: string;
     banner?: string;
   };
+  weeklyFollowersGrowingTrend?: number;
+  weeklyPostsGrowingTrend?: number;
+  country?: string;
+  tags?: string[];
   name?: string;
   website?: string;
   bio?: string;
   lastUpdateAt: Date;
   createdAt: Date;
-  country: string;
-  tags: string[];
 }

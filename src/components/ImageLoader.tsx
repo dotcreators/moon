@@ -26,7 +26,7 @@ export const ImageLoader: FC<Props> = props => {
         width={props.width}
         height={props.height}
         draggable={false}
-        className={classNames('transition-opacity', {
+        className={classNames('relative z-20 transition-all duration-300', {
           'opacity-0 blur-sm': !isLoaded,
           'opacity-100 blur-0 ': isLoaded,
         })}
@@ -34,9 +34,9 @@ export const ImageLoader: FC<Props> = props => {
       />
       <div
         className={classNames(
-          'absolute inset-0 h-full w-full bg-dark-double-inner-hover/50 transition-opacity',
+          'absolute inset-0 z-10 h-full w-full bg-dark-double-inner-hover/50 transition-opacity duration-300',
           {
-            'opacity-0': isLoaded,
+            // 'opacity-0': isLoaded,
             'animate-pulse opacity-100': !isLoaded,
           }
         )}
