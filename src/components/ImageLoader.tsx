@@ -7,6 +7,8 @@ interface Props {
   alt: string;
   width: number;
   height: number;
+  hideLoader?: boolean;
+  unoptimized?: boolean;
   className?: string;
 }
 
@@ -25,11 +27,16 @@ export const ImageLoader: FC<Props> = props => {
         alt={props.alt}
         width={props.width}
         height={props.height}
+        unoptimized={props.unoptimized ? true : false}
         draggable={false}
-        className={classNames('relative z-20 transition-all duration-300', {
-          'opacity-0 blur-sm': !isLoaded,
-          'opacity-100 blur-0 ': isLoaded,
-        })}
+        className={classNames(
+          'relative z-20 transition-all duration-300',
+          props.unoptimized ? props.className : '',
+          {
+            'opacity-0 blur-sm': !isLoaded,
+            'opacity-100 blur-0 ': isLoaded,
+          }
+        )}
         onLoad={() => setIsLoaded(true)}
       />
       <div
@@ -38,6 +45,7 @@ export const ImageLoader: FC<Props> = props => {
           {
             // 'opacity-0': isLoaded,
             'animate-pulse opacity-100': !isLoaded,
+            hidden: props.hideLoader,
           }
         )}
       />

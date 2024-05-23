@@ -20,6 +20,13 @@ import {
   YAxis,
 } from 'recharts';
 import useSWR from 'swr';
+import { ArtistTrend } from '@/utils/models/ArtistTrend';
+import { ArtistTrendGraph } from './ArtistCardInfo/ArtistTrendGraph';
+import { countryCodes } from '@/utils/CountryCode';
+import RiExternalLinkFill from '~icons/ri/external-link-fill';
+import RiTwitterFill from '~icons/ri/twitter-fill';
+import CibItchIo from '~icons/cib/itch-io';
+import { searchTagsArray } from '@/utils/Tags';
 
 interface Props {
   place: number;
@@ -29,19 +36,15 @@ interface Props {
 }
 
 export const ArtistListCard: FC<Props> = props => {
+  const [loading, setLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
-  const [artistTrends, setArtistTrends] = useState<
-    | { followersCount: number; tweetsCount: number; recordedAt: Date }[]
-    | undefined
-  >(undefined);
+  const [artistTrends, setArtistTrends] = useState<ArtistTrend[] | undefined>(
+    undefined
+  );
 
   const { data, error } = useSWR<{
     status: string;
-    response: {
-      followersCount: number;
-      tweetsCount: number;
-      recordedAt: Date;
-    }[];
+    response: ArtistTrend[];
   }>(
     isOpen ? `${process.env.API_URL}trends/${props.artist.userId}` : null,
     async (input: RequestInfo, init: RequestInit) => {
@@ -63,22 +66,6 @@ export const ArtistListCard: FC<Props> = props => {
       return value.toString();
     }
   }
-
-  // const CustomTooltip = (
-  //   payload:
-  // ) => {
-  //   if (payload.length) {
-  //     return (
-  //       <div className="custom-tooltip">
-  //         <p className="label">{`asd : ${payload[0].value}`}</p>
-  //         {/* <p className="intro">{asd}</p> */}
-  //         <p className="desc">Anything you want can be displayed here.</p>
-  //       </div>
-  //     );
-  //   }
-
-  //   return null;
-  // };
 
   const CustomTooltip = (
     active: boolean,
@@ -193,13 +180,36 @@ export const ArtistListCard: FC<Props> = props => {
 
         {/* MoreInfo */}
         <div
-          className={classNames('flex flex-col gap-5', {
+          className={classNames('relative flex flex-col gap-5 ', {
             hidden: !isOpen,
             block: isOpen,
           })}
         >
-          <div className="flex flex-row items-center justify-between gap-3">
-            <div className="flex flex-row items-center gap-3">
+          {props.artist.images.banner !== undefined && (
+            <>
+              <ImageLoader
+                src={props.artist.images.banner + '/1500x500	'}
+                alt={'Profile Banner for ' + props.artist.username}
+                width={600}
+                height={200}
+                unoptimized={true}
+                className="h-48 w-full rounded-xl object-cover"
+              />
+              <div className="absolute w-full">
+                <ImageLoader
+                  src={props.artist.images.banner + '/1500x500	'}
+                  alt={'Profile Banner for ' + props.artist.username}
+                  width={600}
+                  height={200}
+                  unoptimized={true}
+                  hideLoader={true}
+                  className="z-10 h-48 w-full rounded-2xl object-cover opacity-65 blur-3xl"
+                />
+              </div>
+            </>
+          )}
+          <div className="z-20 flex flex-row items-center justify-between gap-3">
+            <div className="z-20 flex min-w-max flex-row items-center gap-3">
               <ImageLoader
                 alt={'Avatar for ' + props.artist.username}
                 src={props.artist.images.avatar}
@@ -208,27 +218,24 @@ export const ArtistListCard: FC<Props> = props => {
                 className={'rounded-xl'}
               />
               <div>
-                <Link
-                  href={props.artist.url}
-                  target="__blank"
-                  className="flex w-fit flex-row items-center gap-2 rounded-md bg-dark-double-inner px-3 py-1 font-hubot-sans text-xl"
-                >
-                  {props.artist.country &&
-                    props.artist.country !== undefined && (
-                      <Image
-                        alt={`${props.artist.country}`}
-                        src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-                        width={24}
-                        height={20}
-                        className={'h-5 w-7 rounded-md'}
-                      />
-                    )}
+                <p className="flex w-fit flex-row items-center gap-2 rounded-md bg-dark-double-inner px-3 py-1 font-hubot-sans text-xl">
                   {props.artist.name}
-                  <RiArrowRightUpLine className="-ml-1 text-lg" />
-                </Link>
+                </p>
                 <p className="text-zinc-400 ">@{props.artist.username}</p>
               </div>
+              <div className="flex flex-row gap-3">
+                <button className="flex h-full w-fit flex-row items-center rounded-2xl bg-sky-600 p-5">
+                  <RiTwitterFill className="text-xl" />
+                </button>
+                {/* <button className="flex h-full w-fit flex-row items-center rounded-2xl bg-rose-600 p-5">
+                  <CibItchIo className="text-xl" />
+                </button>
+                <button className="flex h-full w-fit flex-row items-center rounded-2xl bg-dark-double-inner p-5">
+                  <RiExternalLinkFill className="text-xl" />
+                </button> */}
+              </div>
             </div>
+
             <button
               onClick={() => setIsOpen(!isOpen)}
               className="h-fit place-self-start"
@@ -236,245 +243,29 @@ export const ArtistListCard: FC<Props> = props => {
               <RiArrowDownSLine className="rotate-180 text-xl" />
             </button>
           </div>
-          <div className="flex w-full flex-row justify-between gap-5 text-xs">
+
+          {/* <p>{props.artist.bio}</p>
+          <p>{props.artist.website}</p>
+          <p>
+            Account created{' '}
+            {new Date(props.artist.joinedAt).toLocaleDateString()}
+          </p> */}
+
+          <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
             {artistTrends && artistTrends.length !== 0 ? (
               <>
-                <div className="relative w-full rounded-2xl bg-dark-double-inner p-5">
-                  <div className="mb-3 flex flex-row items-center justify-between">
-                    <div className="flex flex-col">
-                      <h1
-                        className={classNames(
-                          'flex flex-row items-center gap-1 font-hubot-sans text-2xl leading-[0.8]',
-                          {
-                            'text-[#a3e635]':
-                              props.artist.weeklyFollowersGrowingTrend &&
-                              props.artist.weeklyFollowersGrowingTrend > 0.0,
-                            'text-[#FA4545]':
-                              props.artist.weeklyFollowersGrowingTrend &&
-                              props.artist.weeklyFollowersGrowingTrend < 0.0,
-                          }
-                        )}
-                      >
-                        <RiArrowDownSLine
-                          className={classNames({
-                            'rotate-180':
-                              props.artist.weeklyFollowersGrowingTrend &&
-                              props.artist.weeklyFollowersGrowingTrend > 0.0,
-                          })}
-                        />
-                        {props.artist.weeklyFollowersGrowingTrend &&
-                          Math.abs(props.artist.weeklyFollowersGrowingTrend)}
-                        %
-                      </h1>
-                      <p className="text-base text-zinc-400">grow trend</p>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <h1
-                        className={classNames(
-                          'flex flex-row items-center gap-1 font-hubot-sans text-2xl leading-[0.8]'
-                        )}
-                      >
-                        {props.artist.followersCount}
-                      </h1>
-                      <p className="text-base text-zinc-400">followers</p>
-                    </div>
-                  </div>
-                  <ResponsiveContainer width="100%" height={250}>
-                    <AreaChart
-                      data={artistTrends}
-                      margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                    >
-                      <defs>
-                        <linearGradient
-                          id="followersCount"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="1"
-                        >
-                          <stop
-                            offset="5%"
-                            stopColor={
-                              props.artist.weeklyFollowersGrowingTrend &&
-                              props.artist.weeklyFollowersGrowingTrend > 0.0
-                                ? '#a3e635'
-                                : '#FA4545'
-                            }
-                            stopOpacity={0.8}
-                          />
-                          <stop
-                            offset="95%"
-                            stopColor={
-                              props.artist.weeklyFollowersGrowingTrend &&
-                              props.artist.weeklyFollowersGrowingTrend > 0.0
-                                ? '#a3e635'
-                                : '#FA4545'
-                            }
-                            stopOpacity={0}
-                          />
-                        </linearGradient>
-                      </defs>
-                      <XAxis
-                        dataKey="recordedAt"
-                        tickFormatter={(value: string) =>
-                          new Date(value).toLocaleDateString()
-                        }
-                      />
-                      <YAxis />
-                      <CartesianGrid
-                        strokeDasharray="5 5"
-                        strokeOpacity={0.3}
-                      />
-                      <Tooltip
-                        contentStyle={{
-                          color: '#FDFDFD',
-                          backgroundColor: '#303030',
-                          border: 'none',
-                        }}
-                        labelFormatter={(value: string) =>
-                          new Date(value).toLocaleDateString()
-                        }
-                        formatter={(
-                          value: number,
-                          name: string,
-                          props: any
-                        ) => [value, 'Followers', props]}
-                      />
-                      <Area
-                        type="bump"
-                        dataKey="followersCount"
-                        stroke={
-                          props.artist.weeklyFollowersGrowingTrend &&
-                          props.artist.weeklyFollowersGrowingTrend > 0.0
-                            ? '#a3e635'
-                            : '#FA4545'
-                        }
-                        strokeWidth={3}
-                        fillOpacity={0.5}
-                        fill="url(#followersCount)"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-                <div className="relative w-full rounded-2xl bg-dark-double-inner p-5">
-                  <div className="mb-3 flex flex-row items-center justify-between">
-                    <div className="flex flex-col">
-                      <h1
-                        className={classNames(
-                          'flex flex-row items-center gap-1 font-hubot-sans text-2xl leading-[0.8]',
-                          {
-                            'text-[#a3e635]':
-                              props.artist.weeklyPostsGrowingTrend &&
-                              props.artist.weeklyPostsGrowingTrend > 0.0,
-                            'text-[#FA4545]':
-                              props.artist.weeklyPostsGrowingTrend &&
-                              props.artist.weeklyPostsGrowingTrend < 0.0,
-                          }
-                        )}
-                      >
-                        <RiArrowDownSLine
-                          className={classNames({
-                            'rotate-180':
-                              props.artist.weeklyPostsGrowingTrend &&
-                              props.artist.weeklyPostsGrowingTrend > 0.0,
-                          })}
-                        />
-                        {props.artist.weeklyPostsGrowingTrend &&
-                          Math.abs(props.artist.weeklyPostsGrowingTrend)}
-                        %
-                      </h1>
-                      <p className="text-base text-zinc-400">grow trend</p>
-                    </div>
-                    <div className="flex flex-col items-end gap-1">
-                      <h1
-                        className={classNames(
-                          'flex flex-row items-center gap-1 font-hubot-sans text-2xl leading-[0.8]'
-                        )}
-                      >
-                        {props.artist.tweetsCount}
-                      </h1>
-                      <p className="text-base text-zinc-400">tweets</p>
-                    </div>
-                  </div>
-                  <ResponsiveContainer width="100%" height={250}>
-                    <AreaChart
-                      width={400}
-                      height={250}
-                      data={artistTrends}
-                      margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
-                    >
-                      <defs>
-                        <linearGradient
-                          id="colorTweetsCount"
-                          x1="0"
-                          y1="0"
-                          x2="0"
-                          y2="1"
-                        >
-                          <stop
-                            offset="5%"
-                            stopColor={
-                              props.artist.weeklyPostsGrowingTrend &&
-                              props.artist.weeklyPostsGrowingTrend > 0.0
-                                ? '#a3e635'
-                                : '#FA4545'
-                            }
-                            stopOpacity={0.8}
-                          />
-                          <stop
-                            offset="95%"
-                            stopColor={
-                              props.artist.weeklyPostsGrowingTrend &&
-                              props.artist.weeklyPostsGrowingTrend > 0.0
-                                ? '#a3e635'
-                                : '#FA4545'
-                            }
-                            stopOpacity={0}
-                          />
-                        </linearGradient>
-                      </defs>
-                      <XAxis
-                        dataKey="recordedAt"
-                        tickFormatter={(value: string) =>
-                          new Date(value).toLocaleDateString()
-                        }
-                      />
-                      <YAxis />
-                      <CartesianGrid
-                        strokeDasharray="5 5"
-                        strokeOpacity={0.3}
-                      />
-                      <Tooltip
-                        contentStyle={{
-                          color: '#FDFDFD',
-                          backgroundColor: '#303030',
-                          border: 'none',
-                        }}
-                        labelFormatter={(value: string) =>
-                          new Date(value).toLocaleDateString()
-                        }
-                        formatter={(
-                          value: number,
-                          name: string,
-                          props: any
-                        ) => [value, 'Posts', props]}
-                      />
-                      <Area
-                        type="bump"
-                        dataKey="tweetsCount"
-                        stroke={
-                          props.artist.weeklyPostsGrowingTrend &&
-                          props.artist.weeklyPostsGrowingTrend > 0.0
-                            ? '#a3e635'
-                            : '#FA4545'
-                        }
-                        strokeWidth={3}
-                        fillOpacity={0.5}
-                        fill="url(#colorTweetsCount)"
-                      />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
+                <ArtistTrendGraph
+                  key={'followersGraph'}
+                  artistInfo={props.artist}
+                  trendBy="followers"
+                  trendData={artistTrends}
+                />
+                <ArtistTrendGraph
+                  key={'tweetsGraph'}
+                  artistInfo={props.artist}
+                  trendBy="tweets"
+                  trendData={artistTrends}
+                />
               </>
             ) : (
               <></>
@@ -488,9 +279,34 @@ export const ArtistListCard: FC<Props> = props => {
                     key={index}
                     className="rounded-md bg-dark-double-inner p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
                   >
-                    {tag}
+                    {searchTagsArray.map(_tag => {
+                      if (tag === _tag.toLocaleLowerCase().replace(/ /g, '')) {
+                        return _tag;
+                      }
+                    })}
                   </p>
                 ))}
+                {props.artist.country && props.artist.country !== undefined && (
+                  <div className="flex flex-row items-center gap-2 rounded-md bg-dark-double-inner p-2 px-4 text-sm">
+                    <Image
+                      alt={`${props.artist.country}`}
+                      src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
+                      width={24}
+                      height={20}
+                      className={'h-4 w-6 rounded-sm '}
+                    />
+                    <p className=" ">
+                      {countryCodes.map((country, index) => {
+                        if (
+                          props.artist.country ===
+                          country.value.toLocaleLowerCase()
+                        ) {
+                          return country.title;
+                        }
+                      })}
+                    </p>
+                  </div>
+                )}
               </div>
             )}
         </div>
