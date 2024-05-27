@@ -85,16 +85,36 @@ export const ArtistListCard: FC<Props> = props => {
     return null;
   };
 
+  const replaceTagsWithLinks = (text: string) => {
+    const regex = / @(\w+)/g;
+    return text.split(regex).map((part, index) => {
+      if (index % 2 === 1) {
+        const tag = part;
+        return (
+          <Link
+            key={index}
+            target="__blank"
+            href={`https://x.com/${tag}`}
+            className="ml-1 text-dot-primary"
+          >
+            @{tag}
+          </Link>
+        );
+      }
+      return part;
+    });
+  };
+
   return (
     <>
       <section
         onClick={() => (!isOpen ? setIsOpen(!isOpen) : '')}
         className={classNames(
-          'group/main animation-all flex w-full flex-col justify-between gap-5 overflow-hidden bg-dark-inner duration-200 ease-in-out md:hover:bg-dark-inner-hover',
+          'group/main flex w-full flex-col justify-between gap-5 overflow-hidden bg-dark-inner transition-transform duration-200 ease-in-out md:hover:bg-dark-inner-hover',
           props.className,
           {
             'rounded-2xl ': !props.isSmall,
-            'p-5 md:hover:cursor-default': isOpen,
+            'md:hover:cursor-default': isOpen,
             'p-2 px-5 md:hover:cursor-pointer': !isOpen,
             'bg-dark-inner-hover': isOpen,
           }
@@ -151,7 +171,7 @@ export const ArtistListCard: FC<Props> = props => {
               </p>
             </div>
           </div>
-          <div className="flex translate-x-10 flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
+          <div className="flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
             <div
               className={classNames(
                 'flex flex-row items-center justify-end gap-2',
@@ -193,122 +213,156 @@ export const ArtistListCard: FC<Props> = props => {
                 width={600}
                 height={200}
                 unoptimized={true}
-                className="h-48 w-full rounded-xl object-cover"
+                className="h-48 w-full object-cover"
               />
               <div className="absolute w-full">
                 <ImageLoader
-                  src={props.artist.images.banner + '/1500x500	'}
+                  src={props.artist.images.banner + '/mobile	'}
                   alt={'Profile Banner for ' + props.artist.username}
                   width={600}
                   height={200}
                   unoptimized={true}
                   hideLoader={true}
-                  className="z-10 h-48 w-full rounded-2xl object-cover opacity-65 blur-3xl"
+                  className="z-10 h-48 w-full object-cover opacity-65 blur-3xl"
                 />
               </div>
             </>
           )}
-          <div className="z-20 flex flex-row items-center justify-between gap-3">
-            <div className="z-20 flex min-w-max flex-row items-center gap-3">
-              <ImageLoader
-                alt={'Avatar for ' + props.artist.username}
-                src={props.artist.images.avatar}
-                width={75}
-                height={75}
-                className={'rounded-xl'}
-              />
-              <div>
-                <p className="flex w-fit flex-row items-center gap-2 rounded-md bg-dark-double-inner px-3 py-1 font-hubot-sans text-xl">
-                  {props.artist.name}
-                </p>
-                <p className="text-zinc-400 ">@{props.artist.username}</p>
-              </div>
-              <div className="flex flex-row gap-3">
-                <button className="flex h-full w-fit flex-row items-center rounded-2xl bg-sky-600 p-5">
-                  <RiTwitterFill className="text-xl" />
-                </button>
-                {/* <button className="flex h-full w-fit flex-row items-center rounded-2xl bg-rose-600 p-5">
-                  <CibItchIo className="text-xl" />
-                </button>
-                <button className="flex h-full w-fit flex-row items-center rounded-2xl bg-dark-double-inner p-5">
-                  <RiExternalLinkFill className="text-xl" />
-                </button> */}
+          <button
+            onClick={() => setIsOpen(!isOpen)}
+            className="absolute right-3 top-2.5 z-20 h-fit place-self-start rounded-xl bg-dark-inner/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dark-inner"
+          >
+            <RiArrowDownSLine className="rotate-180" />
+          </button>
+          <div className="flex w-full flex-col gap-5 px-5 pb-5">
+            <div className="z-20 flex flex-row items-center justify-between gap-3">
+              <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
+                <div className="flex flex-row items-center gap-3">
+                  <ImageLoader
+                    alt={'Avatar for ' + props.artist.username}
+                    src={props.artist.images.avatar}
+                    width={75}
+                    height={75}
+                    className={'absolute rounded-xl'}
+                  />
+                  <div className="w-fit ">
+                    <p className="flex w-fit flex-row items-center gap-2 rounded-md font-hubot-sans text-xl">
+                      {props.artist.name}
+                    </p>
+                    <div className="flex flex-row gap-1 text-zinc-400">
+                      <Link
+                        href={props.artist.url}
+                        target="__blank"
+                        className="transition-colors duration-150 ease-in-out md:hover:text-dot-primary"
+                      >
+                        @{props.artist.username}
+                      </Link>
+                      {props.artist.website && (
+                        <>
+                          <p>•</p>
+                          <Link
+                            href={props.artist.website}
+                            target="__blank"
+                            className="transition-colors duration-150 ease-in-out md:hover:text-dot-primary"
+                          >
+                            {props.artist.website.replace(
+                              /^(https?:\/\/)?(www\.)?/,
+                              ''
+                            )}
+                          </Link>
+                        </>
+                      )}
+                      <p>•</p>
+                      <p className="">
+                        Account created{' '}
+                        {new Date(props.artist.joinedAt).toLocaleDateString()}
+                      </p>
+                    </div>
+                  </div>
+                </div>
+                <div className="flex flex-row items-center gap-5 rounded-xl">
+                  <div>
+                    <h1 className="font-hubot-sans text-2xl font-black leading-tight">
+                      {props.artist.followersCount}
+                    </h1>
+                    <p className="text-zinc-400">followers</p>
+                  </div>
+                  <div>
+                    <h1 className="font-hubot-sans text-2xl font-black">
+                      {props.artist.tweetsCount}
+                    </h1>
+                    <p className="text-zinc-400">tweets</p>
+                  </div>
+                </div>
               </div>
             </div>
 
-            <button
-              onClick={() => setIsOpen(!isOpen)}
-              className="h-fit place-self-start"
-            >
-              <RiArrowDownSLine className="rotate-180 text-xl" />
-            </button>
-          </div>
-
-          {/* <p>{props.artist.bio}</p>
-          <p>{props.artist.website}</p>
-          <p>
-            Account created{' '}
-            {new Date(props.artist.joinedAt).toLocaleDateString()}
-          </p> */}
-
-          <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
-            {artistTrends && artistTrends.length !== 0 ? (
-              <>
-                <ArtistTrendGraph
-                  key={'followersGraph'}
-                  artistInfo={props.artist}
-                  trendBy="followers"
-                  trendData={artistTrends}
-                />
-                <ArtistTrendGraph
-                  key={'tweetsGraph'}
-                  artistInfo={props.artist}
-                  trendBy="tweets"
-                  trendData={artistTrends}
-                />
-              </>
-            ) : (
-              <></>
+            {props.artist.bio && (
+              <p className="whitespace-pre-line">
+                {replaceTagsWithLinks(props.artist.bio)}
+              </p>
             )}
-          </div>
-          {props.artist.tags !== undefined &&
-            props.artist.tags.length !== 0 && (
-              <div className="flex flex-row gap-2">
-                {props.artist.tags.map((tag, index) => (
-                  <p
-                    key={index}
-                    className="rounded-md bg-dark-double-inner p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
-                  >
-                    {searchTagsArray.map(_tag => {
-                      if (tag === _tag.toLocaleLowerCase().replace(/ /g, '')) {
-                        return _tag;
-                      }
-                    })}
-                  </p>
-                ))}
-                {props.artist.country && props.artist.country !== undefined && (
-                  <div className="flex flex-row items-center gap-2 rounded-md bg-dark-double-inner p-2 px-4 text-sm">
-                    <Image
-                      alt={`${props.artist.country}`}
-                      src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-                      width={24}
-                      height={20}
-                      className={'h-4 w-6 rounded-sm '}
-                    />
-                    <p className=" ">
-                      {countryCodes.map((country, index) => {
+
+            {artistTrends && artistTrends.length !== 0 && (
+              <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
+                <>
+                  <ArtistTrendGraph
+                    key={'followersGraph'}
+                    artistInfo={props.artist}
+                    trendBy="followers"
+                    trendData={artistTrends}
+                  />
+                  <ArtistTrendGraph
+                    key={'tweetsGraph'}
+                    artistInfo={props.artist}
+                    trendBy="tweets"
+                    trendData={artistTrends}
+                  />
+                </>
+              </div>
+            )}
+            {props.artist.tags !== undefined &&
+              props.artist.tags.length !== 0 && (
+                <div className="flex flex-row gap-2">
+                  {props.artist.tags.map((tag, index) => (
+                    <p
+                      key={index}
+                      className="rounded-md bg-dark-double-inner p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                    >
+                      {searchTagsArray.map(_tag => {
                         if (
-                          props.artist.country ===
-                          country.value.toLocaleLowerCase()
+                          tag === _tag.toLocaleLowerCase().replace(/ /g, '')
                         ) {
-                          return country.title;
+                          return _tag;
                         }
                       })}
                     </p>
-                  </div>
-                )}
-              </div>
-            )}
+                  ))}
+                  {props.artist.country &&
+                    props.artist.country !== undefined && (
+                      <div className="flex flex-row items-center gap-2 rounded-md bg-dark-double-inner p-2 px-4 text-sm">
+                        <Image
+                          alt={`${props.artist.country}`}
+                          src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
+                          width={24}
+                          height={20}
+                          className={'h-4 w-6 rounded-sm '}
+                        />
+                        <p className=" ">
+                          {countryCodes.map((country, index) => {
+                            if (
+                              props.artist.country ===
+                              country.value.toLocaleLowerCase()
+                            ) {
+                              return country.title;
+                            }
+                          })}
+                        </p>
+                      </div>
+                    )}
+                </div>
+              )}
+          </div>
         </div>
       </section>
     </>
