@@ -7,8 +7,8 @@ export default function TopNavigation() {
 
   return (
     <>
-      <header className="mx-auto flex max-w-7xl flex-row justify-between gap-3 bg-dark-bg py-8 text-sm">
-        <section className="flex flex-row gap-2 rounded-full bg-dark-inner-hover/50 p-2 px-3 backdrop-blur-xl backdrop:brightness-200">
+      <header className="mx-auto my-8 flex max-w-7xl flex-row justify-between gap-3 rounded-full bg-dark-inner p-3 text-sm">
+        <section className="flex flex-row items-center gap-2 rounded-full px-3 backdrop-blur-xl backdrop:brightness-200">
           <Link
             className={classNames(
               'rounded-full p-1 px-5 transition-all duration-200 ease-in-out md:hover:bg-dark-double-inner',
@@ -31,7 +31,7 @@ export default function TopNavigation() {
         <Link
           href={'/suggest'}
           className={classNames(
-            'flex flex-row items-center rounded-full bg-c-amber-dark p-2 px-5 font-bold text-dark-bg transition-all duration-200 ease-in-out md:hover:bg-c-amber-light'
+            'flex flex-row items-center rounded-full bg-c-amber-dark p-2 px-5 font-semibold text-dark-bg transition-all duration-200 ease-in-out md:hover:bg-c-amber-light'
           )}
         >
           Suggest artist

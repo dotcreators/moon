@@ -1,32 +1,17 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
-import RiImage2Line from '~icons/ri/image-2-line';
-import RiUserHeartLine from '~icons/ri/user-heart-line';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import RiExternalLinkLine from '~icons/ri/external-link-line';
 import Link from 'next/link';
-import RiLoader5Line from '~icons/ri/loader-5-line';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
-import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
-import {
-  Area,
-  AreaChart,
-  CartesianGrid,
-  ResponsiveContainer,
-  Tooltip,
-  XAxis,
-  YAxis,
-} from 'recharts';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
 import { ArtistTrendGraph } from './ArtistCardInfo/ArtistTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
-import RiExternalLinkFill from '~icons/ri/external-link-fill';
-import RiTwitterFill from '~icons/ri/twitter-fill';
-import CibItchIo from '~icons/cib/itch-io';
 import { searchTagsArray } from '@/utils/Tags';
+import RiLineChartFill from '~icons/ri/line-chart-fill';
 
 interface Props {
   place: number;
@@ -36,7 +21,7 @@ interface Props {
 }
 
 export const ArtistListCard: FC<Props> = props => {
-  const [loading, setLoading] = useState(true);
+  const [trendsLoading, setTrendsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [artistTrends, setArtistTrends] = useState<ArtistTrend[] | undefined>(
     undefined
@@ -46,7 +31,9 @@ export const ArtistListCard: FC<Props> = props => {
     status: string;
     response: ArtistTrend[];
   }>(
-    isOpen ? `${process.env.API_URL}trends/${props.artist.userId}` : null,
+    isOpen
+      ? `${process.env.API_URL}trends/${props.artist.userId}?range=7`
+      : null,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
@@ -55,7 +42,10 @@ export const ArtistListCard: FC<Props> = props => {
   );
 
   useEffect(() => {
-    if (data) setArtistTrends(data.response);
+    if (data) {
+      setArtistTrends(data.response);
+      setTrendsLoading(false);
+    }
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
 
@@ -66,24 +56,6 @@ export const ArtistListCard: FC<Props> = props => {
       return value.toString();
     }
   }
-
-  const CustomTooltip = (
-    active: boolean,
-    payload: { name: string; value: number; unit: string }[],
-    label: string
-  ) => {
-    if (active && payload && payload.length) {
-      return (
-        <div className="custom-tooltip">
-          <p className="label">{`${label} : ${payload[0].value}`}</p>
-          <p className="intro">test</p>
-          <p className="desc">Anything you want can be displayed here.</p>
-        </div>
-      );
-    }
-
-    return null;
-  };
 
   const replaceTagsWithLinks = (text: string) => {
     const regex = / @(\w+)/g;
@@ -303,7 +275,12 @@ export const ArtistListCard: FC<Props> = props => {
               </p>
             )}
 
-            {artistTrends && artistTrends.length !== 0 && (
+            {trendsLoading ? (
+              <div className="flex w-full flex-row justify-between gap-5">
+                <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dark-double-inner/50" />
+                <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dark-double-inner/50" />
+              </div>
+            ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
                 <>
                   <ArtistTrendGraph
@@ -319,6 +296,14 @@ export const ArtistListCard: FC<Props> = props => {
                     trendData={artistTrends}
                   />
                 </>
+              </div>
+            ) : (
+              <div className="flex w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dark-double-inner/50 p-10 text-zinc-400">
+                <RiLineChartFill className="text-xl" />
+                <p>
+                  Sorry, but there is currently no trend data recorded for this
+                  artist.
+                </p>
               </div>
             )}
             {props.artist.tags !== undefined &&
