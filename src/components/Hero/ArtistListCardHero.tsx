@@ -45,6 +45,8 @@ export const ArtistListCardHero: FC<Props> = props => {
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
 
+  useEffect(() => console.log(props.artist), [props.artist]);
+
   const replaceTagsWithLinks = (text: string) => {
     const regex = / @(\w+)/g;
     return text.split(regex).map((part, index) => {
@@ -173,7 +175,7 @@ export const ArtistListCardHero: FC<Props> = props => {
 
             {trendsLoading ? (
               <div className="flex w-full flex-row">
-                <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
+                <div className="h-[240px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
               </div>
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
@@ -193,7 +195,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                 </>
               </div>
             ) : (
-              <div className="flex w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 p-10 text-zinc-400">
+              <div className="flex h-[240px] w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400">
                 <RiLineChartFill className="text-xl" />
                 <p>
                   Sorry, but there is currently no trend data recorded for this

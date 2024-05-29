@@ -5,19 +5,43 @@ import DotcreatorsLogo from '../DotcreatorsLogo';
 import DotcreatorsLogoHero from './DotcreatorsLogoHero';
 import { BentoUserCard } from '../BentoComponents/BentoUserCard';
 import Image from 'next/image';
+import { useEffect, useState } from 'react';
+import { motion, AnimatePresence } from 'framer-motion';
 
 export default function Hero() {
+  const usernames = ['aniv1re', 'cyan', 'the08games'];
+  const [username, setUsername] = useState<string>(usernames[0]);
+  let currentItem = 0;
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      if (currentItem === usernames.length - 1) {
+        currentItem = 0;
+      } else {
+        currentItem += 1;
+      }
+      setUsername(usernames[currentItem]);
+    }, 5000);
+
+    return () => clearInterval(timer); // Clean up the interval on component unmount
+  }, []);
+
   const { data: artistProfile } = useSWR<{
     status: string;
     response: { data: ArtistProfile[]; has_next: boolean };
   }>(
-    `${process.env.API_URL}artists?page=1&limit=1&username=aniv1re`,
+    `${process.env.API_URL}artists?page=1&limit=1&username=${username}`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
     },
     {}
   );
+
+  const slideUpVariants = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+  };
 
   return (
     <section className="relative h-screen overflow-hidden">
@@ -41,18 +65,25 @@ export default function Hero() {
           pixel-related artists!
         </h1>
         {artistProfile && (
-          <div className="absolute -bottom-64 w-full">
+          <motion.div
+            key={username}
+            className="absolute top-[500px] w-full"
+            initial="hidden"
+            animate="visible"
+            exit="hidden"
+            variants={slideUpVariants}
+          >
             <ArtistListCardHero artist={artistProfile.response.data[0]} />
-          </div>
+          </motion.div>
         )}
       </div>
-      <div className="bg-dot-rose absolute -bottom-96 -z-10 h-1/2 w-full rounded-full opacity-20 blur-[256px]" />
+      <div className="bg-dot-rose absolute -top-96 -z-10 h-1/2 w-full rounded-full opacity-20 blur-[256px]" />
       <Image
         src={'/bg-pattern.jpeg'}
         alt="Background pattern"
         draggable={false}
         fill={true}
-        className="absolute -z-20 opacity-5"
+        className="absolute -z-20 opacity-10"
         priority={true}
       />
     </section>
