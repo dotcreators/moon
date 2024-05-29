@@ -17,7 +17,7 @@ export const BentoQueueCard: FC<Props> = props => {
     <section
       style={{ willChange: 'transform' }}
       className={classNames(
-        'card animation-all flex w-[30rem] flex-row items-center gap-5 rounded-2xl bg-dark-inner-hover p-2 px-5 duration-200 ease-in-out md:hover:scale-110 md:hover:cursor-pointer md:hover:bg-dark-double-inner',
+        'card animation-all bg-dot-secondary md:hover:bg-dot-tertiary flex w-[30rem] flex-row items-center gap-5 rounded-2xl p-2 px-5 duration-200 ease-in-out md:hover:scale-110 md:hover:cursor-pointer',
         props.className
       )}
     >

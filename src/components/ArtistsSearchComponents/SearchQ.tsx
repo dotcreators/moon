@@ -26,7 +26,7 @@ export const SearchQ: FC<Props> = props => {
   }, [debouncedValue]);
 
   return (
-    <section className="outline-dot-primary h-15 flex flex-row items-center gap-5 rounded-3xl bg-dark-inner p-3 px-5 group-focus:outline-2">
+    <section className="h-15 flex flex-row items-center gap-5 rounded-3xl bg-dot-primary p-3 px-5 outline-dot-primary group-focus:outline-2">
       <RiSearch2Line />
       <input
         onChange={e => setSearchQ(e.target.value)}

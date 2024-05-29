@@ -32,7 +32,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
       href={`https://twitter.com/${props.user.username}`}
       target="_blank"
       className={classNames(
-        'animation-all group flex w-full flex-col items-center gap-5 rounded-2xl bg-dark-inner-hover p-5 duration-200 ease-in-out md:hover:cursor-pointer md:hover:bg-dark-double-inner',
+        'animation-all bg-dot-secondary md:hover:bg-dot-tertiary group flex w-full flex-col items-center gap-5 rounded-2xl p-5 duration-200 ease-in-out md:hover:cursor-pointer',
         props.className
       )}
     >
@@ -73,7 +73,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
       ) : (
         <section className="flex w-full flex-row flex-wrap gap-1">
           {props.country && (
-            <div className="flex flex-row items-center gap-2 rounded-md bg-dark-double-inner p-1 px-3 transition-colors duration-200 ease-in-out group-hover:bg-dark-double-inner-hover">
+            <div className="bg-dot-tertiary group-hover:bg-dot-quaternary flex flex-row items-center gap-2 rounded-md p-1 px-3 transition-colors duration-200 ease-in-out">
               <Image
                 alt={`${props.country.title}`}
                 src={`https://flagcdn.com/${props.country.value.toLowerCase()}.svg`}
@@ -88,7 +88,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
             props.tags.map((tag, index) => (
               <p
                 key={index}
-                className="rounded-md bg-dark-double-inner p-2 px-4 text-sm  transition-colors duration-200 ease-in-out group-hover:bg-dark-double-inner-hover"
+                className="bg-dot-tertiary group-hover:bg-dot-quaternary rounded-md p-2 px-4  text-sm transition-colors duration-200 ease-in-out"
               >
                 {tag}
               </p>

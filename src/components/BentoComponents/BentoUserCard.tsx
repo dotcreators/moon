@@ -25,7 +25,7 @@ export const BentoUserCard: FC<Props> = props => {
   return (
     <section
       className={classNames(
-        'animation-all grid w-[30rem] grid-cols-2 items-center gap-5 rounded-2xl bg-dark-inner-hover p-5 duration-200 ease-in-out md:hover:-translate-x-10 md:hover:cursor-pointer md:hover:bg-dark-double-inner',
+        'animation-all bg-dot-secondary md:hover:bg-dot-tertiary grid w-[30rem] grid-cols-2 items-center gap-5 rounded-2xl p-5 duration-200 ease-in-out md:hover:-translate-x-10 md:hover:cursor-pointer',
         props.className
       )}
     >

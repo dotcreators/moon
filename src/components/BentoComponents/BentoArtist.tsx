@@ -7,7 +7,7 @@ export default function BentoArtist() {
     <section
       style={{ willChange: 'transform' }}
       className={classNames(
-        `relative col-span-2 flex h-80 w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dark-inner p-8`
+        `relative col-span-2 flex h-80 w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary p-8`
       )}
     >
       <h1 className="w-20 font-hubot-sans text-2xl">You're an artist?</h1>

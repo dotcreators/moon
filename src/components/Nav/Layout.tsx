@@ -35,9 +35,7 @@ export default function Layout({
       <header className="absolute top-0 z-20 w-full">
         <TopNavigation />
       </header>
-      <main className={classNames('mb-8 min-h-screen w-full pt-32')}>
-        {children}
-      </main>
+      <main className={classNames('mb-8 min-h-screen w-full')}>{children}</main>
       <footer>
         <BottomNavigation />
       </footer>

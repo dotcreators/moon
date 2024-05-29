@@ -14,7 +14,7 @@ export default function BentoWeeklyArtist() {
     <section
       style={{ willChange: 'transform' }}
       className={classNames(
-        `group relative flex h-80 w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dark-inner p-8`
+        `group relative flex h-80 w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary p-8`
       )}
     >
       <h1 className="z-20 w-20 font-hubot-sans text-2xl transition-all duration-200 ease-in-out group-hover:opacity-0">

@@ -18,13 +18,19 @@ const config: Config = {
       },
       colors: {
         'dot-white': '#FDFDFD',
-        'dot-primary': '#FF9D41',
+        'dot-rose': '#FA4545',
 
-        'dark-bg': '#0A0A0A',
-        'dark-inner': '#151515',
-        'dark-inner-hover': '#202020',
-        'dark-double-inner': '#303030',
-        'dark-double-inner-hover': '#454545',
+        'dot-link-primary': '#FF902B',
+        'dot-button-primary': '#FA4545',
+        'dot-button-confirm': '#CEDF52',
+        'dot-button-warning': '#FA4545',
+
+        'dot-body': '#090909',
+        'dot-primary': '#101010',
+        'dot-secondary': '#202020',
+        'dot-tertiary': '#303030',
+        'dot-quaternary': '#666666',
+
         'dark-text': '#FDFDFD',
         'c-amber-light': '#FF9D41',
         'c-amber-dark': '#F97039',

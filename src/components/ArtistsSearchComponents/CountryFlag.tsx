@@ -10,7 +10,7 @@ export interface Props {
 export const CountryFlag: FC<Props> = props => {
   return (
     <>
-      <section className="flex flex-row gap-3 rounded-3xl bg-dark-inner-hover p-1 px-3 text-sm">
+      <section className="bg-dot-secondary flex flex-row gap-3 rounded-3xl p-1 px-3 text-sm">
         \
         {props.title === 'Unknown' ? (
           <RiQuestionMark />

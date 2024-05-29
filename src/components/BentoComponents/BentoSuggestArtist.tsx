@@ -6,7 +6,7 @@ export default function BentoSuggestArtist() {
   return (
     <section
       className={classNames(
-        `relative col-span-2 flex h-80 w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dark-inner p-8`
+        `relative col-span-2 flex h-80 w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary p-8`
       )}
     >
       <h1 className="w-20 font-hubot-sans text-2xl">Recently added artists</h1>

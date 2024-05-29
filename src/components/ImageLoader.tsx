@@ -41,7 +41,7 @@ export const ImageLoader: FC<Props> = props => {
       />
       <div
         className={classNames(
-          'absolute inset-0 z-10 h-full w-full bg-dark-double-inner-hover/50 transition-opacity duration-300',
+          'bg-dot-quaternary/50 absolute inset-0 z-10 h-full w-full transition-opacity duration-300',
           {
             // 'opacity-0': isLoaded,
             'animate-pulse opacity-100': !isLoaded,

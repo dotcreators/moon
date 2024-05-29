@@ -36,9 +36,9 @@ export const SearchSortFilters: FC<Props> = props => {
         onClick={() => setToggleSortFilters(!toggleSortFilters)}
         id="tags"
         className={classNames(
-          'h-15 flex w-full flex-row items-center justify-between gap-5 bg-dark-inner p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          'h-15 flex w-full flex-row items-center justify-between gap-5 bg-dot-primary p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
           {
-            'rounded-t-3xl bg-dark-inner-hover': toggleSortFilters,
+            'bg-dot-secondary rounded-t-3xl': toggleSortFilters,
             'rounded-3xl': !toggleSortFilters,
           }
         )}
@@ -54,9 +54,9 @@ export const SearchSortFilters: FC<Props> = props => {
               className={classNames(
                 'flex flex-row items-center gap-1.5 rounded-full p-1 px-3 text-[#fdfdfd]',
                 {
-                  'bg-dark-double-inner transition-colors duration-200 ease-in-out':
+                  'bg-dot-tertiary transition-colors duration-200 ease-in-out':
                     toggleSortFilters,
-                  'bg-dark-inner-hover': !toggleSortFilters,
+                  'bg-dot-secondary': !toggleSortFilters,
                 }
               )}
             >
@@ -82,7 +82,7 @@ export const SearchSortFilters: FC<Props> = props => {
       </button>
       <section
         className={classNames(
-          'grid grid-cols-2 flex-wrap place-items-center gap-1 rounded-b-3xl bg-dark-inner p-3 text-sm',
+          'grid grid-cols-2 flex-wrap place-items-center gap-1 rounded-b-3xl bg-dot-primary p-3 text-sm',
           { hidden: !toggleSortFilters }
         )}
       >
@@ -94,8 +94,8 @@ export const SearchSortFilters: FC<Props> = props => {
               props.onSortFilterChanges(filter);
             }}
             className={classNames(
-              'flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dark-inner p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-inner-hover',
-              { 'bg-dark-inner-hover': filter == selectedSortFilter }
+              'md:hover:bg-dot-secondary flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out',
+              { 'bg-dot-secondary': filter == selectedSortFilter }
             )}
           >
             {filter == 'Username' ? (
@@ -115,7 +115,7 @@ export const SearchSortFilters: FC<Props> = props => {
             setSelectedSortFilter('Followers');
             props.onSortFilterChanges('Followers');
           }}
-          className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+          className="bg-dot-secondary md:hover:bg-dot-tertiary col-span-2 mt-3 w-full rounded-full p-2 px-3 text-sm transition-colors duration-200 ease-in-out"
         >
           Reset sort
         </button>

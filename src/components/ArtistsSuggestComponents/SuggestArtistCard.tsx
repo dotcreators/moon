@@ -29,7 +29,7 @@ export const SuggestArtistCard: FC<Props> = props => {
       href={`https://twitter.com/${props.user.username}`}
       target="_blank"
       className={classNames(
-        'animation-all flex h-28 w-full flex-row items-center gap-5 rounded-2xl bg-dark-inner-hover p-5 duration-200 ease-in-out md:hover:cursor-pointer md:hover:bg-dark-double-inner',
+        'animation-all bg-dot-secondary md:hover:bg-dot-tertiary flex h-28 w-full flex-row items-center gap-5 rounded-2xl p-5 duration-200 ease-in-out md:hover:cursor-pointer',
         props.className
       )}
     >
@@ -37,7 +37,7 @@ export const SuggestArtistCard: FC<Props> = props => {
       <div className="relative">
         <div
           className={classNames(
-            'absolute inset-0 z-20 h-20 w-20 animate-pulse rounded-xl bg-dark-double-inner',
+            'bg-dot-tertiary absolute inset-0 z-20 h-20 w-20 animate-pulse rounded-xl',
             {
               hidden: isImageLoaded,
             }

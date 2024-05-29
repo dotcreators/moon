@@ -13,14 +13,14 @@ export const InnerButton: FC<Props> = props => {
     return (
       <Link
         href={props.link}
-        className="flex w-fit flex-row items-center gap-1 rounded-full bg-dark-inner-hover px-8 py-1 text-sm transition-all duration-200 ease-in-out md:hover:bg-dark-double-inner"
+        className="bg-dot-secondary md:hover:bg-dot-tertiary flex w-fit flex-row items-center gap-1 rounded-full px-8 py-1 text-sm transition-all duration-200 ease-in-out"
       >
         <RiArrowRightUpLine /> {props.title}
       </Link>
     );
   } else {
     return (
-      <button className="flex w-fit flex-row items-center gap-1 rounded-full bg-dark-inner-hover px-8 py-1 text-sm transition-all duration-200 ease-in-out md:hover:bg-dark-double-inner">
+      <button className="bg-dot-secondary md:hover:bg-dot-tertiary flex w-fit flex-row items-center gap-1 rounded-full px-8 py-1 text-sm transition-all duration-200 ease-in-out">
         <RiArrowRightUpLine /> {props.title}
       </button>
     );

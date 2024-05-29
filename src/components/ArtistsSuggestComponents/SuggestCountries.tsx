@@ -43,9 +43,9 @@ export const SuggestCountries: FC<Props> = props => {
       <button
         onClick={() => setToggleCountries(!toggleCountries)}
         className={classNames(
-          'h-15 flex w-full flex-row items-center gap-5 bg-dark-inner-hover p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          'h-15 bg-dot-secondary flex w-full flex-row items-center gap-5 p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
           {
-            'rounded-t-3xl bg-dark-inner-hover': toggleCountries,
+            'bg-dot-secondary rounded-t-3xl': toggleCountries,
             'rounded-3xl': !toggleCountries,
           }
         )}
@@ -55,7 +55,7 @@ export const SuggestCountries: FC<Props> = props => {
           {selectedCountry.title ? (
             <section
               className={classNames(
-                'flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl bg-dark-double-inner p-2 px-3 text-sm transition-colors duration-200 ease-in-out'
+                'bg-dot-tertiary flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out'
               )}
             >
               {selectedCountry.title === 'Unknown' ? (
@@ -76,7 +76,7 @@ export const SuggestCountries: FC<Props> = props => {
           ) : (
             <p
               className={classNames(
-                'flex flex-wrap items-center justify-end gap-1 rounded-full bg-dark-double-inner p-1 px-3 text-sm text-zinc-400 transition-colors duration-200 ease-in-out'
+                'bg-dot-tertiary flex flex-wrap items-center justify-end gap-1 rounded-full p-1 px-3 text-sm text-zinc-400 transition-colors duration-200 ease-in-out'
               )}
             >
               Select country...
@@ -92,7 +92,7 @@ export const SuggestCountries: FC<Props> = props => {
       </button>
       <section
         className={classNames(
-          'flex flex-col gap-2 scroll-smooth rounded-b-3xl border-4 border-t-0 border-dark-inner-hover bg-dark-inner p-3',
+          'border-dot-secondary flex flex-col gap-2 scroll-smooth rounded-b-3xl border-4 border-t-0 bg-dot-primary p-3',
           {
             hidden: !toggleCountries,
           }
@@ -104,7 +104,7 @@ export const SuggestCountries: FC<Props> = props => {
             placeholder="Input country..."
             value={searchText}
             onChange={e => setSearchText(e.target.value)}
-            className="w-full rounded-md border-b-2 border-transparent bg-dark-inner-hover p-2 px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-dark-double-inner"
+            className="bg-dot-secondary focus:border-dot-tertiary w-full rounded-md border-b-2 border-transparent p-2 px-3 text-sm outline-none placeholder:text-zinc-400"
           />
         </div>
         <section
@@ -127,9 +127,9 @@ export const SuggestCountries: FC<Props> = props => {
                 });
               }}
               className={classNames(
-                'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-inner-hover',
+                'md:hover:bg-dot-secondary flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out',
                 {
-                  'bg-dark-inner-hover': selectedCountry.value == country.value,
+                  'bg-dot-secondary': selectedCountry.value == country.value,
                 }
               )}
             >
@@ -153,7 +153,7 @@ export const SuggestCountries: FC<Props> = props => {
             setSelectedCountry({ title: '', value: '' });
             props.onCountryChanges(undefined);
           }}
-          className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+          className="bg-dot-secondary md:hover:bg-dot-tertiary col-span-2 mt-3 w-full rounded-full p-2 px-3 text-sm transition-colors duration-200 ease-in-out"
         >
           Reset country
         </button>

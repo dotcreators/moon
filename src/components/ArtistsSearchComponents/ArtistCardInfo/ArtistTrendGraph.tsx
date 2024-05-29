@@ -55,7 +55,7 @@ export const ArtistTrendGraph: FC<Props> = props => {
   }
 
   return (
-    <div className="relative flex w-full flex-col gap-5 rounded-2xl bg-dark-double-inner/50 p-5">
+    <div className="bg-dot-tertiary/50 relative flex w-full flex-col gap-5 rounded-2xl p-5">
       <p className="text-sm text-zinc-400">
         {props.trendBy.charAt(0).toUpperCase() + props.trendBy.slice(1)} growing
         trend

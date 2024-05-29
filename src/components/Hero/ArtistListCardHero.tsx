@@ -8,19 +8,17 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistTrendGraph } from './ArtistCardInfo/ArtistTrendGraph';
+import { ArtistTrendGraph } from '../ArtistsSearchComponents/ArtistCardInfo/ArtistTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 
 interface Props {
-  place: number;
   artist: ArtistProfile;
-  isSmall: boolean;
   className?: string;
 }
 
-export const ArtistListCard: FC<Props> = props => {
+export const ArtistListCardHero: FC<Props> = props => {
   const [trendsLoading, setTrendsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [artistTrends, setArtistTrends] = useState<ArtistTrend[] | undefined>(
@@ -31,9 +29,7 @@ export const ArtistListCard: FC<Props> = props => {
     status: string;
     response: ArtistTrend[];
   }>(
-    isOpen
-      ? `${process.env.API_URL}trends/${props.artist.userId}?range=7`
-      : null,
+    `${process.env.API_URL}trends/${props.artist.userId}?range=7`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
@@ -48,14 +44,6 @@ export const ArtistListCard: FC<Props> = props => {
     }
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
-
-  function formatValue(value: number): string {
-    if (value >= 1000) {
-      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`;
-    } else {
-      return value.toString();
-    }
-  }
 
   const replaceTagsWithLinks = (text: string) => {
     const regex = / @(\w+)/g;
@@ -82,101 +70,12 @@ export const ArtistListCard: FC<Props> = props => {
       <section
         onClick={() => (!isOpen ? setIsOpen(!isOpen) : '')}
         className={classNames(
-          'group/main md:hover:bg-dot-secondary flex w-full flex-col justify-between gap-5 overflow-hidden bg-dot-primary transition-transform duration-200 ease-in-out',
-          props.className,
-          {
-            'rounded-2xl ': !props.isSmall,
-            'md:hover:cursor-default': isOpen,
-            'p-2 px-5 md:hover:cursor-pointer': !isOpen,
-            'bg-dot-secondary': isOpen,
-          }
+          'group/main flex w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary transition-transform duration-200 ease-in-out ',
+          props.className
         )}
       >
-        <div
-          className={classNames(
-            'flex w-full flex-row items-center justify-between',
-            { hidden: isOpen, block: !isOpen }
-          )}
-        >
-          <div className={classNames('flex flex-row items-center gap-4')}>
-            <Link
-              href={props.artist.url}
-              target="_blank"
-              className="group relative"
-            >
-              <div className="relative z-10 overflow-hidden rounded-full">
-                <ImageLoader
-                  alt={'Avatar for ' + props.artist.username}
-                  src={props.artist.images.avatar}
-                  width={35}
-                  height={35}
-                  className={classNames(
-                    'transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
-                  )}
-                />
-              </div>
-              <RiExternalLinkLine className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-sm opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100" />
-            </Link>
-            <div className={classNames('flex flex-row items-center gap-4')}>
-              <h1
-                className={classNames(
-                  'flex max-w-96 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black'
-                )}
-              >
-                {props.artist.country && (
-                  <Image
-                    alt={`${props.artist.country}`}
-                    src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-                    width={24}
-                    height={20}
-                    className={'h-5 w-7 rounded-md'}
-                  />
-                )}
-                {props.artist.name}
-              </h1>
-              <p
-                className={classNames('truncate text-ellipsis text-zinc-400', {
-                  'text-sm': props.isSmall,
-                })}
-              >
-                @{props.artist.username}
-              </p>
-            </div>
-          </div>
-          <div className="flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
-            <div
-              className={classNames(
-                'flex flex-row items-center justify-end gap-2',
-                { 'min-w-20': !props.isSmall, 'min-w-16': [props.isSmall] }
-              )}
-            >
-              <h1 className={classNames('', { 'text-sm': props.isSmall })}>
-                {formatValue(props.artist.followersCount)}
-              </h1>
-              <p className="text-zinc-400">followers</p>
-            </div>
-            <div
-              className={classNames(
-                'flex flex-row items-center justify-end gap-2',
-                { 'min-w-20': !props.isSmall, 'min-w-16': [props.isSmall] }
-              )}
-            >
-              <h1 className={classNames('', { 'text-sm': props.isSmall })}>
-                {formatValue(props.artist.tweetsCount)}
-              </h1>
-              <p className="text-zinc-400">posts</p>
-            </div>
-            <RiArrowDownSLine />
-          </div>
-        </div>
-
         {/* MoreInfo */}
-        <div
-          className={classNames('relative flex flex-col gap-5 ', {
-            hidden: !isOpen,
-            block: isOpen,
-          })}
-        >
+        <div className={classNames('relative flex flex-col gap-5 ')}>
           {props.artist.images.banner !== undefined && (
             <>
               <div className="absolute w-full">
@@ -203,12 +102,6 @@ export const ArtistListCard: FC<Props> = props => {
               </div>
             </>
           )}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className="absolute right-3 top-2.5 z-20 h-fit place-self-start rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary"
-          >
-            <RiArrowDownSLine className="rotate-180" />
-          </button>
           <div className="flex w-full flex-col gap-5 px-5 pb-5">
             <div className="z-20 flex flex-row items-center justify-between gap-3">
               <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
@@ -280,7 +173,7 @@ export const ArtistListCard: FC<Props> = props => {
 
             {trendsLoading ? (
               <div className="flex w-full flex-row">
-                <div className="bg-dot-tertiary/50 h-[104px] w-full animate-pulse rounded-2xl" />
+                <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
               </div>
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
@@ -300,7 +193,7 @@ export const ArtistListCard: FC<Props> = props => {
                 </>
               </div>
             ) : (
-              <div className="bg-dot-tertiary/50 flex w-full flex-row items-center justify-center gap-3 rounded-2xl p-10 text-zinc-400">
+              <div className="flex w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 p-10 text-zinc-400">
                 <RiLineChartFill className="text-xl" />
                 <p>
                   Sorry, but there is currently no trend data recorded for this
@@ -314,7 +207,7 @@ export const ArtistListCard: FC<Props> = props => {
                   {props.artist.tags.map((tag, index) => (
                     <p
                       key={index}
-                      className="bg-dot-tertiary rounded-md p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                      className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
                     >
                       {searchTagsArray.map(_tag => {
                         if (
@@ -327,7 +220,7 @@ export const ArtistListCard: FC<Props> = props => {
                   ))}
                   {props.artist.country &&
                     props.artist.country !== undefined && (
-                      <div className="bg-dot-tertiary flex flex-row items-center gap-2 rounded-md p-2 px-4 text-sm">
+                      <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
                         <Image
                           alt={`${props.artist.country}`}
                           src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}

@@ -91,7 +91,7 @@ export const SuggestStepOne: FC<Props> = props => {
       <label className="flex w-full flex-col gap-2">
         <span className="mx-3 text-sm text-zinc-400">Input user tag</span>
         <div className="flex flex-row items-center gap-3">
-          <section className="h-15 flex w-full flex-row items-center gap-3 rounded-3xl bg-dark-inner-hover p-3 px-5">
+          <section className="h-15 bg-dot-secondary flex w-full flex-row items-center gap-3 rounded-3xl p-3 px-5">
             <RiAtLine />
             <div className="flex w-full flex-row items-center">
               <p className="text-zinc-400">twitter.com/</p>
@@ -124,7 +124,7 @@ export const SuggestStepOne: FC<Props> = props => {
         ) : (
           <section
             className={classNames(
-              'animation-all relative grid h-28 w-full place-items-center gap-5 overflow-hidden rounded-2xl bg-dark-inner-hover p-5',
+              'animation-all bg-dot-secondary relative grid h-28 w-full place-items-center gap-5 overflow-hidden rounded-2xl p-5',
               {
                 hidden: !isError && !isLoading,
               }

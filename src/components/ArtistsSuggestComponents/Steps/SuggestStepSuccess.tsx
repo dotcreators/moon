@@ -15,11 +15,11 @@ export const SuggestStepSuccess: FC<Props> = props => {
   return (
     <section
       className={classNames(
-        'mx-auto flex h-fit w-full flex-col items-start justify-center gap-10 rounded-2xl bg-dark-inner',
+        'mx-auto flex h-fit w-full flex-col items-start justify-center gap-10 rounded-2xl bg-dot-primary',
         props.className
       )}
     >
-      <div className="relative w-full overflow-hidden rounded-2xl bg-dark-inner-hover p-8">
+      <div className="bg-dot-secondary relative w-full overflow-hidden rounded-2xl p-8">
         <div className="flex max-w-64 flex-col gap-3">
           <h1 className="text-lg">Thank you for artist suggestion!</h1>
           <p className="text-zinc-400">
@@ -39,7 +39,7 @@ export const SuggestStepSuccess: FC<Props> = props => {
       <div className="flex w-full flex-row gap-5">
         <Link
           href="/lists"
-          className="group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-dark-inner-hover p-2 px-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+          className="bg-dot-secondary md:hover:bg-dot-tertiary group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 transition-colors duration-200 ease-in-out"
         >
           Back to artists
           <RiArrowRightUpLine />
@@ -49,7 +49,7 @@ export const SuggestStepSuccess: FC<Props> = props => {
             props.onAddAnother();
           }}
           className={classNames(
-            'group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-lime-400 p-2 px-5 font-bold text-dark-bg transition-colors duration-200 ease-in-out md:hover:bg-lime-200'
+            'text-dot-body group flex w-full flex-row items-center justify-between gap-1 rounded-xl bg-lime-400 p-2 px-5 font-bold transition-colors duration-200 ease-in-out md:hover:bg-lime-200'
           )}
         >
           Suggest more

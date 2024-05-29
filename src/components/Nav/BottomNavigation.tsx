@@ -2,6 +2,7 @@ import Link from 'next/link';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import SimpleIconsBoosty from '~icons/simple-icons/boosty';
 import RiDiscordFill from '~icons/ri/discord-fill';
+import DotcreatorsLogo from '../DotcreatorsLogo';
 
 export default function BottomNavigation() {
   const supportLinks = [
@@ -36,7 +37,7 @@ export default function BottomNavigation() {
 
   return (
     <section className="w-full py-16">
-      <div className="mx-auto flex h-56 max-w-7xl flex-row justify-between rounded-2xl bg-dark-inner p-10">
+      <div className="mx-auto flex h-56 max-w-7xl flex-row justify-between rounded-2xl bg-dot-primary p-10">
         <div className="flex flex-row gap-5">
           <button
             onClick={() => {}}
@@ -56,7 +57,12 @@ export default function BottomNavigation() {
 
         <div className="flex flex-col justify-between">
           <div className="flex flex-col gap-3">
-            <h1 className="font-hubot-sans text-xl uppercase">.creators</h1>
+            <h1 className="flex flex-row items-center gap-1 font-hubot-sans text-xl uppercase">
+              <span className="scale-[75%]">
+                <DotcreatorsLogo />
+              </span>{' '}
+              dotcreators
+            </h1>
             <p className="max-w-96 text-sm">
               Track, share and grow together with community of talented
               pixel-related artists.
@@ -75,7 +81,7 @@ export default function BottomNavigation() {
             {supportLinks.map((link, indexLink) => (
               <Link
                 key={indexLink}
-                className="md:hover:text-dot-white inline max-w-40 text-sm text-zinc-400 duration-200 ease-in-out"
+                className="inline max-w-40 text-sm text-zinc-400 duration-200 ease-in-out md:hover:text-dot-white"
                 href={link.link}
               >
                 {link.title} <RiArrowRightUpLine className="inline" />
@@ -89,7 +95,7 @@ export default function BottomNavigation() {
             {legalLinks.map((link, indexLink) => (
               <Link
                 key={indexLink}
-                className="md:hover:text-dot-white inline max-w-40 text-sm text-zinc-400 duration-200 ease-in-out"
+                className="inline max-w-40 text-sm text-zinc-400 duration-200 ease-in-out md:hover:text-dot-white"
                 href={link.link}
               >
                 {link.title} <RiArrowRightUpLine className="inline" />

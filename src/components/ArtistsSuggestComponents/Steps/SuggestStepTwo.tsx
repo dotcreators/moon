@@ -58,7 +58,7 @@ export const SuggestStepTwo: FC<Props> = props => {
 
       <section className="flex w-full flex-col gap-2">
         <p className="mx-3 text-sm text-zinc-400">Tags</p>
-        <section className="grid w-full grid-cols-3 place-items-center overflow-hidden rounded-2xl bg-dark-inner-hover">
+        <section className="bg-dot-secondary grid w-full grid-cols-3 place-items-center overflow-hidden rounded-2xl">
           {tags.map((tag, index) => {
             const row = Math.floor(index / 3);
             const col = index % 3;
@@ -74,14 +74,13 @@ export const SuggestStepTwo: FC<Props> = props => {
                 key={tag}
                 onClick={() => selectedTagsHandler(tag)}
                 className={classNames(
-                  'w-full border-dark-inner p-3 py-5 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner',
+                  'md:hover:bg-dot-tertiary w-full border-dot-primary p-3 py-5 transition-colors duration-200 ease-in-out',
                   borderClass,
                   {
                     'col-span-3 border-r-0': index + 1 === tags.length,
-                    'bg-dark-double-inner md:hover:bg-dark-double-inner-hover':
+                    'bg-dot-tertiary md:hover:bg-dot-quaternary':
                       selectedTags.includes(tag),
-                    'md:hover:bg-dark-double-inner':
-                      !selectedTags.includes(tag),
+                    'md:hover:bg-dot-tertiary': !selectedTags.includes(tag),
                   }
                 )}
               >

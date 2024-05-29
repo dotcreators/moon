@@ -26,7 +26,7 @@ export default function Lists() {
 
   return (
     <>
-      <section className="relative m-auto mt-10  flex h-fit w-full max-w-7xl flex-row items-start justify-center gap-5">
+      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-row items-start justify-center gap-5 pt-32 ">
         <div className="sticky top-8">
           <ArtistsSearch
             searchString={router.query}

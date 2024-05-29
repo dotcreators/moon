@@ -73,7 +73,7 @@ export default function StepController() {
 
   const renderSteps = () => (
     <section className="flex w-full flex-col gap-8">
-      <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dark-inner-hover p-5 px-10">
+      <section className="bg-dot-secondary relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl p-5 px-10">
         <p className="text-lg">Suggest artist</p>
         <Image
           src="/icons/thinking_face_anim.png"
@@ -94,7 +94,7 @@ export default function StepController() {
             <div
               className={classNames('rounded-full py-1', {
                 'bg-[#FF8C21]': index <= currentFormStep,
-                'bg-dark-inner-hover': index > currentFormStep,
+                'bg-dot-secondary': index > currentFormStep,
               })}
             />
           </div>
@@ -108,7 +108,7 @@ export default function StepController() {
       {currentFormStep > 0 && (
         <button
           onClick={() => setCurrentFormStep(prev => prev - 1)}
-          className="rounded-xl bg-dark-inner-hover p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+          className="bg-dot-secondary md:hover:bg-dot-tertiary rounded-xl p-2 px-3 transition-colors duration-200 ease-in-out"
         >
           <RiArrowGoBackFill />
         </button>
@@ -117,7 +117,7 @@ export default function StepController() {
         onClick={handleNextStep}
         disabled={!isNextStepAllowed}
         className={classNames(
-          'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dark-bg transition-colors duration-200 ease-in-out',
+          'text-dot-body group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold transition-colors duration-200 ease-in-out',
           {
             'cursor-pointer bg-c-amber-dark md:hover:bg-c-amber-light':
               isNextStepAllowed && currentFormStep !== 2,
@@ -137,7 +137,7 @@ export default function StepController() {
   return (
     <>
       {currentFormStep !== steps.length ? (
-        <section className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dark-inner p-10">
+        <section className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dot-primary p-10">
           {renderSteps()}
           <SuggestStepOne
             onArtistFetched={setFetchedArtistsProfile}
@@ -165,7 +165,7 @@ export default function StepController() {
           {renderButtons()}
         </section>
       ) : (
-        <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dark-inner p-10">
+        <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-10">
           <SuggestStepSuccess
             onAddAnother={() => resetForm()}
             onClose={resetForm}

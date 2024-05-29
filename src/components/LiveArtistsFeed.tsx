@@ -28,23 +28,23 @@ export default function LiveArtistsFeed() {
       <section className="flex flex-row gap-3">
         {isLoading ? (
           <>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
-            <div className="h-10 w-32 animate-pulse rounded-full bg-dark-inner"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
+            <div className="h-10 w-32 animate-pulse rounded-full bg-dot-primary"></div>
           </>
         ) : (
           artists &&
           artists.response.data.map((artist, index) => (
             <motion.div
               key={artist.requestId}
-              className="flex h-10 min-w-max flex-row items-center gap-2 rounded-full bg-dark-inner p-1 px-4 text-sm"
+              className="flex h-10 min-w-max flex-row items-center gap-2 rounded-full bg-dot-primary p-1 px-4 text-sm"
               initial={{ opacity: 0, x: -50 }}
               animate={{ opacity: 1, x: 0 }}
               transition={{ delay: index * 0.1 }}

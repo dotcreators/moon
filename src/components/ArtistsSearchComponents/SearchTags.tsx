@@ -30,7 +30,11 @@ export const SearchTags: FC<Props> = props => {
     }
 
     if (tags && tags.length > 0) {
-      const getTags = tags.map(tag => (tag === 'workoffers' ? 'Work offers' : tag.charAt(0).toUpperCase() + tag.slice(1)));
+      const getTags = tags.map(tag =>
+        tag === 'workoffers'
+          ? 'Work offers'
+          : tag.charAt(0).toUpperCase() + tag.slice(1)
+      );
       setSelectedTags(getTags);
       props.onTagsChanged(getTags);
     }
@@ -54,9 +58,9 @@ export const SearchTags: FC<Props> = props => {
       <button
         onClick={() => setToggledTag(!toggleTag)}
         className={classNames(
-          'flex w-full flex-col items-center justify-center gap-3 bg-dark-inner p-3 px-5 outline-none transition-padding duration-200 ease-in-out',
+          'flex w-full flex-col items-center justify-center gap-3 bg-dot-primary p-3 px-5 outline-none transition-padding duration-200 ease-in-out',
           {
-            'rounded-t-3xl bg-dark-inner-hover': toggleTag,
+            'bg-dot-secondary rounded-t-3xl': toggleTag,
             'rounded-3xl': !toggleTag,
             'p-5': selectedTags.length !== 0,
           }
@@ -69,27 +73,37 @@ export const SearchTags: FC<Props> = props => {
               className={classNames(
                 'flex flex-wrap items-center justify-end gap-1 rounded-full p-1 px-3 text-sm text-zinc-400 transition-colors duration-200 ease-in-out',
                 {
-                  'bg-dark-inner-hover': !toggleTag,
-                  'bg-dark-double-inner': toggleTag,
+                  'bg-dot-secondary': !toggleTag,
+                  'bg-dot-tertiary': toggleTag,
                   hidden: selectedTags.length !== 0,
                 }
               )}
             >
               {selectedTags.length === 0 && 'Select tags...'}
             </p>
-            <RiArrowDownSLine className={classNames('transition-transform duration-200 ease-in-out', { 'rotate-180': toggleTag })} />
+            <RiArrowDownSLine
+              className={classNames(
+                'transition-transform duration-200 ease-in-out',
+                { 'rotate-180': toggleTag }
+              )}
+            />
           </div>
         </div>
-        <div className={classNames('flex w-full flex-wrap items-start justify-start gap-2', { hidden: selectedTags.length === 0 })}>
+        <div
+          className={classNames(
+            'flex w-full flex-wrap items-start justify-start gap-2',
+            { hidden: selectedTags.length === 0 }
+          )}
+        >
           {selectedTags.map((tag, index) => (
             <span
               key={index}
               className={classNames(
                 'flex flex-row items-center justify-center gap-1.5 rounded-full p-1 px-3 text-sm transition-colors duration-200 ease-in-out',
                 {
-                  'bg-dark-double-inner text-[#fdfdfd]': selectedTags.length > 0,
-                  'bg-dark-inner-hover': !toggleTag,
-                  'bg-dark-double-inner': toggleTag,
+                  'bg-dot-tertiary text-[#fdfdfd]': selectedTags.length > 0,
+                  'bg-dot-secondary': !toggleTag,
+                  'bg-dot-tertiary': toggleTag,
                 }
               )}
             >
@@ -115,14 +129,19 @@ export const SearchTags: FC<Props> = props => {
           ))}
         </div>
       </button>
-      <section className={classNames('grid grid-cols-2 flex-wrap place-items-start gap-1 rounded-b-3xl bg-dark-inner p-3 text-sm', { hidden: !toggleTag })}>
+      <section
+        className={classNames(
+          'grid grid-cols-2 flex-wrap place-items-start gap-1 rounded-b-3xl bg-dot-primary p-3 text-sm',
+          { hidden: !toggleTag }
+        )}
+      >
         {tags.map((tag, index) => (
           <button
             key={index}
             onClick={() => selectedTagsHandler(tag)}
             className={classNames(
-              'flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dark-inner p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dark-inner-hover',
-              { 'bg-dark-inner-hover': selectedTags.includes(tag) }
+              'md:hover:bg-dot-secondary flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out',
+              { 'bg-dot-secondary': selectedTags.includes(tag) }
             )}
           >
             {tag == 'Commission' || tag == 'Work offers' ? (
@@ -148,7 +167,7 @@ export const SearchTags: FC<Props> = props => {
             setSelectedTags([]);
             props.onTagsChanged([]);
           }}
-          className="col-span-2 mt-3 w-full rounded-full bg-dark-inner-hover p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dark-double-inner"
+          className="bg-dot-secondary md:hover:bg-dot-tertiary col-span-2 mt-3 w-full rounded-full p-2 px-3 text-sm transition-colors duration-200 ease-in-out"
         >
           Reset tags
         </button>

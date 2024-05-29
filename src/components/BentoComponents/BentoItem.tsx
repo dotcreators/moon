@@ -23,7 +23,7 @@ export const BentoItem: FC<Props> = props => {
   return (
     <section
       className={classNames(
-        `group relative flex w-full min-w-[25rem] flex-col justify-between gap-5 overflow-hidden rounded-2xl border border-dark-text/15 bg-dark-inner p-5 transition-all duration-200 ease-in-out md:hover:border-dark-double-inner md:hover:bg-dark-inner-hover`,
+        `md:hover:bg-dot-secondary md:hover:border-dot-tertiary group relative flex w-full min-w-[25rem] flex-col justify-between gap-5 overflow-hidden rounded-2xl border border-dark-text/15 bg-dot-primary p-5 transition-all duration-200 ease-in-out`,
         props.className,
         {
           'min-h-[25rem]': props.options === undefined,
