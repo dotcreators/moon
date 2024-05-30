@@ -3,9 +3,9 @@ import ArtistSearchPanel from './CustomComponents/ArtistsSearchPanel';
 export default function FindCreators() {
   return (
     <section className="grid w-full grid-cols-2 items-center gap-16">
-      <div className="flex flex-col gap-5">
+      <div className=" flex-col gap-3">
         <h1 className="text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
-          Discover creators
+          Find new creators
         </h1>
         <p className="text-pretty text-2xl">
           Search creators by tags and countries <br />

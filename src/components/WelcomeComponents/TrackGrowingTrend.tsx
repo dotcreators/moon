@@ -26,12 +26,12 @@ export default function TrackGrowingTrend() {
         </div>
         <div className="absolute -bottom-32 -z-10 h-64 w-full rounded-full bg-dot-rose opacity-30 blur-3xl" />
       </div>
-      <div className="flex flex-col gap-5">
+      <div className="flex flex-col gap-3">
         <h1 className="text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
-          Track artist growth
+          Track artist grow
         </h1>
         <p className="text-pretty text-2xl">
-          Monitor the growth trends of your favorite artists and share them with
+          Follow the growth trend of your favorite artists and share it with
           everyone!
         </p>
       </div>
