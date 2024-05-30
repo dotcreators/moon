@@ -45,7 +45,7 @@ export const SearchCountries: FC<Props> = props => {
         className={classNames(
           'h-15 flex w-full flex-row items-center gap-5 bg-dot-primary p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
           {
-            'bg-dot-secondary rounded-t-3xl': toggleCountries,
+            'rounded-t-3xl bg-dot-secondary': toggleCountries,
             'rounded-3xl': !toggleCountries,
           }
         )}
@@ -110,7 +110,7 @@ export const SearchCountries: FC<Props> = props => {
             placeholder="Input country..."
             value={searchText}
             onChange={e => setSearchText(e.target.value)}
-            className="bg-dot-secondary focus:border-dot-tertiary w-full rounded-md border-b-2 border-transparent p-2 px-3 text-sm outline-none placeholder:text-zinc-400"
+            className="w-full rounded-md border-b-2 border-transparent bg-dot-secondary p-2 px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-dot-tertiary"
           />
         </div>
         <section
@@ -133,7 +133,7 @@ export const SearchCountries: FC<Props> = props => {
                 });
               }}
               className={classNames(
-                'md:hover:bg-dot-secondary flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out',
+                'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
                 {
                   'bg-dot-secondary': selectedCountry.value == country.value,
                 }
@@ -159,7 +159,7 @@ export const SearchCountries: FC<Props> = props => {
             setSelectedCountry({ title: '', value: '' });
             props.onCountryChanges({ title: '', value: '' });
           }}
-          className="bg-dot-secondary md:hover:bg-dot-tertiary col-span-2 mt-3 w-full rounded-full p-2 px-3 text-sm transition-colors duration-200 ease-in-out"
+          className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >
           Reset country
         </button>

@@ -4,22 +4,26 @@ import BentoSuggestArtist from '@/components/BentoComponents/BentoSuggestArtist'
 import BentoWeeklyArtist from '@/components/BentoComponents/BentoWeeklyArtist';
 import LiveArtistsFeed from '@/components/LiveArtistsFeed';
 import Hero from '@/components/Hero/Hero';
+import FindCreators from '@/components/WelcomeComponents/FindCreators';
+import TrackGrowingTrend from '@/components/WelcomeComponents/TrackGrowingTrend';
+import ArtistsMarquee from '@/components/WelcomeComponents/ArtistsMarquee';
 
 export default function Home() {
   return (
     <>
-      <div className="mb-32">
-        <Hero />
-      </div>
-      <section className="m-auto flex w-full max-w-7xl flex-col items-center justify-center gap-10">
-        <LiveArtistsFeed />
+      <Hero />
+      <section className="m-auto my-32 flex w-full max-w-6xl flex-col items-center justify-center gap-32">
+        <FindCreators />
+        <TrackGrowingTrend />
+        {/* <LiveArtistsFeed />
         <section className="grid w-full grid-cols-3 gap-5">
           <BentoArtist />
           <BentoViewArtistsList />
           <BentoWeeklyArtist />
           <BentoSuggestArtist />
-        </section>
+        </section> */}
       </section>
+      <ArtistsMarquee />
     </>
   );
 }
