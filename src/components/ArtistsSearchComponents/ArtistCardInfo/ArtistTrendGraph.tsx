@@ -17,6 +17,7 @@ interface Props {
   artistInfo: ArtistProfile;
   trendData: ArtistTrend[];
   trendBy: 'followers' | 'tweets';
+  height?: number;
 }
 
 export const ArtistTrendGraph: FC<Props> = props => {
@@ -55,12 +56,15 @@ export const ArtistTrendGraph: FC<Props> = props => {
   }
 
   return (
-    <div className="bg-dot-tertiary/50 relative flex w-full flex-col gap-5 rounded-2xl p-5">
+    <div className="relative flex w-full flex-col gap-5 rounded-2xl bg-dot-tertiary/50 p-5">
       <p className="text-sm text-zinc-400">
         {props.trendBy.charAt(0).toUpperCase() + props.trendBy.slice(1)} growing
         trend
       </p>
-      <ResponsiveContainer width="100%" height={200}>
+      <ResponsiveContainer
+        width="100%"
+        height={props.height ? props.height : 200}
+      >
         <AreaChart
           data={props.trendData}
           margin={{ top: 0, right: 30, left: -20, bottom: -10 }}

@@ -12,6 +12,7 @@ export default function Hero() {
   const usernames = ['aniv1re', 'cyan', 'the08games'];
   const [username, setUsername] = useState<string>(usernames[0]);
   let currentItem = 0;
+  const SWAP_TIME = 10;
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -21,7 +22,7 @@ export default function Hero() {
         currentItem += 1;
       }
       setUsername(usernames[currentItem]);
-    }, 5000);
+    }, 1000 * SWAP_TIME);
 
     return () => clearInterval(timer); // Clean up the interval on component unmount
   }, []);
@@ -57,13 +58,13 @@ export default function Hero() {
         ))} */}
       <div className="relative mx-auto flex h-screen max-w-7xl flex-col items-center gap-5 overflow-hidden pt-32">
         <DotcreatorsLogoHero />
-        <h1 className="from-dot-rose max-w-[60%] text-pretty bg-gradient-to-b to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
+        <h1 className="max-w-[60%] text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
           The place for pixel artists
         </h1>
-        <h1 className="max-w-[40%] text-pretty text-center text-2xl">
+        <p className="max-w-[40%] text-pretty text-center text-2xl">
           Track, share and grow together with community of talented
           pixel-related artists!
-        </h1>
+        </p>
         {artistProfile && (
           <motion.div
             key={username}
@@ -77,13 +78,13 @@ export default function Hero() {
           </motion.div>
         )}
       </div>
-      <div className="bg-dot-rose absolute -top-96 -z-10 h-1/2 w-full rounded-full opacity-20 blur-[256px]" />
+      <div className="absolute -top-96 -z-10 h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
       <Image
         src={'/bg-pattern.jpeg'}
         alt="Background pattern"
         draggable={false}
         fill={true}
-        className="absolute -z-20 opacity-10"
+        className="absolute -z-30 opacity-10"
         priority={true}
       />
     </section>

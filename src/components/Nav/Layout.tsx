@@ -1,8 +1,6 @@
 import { Inter } from 'next/font/google';
 import localFont from 'next/font/local';
 import TopNavigation from './TopNavigation';
-import StepController from '../ArtistsSuggestComponents/Steps/StepController';
-import { useState } from 'react';
 import classNames from 'classnames';
 import BottomNavigation from './BottomNavigation';
 
@@ -35,7 +33,9 @@ export default function Layout({
       <header className="absolute top-0 z-20 w-full">
         <TopNavigation />
       </header>
-      <main className={classNames('mb-8 min-h-screen w-full')}>{children}</main>
+      <main className={classNames('mb-32 min-h-screen w-full')}>
+        {children}
+      </main>
       <footer>
         <BottomNavigation />
       </footer>
