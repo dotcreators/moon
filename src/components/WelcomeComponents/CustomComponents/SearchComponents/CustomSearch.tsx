@@ -31,7 +31,7 @@ export default function CustomSearch() {
     <section>
       <button
         className={classNames(
-          'flex w-full flex-col items-center justify-center gap-3 bg-dot-primary p-3 px-5 outline-none transition-padding duration-200 ease-in-out',
+          'flex w-full flex-col items-center justify-center gap-3 bg-dot-primary p-3 px-5 outline-none duration-200 ease-in-out',
           {
             'rounded-t-3xl bg-dot-secondary': toggleTag,
             'rounded-3xl': !toggleTag,

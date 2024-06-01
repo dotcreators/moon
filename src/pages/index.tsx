@@ -12,7 +12,7 @@ export default function Home() {
   return (
     <>
       <Hero />
-      <section className="m-auto my-32 flex w-full max-w-6xl flex-col items-center justify-center gap-32">
+      <section className="m-auto my-32 flex w-full max-w-6xl flex-col items-center justify-center gap-16">
         <FindCreators />
         <TrackGrowingTrend />
         {/* <LiveArtistsFeed />

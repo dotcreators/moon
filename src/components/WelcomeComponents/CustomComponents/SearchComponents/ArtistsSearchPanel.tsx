@@ -1,9 +1,8 @@
-import { SearchTags } from '../../ArtistsSearchComponents/SearchTags';
-import { SearchCountries } from '../../ArtistsSearchComponents/SearchCountries';
-import { SearchSortFilters } from '../../ArtistsSearchComponents/SearchSortFilters';
+import { SearchSortFilters } from '../../../ArtistsSearchComponents/SearchSortFilters';
 import { useState } from 'react';
 import RiSearch2Line from '~icons/ri/search-2-line';
 import CustomSearch from './CustomSearch';
+import CustomSearchCountries from './CustomSearchCountries';
 
 export default function ArtistSearchPanel() {
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
@@ -24,11 +23,11 @@ export default function ArtistSearchPanel() {
           <input
             type="search"
             placeholder="Input artist @tag..."
-            className="h-full bg-transparent text-zinc-400 outline-none placeholder:text-sm"
+            className="h-full grow bg-transparent text-zinc-400 outline-none placeholder:text-sm"
           />
         </section>
         <CustomSearch />
-        <SearchCountries onCountryChanges={setSelectedCountry} />
+        <CustomSearchCountries />
         <SearchSortFilters onSortFilterChanges={setSelectedSortFilter} />
       </section>
     </>

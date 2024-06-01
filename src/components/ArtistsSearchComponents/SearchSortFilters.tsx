@@ -38,7 +38,7 @@ export const SearchSortFilters: FC<Props> = props => {
         className={classNames(
           'h-15 flex w-full flex-row items-center justify-between gap-5 bg-dot-primary p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
           {
-            'bg-dot-secondary rounded-t-3xl': toggleSortFilters,
+            'rounded-t-3xl bg-dot-secondary': toggleSortFilters,
             'rounded-3xl': !toggleSortFilters,
           }
         )}
@@ -94,7 +94,7 @@ export const SearchSortFilters: FC<Props> = props => {
               props.onSortFilterChanges(filter);
             }}
             className={classNames(
-              'md:hover:bg-dot-secondary flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out',
+              'flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
               { 'bg-dot-secondary': filter == selectedSortFilter }
             )}
           >
@@ -115,7 +115,7 @@ export const SearchSortFilters: FC<Props> = props => {
             setSelectedSortFilter('Followers');
             props.onSortFilterChanges('Followers');
           }}
-          className="bg-dot-secondary md:hover:bg-dot-tertiary col-span-2 mt-3 w-full rounded-full p-2 px-3 text-sm transition-colors duration-200 ease-in-out"
+          className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >
           Reset sort
         </button>

@@ -1,5 +1,4 @@
 import useSWR from 'swr';
-import ArtistSearchPanel from './CustomComponents/ArtistsSearchPanel';
 import { CustomArtistListCardHero } from './CustomComponents/CustomArtistListCard';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 
