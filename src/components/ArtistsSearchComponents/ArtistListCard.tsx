@@ -82,7 +82,7 @@ export const ArtistListCard: FC<Props> = props => {
       <section
         onClick={() => (!isOpen ? setIsOpen(!isOpen) : '')}
         className={classNames(
-          'group/main md:hover:bg-dot-secondary flex w-full flex-col justify-between gap-5 overflow-hidden bg-dot-primary transition-transform duration-200 ease-in-out',
+          'group/main flex w-full flex-col justify-between gap-5 overflow-hidden bg-dot-primary transition-transform duration-200 ease-in-out md:hover:bg-dot-secondary',
           props.className,
           {
             'rounded-2xl ': !props.isSmall,
@@ -280,7 +280,7 @@ export const ArtistListCard: FC<Props> = props => {
 
             {trendsLoading ? (
               <div className="flex w-full flex-row">
-                <div className="bg-dot-tertiary/50 h-[104px] w-full animate-pulse rounded-2xl" />
+                <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
               </div>
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
@@ -300,7 +300,7 @@ export const ArtistListCard: FC<Props> = props => {
                 </>
               </div>
             ) : (
-              <div className="bg-dot-tertiary/50 flex w-full flex-row items-center justify-center gap-3 rounded-2xl p-10 text-zinc-400">
+              <div className="flex w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 p-10 text-zinc-400">
                 <RiLineChartFill className="text-xl" />
                 <p>
                   Sorry, but there is currently no trend data recorded for this
@@ -308,47 +308,59 @@ export const ArtistListCard: FC<Props> = props => {
                 </p>
               </div>
             )}
-            {props.artist.tags !== undefined &&
-              props.artist.tags.length !== 0 && (
-                <div className="flex flex-row gap-2">
-                  {props.artist.tags.map((tag, index) => (
-                    <p
-                      key={index}
-                      className="bg-dot-tertiary rounded-md p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
-                    >
-                      {searchTagsArray.map(_tag => {
-                        if (
-                          tag === _tag.toLocaleLowerCase().replace(/ /g, '')
-                        ) {
-                          return _tag;
-                        }
-                      })}
-                    </p>
-                  ))}
-                  {props.artist.country &&
-                    props.artist.country !== undefined && (
-                      <div className="bg-dot-tertiary flex flex-row items-center gap-2 rounded-md p-2 px-4 text-sm">
-                        <Image
-                          alt={`${props.artist.country}`}
-                          src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-                          width={24}
-                          height={20}
-                          className={'h-4 w-6 rounded-sm '}
-                        />
-                        <p className=" ">
-                          {countryCodes.map((country, index) => {
-                            if (
-                              props.artist.country ===
-                              country.value.toLocaleLowerCase()
-                            ) {
-                              return country.title;
-                            }
-                          })}
-                        </p>
-                      </div>
-                    )}
+            <div className="flex flex-row gap-2">
+              {props.artist.tags !== undefined &&
+                props.artist.tags.length !== 0 && (
+                  <>
+                    {props.artist.tags.map((tag, index) => (
+                      <p
+                        key={index}
+                        className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                      >
+                        {searchTagsArray.map(_tag => {
+                          if (
+                            tag === _tag.toLocaleLowerCase().replace(/ /g, '')
+                          ) {
+                            return _tag;
+                          }
+                        })}
+                      </p>
+                    ))}
+                    {props.artist.country &&
+                      props.artist.country !== undefined && (
+                        <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+                          <Image
+                            alt={`${props.artist.country}`}
+                            src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
+                            width={24}
+                            height={20}
+                            className={'h-4 w-6 rounded-sm '}
+                          />
+                          <p className=" ">
+                            {countryCodes.map((country, index) => {
+                              if (
+                                props.artist.country ===
+                                country.value.toLocaleLowerCase()
+                              ) {
+                                return country.title;
+                              }
+                            })}
+                          </p>
+                        </div>
+                      )}
+                  </>
+                )}
+              {props.artist && (
+                <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+                  <p className="text-zinc-400">
+                    Profile updated{' '}
+                    {new Date(props.artist.lastUpdatedAt).toLocaleDateString() +
+                      ' ' +
+                      new Date(props.artist.lastUpdatedAt).toLocaleTimeString()}
+                  </p>
                 </div>
               )}
+            </div>
           </div>
         </div>
       </section>

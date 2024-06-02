@@ -17,6 +17,6 @@ export interface ArtistProfile {
   name?: string;
   website?: string;
   bio?: string;
-  lastUpdateAt: Date;
+  lastUpdatedAt: Date;
   createdAt: Date;
 }
