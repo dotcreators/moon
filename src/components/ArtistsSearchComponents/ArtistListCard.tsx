@@ -309,6 +309,28 @@ export const ArtistListCard: FC<Props> = props => {
               </div>
             )}
             <div className="flex flex-row gap-2">
+              {props.artist.country && props.artist.country !== undefined && (
+                <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+                  <Image
+                    alt={`${props.artist.country}`}
+                    src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
+                    width={24}
+                    height={20}
+                    className={'h-4 w-6 rounded-sm '}
+                  />
+                  <p className=" ">
+                    {countryCodes.map((country, index) => {
+                      if (
+                        props.artist.country ===
+                        country.value.toLocaleLowerCase()
+                      ) {
+                        return country.title;
+                      }
+                    })}
+                  </p>
+                </div>
+              )}
+
               {props.artist.tags !== undefined &&
                 props.artist.tags.length !== 0 && (
                   <>
@@ -326,28 +348,6 @@ export const ArtistListCard: FC<Props> = props => {
                         })}
                       </p>
                     ))}
-                    {props.artist.country &&
-                      props.artist.country !== undefined && (
-                        <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
-                          <Image
-                            alt={`${props.artist.country}`}
-                            src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-                            width={24}
-                            height={20}
-                            className={'h-4 w-6 rounded-sm '}
-                          />
-                          <p className=" ">
-                            {countryCodes.map((country, index) => {
-                              if (
-                                props.artist.country ===
-                                country.value.toLocaleLowerCase()
-                              ) {
-                                return country.title;
-                              }
-                            })}
-                          </p>
-                        </div>
-                      )}
                   </>
                 )}
               {props.artist && (
