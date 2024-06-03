@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import { FC, useEffect, useState } from 'react';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
-import RiMoneyDollarBoxFill from '~icons/ri/money-dollar-box-fill';
+import RiWallet3Fill from '~icons/ri/wallet-3-fill';
 import RiHeartFill from '~icons/ri/heart-fill';
 import RiCodeFill from '~icons/ri/code-fill';
 import RiInputMethodFill from '~icons/ri/input-method-fill';
@@ -60,7 +60,7 @@ export const SearchTags: FC<Props> = props => {
         className={classNames(
           'flex w-full flex-col items-center justify-center gap-3 bg-dot-primary p-3 px-5 outline-none transition-padding duration-200 ease-in-out',
           {
-            'bg-dot-secondary rounded-t-3xl': toggleTag,
+            'rounded-t-3xl bg-dot-secondary': toggleTag,
             'rounded-3xl': !toggleTag,
             'p-5': selectedTags.length !== 0,
           }
@@ -108,7 +108,7 @@ export const SearchTags: FC<Props> = props => {
               )}
             >
               {tag == 'Commissions' || tag == 'Work offers' ? (
-                <RiMoneyDollarBoxFill className="text-zinc-400" />
+                <RiWallet3Fill className="text-zinc-400" />
               ) : tag == 'NSFW' ? (
                 <RiHeartFill className="text-zinc-400" />
               ) : tag == 'Pixelart' ? (
@@ -140,12 +140,12 @@ export const SearchTags: FC<Props> = props => {
             key={index}
             onClick={() => selectedTagsHandler(tag)}
             className={classNames(
-              'md:hover:bg-dot-secondary flex w-full flex-row items-center justify-center gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out',
+              'flex w-full flex-row items-center justify-start gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
               { 'bg-dot-secondary': selectedTags.includes(tag) }
             )}
           >
-            {tag == 'Commission' || tag == 'Work offers' ? (
-              <RiMoneyDollarBoxFill className="text-zinc-400" />
+            {tag == 'Commissions' || tag == 'Work offers' ? (
+              <RiWallet3Fill className="text-zinc-400" />
             ) : tag == 'NSFW' ? (
               <RiHeartFill className="text-zinc-400" />
             ) : tag == 'Pixelart' ? (
@@ -167,7 +167,7 @@ export const SearchTags: FC<Props> = props => {
             setSelectedTags([]);
             props.onTagsChanged([]);
           }}
-          className="bg-dot-secondary md:hover:bg-dot-tertiary col-span-2 mt-3 w-full rounded-full p-2 px-3 text-sm transition-colors duration-200 ease-in-out"
+          className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >
           Reset tags
         </button>
