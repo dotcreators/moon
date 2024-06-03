@@ -36,8 +36,8 @@ export default function StepController() {
     if (!fetchedArtistsProfile) return;
 
     let _suggestion: any = {};
-    _suggestion.username = fetchedArtistsProfile!.user.username;
-    _suggestion.avatarUrl = fetchedArtistsProfile!.avatar;
+    _suggestion.username = fetchedArtistsProfile.username;
+    _suggestion.avatarUrl = fetchedArtistsProfile.images.avatar;
     if (selectedCountry) {
       _suggestion.country = selectedCountry.value.toLocaleLowerCase();
     }
@@ -73,7 +73,7 @@ export default function StepController() {
 
   const renderSteps = () => (
     <section className="flex w-full flex-col gap-8">
-      <section className="bg-dot-secondary relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl p-5 px-10">
+      <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dot-secondary p-5 px-10">
         <p className="text-lg">Suggest artist</p>
         <Image
           src="/icons/thinking_face_anim.png"
@@ -108,7 +108,7 @@ export default function StepController() {
       {currentFormStep > 0 && (
         <button
           onClick={() => setCurrentFormStep(prev => prev - 1)}
-          className="bg-dot-secondary md:hover:bg-dot-tertiary rounded-xl p-2 px-3 transition-colors duration-200 ease-in-out"
+          className="rounded-xl bg-dot-secondary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >
           <RiArrowGoBackFill />
         </button>
@@ -117,7 +117,7 @@ export default function StepController() {
         onClick={handleNextStep}
         disabled={!isNextStepAllowed}
         className={classNames(
-          'text-dot-body group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold transition-colors duration-200 ease-in-out',
+          'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dot-body transition-colors duration-200 ease-in-out',
           {
             'cursor-pointer bg-c-amber-dark md:hover:bg-c-amber-light':
               isNextStepAllowed && currentFormStep !== 2,

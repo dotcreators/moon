@@ -129,7 +129,7 @@ export const ArtistListCard: FC<Props> = props => {
                     src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
                     width={24}
                     height={20}
-                    className={'h-5 w-7 rounded-md'}
+                    className={'rounded-sm'}
                   />
                 )}
                 {props.artist.name}

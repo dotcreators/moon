@@ -44,12 +44,12 @@ export const SuggestStepTwo: FC<Props> = props => {
       <section className="flex w-full flex-col gap-2">
         <p className="mx-3 text-sm text-zinc-400">Artist profile</p>
         <SuggestArtistCardAlt
-          avatar={props.artist.avatar}
-          followers={props.artist.followers}
-          posts={props.artist.tweets}
+          avatar={props.artist.images.avatar}
+          followers={props.artist.followersCount}
+          posts={props.artist.tweetsCount}
           user={{
-            username: props.artist.user.username,
-            name: props.artist.user.name || '',
+            username: props.artist.username,
+            name: props.artist.name || '',
           }}
           country={undefined}
           tags={undefined}
@@ -58,7 +58,7 @@ export const SuggestStepTwo: FC<Props> = props => {
 
       <section className="flex w-full flex-col gap-2">
         <p className="mx-3 text-sm text-zinc-400">Tags</p>
-        <section className="bg-dot-secondary grid w-full grid-cols-3 place-items-center overflow-hidden rounded-2xl">
+        <section className="grid w-full grid-cols-3 place-items-center overflow-hidden rounded-2xl bg-dot-secondary">
           {tags.map((tag, index) => {
             const row = Math.floor(index / 3);
             const col = index % 3;
@@ -74,7 +74,7 @@ export const SuggestStepTwo: FC<Props> = props => {
                 key={tag}
                 onClick={() => selectedTagsHandler(tag)}
                 className={classNames(
-                  'md:hover:bg-dot-tertiary w-full border-dot-primary p-3 py-5 transition-colors duration-200 ease-in-out',
+                  'w-full border-dot-primary p-3 py-5 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary',
                   borderClass,
                   {
                     'col-span-3 border-r-0': index + 1 === tags.length,

@@ -19,12 +19,12 @@ export const SuggestStepThree: FC<Props> = props => {
       <label className="flex w-full flex-col gap-2">
         <span className="mx-3 text-sm text-zinc-400">Artist profile</span>
         <SuggestArtistCardAlt
-          avatar={props.artist.avatar}
-          followers={props.artist.followers}
-          posts={props.artist.tweets}
+          avatar={props.artist.images.avatar}
+          followers={props.artist.followersCount}
+          posts={props.artist.tweetsCount}
           user={{
-            username: props.artist.user.username,
-            name: props.artist.user.name || '',
+            username: props.artist.username,
+            name: props.artist.name || '',
           }}
           country={props.country}
           tags={props.tags}

@@ -1,9 +1,10 @@
 export interface FetchedArtistProfile {
-  avatar: string;
-  followers: number;
-  tweets: number;
-  user: {
-    username: string;
-    name?: string;
+  username: string;
+  name?: string;
+  followersCount: number;
+  tweetsCount: number;
+  images: {
+    avatar: string;
+    banner?: string;
   };
 }
