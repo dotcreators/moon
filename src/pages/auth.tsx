@@ -14,14 +14,15 @@ export default function Auth() {
     try {
       fetch(`${process.env.API_URL}auth?code=${accessToken}`, {
         method: 'POST',
-      }).then(response => {
-        if (response.ok) {
+      }).then(async response => {
+        let data = await response.json();
+        if (data.status === 'success') {
           console.log('Success');
 
           fetch('/api/auth', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify({ accessToken: accessToken }),
+            body: JSON.stringify({ accessToken: data.response }),
           })
             .then(() => {
               router.push('/');
