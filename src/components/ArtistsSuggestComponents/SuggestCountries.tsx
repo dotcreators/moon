@@ -3,7 +3,7 @@ import Image from 'next/image';
 import classNames from 'classnames';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import RiQuestionMark from '~icons/ri/question-mark';
-import { countryCodes } from '@/utils/CountryCode';
+import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 import { useRouter } from 'next/router';
 
 interface Props {
@@ -13,14 +13,14 @@ interface Props {
 
 export const SuggestCountries: FC<Props> = props => {
   const [toggleCountries, setToggleCountries] = useState<boolean>(false);
-  const [selectedCountry, setSelectedCountry] = useState<{
-    title: string;
-    value: string;
-  }>({ title: '', value: '' });
+  const [selectedCountry, setSelectedCountry] = useState({
+    title: '',
+    value: '',
+  });
   const [searchText, setSearchText] = useState<string>('');
   const router = useRouter();
 
-  const filteredCountries = countryCodes.filter(country =>
+  const filteredCountries: SelectCountry[] = countryCodes.filter(country =>
     country.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
@@ -57,17 +57,13 @@ export const SuggestCountries: FC<Props> = props => {
                 'flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl bg-dot-tertiary p-2 px-3 text-sm transition-colors duration-200 ease-in-out'
               )}
             >
-              {selectedCountry.title === 'Unknown' ? (
-                <RiQuestionMark />
-              ) : (
-                <Image
-                  alt={`${selectedCountry.title}`}
-                  src={`https://flagcdn.com/${selectedCountry.value.toLowerCase()}.svg`}
-                  width={24}
-                  height={20}
-                  className={'h-5 w-7 rounded-md'}
-                />
-              )}
+              <Image
+                alt={`${selectedCountry.title}`}
+                src={`https://flagcdn.com/${selectedCountry.value.toLowerCase()}.svg`}
+                width={24}
+                height={20}
+                className={'h-5 w-7 rounded-md'}
+              />
               <p className="max-w-20 truncate text-ellipsis">
                 {selectedCountry.title}
               </p>
@@ -112,36 +108,40 @@ export const SuggestCountries: FC<Props> = props => {
             // styles['searchContainer']
           )}
         >
-          {filteredCountries.map((country, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setSelectedCountry({
-                  title: country.title,
-                  value: country.value,
-                });
-                props.onCountryChanges({
-                  title: country.title,
-                  value: country.value,
-                });
-              }}
-              className={classNames(
-                'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
-                {
-                  'bg-dot-secondary': selectedCountry.value == country.value,
-                }
-              )}
-            >
-              <Image
-                alt={`${country.title}`}
-                src={`https://flagcdn.com/${country.value.toLowerCase()}.svg`}
-                width={24}
-                height={20}
-                className={'h-5 w-7 rounded-md'}
-              />
-              <p className="text-left">{country.title}</p>
-            </button>
-          ))}
+          {filteredCountries.map(
+            (country, index) =>
+              country.title !== '' && (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setSelectedCountry({
+                      title: country.title,
+                      value: country.value,
+                    });
+                    props.onCountryChanges({
+                      title: country.title,
+                      value: country.value,
+                    });
+                  }}
+                  className={classNames(
+                    'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
+                    {
+                      'bg-dot-secondary':
+                        selectedCountry.value == country.value,
+                    }
+                  )}
+                >
+                  <Image
+                    alt={`${country.title}`}
+                    src={`https://flagcdn.com/${country.value.toLowerCase()}.svg`}
+                    width={24}
+                    height={20}
+                    className={'h-5 w-7 rounded-md'}
+                  />
+                  <p className="text-left">{country.title}</p>
+                </button>
+              )
+          )}
         </section>
         <button
           onClick={() => {

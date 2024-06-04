@@ -76,7 +76,7 @@ export const SuggestStepTwo: FC<Props> = props => {
                   'w-full border-dot-primary p-3 py-5 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary',
                   borderClass,
                   {
-                    'col-span-3 border-r-0': index + 1 === tags.length,
+                    'col-span-2 border-r-0': index + 1 === tags.length,
                     'bg-dot-tertiary md:hover:bg-dot-quaternary':
                       selectedTags.includes(tag),
                     'md:hover:bg-dot-tertiary': !selectedTags.includes(tag),
