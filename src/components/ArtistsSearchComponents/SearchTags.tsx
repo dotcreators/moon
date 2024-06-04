@@ -1,13 +1,14 @@
 import classNames from 'classnames';
 import { FC, useEffect, useState } from 'react';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
-import RiWallet3Fill from '~icons/ri/wallet-3-fill';
+import RiVipDiamondFill from '~icons/ri/vip-diamond-fill';
 import RiHeartFill from '~icons/ri/heart-fill';
 import RiCodeFill from '~icons/ri/code-fill';
 import RiInputMethodFill from '~icons/ri/input-method-fill';
 import RiSquareFill from '~icons/ri/square-fill';
 import RiShape2Fill from '~icons/ri/shape-2-fill';
 import RiBox3Fill from '~icons/ri/box-3-fill';
+import RiFilmLine from '~icons/ri/film-line';
 import { useRouter } from 'next/router';
 import { searchTagsArray } from '@/utils/Tags';
 
@@ -108,7 +109,7 @@ export const SearchTags: FC<Props> = props => {
               )}
             >
               {tag == 'Commissions' || tag == 'Work offers' ? (
-                <RiWallet3Fill className="text-zinc-400" />
+                <RiVipDiamondFill className="text-zinc-400" />
               ) : tag == 'NSFW' ? (
                 <RiHeartFill className="text-zinc-400" />
               ) : tag == 'Pixelart' ? (
@@ -145,7 +146,7 @@ export const SearchTags: FC<Props> = props => {
             )}
           >
             {tag == 'Commissions' || tag == 'Work offers' ? (
-              <RiWallet3Fill className="text-zinc-400" />
+              <RiVipDiamondFill className="text-zinc-400" />
             ) : tag == 'NSFW' ? (
               <RiHeartFill className="text-zinc-400" />
             ) : tag == 'Pixelart' ? (

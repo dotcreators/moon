@@ -172,12 +172,14 @@ export const ArtistListCard: FC<Props> = props => {
 
         {/* MoreInfo */}
         <div
-          className={classNames('relative flex flex-col gap-5 ', {
+          className={classNames('test relative flex flex-col  ', {
             hidden: !isOpen,
             block: isOpen,
+            'justify-items-end gap-3': !props.artist.images.banner,
+            'gap-5': props.artist.images.banner,
           })}
         >
-          {props.artist.images.banner !== undefined && (
+          {props.artist.images.banner && (
             <>
               <div className="absolute w-full">
                 <ImageLoader
@@ -205,11 +207,17 @@ export const ArtistListCard: FC<Props> = props => {
           )}
           <button
             onClick={() => setIsOpen(!isOpen)}
-            className="absolute right-3 top-2.5 z-20 h-fit place-self-start rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary"
+            className={classNames(
+              'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary',
+              {
+                'absolute right-3 top-2.5 z-20 ': props.artist.images.banner,
+                'mx-5 mt-5 place-self-end': !props.artist.images.banner,
+              }
+            )}
           >
             <RiArrowDownSLine className="rotate-180" />
           </button>
-          <div className="flex w-full flex-col gap-5 px-5 pb-5">
+          <div className={classNames('flex w-full flex-col gap-5 px-5 pb-5')}>
             <div className="z-20 flex flex-row items-center justify-between gap-3">
               <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
                 <div className="flex flex-row items-center gap-3">
