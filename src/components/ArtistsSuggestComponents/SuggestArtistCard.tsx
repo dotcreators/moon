@@ -13,8 +13,8 @@ interface Props {
   avatar: string;
   followers: number;
   posts: number;
-  tags: string[] | undefined;
-  country: SelectCountry | undefined;
+  tags?: string[];
+  country?: SelectCountry;
   className?: string;
 }
 
@@ -32,8 +32,9 @@ export const SuggestArtistCard: FC<Props> = props => {
       href={`https://twitter.com/${props.user.username}`}
       target="_blank"
       className={classNames(
-        'animation-all group flex w-full flex-col items-center gap-5 rounded-2xl bg-dot-secondary p-5 duration-200 ease-in-out md:hover:cursor-pointer md:hover:bg-dot-tertiary',
-        props.className
+        'animation-all group flex w-full flex-col items-center gap-5 rounded-2xl  p-5 duration-200 ease-in-out md:hover:cursor-pointer ',
+        props.className,
+        { 'bg-dot-secondary md:hover:bg-dot-tertiary': !props.className }
       )}
     >
       <section className="flex w-full flex-row items-center gap-5">

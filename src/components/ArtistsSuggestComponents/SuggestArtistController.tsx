@@ -1,15 +1,15 @@
 import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 import classNames from 'classnames';
-import { FC, useEffect, useState } from 'react';
-import { SuggestStepOne } from './SuggestStepOne';
-import { SuggestStepTwo } from './SuggestStepTwo';
-import { SuggestStepThree } from './SuggestStepThree';
+import { useState } from 'react';
+import { SuggestStepOne } from './Steps/SuggestStepOne';
+import { SuggestStepTwo } from './Steps/SuggestStepTwo';
+import { SuggestStepThree } from './Steps/SuggestStepThree';
 import Image from 'next/image';
 import RiArrowGoBackFill from '~icons/ri/arrow-go-back-fill';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiForbidLine from '~icons/ri/forbid-line';
-import { SuggestStepSuccess } from './SuggestStepSuccess';
+import { SuggestStepSuccess } from './Steps/SuggestStepSuccess';
 import { motion } from 'framer-motion';
 
 export default function SuggestArtistController() {
@@ -69,6 +69,11 @@ export default function SuggestArtistController() {
     } else {
       setCurrentFormStep(prev => prev + 1);
     }
+  };
+
+  const slideUpVariants = {
+    hidden: { opacity: 0, y: 25 },
+    visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
   };
 
   const renderSteps = () => (
@@ -137,7 +142,13 @@ export default function SuggestArtistController() {
   return (
     <>
       {currentFormStep !== steps.length ? (
-        <section className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dot-primary p-10">
+        <motion.section
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={slideUpVariants}
+          className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dot-primary p-10"
+        >
           {renderSteps()}
           <SuggestStepOne
             onArtistFetched={setFetchedArtistsProfile}
@@ -163,14 +174,20 @@ export default function SuggestArtistController() {
             </>
           )}
           {renderButtons()}
-        </section>
+        </motion.section>
       ) : (
-        <section className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-10">
+        <motion.section
+          initial="hidden"
+          animate="visible"
+          exit="hidden"
+          variants={slideUpVariants}
+          className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-10"
+        >
           <SuggestStepSuccess
             onAddAnother={() => resetForm()}
             onClose={resetForm}
           />
-        </section>
+        </motion.section>
       )}
     </>
   );

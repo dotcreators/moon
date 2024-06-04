@@ -38,7 +38,7 @@ export default function BottomNavigation() {
   return (
     <section className="w-full py-16">
       <div className="mx-auto flex h-56 max-w-7xl flex-row justify-between rounded-2xl bg-dot-primary p-10">
-        <div className="flex flex-row gap-5">
+        {/* <div className="flex flex-row gap-5">
           <button
             onClick={() => {}}
             className="group relative flex w-24 flex-col items-center justify-center gap-3 rounded-2xl bg-[#5865F2]/10 p-3 px-5 text-center transition-colors duration-200 ease-in-out hover:bg-[#5865F2]/15"
@@ -53,12 +53,12 @@ export default function BottomNavigation() {
             <SimpleIconsBoosty className="text-4xl text-[#ff6f37]/70" />
             <RiArrowRightUpLine className="absolute right-3 top-3 inline text-sm text-[#ff6f37]/50 transition-transform duration-200 ease-in-out md:group-hover:rotate-45" />
           </button>
-        </div>
+        </div> */}
 
         <div className="flex flex-col justify-between">
           <div className="flex flex-col gap-3">
-            <h1 className="flex flex-row items-center gap-1 font-hubot-sans text-xl uppercase">
-              <span className="scale-[75%]">
+            <h1 className="flex flex-row items-center gap-1 font-hubot-sans text-xl uppercase text-dot-rose">
+              <span className="scale-[60%]">
                 <DotcreatorsLogo />
               </span>{' '}
               dotcreators

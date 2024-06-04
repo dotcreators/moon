@@ -1,12 +1,10 @@
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import useSWR from 'swr';
 import { ArtistListCardHero } from './ArtistListCardHero';
-import DotcreatorsLogo from '../DotcreatorsLogo';
 import DotcreatorsLogoHero from './DotcreatorsLogoHero';
-import { BentoUserCard } from '../BentoComponents/BentoUserCard';
 import Image from 'next/image';
 import { useEffect, useState } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import { motion } from 'framer-motion';
 
 export default function Hero() {
   const usernames = ['aniv1re', 'cyan', 'the08games'];

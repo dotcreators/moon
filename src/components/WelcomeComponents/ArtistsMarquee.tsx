@@ -30,7 +30,7 @@ export default function ArtistsMarquee() {
 
   return (
     <section className="flex flex-col gap-5">
-      <Marquee>
+      <Marquee pauseOnHover={true}>
         {artistProfiles &&
           artistProfiles.response.data.map((artist, index) => (
             <div className="mx-3">
@@ -40,11 +40,12 @@ export default function ArtistsMarquee() {
                 followers={artist.followersCount}
                 posts={artist.tweetsCount}
                 user={{ name: artist.name || '', username: artist.username }}
+                className="bg-dot-primary md:hover:bg-dot-secondary"
               />
             </div>
           ))}
       </Marquee>
-      <Marquee direction="right">
+      <Marquee direction="right" pauseOnHover={true}>
         {artistProfilesTwo &&
           artistProfilesTwo.response.data.map((artist, index) => (
             <div className="mx-3">
@@ -54,6 +55,7 @@ export default function ArtistsMarquee() {
                 followers={artist.followersCount}
                 posts={artist.tweetsCount}
                 user={{ name: artist.name || '', username: artist.username }}
+                className="bg-dot-primary md:hover:bg-dot-secondary"
               />
             </div>
           ))}

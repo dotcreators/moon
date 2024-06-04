@@ -1,4 +1,4 @@
-import SuggestArtistController from '@/components/ArtistsSuggestComponents/Steps/SuggestArtistController';
+import SuggestArtistController from '@/components/ArtistsSuggestComponents/SuggestArtistController';
 
 export default function Suggest() {
   return (
