@@ -12,9 +12,12 @@ export default function Auth() {
 
   async function checkToken() {
     try {
-      fetch(`${process.env.API_URL}auth?code=${accessToken}`, {
-        method: 'POST',
-      }).then(async response => {
+      let codeResponse = await fetch(
+        `${process.env.API_URL}auth?accessToken=${accessToken}`,
+        {
+          method: 'POST',
+        }
+      ).then(async response => {
         let data = await response.json();
         if (data.status === 'success') {
           console.log('Success');
@@ -28,10 +31,13 @@ export default function Auth() {
               router.push('/');
             })
             .catch(e => {
+              setIsError(true);
               throw new Error(
                 'Failed to send access token to the server: ' + e
               );
             });
+        } else {
+          setIsError(true);
         }
       });
     } catch (e) {
