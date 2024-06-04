@@ -1,7 +1,7 @@
 export const countryCodes = [
   {
-    title: 'Unknown',
-    value: 'unk',
+    title: '',
+    value: '',
   },
   {
     title: 'Afghanistan',

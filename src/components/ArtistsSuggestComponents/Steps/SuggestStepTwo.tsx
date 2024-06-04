@@ -1,11 +1,10 @@
 import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 import classNames from 'classnames';
 import { FC, useEffect, useState } from 'react';
-import { SuggestArtistCard } from '../SuggestArtistCard';
 import { searchTagsArray } from '@/utils/Tags';
 import { SuggestCountries } from '../SuggestCountries';
 import { SelectCountry, countryCodes } from '@/utils/CountryCode';
-import { SuggestArtistCardAlt } from '../SuggestArtistCardAlt';
+import { SuggestArtistCard } from '../SuggestArtistCard';
 
 interface Props {
   artist: FetchedArtistProfile;
@@ -43,7 +42,7 @@ export const SuggestStepTwo: FC<Props> = props => {
     >
       <section className="flex w-full flex-col gap-2">
         <p className="mx-3 text-sm text-zinc-400">Artist profile</p>
-        <SuggestArtistCardAlt
+        <SuggestArtistCard
           avatar={props.artist.images.avatar}
           followers={props.artist.followersCount}
           posts={props.artist.tweetsCount}

@@ -12,7 +12,7 @@ import RiForbidLine from '~icons/ri/forbid-line';
 import { SuggestStepSuccess } from './SuggestStepSuccess';
 import { motion } from 'framer-motion';
 
-export default function StepController() {
+export default function SuggestArtistController() {
   const steps = ['Select artist', 'Select tags', 'Finish'];
   const [currentFormStep, setCurrentFormStep] = useState(0);
   const [fetchedArtistsProfile, setFetchedArtistsProfile] = useState<

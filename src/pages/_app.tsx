@@ -1,7 +1,7 @@
 import { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
-import Layout from '@/components/Nav/Layout';
+import Layout from '@/components/NavComponents/Layout';
 import Head from 'next/head';
 import './globals.css';
 

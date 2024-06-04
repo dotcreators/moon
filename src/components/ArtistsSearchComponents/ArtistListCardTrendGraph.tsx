@@ -21,7 +21,7 @@ interface Props {
   height?: number;
 }
 
-export const ArtistTrendGraph: FC<Props> = props => {
+export const ArtistListCardTrendGraph: FC<Props> = props => {
   function getArtistTrendValueRaw(): number | undefined {
     if (props.trendBy === 'followers') {
       return props.artistInfo.weeklyFollowersGrowingTrend;

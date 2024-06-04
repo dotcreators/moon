@@ -1,4 +1,4 @@
-import { SearchSortFilters } from '../../../ArtistsSearchComponents/SearchSortFilters';
+import { SearchSortFilters } from '../../../ArtistsSearchComponents/SearchContainer/SearchSortFilters';
 import { useState } from 'react';
 import RiSearch2Line from '~icons/ri/search-2-line';
 import CustomSearch from './CustomSearch';

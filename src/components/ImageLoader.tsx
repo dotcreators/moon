@@ -41,10 +41,10 @@ export const ImageLoader: FC<Props> = props => {
       />
       <div
         className={classNames(
-          'absolute inset-0 z-10 h-full w-full bg-dot-quaternary/50 transition-opacity duration-300',
+          'absolute inset-0 z-10 h-full w-full bg-dot-tertiary transition-opacity duration-300',
           {
             // 'opacity-0': isLoaded,
-            'animate-pulse opacity-100': !isLoaded,
+            'animate-pulse': !isLoaded,
             hidden: props.hideLoader,
           }
         )}

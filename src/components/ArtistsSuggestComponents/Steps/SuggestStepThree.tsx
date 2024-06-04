@@ -1,7 +1,7 @@
 import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 import classNames from 'classnames';
 import { FC } from 'react';
-import { SuggestArtistCardAlt } from '../SuggestArtistCardAlt';
+import { SuggestArtistCard } from '../SuggestArtistCard';
 import { SelectCountry } from '@/utils/CountryCode';
 
 interface Props {
@@ -18,7 +18,7 @@ export const SuggestStepThree: FC<Props> = props => {
     >
       <label className="flex w-full flex-col gap-2">
         <span className="mx-3 text-sm text-zinc-400">Artist profile</span>
-        <SuggestArtistCardAlt
+        <SuggestArtistCard
           avatar={props.artist.images.avatar}
           followers={props.artist.followersCount}
           posts={props.artist.tweetsCount}

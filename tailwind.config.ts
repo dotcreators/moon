@@ -19,6 +19,7 @@ const config: Config = {
       colors: {
         'dot-white': '#FDFDFD',
         'dot-rose': '#FA4545',
+        'dot-rose-light': '#FF8888',
 
         'dot-link-primary': '#FF902B',
         'dot-button-primary': '#FA4545',

@@ -2,10 +2,9 @@ import useDebounce from '@/utils/hooks/useDebounce';
 import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 import classNames from 'classnames';
 import { FC, useEffect, useState } from 'react';
-import { SuggestArtistCard } from '../SuggestArtistCard';
 import RiAtLine from '~icons/ri/at-line';
 import RiRefreshLine from '~icons/ri/refresh-line';
-import { SuggestArtistCardAlt } from '../SuggestArtistCardAlt';
+import { SuggestArtistCard } from '../SuggestArtistCard';
 
 interface Props {
   onArtistFetched: Function;
@@ -110,7 +109,7 @@ export const SuggestStepOne: FC<Props> = props => {
         {fetchedArtistsProfile &&
         !isError &&
         (searchArtistTag !== undefined || searchArtistTag !== '') ? (
-          <SuggestArtistCardAlt
+          <SuggestArtistCard
             avatar={fetchedArtistsProfile.images.avatar}
             followers={fetchedArtistsProfile.followersCount}
             posts={fetchedArtistsProfile.tweetsCount}

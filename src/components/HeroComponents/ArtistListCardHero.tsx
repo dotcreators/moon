@@ -8,7 +8,7 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistTrendGraph } from '../ArtistsSearchComponents/ArtistCardInfo/ArtistTrendGraph';
+import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListCardTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
@@ -180,13 +180,13 @@ export const ArtistListCardHero: FC<Props> = props => {
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
                 <>
-                  <ArtistTrendGraph
+                  <ArtistListCardTrendGraph
                     key={'followersGraph'}
                     artistInfo={props.artist}
                     trendBy="followers"
                     trendData={artistTrends}
                   />
-                  <ArtistTrendGraph
+                  <ArtistListCardTrendGraph
                     key={'tweetsGraph'}
                     artistInfo={props.artist}
                     trendBy="tweets"

@@ -26,14 +26,14 @@ export default function Lists() {
 
   return (
     <>
-      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-row items-start justify-center gap-5 pt-32 ">
+      <section className="relative m-auto grid h-fit w-full max-w-7xl grid-cols-4 items-start justify-center gap-5  pt-32 ">
         <div className="sticky top-8">
           <ArtistsSearch
             searchString={router.query}
             onSearchStringChanges={setSearchString}
           />
         </div>
-        <section className="flex w-full flex-col gap-3">
+        <section className="col-span-3 flex w-full flex-col gap-3">
           {data
             ? data.response.data.map((artist, index) => (
                 <ArtistListCard

@@ -3,7 +3,7 @@ import BentoArtist from '@/components/BentoComponents/BentoArtist';
 import BentoSuggestArtist from '@/components/BentoComponents/BentoSuggestArtist';
 import BentoWeeklyArtist from '@/components/BentoComponents/BentoWeeklyArtist';
 import LiveArtistsFeed from '@/components/LiveArtistsFeed';
-import Hero from '@/components/Hero/Hero';
+import Hero from '@/components/HeroComponents/Hero';
 import FindCreators from '@/components/WelcomeComponents/FindCreators';
 import TrackGrowingTrend from '@/components/WelcomeComponents/TrackGrowingTrend';
 import ArtistsMarquee from '@/components/WelcomeComponents/ArtistsMarquee';

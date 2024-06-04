@@ -1,8 +1,8 @@
-import { SearchTags } from './SearchTags';
-import { SearchCountries } from './SearchCountries';
-import { SearchSortFilters } from './SearchSortFilters';
+import { SearchTags } from './SearchContainer/SearchTags';
+import { SearchCountries } from './SearchContainer/SearchCountries';
+import { SearchSortFilters } from './SearchContainer/SearchSortFilters';
 import { FC, useEffect, useState } from 'react';
-import { SearchQ } from './SearchQ';
+import { SearchQ } from './SearchContainer/SearchQ';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 
@@ -56,7 +56,7 @@ export const ArtistsSearch: FC<Props> = props => {
 
   return (
     <>
-      <section className="flex flex-col gap-3 overflow-y-auto pb-6">
+      <section className="overflow-y-autopb-6 flex flex-col gap-3">
         <SearchQ onQChanges={setSearchQ} />
         <SearchTags onTagsChanged={setSelectedTags} />
         <SearchCountries onCountryChanges={setSelectedCountry} />

@@ -1,9 +1,9 @@
-import StepController from '@/components/ArtistsSuggestComponents/Steps/StepController';
+import SuggestArtistController from '@/components/ArtistsSuggestComponents/Steps/SuggestArtistController';
 
 export default function Suggest() {
   return (
     <section className="min-h-screen pt-32 ">
-      <StepController />
+      <SuggestArtistController />
     </section>
   );
 }

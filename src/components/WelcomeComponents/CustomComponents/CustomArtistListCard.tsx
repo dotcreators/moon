@@ -10,7 +10,7 @@ import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import { ImageLoader } from '@/components/ImageLoader';
-import { ArtistTrendGraph } from '@/components/ArtistsSearchComponents/ArtistCardInfo/ArtistTrendGraph';
+import { ArtistListCardTrendGraph } from '@/components/ArtistsSearchComponents/ArtistListCardTrendGraph';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import { useRouter } from 'next/router';
 
@@ -172,7 +172,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="z-20 flex w-full flex-col justify-between gap-5 text-xs">
                 <>
-                  <ArtistTrendGraph
+                  <ArtistListCardTrendGraph
                     key={'followersGraph'}
                     artistInfo={props.artist}
                     trendBy="followers"

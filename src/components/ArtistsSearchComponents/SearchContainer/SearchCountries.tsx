@@ -4,20 +4,23 @@ import classNames from 'classnames';
 import styles from '@/components/ArtistsSearchComponents/SearchCountries.module.css';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import RiQuestionMark from '~icons/ri/question-mark';
-import { countryCodes } from '@/utils/CountryCode';
+import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 import { useRouter } from 'next/router';
 
 interface Props {
-  onCountryChanges: Function;
+  onCountryChanges: (country: SelectCountry) => void;
   classNames?: string;
 }
 
-export const SearchCountries: FC<Props> = props => {
+export const SearchCountries: FC<Props> = ({
+  onCountryChanges,
+  classNames: customClassNames,
+}) => {
   const [toggleCountries, setToggleCountries] = useState<boolean>(false);
-  const [selectedCountry, setSelectedCountry] = useState<{
-    title: string;
-    value: string;
-  }>({ title: '', value: '' });
+  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>({
+    title: '',
+    value: '',
+  });
   const [searchText, setSearchText] = useState<string>('');
   const router = useRouter();
 
@@ -26,19 +29,23 @@ export const SearchCountries: FC<Props> = props => {
   );
 
   useEffect(() => {
-    if (!router.isReady) return;
+    const updateCountryFromRouter = () => {
+      if (!router.isReady) return;
 
-    const country = router.query.country as string;
-    const foundCountry = countryCodes.find(x => x.value === country);
-    if (foundCountry !== undefined) {
-      setSelectedCountry(foundCountry);
-      props.onCountryChanges(foundCountry);
-    }
-  }, [router.isReady, router.query.country]);
+      const country = router.query.country as string;
+      const foundCountry = countryCodes.find(x => x.value === country);
+      if (foundCountry) {
+        setSelectedCountry(foundCountry);
+        onCountryChanges(foundCountry);
+      }
+    };
+
+    updateCountryFromRouter();
+  }, [router.isReady, router.query.country, onCountryChanges]);
 
   return (
     <section
-      className={classNames('overflow-hidden rounded-3xl', props.classNames)}
+      className={classNames('overflow-hidden rounded-3xl', customClassNames)}
     >
       <button
         onClick={() => setToggleCountries(!toggleCountries)}
@@ -55,24 +62,20 @@ export const SearchCountries: FC<Props> = props => {
           {selectedCountry.title ? (
             <section
               className={classNames(
-                'flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl p-2 px-3 text-sm',
+                'flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl p-1 px-3 text-sm',
                 {
                   'bg-dot-tertiary': toggleCountries,
                   'bg-dot-secondary': !toggleCountries,
                 }
               )}
             >
-              {selectedCountry.title === 'Unknown' ? (
-                <RiQuestionMark />
-              ) : (
-                <Image
-                  alt={`${selectedCountry.title}`}
-                  src={`https://flagcdn.com/${selectedCountry.value.toLowerCase()}.svg`}
-                  width={24}
-                  height={20}
-                  className={'h-5 w-7 rounded-md'}
-                />
-              )}
+              <Image
+                alt={selectedCountry.title}
+                src={`https://flagcdn.com/${selectedCountry.value.toLowerCase()}.svg`}
+                width={24}
+                height={20}
+                className="h-5 w-7 rounded-md"
+              />
               <p className="max-w-20 truncate text-ellipsis">
                 {selectedCountry.title}
               </p>
@@ -110,54 +113,43 @@ export const SearchCountries: FC<Props> = props => {
             placeholder="Input country..."
             value={searchText}
             onChange={e => setSearchText(e.target.value)}
-            className="w-full rounded-md border-b-2 border-transparent bg-dot-secondary p-2 px-3 text-sm outline-none placeholder:text-zinc-400 focus:border-dot-tertiary"
+            className="w-full rounded-md border-b-2 border-transparent bg-dot-secondary p-2 px-3 text-sm outline-none placeholder:text-zinc-400 focus:outline focus:outline-dot-rose"
           />
         </div>
-        <section
-          className={classNames(
-            'max-h-64 overflow-y-auto overscroll-none',
-            styles['searchContainer']
+        <section className="max-h-44 overflow-y-auto overscroll-none">
+          {filteredCountries.map(
+            (country, index) =>
+              country.title !== '' && (
+                <button
+                  key={index}
+                  onClick={() => {
+                    setSelectedCountry(country);
+                    onCountryChanges(country);
+                  }}
+                  className={classNames(
+                    'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
+                    {
+                      'bg-dot-secondary':
+                        selectedCountry.value === country.value,
+                    }
+                  )}
+                >
+                  <Image
+                    alt={country.title}
+                    src={`https://flagcdn.com/${country.value.toLowerCase()}.svg`}
+                    width={24}
+                    height={20}
+                    className="h-5 w-7 rounded-md"
+                  />
+                  <p className="text-left">{country.title}</p>
+                </button>
+              )
           )}
-        >
-          {filteredCountries.map((country, index) => (
-            <button
-              key={index}
-              onClick={() => {
-                setSelectedCountry({
-                  title: country.title,
-                  value: country.value,
-                });
-                props.onCountryChanges({
-                  title: country.title,
-                  value: country.value,
-                });
-              }}
-              className={classNames(
-                'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
-                {
-                  'bg-dot-secondary': selectedCountry.value == country.value,
-                }
-              )}
-            >
-              {country.title === 'Unknown' ? (
-                <RiQuestionMark />
-              ) : (
-                <Image
-                  alt={`${country.title}`}
-                  src={`https://flagcdn.com/${country.value.toLowerCase()}.svg`}
-                  width={24}
-                  height={20}
-                  className={'h-5 w-7 rounded-md'}
-                />
-              )}
-              <p className="text-left">{country.title}</p>
-            </button>
-          ))}
         </section>
         <button
           onClick={() => {
             setSelectedCountry({ title: '', value: '' });
-            props.onCountryChanges({ title: '', value: '' });
+            onCountryChanges({ title: '', value: '' });
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >

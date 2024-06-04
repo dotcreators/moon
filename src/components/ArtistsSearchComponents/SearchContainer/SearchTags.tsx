@@ -1,5 +1,6 @@
 import classNames from 'classnames';
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useState, useCallback } from 'react';
+import { useRouter } from 'next/router';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import RiVipDiamondFill from '~icons/ri/vip-diamond-fill';
 import RiHeartFill from '~icons/ri/heart-fill';
@@ -9,16 +10,26 @@ import RiSquareFill from '~icons/ri/square-fill';
 import RiShape2Fill from '~icons/ri/shape-2-fill';
 import RiBox3Fill from '~icons/ri/box-3-fill';
 import RiFilmLine from '~icons/ri/film-line';
-import { useRouter } from 'next/router';
 import { searchTagsArray } from '@/utils/Tags';
 
 interface Props {
-  onTagsChanged: Function;
+  onTagsChanged: (tags: string[]) => void;
 }
 
-export const SearchTags: FC<Props> = props => {
-  const tags = searchTagsArray;
-  const [toggleTag, setToggledTag] = useState<boolean>(false);
+const tagIcons: Record<string, JSX.Element> = {
+  Commissions: <RiVipDiamondFill className="text-zinc-400" />,
+  'Work offers': <RiVipDiamondFill className="text-zinc-400" />,
+  NSFW: <RiHeartFill className="text-zinc-400" />,
+  Pixelart: <RiSquareFill className="text-zinc-400" />,
+  Textmode: <RiInputMethodFill className="text-zinc-400" />,
+  Lowpoly: <RiShape2Fill className="text-zinc-400" />,
+  Voxel: <RiBox3Fill className="text-zinc-400" />,
+  Gamedev: <RiCodeFill className="text-zinc-400" />,
+  Animation: <RiFilmLine className="text-zinc-400" />,
+};
+
+export const SearchTags: FC<Props> = ({ onTagsChanged }) => {
+  const [toggleTag, setToggleTag] = useState(false);
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const router = useRouter();
 
@@ -31,38 +42,41 @@ export const SearchTags: FC<Props> = props => {
     }
 
     if (tags && tags.length > 0) {
-      const getTags = tags.map(tag =>
+      const formattedTags = tags.map(tag =>
         tag === 'workoffers'
           ? 'Work offers'
           : tag.charAt(0).toUpperCase() + tag.slice(1)
       );
-      setSelectedTags(getTags);
-      props.onTagsChanged(getTags);
+      setSelectedTags(formattedTags);
+      onTagsChanged(formattedTags);
     }
-  }, [router.isReady, router.query.tags]);
+  }, [router.isReady, router.query.tags, onTagsChanged]);
 
-  function selectedTagsHandler(tag: string) {
-    if (!selectedTags.includes(tag)) {
-      let newGenresArray: string[] = [...selectedTags];
-      newGenresArray.push(tag);
-      props.onTagsChanged(newGenresArray);
-      setSelectedTags(newGenresArray);
-    } else {
-      let newGenresArray: string[] = selectedTags.filter(item => item !== tag);
-      props.onTagsChanged(newGenresArray);
-      setSelectedTags(newGenresArray);
-    }
-  }
+  const handleTagSelection = useCallback(
+    (tag: string) => {
+      const updatedTags = selectedTags.includes(tag)
+        ? selectedTags.filter(item => item !== tag)
+        : [...selectedTags, tag];
+      setSelectedTags(updatedTags);
+      onTagsChanged(updatedTags);
+    },
+    [selectedTags, onTagsChanged]
+  );
+
+  const resetTags = () => {
+    setSelectedTags([]);
+    onTagsChanged([]);
+  };
 
   return (
     <section>
       <button
-        onClick={() => setToggledTag(!toggleTag)}
+        onClick={() => setToggleTag(!toggleTag)}
         className={classNames(
-          'flex w-full flex-col items-center justify-center gap-3 bg-dot-primary p-3 px-5 outline-none transition-padding duration-200 ease-in-out',
+          'grid w-full grid-cols-1 items-center justify-between gap-3 p-3 px-5 outline-none',
           {
             'rounded-t-3xl bg-dot-secondary': toggleTag,
-            'rounded-3xl': !toggleTag,
+            'rounded-3xl bg-dot-primary': !toggleTag,
             'p-5': selectedTags.length !== 0,
           }
         )}
@@ -102,29 +116,13 @@ export const SearchTags: FC<Props> = props => {
               className={classNames(
                 'flex flex-row items-center justify-center gap-1.5 rounded-full p-1 px-3 text-sm transition-colors duration-200 ease-in-out',
                 {
-                  'bg-dot-tertiary text-[#fdfdfd]': selectedTags.length > 0,
-                  'bg-dot-secondary': !toggleTag,
+                  'bg-dot-secondary text-[#fdfdfd]': selectedTags.length > 0,
                   'bg-dot-tertiary': toggleTag,
+                  'bg-dot-secondary': !toggleTag,
                 }
               )}
             >
-              {tag == 'Commissions' || tag == 'Work offers' ? (
-                <RiVipDiamondFill className="text-zinc-400" />
-              ) : tag == 'NSFW' ? (
-                <RiHeartFill className="text-zinc-400" />
-              ) : tag == 'Pixelart' ? (
-                <RiSquareFill className="text-zinc-400" />
-              ) : tag == 'Textmode' ? (
-                <RiInputMethodFill className="text-zinc-400" />
-              ) : tag == 'Lowpoly' ? (
-                <RiShape2Fill className="text-zinc-400" />
-              ) : tag == 'Voxel' ? (
-                <RiBox3Fill className="text-zinc-400" />
-              ) : tag == 'Gamedev' ? (
-                <RiCodeFill className="text-zinc-400" />
-              ) : (
-                ''
-              )}
+              {tagIcons[tag]}
               {tag}
             </span>
           ))}
@@ -136,38 +134,21 @@ export const SearchTags: FC<Props> = props => {
           { hidden: !toggleTag }
         )}
       >
-        {tags.map((tag, index) => (
+        {searchTagsArray.map((tag, index) => (
           <button
             key={index}
-            onClick={() => selectedTagsHandler(tag)}
+            onClick={() => handleTagSelection(tag)}
             className={classNames(
               'flex w-full flex-row items-center justify-start gap-1.5 rounded-full bg-dot-primary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
               { 'bg-dot-secondary': selectedTags.includes(tag) }
             )}
           >
-            {tag == 'Commissions' || tag == 'Work offers' ? (
-              <RiVipDiamondFill className="text-zinc-400" />
-            ) : tag == 'NSFW' ? (
-              <RiHeartFill className="text-zinc-400" />
-            ) : tag == 'Pixelart' ? (
-              <RiSquareFill className="text-zinc-400" />
-            ) : tag == 'Textmode' ? (
-              <RiInputMethodFill className="text-zinc-400" />
-            ) : tag == 'Lowpoly' ? (
-              <RiShape2Fill className="text-zinc-400" />
-            ) : tag == 'Voxel' ? (
-              <RiBox3Fill className="text-zinc-400" />
-            ) : (
-              <RiCodeFill className="text-zinc-400" />
-            )}
+            {tagIcons[tag]}
             {tag}
           </button>
         ))}
         <button
-          onClick={() => {
-            setSelectedTags([]);
-            props.onTagsChanged([]);
-          }}
+          onClick={resetTags}
           className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >
           Reset tags
