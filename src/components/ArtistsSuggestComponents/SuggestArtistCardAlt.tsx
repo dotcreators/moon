@@ -32,7 +32,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
       href={`https://twitter.com/${props.user.username}`}
       target="_blank"
       className={classNames(
-        'animation-all bg-dot-secondary md:hover:bg-dot-tertiary group flex w-full flex-col items-center gap-5 rounded-2xl p-5 duration-200 ease-in-out md:hover:cursor-pointer',
+        'animation-all group flex w-full flex-col items-center gap-5 rounded-2xl bg-dot-secondary p-5 duration-200 ease-in-out md:hover:cursor-pointer md:hover:bg-dot-tertiary',
         props.className
       )}
     >
@@ -42,7 +42,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
           src={props.avatar}
           width={75}
           height={75}
-          className="h-18 w-18 rounded-2xl"
+          className="min-h-[75px] min-w-[75px] rounded-2xl"
         />
         <div className="line-clamp-2 grow">
           <h1 className="truncate font-hubot-sans text-2xl font-black">
@@ -73,7 +73,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
       ) : (
         <section className="flex w-full flex-row flex-wrap gap-1">
           {props.country && (
-            <div className="bg-dot-tertiary group-hover:bg-dot-quaternary flex flex-row items-center gap-2 rounded-md p-1 px-3 transition-colors duration-200 ease-in-out">
+            <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-1 px-3 transition-colors duration-200 ease-in-out group-hover:bg-dot-quaternary">
               <Image
                 alt={`${props.country.title}`}
                 src={`https://flagcdn.com/${props.country.value.toLowerCase()}.svg`}
@@ -88,7 +88,7 @@ export const SuggestArtistCardAlt: FC<Props> = props => {
             props.tags.map((tag, index) => (
               <p
                 key={index}
-                className="bg-dot-tertiary group-hover:bg-dot-quaternary rounded-md p-2 px-4  text-sm transition-colors duration-200 ease-in-out"
+                className="rounded-md bg-dot-tertiary p-2 px-4 text-sm  transition-colors duration-200 ease-in-out group-hover:bg-dot-quaternary"
               >
                 {tag}
               </p>
