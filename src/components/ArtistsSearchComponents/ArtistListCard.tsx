@@ -15,9 +15,9 @@ import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 
 interface Props {
-  place: number;
   artist: ArtistProfile;
-  isSmall: boolean;
+  openedProfile: string | null;
+  onProfileOpened: (profile: string | null) => void;
   className?: string;
 }
 
@@ -50,6 +50,18 @@ export const ArtistListCard: FC<Props> = props => {
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
 
+  useEffect(() => {
+    if (isOpen) {
+      props.onProfileOpened(props.artist.userId);
+    }
+  }, [isOpen]);
+
+  useEffect(() => {
+    if (props.openedProfile !== props.artist.userId) {
+      setIsOpen(false);
+    }
+  }, [props.openedProfile]);
+
   function formatValue(value: number): string {
     if (value >= 1000) {
       return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`;
@@ -81,12 +93,12 @@ export const ArtistListCard: FC<Props> = props => {
   return (
     <>
       <section
+        key={props.artist.userId}
         onClick={() => (!isOpen ? setIsOpen(!isOpen) : '')}
         className={classNames(
-          'group/main flex w-full flex-col justify-between gap-5 overflow-hidden bg-dot-primary transition-transform duration-200 ease-in-out md:hover:bg-dot-secondary',
+          'group/main flex w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary transition-transform duration-200 ease-in-out md:hover:bg-dot-secondary',
           props.className,
           {
-            'rounded-2xl ': !props.isSmall,
             'md:hover:cursor-default': isOpen,
             'p-2 px-5 md:hover:cursor-pointer': !isOpen,
             'bg-dot-secondary': isOpen,
@@ -135,11 +147,7 @@ export const ArtistListCard: FC<Props> = props => {
                 )}
                 {props.artist.name}
               </h1>
-              <p
-                className={classNames('truncate text-ellipsis text-zinc-400', {
-                  'text-sm': props.isSmall,
-                })}
-              >
+              <p className={classNames('truncate text-ellipsis text-zinc-400')}>
                 @{props.artist.username}
               </p>
             </div>
@@ -147,24 +155,18 @@ export const ArtistListCard: FC<Props> = props => {
           <div className="flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
             <div
               className={classNames(
-                'flex flex-row items-center justify-end gap-2',
-                { 'min-w-20': !props.isSmall, 'min-w-16': [props.isSmall] }
+                'flex min-w-16 flex-row items-center justify-end gap-2'
               )}
             >
-              <h1 className={classNames('', { 'text-sm': props.isSmall })}>
-                {formatValue(props.artist.followersCount)}
-              </h1>
+              <h1>{formatValue(props.artist.followersCount)}</h1>
               <p className="text-zinc-400">followers</p>
             </div>
             <div
               className={classNames(
-                'flex flex-row items-center justify-end gap-2',
-                { 'min-w-20': !props.isSmall, 'min-w-16': [props.isSmall] }
+                'flex min-w-16 flex-row items-center justify-end gap-2'
               )}
             >
-              <h1 className={classNames('', { 'text-sm': props.isSmall })}>
-                {formatValue(props.artist.tweetsCount)}
-              </h1>
+              <h1>{formatValue(props.artist.tweetsCount)}</h1>
               <p className="text-zinc-400">posts</p>
             </div>
             <RiArrowDownSLine />
@@ -205,18 +207,19 @@ export const ArtistListCard: FC<Props> = props => {
                   unoptimized={true}
                   className="h-40 w-full object-cover"
                 />
-                {/* <div className="to-dot-secondary/90 absolute inset-0 z-20 bg-gradient-to-b from-transparent" /> */}
               </div>
             </>
           )}
-          <div className="absolute right-3 top-2.5 z-20 flex flex-row items-center gap-1.5 ">
+          <div
+            className={classNames('flex flex-row items-center gap-1.5 ', {
+              'absolute right-3 top-2.5 z-20 ': props.artist.images.banner,
+              'mx-5 mt-5 place-self-end': !props.artist.images.banner,
+            })}
+          >
             <Link
               href={`/artist/${props.artist.username}`}
               className={classNames(
-                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary',
-                {
-                  'mx-5 mt-5 place-self-end': !props.artist.images.banner,
-                }
+                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary'
               )}
             >
               <RiArrowRightUpLine />
@@ -224,10 +227,7 @@ export const ArtistListCard: FC<Props> = props => {
             <button
               onClick={() => setIsOpen(!isOpen)}
               className={classNames(
-                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary',
-                {
-                  'mx-5 mt-5 place-self-end': !props.artist.images.banner,
-                }
+                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary'
               )}
             >
               <RiArrowDownSLine className="rotate-180" />

@@ -10,6 +10,7 @@ import { useRouter } from 'next/router';
 export default function Lists() {
   const router = useRouter();
   const [searchString, setSearchString] = useState<string>('');
+  const [openedProfileId, setOpenedProfileId] = useState<string | null>(null);
   const { data, error } = useSWR<{
     status: string;
     response: { data: ArtistProfile[]; has_next: boolean };
@@ -23,6 +24,7 @@ export default function Lists() {
   );
 
   const skeletonInstances = 25;
+  console.log(openedProfileId);
 
   return (
     <>
@@ -35,12 +37,12 @@ export default function Lists() {
         </div>
         <section className="col-span-3 flex w-full flex-col gap-3">
           {data
-            ? data.response.data.map((artist, index) => (
+            ? data.response.data.map(artist => (
                 <ArtistListCard
-                  key={index}
-                  place={index + 1}
+                  key={artist.userId}
                   artist={artist}
-                  isSmall={false}
+                  openedProfile={openedProfileId}
+                  onProfileOpened={setOpenedProfileId}
                 />
               ))
             : [...Array(skeletonInstances)].map((inst, index) => (
