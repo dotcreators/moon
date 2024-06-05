@@ -19,6 +19,7 @@ interface Props {
   trendData: ArtistTrend[];
   trendBy: 'followers' | 'tweets';
   height?: number;
+  bgColor?: string;
 }
 
 export const ArtistListCardTrendGraph: FC<Props> = props => {
@@ -83,7 +84,13 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
   }
 
   return (
-    <div className="relative flex w-full flex-col gap-5 rounded-2xl bg-dot-tertiary/50 p-5">
+    <div
+      className={classNames(
+        'relative flex w-full flex-col gap-5 rounded-2xl p-5',
+        props.bgColor,
+        { 'bg-dot-tertiary/50': !props.bgColor }
+      )}
+    >
       <p className="text-sm text-zinc-400">
         {props.trendBy.charAt(0).toUpperCase() + props.trendBy.slice(1)} growing
         trend

@@ -12,6 +12,7 @@ import { ArtistListCardTrendGraph } from './ArtistListCardTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
+import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 
 interface Props {
   place: number;
@@ -189,34 +190,49 @@ export const ArtistListCard: FC<Props> = props => {
                   height={200}
                   unoptimized={true}
                   hideLoader={true}
-                  className="z-10 h-48 w-full object-cover opacity-50 blur-3xl"
+                  className="z-10 h-44 w-full object-cover opacity-50 blur-3xl"
                 />
               </div>
-              <div className="relative">
+              <div
+                className="relative cursor-pointer"
+                onClick={() => setIsOpen(!isOpen)}
+              >
                 <ImageLoader
                   src={props.artist.images.banner + '/1500x500	'}
                   alt={'Profile Banner for ' + props.artist.username}
                   width={600}
                   height={200}
                   unoptimized={true}
-                  className="h-48 w-full object-cover"
+                  className="h-40 w-full object-cover"
                 />
                 {/* <div className="to-dot-secondary/90 absolute inset-0 z-20 bg-gradient-to-b from-transparent" /> */}
               </div>
             </>
           )}
-          <button
-            onClick={() => setIsOpen(!isOpen)}
-            className={classNames(
-              'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary',
-              {
-                'absolute right-3 top-2.5 z-20 ': props.artist.images.banner,
-                'mx-5 mt-5 place-self-end': !props.artist.images.banner,
-              }
-            )}
-          >
-            <RiArrowDownSLine className="rotate-180" />
-          </button>
+          <div className="absolute right-3 top-2.5 z-20 flex flex-row items-center gap-1.5 ">
+            <Link
+              href={`/artist/${props.artist.username}`}
+              className={classNames(
+                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary',
+                {
+                  'mx-5 mt-5 place-self-end': !props.artist.images.banner,
+                }
+              )}
+            >
+              <RiArrowRightUpLine />
+            </Link>
+            <button
+              onClick={() => setIsOpen(!isOpen)}
+              className={classNames(
+                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary',
+                {
+                  'mx-5 mt-5 place-self-end': !props.artist.images.banner,
+                }
+              )}
+            >
+              <RiArrowDownSLine className="rotate-180" />
+            </button>
+          </div>
           <div className={classNames('flex w-full flex-col gap-5 px-5 pb-5')}>
             <div className="z-20 flex flex-row items-center justify-between gap-3">
               <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
