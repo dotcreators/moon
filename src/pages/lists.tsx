@@ -41,8 +41,8 @@ export default function Lists() {
                 <ArtistListCard
                   key={artist.userId}
                   artist={artist}
-                  openedProfile={openedProfileId}
-                  onProfileOpened={setOpenedProfileId}
+                  // openedProfile={openedProfileId}
+                  // onProfileOpened={setOpenedProfileId}
                 />
               ))
             : [...Array(skeletonInstances)].map((inst, index) => (

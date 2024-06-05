@@ -17,8 +17,8 @@ import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 
 interface Props {
   artist: ArtistProfile;
-  openedProfile: string | null;
-  onProfileOpened: (profile: string | null) => void;
+  // openedProfile: string | null;
+  // onProfileOpened: (profile: string | null) => void;
   className?: string;
 }
 
@@ -51,17 +51,17 @@ export const ArtistListCard: FC<Props> = props => {
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
 
-  useEffect(() => {
-    if (isOpen) {
-      props.onProfileOpened(props.artist.userId);
-    }
-  }, [isOpen]);
+  // useEffect(() => {
+  //   if (isOpen) {
+  //     props.onProfileOpened(props.artist.userId);
+  //   }
+  // }, [isOpen]);
 
-  useEffect(() => {
-    if (props.openedProfile !== props.artist.userId) {
-      setIsOpen(false);
-    }
-  }, [props.openedProfile]);
+  // useEffect(() => {
+  //   if (props.openedProfile !== props.artist.userId) {
+  //     setIsOpen(false);
+  //   }
+  // }, [props.openedProfile]);
 
   function formatValue(value: number): string {
     if (value >= 1000) {
