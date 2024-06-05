@@ -3,28 +3,5 @@
 @tailwind utilities;
 
 :root {
-  --bg-color: #151515;
-  --inner-color: #fdfdfd;
-  --double-inner-color: #fdfdfd;
-  --text-color: #4e4857;
-
   color-scheme: dark;
-}
-
-@media (prefers-color-scheme: dark) {
-  :root {
-    --bg-color: #090909;
-    --inner-color: #151515;
-    --double-inner-color: #202020;
-    --text-color: #fdfdfd;
-  }
-}
-
-html {
-  /* scrollbar-gutter: stable; */
-}
-
-body {
-  /* color: var(--text-color); */
-  background: var(--bg-color);
 }
