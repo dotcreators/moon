@@ -67,7 +67,11 @@ export const ArtistPageCard: FC<Props> = props => {
             </div>
           </>
         )}
-        <div className={classNames('flex w-full flex-col gap-5 px-5 pb-5')}>
+        <div
+          className={classNames('flex w-full flex-col gap-5 px-5 pb-5', {
+            'mt-5': !props.artist.images.banner,
+          })}
+        >
           <div className="z-20 flex flex-row items-center justify-between gap-3">
             <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
               <div className="flex flex-row items-center gap-3">

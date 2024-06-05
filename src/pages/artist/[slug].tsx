@@ -70,10 +70,6 @@ export default function UserPage() {
           Profile created:{' '}
           {artist && new Date(artist.createdAt).toLocaleDateString()}
         </p>
-        {/* <p className="flex flex-row items-center gap-3 text-sm text-zinc-400">
-          <RiCalendarFill />
-          {artist && new Date(artist.createdAt).toLocaleDateString()}
-        </p> */}
       </div>
       <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">
         {artist && <ArtistPageCard artist={artist} />}
