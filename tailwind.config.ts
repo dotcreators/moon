@@ -40,10 +40,6 @@ const config: Config = {
         'c-emerald-light': '#94BD33',
         'c-emerald-dark': '#3DC454',
       },
-      transitionProperty: {
-        'max-height': 'max-height',
-        'padding': 'padding',
-      },
     },
   },
   plugins: [],

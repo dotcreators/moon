@@ -45,8 +45,6 @@ export const ArtistListCardHero: FC<Props> = props => {
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
 
-  useEffect(() => console.log(props.artist), [props.artist]);
-
   const replaceTagsWithLinks = (text: string) => {
     const regex = / @(\w+)/g;
     return text.split(regex).map((part, index) => {
