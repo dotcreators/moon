@@ -6,6 +6,7 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
+import replaceTagsWithLinks from '../replaceArtistTags';
 
 interface Props {
   artist: ArtistProfile;
@@ -13,26 +14,6 @@ interface Props {
 }
 
 export const ArtistPageCard: FC<Props> = props => {
-  const replaceTagsWithLinks = (text: string) => {
-    const regex = / @(\w+)/g;
-    return text.split(regex).map((part, index) => {
-      if (index % 2 === 1) {
-        const tag = part;
-        return (
-          <Link
-            key={index}
-            target="__blank"
-            href={`https://x.com/${tag}`}
-            className="ml-1 text-dot-link-primary"
-          >
-            @{tag}
-          </Link>
-        );
-      }
-      return part;
-    });
-  };
-
   return (
     <>
       <div
@@ -142,7 +123,7 @@ export const ArtistPageCard: FC<Props> = props => {
 
           <div className="flex flex-row gap-2">
             {props.artist.country && props.artist.country !== undefined && (
-              <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+              <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
                 <Image
                   alt={`${props.artist.country}`}
                   src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
@@ -168,7 +149,7 @@ export const ArtistPageCard: FC<Props> = props => {
                   {props.artist.tags.map((tag, index) => (
                     <p
                       key={index}
-                      className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                      className="rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
                     >
                       {searchTagsArray.map(_tag => {
                         if (
@@ -182,7 +163,7 @@ export const ArtistPageCard: FC<Props> = props => {
                 </>
               )}
             {props.artist && (
-              <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+              <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
                 <p className="text-zinc-400">
                   Profile updated{' '}
                   {new Date(props.artist.lastUpdatedAt).toLocaleDateString() +

@@ -14,6 +14,7 @@ import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
+import replaceTagsWithLinks from '../replaceArtistTags';
 
 interface Props {
   artist: ArtistProfile;
@@ -70,26 +71,6 @@ export const ArtistListCard: FC<Props> = props => {
       return value.toString();
     }
   }
-
-  const replaceTagsWithLinks = (text: string) => {
-    const regex = / @(\w+)/g;
-    return text.split(regex).map((part, index) => {
-      if (index % 2 === 1) {
-        const tag = part;
-        return (
-          <Link
-            key={index}
-            target="__blank"
-            href={`https://x.com/${tag}`}
-            className="ml-1 text-dot-link-primary"
-          >
-            @{tag}
-          </Link>
-        );
-      }
-      return part;
-    });
-  };
 
   const handleToggle = () => {
     setIsOpen(!isOpen);
