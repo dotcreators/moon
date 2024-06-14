@@ -1,6 +1,8 @@
 {
   "name": "dotcreators-moon",
-  "version": "0.1.0",
+  "version": "1.0.0",
+  "description": "Next.js frontend of dotcreators project",
+  "author": "anivire",
   "private": true,
   "scripts": {
     "dev": "next dev",
