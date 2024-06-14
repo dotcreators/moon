@@ -263,7 +263,7 @@ export const ArtistListCard: FC<Props> = props => {
                             <Link
                               href={props.artist.website}
                               target="__blank"
-                              className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                              className="max-w-48 truncate text-ellipsis transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
                             >
                               {props.artist.website.replace(
                                 /^(https?:\/\/)?(www\.)?/,
