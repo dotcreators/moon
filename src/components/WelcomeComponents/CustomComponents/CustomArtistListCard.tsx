@@ -49,7 +49,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
 
   useEffect(() => console.log(props.artist), [props.artist]);
 
-  const replaceTagsWithLinks = (text: string) => {
+  const CreateLinks = (text: string) => {
     const regex = / @(\w+)/g;
     return text.split(regex).map((part, index) => {
       if (index % 2 === 1) {
@@ -161,7 +161,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
 
             {props.artist.bio && (
               <p className="whitespace-pre-line">
-                {replaceTagsWithLinks(props.artist.bio)}
+                {CreateLinks(props.artist.bio)}
               </p>
             )}
 

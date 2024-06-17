@@ -6,7 +6,7 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
-import replaceTagsWithLinks from '../replaceArtistTags';
+import CreateLinks from '../CreateLinks';
 
 interface Props {
   artist: ArtistProfile;
@@ -117,7 +117,7 @@ export const ArtistPageCard: FC<Props> = props => {
 
           {props.artist.bio && (
             <p className="whitespace-pre-line">
-              {replaceTagsWithLinks(props.artist.bio)}
+              {CreateLinks(props.artist.bio)}
             </p>
           )}
 

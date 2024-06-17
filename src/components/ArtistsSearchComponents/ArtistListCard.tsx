@@ -14,7 +14,7 @@ import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
-import replaceTagsWithLinks from '../replaceArtistTags';
+import CreateLinks from '../CreateLinks';
 
 interface Props {
   artist: ArtistProfile;
@@ -280,7 +280,7 @@ export const ArtistListCard: FC<Props> = props => {
 
               {props.artist.bio && (
                 <p className="whitespace-pre-line">
-                  {replaceTagsWithLinks(props.artist.bio)}
+                  {CreateLinks(props.artist.bio)}
                 </p>
               )}
 
