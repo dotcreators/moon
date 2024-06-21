@@ -64,7 +64,7 @@ export const SearchItem: FC<Props> = ({
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={classNames(
-            'relative flex h-14 w-full flex-row items-center justify-between gap-5 p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+            'relative flex min-h-14 w-full flex-row items-center justify-between gap-5 p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
             customClassNames,
             {
               'rounded-t-3xl bg-dot-secondary': isOpen,
@@ -109,7 +109,7 @@ export const SearchItem: FC<Props> = ({
         <button
           onClick={() => setIsOpen(!isOpen)}
           className={classNames(
-            'flex h-14 w-full flex-col place-items-start items-center justify-between gap-3 p-3 px-5 outline-none',
+            'flex min-h-14 w-full flex-col place-items-start items-center justify-between gap-3 p-3 px-5 outline-none',
             customClassNames,
             {
               'rounded-t-3xl bg-dot-secondary': isOpen,
