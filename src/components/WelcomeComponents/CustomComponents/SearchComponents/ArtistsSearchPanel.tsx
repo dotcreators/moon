@@ -1,10 +1,11 @@
-import { SearchSortFilters } from '../../../ArtistsSearchComponents/SearchContainer/SearchSortFilters';
 import { useState } from 'react';
 import { SearchQ } from '@/components/ArtistsSearchComponents/SearchContainer/SearchQ';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import useSWR from 'swr';
 import { CustomArtistListCardSmall } from '../CustomArtistListCardSmall';
 import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistListCardLoader';
+import { SearchItem } from '@/components/ArtistsSearchComponents/SearchContainer/SearchItem';
+import { filterDataSort } from '@/utils/FiltersData';
 
 export default function ArtistSearchPanel() {
   const [selectedSortFilter, setSelectedSortFilter] =
@@ -29,7 +30,16 @@ export default function ArtistSearchPanel() {
         <div className="flex w-full flex-row items-center gap-3">
           <SearchQ onQChanges={setSearchQ} />
           <div className="w-full">
-            <SearchSortFilters onSortFilterChanges={setSelectedSortFilter} />
+            <SearchItem
+              title="Sort by"
+              isDropdown={true}
+              filtersData={filterDataSort}
+              isMultiSelect={false}
+              defaultSelectedValue={[selectedSortFilter]}
+              selectedValuesUpdate={(filter: string | string[]) =>
+                setSelectedSortFilter(filter as string)
+              }
+            />
           </div>
         </div>
 

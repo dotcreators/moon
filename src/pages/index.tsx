@@ -2,8 +2,6 @@ import Hero from '@/components/HeroComponents/Hero';
 import FindCreators from '@/components/WelcomeComponents/FindCreators';
 import TrackGrowingTrend from '@/components/WelcomeComponents/TrackGrowingTrend';
 import ArtistsMarquee from '@/components/WelcomeComponents/ArtistsMarquee';
-import BentoArtist from '@/components/BentoComponents/BentoArtist';
-import { BentoItem } from '@/components/BentoComponents/BentoItem';
 
 export default function Home() {
   return (

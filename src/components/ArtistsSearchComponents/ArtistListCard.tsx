@@ -18,8 +18,6 @@ import CreateLinks from '../CreateLinks';
 
 interface Props {
   artist: ArtistProfile;
-  // openedProfile: string | null;
-  // onProfileOpened: (profile: string | null) => void;
   className?: string;
 }
 
@@ -51,18 +49,6 @@ export const ArtistListCard: FC<Props> = props => {
     }
     if (error) console.error('Error fetching artist trends:', error);
   }, [data, error]);
-
-  // useEffect(() => {
-  //   if (isOpen) {
-  //     props.onProfileOpened(props.artist.userId);
-  //   }
-  // }, [isOpen]);
-
-  // useEffect(() => {
-  //   if (props.openedProfile !== props.artist.userId) {
-  //     setIsOpen(false);
-  //   }
-  // }, [props.openedProfile]);
 
   function formatValue(value: number): string {
     if (value >= 1000) {
@@ -246,10 +232,9 @@ export const ArtistListCard: FC<Props> = props => {
                               target="__blank"
                               className="max-w-48 truncate text-ellipsis transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
                             >
-                              {props.artist.website.replace(
-                                /^(https?:\/\/)?(www\.)?/,
-                                ''
-                              )}
+                              {props.artist.website
+                                .replace(/^(https?:\/\/)?(www\.)?/, '')
+                                .replace(/\/$/, '')}
                             </Link>
                           </>
                         )}

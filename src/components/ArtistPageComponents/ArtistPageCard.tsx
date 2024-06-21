@@ -44,7 +44,6 @@ export const ArtistPageCard: FC<Props> = props => {
                 unoptimized={true}
                 className="h-40 w-full object-cover"
               />
-              {/* <div className="to-dot-secondary/90 absolute inset-0 z-20 bg-gradient-to-b from-transparent" /> */}
             </div>
           </>
         )}
@@ -83,10 +82,9 @@ export const ArtistPageCard: FC<Props> = props => {
                           target="__blank"
                           className="max-w-48 truncate text-ellipsis transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
                         >
-                          {props.artist.website.replace(
-                            /^(https?:\/\/)?(www\.)?/,
-                            ''
-                          )}
+                          {props.artist.website
+                            .replace(/^(https?:\/\/)?(www\.)?/, '')
+                            .replace(/\/$/, '')}
                         </Link>
                       </>
                     )}

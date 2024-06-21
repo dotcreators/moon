@@ -23,9 +23,6 @@ export default function Lists() {
     {}
   );
 
-  const skeletonInstances = 25;
-  console.log(openedProfileId);
-
   return (
     <>
       <section className="relative m-auto grid h-fit w-full max-w-7xl grid-cols-4 items-start justify-center gap-5 pt-32 ">
@@ -40,7 +37,7 @@ export default function Lists() {
             ? data.response.data.map(artist => (
                 <ArtistListCard key={artist.userId} artist={artist} />
               ))
-            : [...Array(skeletonInstances)].map((inst, index) => (
+            : [...Array(25)].map((inst, index) => (
                 <ArtistListCardLoader key={index} />
               ))}
         </section>

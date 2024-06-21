@@ -1,4 +1,4 @@
-import { FC, useEffect, useState } from 'react';
+import { FC, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
 import styles from '@/components/ArtistsSearchComponents/SearchCountries.module.css';
@@ -8,52 +8,53 @@ import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 import { useRouter } from 'next/router';
 
 interface Props {
+  isDropdown: boolean;
   onCountryChanges: (country: SelectCountry) => void;
+  defaultSelectedValue?: SelectCountry;
   classNames?: string;
 }
 
-export const SearchCountries: FC<Props> = ({
+export const SearchItemCountries: FC<Props> = ({
+  isDropdown,
+  defaultSelectedValue,
   onCountryChanges,
   classNames: customClassNames,
 }) => {
   const [toggleCountries, setToggleCountries] = useState<boolean>(false);
-  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>({
-    title: '',
-    value: '',
-  });
   const [searchText, setSearchText] = useState<string>('');
-  const router = useRouter();
+  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>(
+    defaultSelectedValue !== undefined
+      ? defaultSelectedValue
+      : {
+          title: '',
+          value: '',
+        }
+  );
+  const dropdownRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (defaultSelectedValue !== undefined) {
+      setSelectedCountry(defaultSelectedValue);
+    }
+  }, [defaultSelectedValue]);
 
   const filteredCountries = countryCodes.filter(country =>
     country.title.toLowerCase().includes(searchText.toLowerCase())
   );
 
-  useEffect(() => {
-    const updateCountryFromRouter = () => {
-      if (!router.isReady) return;
-
-      const country = router.query.country as string;
-      const foundCountry = countryCodes.find(x => x.value === country);
-      if (foundCountry) {
-        setSelectedCountry(foundCountry);
-        onCountryChanges(foundCountry);
-      }
-    };
-
-    updateCountryFromRouter();
-  }, [router.isReady, router.query.country, onCountryChanges]);
-
   return (
     <section
+      ref={dropdownRef}
       className={classNames('overflow-hidden rounded-3xl', customClassNames)}
     >
       <button
         onClick={() => setToggleCountries(!toggleCountries)}
         className={classNames(
-          'h-15 flex w-full flex-row items-center gap-5 bg-dot-primary p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          'relative flex h-14 w-full flex-row items-center justify-between gap-5 p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          customClassNames,
           {
             'rounded-t-3xl bg-dot-secondary': toggleCountries,
-            'rounded-3xl': !toggleCountries,
+            'rounded-3xl bg-dot-primary': !toggleCountries,
           }
         )}
       >
@@ -90,7 +91,7 @@ export const SearchCountries: FC<Props> = ({
                 }
               )}
             >
-              Select country...
+              Select country
             </p>
           )}
           <RiArrowDownSLine
@@ -103,11 +104,11 @@ export const SearchCountries: FC<Props> = ({
       </button>
       <section
         className={classNames(
-          'flex flex-col gap-2 scroll-smooth rounded-b-3xl bg-dot-primary p-3',
-          { hidden: !toggleCountries }
+          'flex w-full flex-col flex-wrap place-items-center items-start justify-start gap-1 rounded-b-3xl border-x border-b border-dot-secondary bg-dot-primary p-3 text-sm shadow-xl',
+          { hidden: !toggleCountries, 'absolute z-20 ': isDropdown }
         )}
       >
-        <div className="flex flex-row items-center justify-center gap-3">
+        <div className="mb-3 flex w-full flex-row items-center justify-center gap-3">
           <input
             type="text"
             placeholder="Input country..."

@@ -59,13 +59,13 @@ export default function UserPage() {
   return (
     <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 pt-32">
       <div className="flex w-full flex-row items-center justify-between">
-        <Link
-          href="/lists"
+        <button
+          onClick={() => router.back()}
           className="flex flex-row items-center gap-1 text-sm text-zinc-400 duration-300 ease-in-out md:hover:text-dot-white"
         >
           <RiArrowLeftSLine />
           <p>Back to artists</p>
-        </Link>
+        </button>
         <p className="text-sm text-zinc-400">
           Profile created:{' '}
           {artist && new Date(artist.createdAt).toLocaleDateString()}

@@ -1,33 +1,68 @@
-import { SearchTags } from './SearchContainer/SearchTags';
-import { SearchCountries } from './SearchContainer/SearchCountries';
-import { SearchSortFilters } from './SearchContainer/SearchSortFilters';
-import { FC, useEffect, useState } from 'react';
-import { SearchQ } from './SearchContainer/SearchQ';
+import { FC, useEffect, useState, useCallback } from 'react';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
+import { SearchQ } from './SearchContainer/SearchQ';
+import { SearchItemCountries } from './SearchContainer/SearchItemCountries';
+import { SearchItem } from './SearchContainer/SearchItem';
+import { filterDataSort, filterDataTags } from '@/utils/FiltersData';
+import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 
 interface Props {
-  onSearchStringChanges: Function;
+  onSearchStringChanges: (searchString: string) => void;
   searchString: ParsedUrlQuery;
 }
 
-export const ArtistsSearch: FC<Props> = props => {
+export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
   const router = useRouter();
 
   const [searchQ, setSearchQ] = useState<string>('');
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<{
-    title: string;
-    value: string;
-  }>({ title: '', value: '' });
+  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>({
+    title: '',
+    value: '',
+  });
   const [selectedSortFilter, setSelectedSortFilter] =
     useState<string>('Followers');
   const [page, setPage] = useState<number>(1);
-  const limit = 50;
+  const [limit, setLimit] = useState<number>(50);
 
   useEffect(() => {
     if (!router.isReady) return;
 
+    const { tags, country, sortBy, username } = router.query;
+
+    const foundSortBy = sortBy as string;
+    const foundCountry: SelectCountry = countryCodes.find(
+      x => x.value.toLowerCase() === country
+    ) ?? { title: '', value: '' };
+
+    let foundTags: string[] = [];
+    if (tags) {
+      if (Array.isArray(tags)) {
+        foundTags = tags;
+      } else if (typeof tags === 'string') {
+        foundTags = [tags];
+      }
+    }
+
+    if (foundCountry) setSelectedCountry(foundCountry);
+    if (foundTags) {
+      const formattedTags = foundTags.map(tag =>
+        tag === 'workoffers'
+          ? 'Work offers'
+          : tag.charAt(0).toUpperCase() + tag.slice(1)
+      );
+      setSelectedTags(formattedTags);
+    }
+    if (foundSortBy)
+      setSelectedSortFilter(
+        (foundSortBy.slice(0, 1).toLocaleUpperCase() +
+          foundSortBy.substring(1, foundSortBy.length)) as string
+      );
+    if (username) setSearchQ(username as string);
+  }, [router.isReady]);
+
+  useEffect(() => {
     const query = new URLSearchParams();
     query.append('page', page.toString());
     query.append('limit', limit.toString());
@@ -42,26 +77,39 @@ export const ArtistsSearch: FC<Props> = props => {
     if (selectedSortFilter)
       query.append('sortBy', selectedSortFilter.toLowerCase());
 
-    router.push(`/lists?${query.toString()}`, undefined, { shallow: true });
-    props.onSearchStringChanges(query.toString());
-  }, [
-    searchQ,
-    selectedTags,
-    selectedCountry,
-    selectedSortFilter,
-    page,
-    limit,
-    router.isReady,
-  ]);
+    const queryString = query.toString();
+    router.push(`/lists?${queryString}`, undefined, { shallow: true });
+    onSearchStringChanges(queryString);
+  }, [page, limit, searchQ, selectedTags, selectedCountry, selectedSortFilter]);
 
   return (
-    <>
-      <section className="overflow-y-autopb-6 flex flex-col gap-3">
-        <SearchQ onQChanges={setSearchQ} />
-        <SearchTags onTagsChanged={setSelectedTags} />
-        <SearchCountries onCountryChanges={setSelectedCountry} />
-        <SearchSortFilters onSortFilterChanges={setSelectedSortFilter} />
-      </section>
-    </>
+    <section className="flex flex-col gap-3 overflow-y-auto pb-6">
+      <SearchQ onQChanges={setSearchQ} />
+      <SearchItem
+        title="Tags"
+        isDropdown={false}
+        filtersData={filterDataTags}
+        isMultiSelect={true}
+        defaultSelectedValue={selectedTags}
+        selectedValuesUpdate={(filters: string | string[]) =>
+          setSelectedTags(filters as string[])
+        }
+      />
+      <SearchItem
+        title="Sort by"
+        isDropdown={false}
+        filtersData={filterDataSort}
+        isMultiSelect={false}
+        defaultSelectedValue={[selectedSortFilter]}
+        selectedValuesUpdate={(filter: string | string[]) =>
+          setSelectedSortFilter(filter as string)
+        }
+      />
+      <SearchItemCountries
+        isDropdown={false}
+        defaultSelectedValue={selectedCountry}
+        onCountryChanges={setSelectedCountry}
+      />
+    </section>
   );
 };
