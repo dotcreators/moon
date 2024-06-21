@@ -12,6 +12,7 @@ import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListC
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
+import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 
 interface Props {
   artist: ArtistProfile;
@@ -74,7 +75,6 @@ export const ArtistListCardHero: FC<Props> = props => {
           props.className
         )}
       >
-        {/* MoreInfo */}
         <div className={classNames('relative flex flex-col gap-5 ')}>
           {props.artist.images.banner !== undefined && (
             <>
@@ -98,10 +98,25 @@ export const ArtistListCardHero: FC<Props> = props => {
                   unoptimized={true}
                   className="h-48 w-full object-cover"
                 />
-                {/* <div className="to-dot-secondary/90 absolute inset-0 z-20 bg-gradient-to-b from-transparent" /> */}
               </div>
             </>
           )}
+          <div
+            className={classNames('flex flex-row items-center gap-1.5 ', {
+              'absolute right-3 top-2.5 z-20 ': props.artist.images.banner,
+              'mx-5 mt-5 place-self-end': !props.artist.images.banner,
+            })}
+          >
+            <Link
+              href={`/artist/${props.artist.username}`}
+              className={classNames(
+                'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary'
+              )}
+            >
+              <RiArrowRightUpLine />
+            </Link>
+          </div>
+
           <div className="flex w-full flex-col gap-5 px-5 pb-5">
             <div className="z-20 flex flex-row items-center justify-between gap-3">
               <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
@@ -207,7 +222,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                   {props.artist.tags.map((tag, index) => (
                     <p
                       key={index}
-                      className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                      className="rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
                     >
                       {searchTagsArray.map(_tag => {
                         if (
@@ -220,7 +235,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                   ))}
                   {props.artist.country &&
                     props.artist.country !== undefined && (
-                      <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+                      <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
                         <Image
                           alt={`${props.artist.country}`}
                           src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}

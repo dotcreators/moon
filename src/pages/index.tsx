@@ -2,6 +2,8 @@ import Hero from '@/components/HeroComponents/Hero';
 import FindCreators from '@/components/WelcomeComponents/FindCreators';
 import TrackGrowingTrend from '@/components/WelcomeComponents/TrackGrowingTrend';
 import ArtistsMarquee from '@/components/WelcomeComponents/ArtistsMarquee';
+import BentoArtist from '@/components/BentoComponents/BentoArtist';
+import { BentoItem } from '@/components/BentoComponents/BentoItem';
 
 export default function Home() {
   return (
@@ -10,7 +12,7 @@ export default function Home() {
       <div className="mt-32">
         <ArtistsMarquee />
       </div>
-      <section className="m-auto my-32 flex w-full max-w-6xl flex-col items-center justify-center gap-16">
+      <section className="m-auto my-32 flex w-full max-w-7xl flex-col items-center justify-center gap-16">
         <FindCreators />
         <TrackGrowingTrend />
       </section>

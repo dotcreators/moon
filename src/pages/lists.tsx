@@ -38,12 +38,7 @@ export default function Lists() {
         <section className="col-span-3 flex w-full flex-col gap-3">
           {data
             ? data.response.data.map(artist => (
-                <ArtistListCard
-                  key={artist.userId}
-                  artist={artist}
-                  // openedProfile={openedProfileId}
-                  // onProfileOpened={setOpenedProfileId}
-                />
+                <ArtistListCard key={artist.userId} artist={artist} />
               ))
             : [...Array(skeletonInstances)].map((inst, index) => (
                 <ArtistListCardLoader key={index} />

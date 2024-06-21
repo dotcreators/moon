@@ -22,7 +22,7 @@ export default function Hero() {
       setUsername(usernames[currentItem]);
     }, 1000 * SWAP_TIME);
 
-    return () => clearInterval(timer); // Clean up the interval on component unmount
+    return () => clearInterval(timer);
   }, []);
 
   const { data: artistProfile } = useSWR<{
@@ -43,18 +43,8 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative h-screen overflow-hidden">
-      {/* {artistProfiles &&
-        artistProfiles.response.data.map((artist, index) => (
-          <BentoUserCard
-            key={index}
-            avatar={artist.images.avatar}
-            followers={artist.followersCount}
-            posts={artist.tweetsCount}
-            user={{ tag: artist.username, username: artist.name || '' }}
-          />
-        ))} */}
-      <div className="relative mx-auto flex h-screen max-w-7xl flex-col items-center gap-5 overflow-hidden pt-32">
+    <section className="relative min-h-screen">
+      <div className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-32">
         <DotcreatorsLogoHero />
         <h1 className="max-w-[60%] text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
           The place for pixel artists
@@ -66,7 +56,7 @@ export default function Hero() {
         {artistProfile && (
           <motion.div
             key={username}
-            className="absolute top-[500px] w-full"
+            className="mt-8 w-full"
             initial="hidden"
             animate="visible"
             exit="hidden"
@@ -76,15 +66,18 @@ export default function Hero() {
           </motion.div>
         )}
       </div>
-      <div className="absolute -top-96 -z-10 h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
-      <Image
-        src={'/bg-pattern.jpeg'}
-        alt="Background pattern"
-        draggable={false}
-        fill={true}
-        className="absolute -z-30 opacity-10"
-        priority={true}
-      />
+
+      <div className="absolute inset-0 -z-10 min-h-screen w-full overflow-hidden">
+        <div className="absolute -top-96 h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
+        <Image
+          src={'/bg-pattern.jpeg'}
+          alt="Background pattern"
+          draggable={false}
+          fill={true}
+          className="-z-30 object-scale-down opacity-10"
+          priority={true}
+        />
+      </div>
     </section>
   );
 }

@@ -1,5 +1,5 @@
 import classNames from 'classnames';
-import { FC, useCallback, useEffect, useState } from 'react';
+import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import RiUserHeartFill from '~icons/ri/user-heart-fill';
 import RiFilePaper2Fill from '~icons/ri/file-paper-2-fill';
@@ -9,6 +9,7 @@ import { useRouter } from 'next/router';
 
 interface Props {
   onSortFilterChanges: (filter: string) => void;
+  classNames?: string;
 }
 
 const sortFilters = ['Followers', 'Username', 'Posts', 'Trending'];
@@ -20,12 +21,13 @@ const sortFilterIcons: Record<string, JSX.Element> = {
   Trending: <RiLineChartFill className="text-zinc-400" />,
 };
 
-export const SearchSortFilters: FC<Props> = ({ onSortFilterChanges }) => {
+export const SearchSortFilters: FC<Props> = props => {
   const [toggleSortFilters, setToggleSortFilters] = useState(false);
   const [selectedSortFilter, setSelectedSortFilter] = useState<string>(
     sortFilters[0]
   );
   const router = useRouter();
+  const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     if (!router.isReady) return;
@@ -34,31 +36,49 @@ export const SearchSortFilters: FC<Props> = ({ onSortFilterChanges }) => {
     const _sortBy = sortFilters.find(x => x.toLowerCase() === sortBy);
     if (_sortBy) {
       setSelectedSortFilter(_sortBy);
-      onSortFilterChanges(_sortBy);
+      props.onSortFilterChanges(_sortBy);
     }
-  }, [router.isReady, router.query.sortBy, onSortFilterChanges]);
+  }, [router.isReady, router.query.sortBy, props.onSortFilterChanges]);
 
   const handleSortFilterChange = useCallback(
     (filter: string) => {
       setSelectedSortFilter(filter);
-      onSortFilterChanges(filter);
+      props.onSortFilterChanges(filter);
+      setToggleSortFilters(false);
     },
-    [onSortFilterChanges]
+    [props.onSortFilterChanges]
   );
 
   const resetSortFilter = useCallback(() => {
     const defaultFilter = sortFilters[0];
     setSelectedSortFilter(defaultFilter);
-    onSortFilterChanges(defaultFilter);
-  }, [onSortFilterChanges]);
+    props.onSortFilterChanges(defaultFilter);
+    setToggleSortFilters(false);
+  }, [props.onSortFilterChanges]);
+
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      if (
+        dropdownRef.current &&
+        !dropdownRef.current.contains(event.target as Node)
+      ) {
+        setToggleSortFilters(false);
+      }
+    };
+
+    document.addEventListener('mousedown', handleClickOutside);
+    return () => {
+      document.removeEventListener('mousedown', handleClickOutside);
+    };
+  }, []);
 
   return (
-    <section>
+    <section ref={dropdownRef} className="relative">
       <button
         onClick={() => setToggleSortFilters(!toggleSortFilters)}
-        id="tags"
         className={classNames(
-          'h-15 flex w-full flex-row items-center justify-between gap-5 p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          'h-15 relative flex w-full flex-row items-center justify-between gap-5 p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          props.classNames,
           {
             'rounded-t-3xl bg-dot-secondary': toggleSortFilters,
             'rounded-3xl bg-dot-primary': !toggleSortFilters,
@@ -92,7 +112,7 @@ export const SearchSortFilters: FC<Props> = ({ onSortFilterChanges }) => {
       </button>
       <section
         className={classNames(
-          'grid grid-cols-2 flex-wrap place-items-center gap-1 rounded-b-3xl bg-dot-primary p-3 text-sm',
+          'absolute z-20 grid w-full grid-cols-2 flex-wrap place-items-center gap-1 rounded-b-3xl border-x border-b border-dot-secondary bg-dot-primary p-3 text-sm shadow-xl',
           { hidden: !toggleSortFilters }
         )}
       >

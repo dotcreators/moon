@@ -1,34 +1,45 @@
 import { SearchSortFilters } from '../../../ArtistsSearchComponents/SearchContainer/SearchSortFilters';
 import { useState } from 'react';
-import RiSearch2Line from '~icons/ri/search-2-line';
-import CustomSearch from './CustomSearch';
-import CustomSearchCountries from './CustomSearchCountries';
+import { SearchQ } from '@/components/ArtistsSearchComponents/SearchContainer/SearchQ';
+import { ArtistProfile } from '@/utils/models/ArtistProfile';
+import useSWR from 'swr';
+import { CustomArtistListCardSmall } from '../CustomArtistListCardSmall';
+import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistListCardLoader';
 
 export default function ArtistSearchPanel() {
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<{
-    title: string;
-    value: string;
-  }>({ title: '', value: '' });
   const [selectedSortFilter, setSelectedSortFilter] =
     useState<string>('Followers');
-  const [page, setPage] = useState<number>(1);
-  const limit = 50;
+  const [searchQ, setSearchQ] = useState<string>('');
+
+  const { data: artistProfiles } = useSWR<{
+    status: string;
+    response: { data: ArtistProfile[]; has_next: boolean };
+  }>(
+    `${process.env.API_URL}artists?page=1&limit=8&sortBy=${selectedSortFilter.toLowerCase()}${searchQ ? '&username=' + searchQ : ''}`,
+    async (input: RequestInfo, init: RequestInit) => {
+      const res = await fetch(input, init);
+      return res.json();
+    },
+    {}
+  );
 
   return (
     <>
-      <section className="flex flex-col gap-3 overflow-y-auto">
-        <section className="h-15 flex flex-row items-center gap-5 rounded-3xl bg-dot-primary p-3 px-5 outline-dot-primary group-focus:outline-2">
-          <RiSearch2Line />
-          <input
-            type="search"
-            placeholder="Input artist @tag..."
-            className="h-full grow bg-transparent text-zinc-400 outline-none placeholder:text-sm"
-          />
-        </section>
-        <CustomSearch />
-        <CustomSearchCountries />
-        <SearchSortFilters onSortFilterChanges={setSelectedSortFilter} />
+      <section className="flex flex-col gap-3">
+        <div className="flex w-full flex-row items-center gap-3">
+          <SearchQ onQChanges={setSearchQ} />
+          <div className="w-full">
+            <SearchSortFilters onSortFilterChanges={setSelectedSortFilter} />
+          </div>
+        </div>
+
+        {artistProfiles
+          ? artistProfiles.response.data.map(artist => (
+              <CustomArtistListCardSmall key={artist.id} artist={artist} />
+            ))
+          : [...Array(8)].map((_, index) => (
+              <ArtistListCardLoader key={index} />
+            ))}
       </section>
     </>
   );

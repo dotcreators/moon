@@ -12,8 +12,8 @@ export default function FindCreators() {
           or find yourself!
         </p>
       </div>
-      <div className="relative overflow-hidden rounded-2xl p-2">
-        <div className="rounded-2xl border border-dot-white/5 bg-dot-primary/50 p-8">
+      <div className="relative min-h-[622px] overflow-hidden rounded-2xl p-2">
+        <div className="h-full min-h-[622px] rounded-2xl border border-dot-white/5 bg-dot-primary/50 p-8">
           <ArtistSearchPanel />
         </div>
         <div className="absolute bottom-0 left-0 -z-10 h-32 w-full bg-gradient-to-t from-dot-rose via-dot-rose/30 to-transparent  opacity-20 " />
