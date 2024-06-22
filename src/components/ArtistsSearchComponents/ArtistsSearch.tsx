@@ -27,7 +27,7 @@ export const ArtistsSearch: FC<Props> = ({
   });
   const [selectedSortFilter, setSelectedSortFilter] =
     useState<string>('Followers');
-  const [limit, setLimit] = useState<number>(50);
+  const [limit, setLimit] = useState<number>(25);
 
   useEffect(() => {
     if (!router.isReady) return;

@@ -27,12 +27,16 @@ export default function ArtistsMarquee() {
         <>
           <Marquee pauseOnHover={true}>
             {[...Array(15)].map((_, index) => (
-              <SuggestArtistCardSkeleton key={index} />
+              <div className="mx-3">
+                <SuggestArtistCardSkeleton key={index} />
+              </div>
             ))}
           </Marquee>
           <Marquee direction="right" pauseOnHover={true}>
             {[...Array(15)].map((_, index) => (
-              <SuggestArtistCardSkeleton key={index} />
+              <div className="mx-3">
+                <SuggestArtistCardSkeleton key={index} />
+              </div>
             ))}
           </Marquee>
         </>
