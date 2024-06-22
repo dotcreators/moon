@@ -1,4 +1,4 @@
-import { FC, useEffect, useState, useCallback } from 'react';
+import { FC, useState, useEffect } from 'react';
 import { useRouter } from 'next/router';
 import { ParsedUrlQuery } from 'querystring';
 import { SearchQ } from './SearchContainer/SearchQ';
@@ -10,9 +10,13 @@ import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 interface Props {
   onSearchStringChanges: (searchString: string) => void;
   searchString: ParsedUrlQuery;
+  currentPage: number;
 }
 
-export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
+export const ArtistsSearch: FC<Props> = ({
+  onSearchStringChanges,
+  currentPage,
+}) => {
   const router = useRouter();
 
   const [searchQ, setSearchQ] = useState<string>('');
@@ -23,7 +27,6 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
   });
   const [selectedSortFilter, setSelectedSortFilter] =
     useState<string>('Followers');
-  const [page, setPage] = useState<number>(1);
   const [limit, setLimit] = useState<number>(50);
 
   useEffect(() => {
@@ -64,7 +67,7 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
 
   useEffect(() => {
     const query = new URLSearchParams();
-    query.append('page', page.toString());
+    query.append('page', currentPage.toString());
     query.append('limit', limit.toString());
     if (searchQ) query.append('username', searchQ);
     if (selectedTags.length > 0) {
@@ -80,7 +83,14 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
     const queryString = query.toString();
     router.push(`/lists?${queryString}`, undefined, { shallow: true });
     onSearchStringChanges(queryString);
-  }, [page, limit, searchQ, selectedTags, selectedCountry, selectedSortFilter]);
+  }, [
+    currentPage,
+    limit,
+    searchQ,
+    selectedTags,
+    selectedCountry,
+    selectedSortFilter,
+  ]);
 
   return (
     <section className="flex flex-col gap-3 overflow-y-auto pb-6">
