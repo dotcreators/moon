@@ -37,7 +37,7 @@ export default function Lists() {
             ? data.response.data.map(artist => (
                 <ArtistListCard key={artist.userId} artist={artist} />
               ))
-            : [...Array(25)].map((inst, index) => (
+            : [...Array(25)].map((_, index) => (
                 <ArtistListCardLoader key={index} />
               ))}
         </section>

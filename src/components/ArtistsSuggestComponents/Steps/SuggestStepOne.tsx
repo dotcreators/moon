@@ -117,6 +117,7 @@ export const SuggestStepOne: FC<Props> = props => {
               username: fetchedArtistsProfile.username,
               name: fetchedArtistsProfile.name || '',
             }}
+            isTwitterLink={true}
             country={undefined}
             tags={undefined}
           />

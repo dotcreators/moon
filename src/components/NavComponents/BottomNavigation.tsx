@@ -17,7 +17,7 @@ export default function BottomNavigation() {
       newTab: false,
     },
     {
-      title: 'Discord Community Support',
+      title: 'Discord Support',
       link: '',
       newTab: true,
     },
@@ -68,9 +68,17 @@ export default function BottomNavigation() {
               pixel-related artists.
             </p>
           </div>
-          <p className="text-xs text-zinc-400">
-            dotcreators.xyz © 2024 All rights reserved.
+          <p className="max-w-96 text-sm">
+            Dotcreators is{' '}
+            <Link
+              href={'https://github.com/dotcreators'}
+              className="inline-flex items-center text-dot-rose"
+            >
+              open source
+              <RiArrowRightUpLine />
+            </Link>
           </p>
+          {/* <p className="text-xs text-zinc-400">dotcreators © 2024</p> */}
         </div>
 
         <div className="flex flex-row place-items-start gap-16">

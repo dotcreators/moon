@@ -50,6 +50,7 @@ export const SuggestStepTwo: FC<Props> = props => {
             username: props.artist.username,
             name: props.artist.name || '',
           }}
+          isTwitterLink={true}
           country={undefined}
           tags={undefined}
         />

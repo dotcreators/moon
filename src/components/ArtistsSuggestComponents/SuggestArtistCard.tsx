@@ -13,6 +13,7 @@ interface Props {
   avatar: string;
   followers: number;
   posts: number;
+  isTwitterLink: boolean;
   tags?: string[];
   country?: SelectCountry;
   className?: string;
@@ -29,8 +30,8 @@ export const SuggestArtistCard: FC<Props> = props => {
 
   return (
     <Link
-      href={`https://twitter.com/${props.user.username}`}
-      target="_blank"
+      href={`${props.isTwitterLink ? 'https://twitter.com/' : '/artist/'}${props.user.username}`}
+      target={props.isTwitterLink ? '_blank' : '_parent'}
       className={classNames(
         'animation-all group flex w-full flex-col items-center gap-5 rounded-2xl  p-5 duration-200 ease-in-out md:hover:cursor-pointer ',
         props.className,

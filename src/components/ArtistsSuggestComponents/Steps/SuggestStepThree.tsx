@@ -26,6 +26,7 @@ export const SuggestStepThree: FC<Props> = props => {
             username: props.artist.username,
             name: props.artist.name || '',
           }}
+          isTwitterLink={true}
           country={props.country}
           tags={props.tags}
         />

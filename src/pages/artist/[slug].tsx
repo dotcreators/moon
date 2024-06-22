@@ -8,6 +8,7 @@ import { ArtistPageTrendGraph } from '@/components/ArtistPageComponents/ArtistPa
 import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
 import Link from 'next/link';
 import RiCalendarFill from '~icons/ri/calendar-fill';
+import RiLineChartFill from '~icons/ri/line-chart-fill';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -74,8 +75,16 @@ export default function UserPage() {
       <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">
         {artist && <ArtistPageCard artist={artist} />}
       </div>
-      {artist && artistTrend && (
+      {artist && artistTrend && artistTrend.length > 1 ? (
         <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
+      ) : (
+        <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
+          <RiLineChartFill className="text-xl" />
+          <p>
+            Sorry, but there is currently no trend data recorded for this
+            artist.
+          </p>
+        </div>
       )}
     </section>
   );

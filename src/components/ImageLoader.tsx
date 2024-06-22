@@ -31,7 +31,7 @@ export const ImageLoader: FC<Props> = props => {
         draggable={false}
         className={classNames(
           'relative z-20 transition-all duration-300',
-          props.unoptimized ? props.className : '',
+          props.unoptimized && props.className,
           {
             'opacity-0 blur-sm': !isLoaded,
             'opacity-100 blur-0 ': isLoaded,
@@ -43,7 +43,6 @@ export const ImageLoader: FC<Props> = props => {
         className={classNames(
           'absolute inset-0 z-10 h-full w-full bg-dot-quaternary/50 transition-opacity duration-300',
           {
-            // 'opacity-0': isLoaded,
             'animate-pulse': !isLoaded,
             hidden: props.hideLoader,
           }

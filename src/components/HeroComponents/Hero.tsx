@@ -12,18 +12,18 @@ export default function Hero() {
   let currentItem = 0;
   const SWAP_TIME = 10;
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      if (currentItem === usernames.length - 1) {
-        currentItem = 0;
-      } else {
-        currentItem += 1;
-      }
-      setUsername(usernames[currentItem]);
-    }, 1000 * SWAP_TIME);
+  // useEffect(() => {
+  //   const timer = setInterval(() => {
+  //     if (currentItem === usernames.length - 1) {
+  //       currentItem = 0;
+  //     } else {
+  //       currentItem += 1;
+  //     }
+  //     setUsername(usernames[currentItem]);
+  //   }, 1000 * SWAP_TIME);
 
-    return () => clearInterval(timer);
-  }, []);
+  //   return () => clearInterval(timer);
+  // }, []);
 
   const { data: artistProfile } = useSWR<{
     status: string;
@@ -68,13 +68,13 @@ export default function Hero() {
       </div>
 
       <div className="absolute inset-0 -z-30 h-screen max-h-screen w-full overflow-hidden">
-        <div className="absolute -top-[200px] h-1/2 w-full rounded-full bg-dot-rose opacity-15 blur-[256px]" />
+        <div className="absolute -top-[200px] h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
         <Image
           src={'/bg-pattern.jpeg'}
           alt="Background pattern"
           draggable={false}
           fill={true}
-          className="absolute top-0 object-cover  opacity-10"
+          className="absolute top-0 object-cover opacity-10"
           priority={true}
         />
       </div>

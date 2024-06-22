@@ -2,6 +2,7 @@ import Hero from '@/components/HeroComponents/Hero';
 import FindCreators from '@/components/WelcomeComponents/FindCreators';
 import TrackGrowingTrend from '@/components/WelcomeComponents/TrackGrowingTrend';
 import ArtistsMarquee from '@/components/WelcomeComponents/ArtistsMarquee';
+import StartExploring from '@/components/WelcomeComponents/StartExploring';
 
 export default function Home() {
   return (
@@ -14,6 +15,7 @@ export default function Home() {
         <FindCreators />
         <TrackGrowingTrend />
       </section>
+      <StartExploring />
     </>
   );
 }
