@@ -67,14 +67,14 @@ export default function Hero() {
         )}
       </div>
 
-      <div className="absolute inset-0 -z-10 min-h-screen w-full overflow-hidden">
-        <div className="absolute -top-96 h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
+      <div className="absolute inset-0 -z-30 h-screen max-h-screen w-full overflow-hidden">
+        <div className="absolute -top-[200px] h-1/2 w-full rounded-full bg-dot-rose opacity-15 blur-[256px]" />
         <Image
           src={'/bg-pattern.jpeg'}
           alt="Background pattern"
           draggable={false}
           fill={true}
-          className="-z-30 object-scale-down opacity-10"
+          className="absolute top-0 object-cover  opacity-10"
           priority={true}
         />
       </div>
