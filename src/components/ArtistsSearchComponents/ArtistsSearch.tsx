@@ -95,6 +95,11 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
           setSelectedTags(filters as string[])
         }
       />
+      <SearchItemCountries
+        isDropdown={false}
+        defaultSelectedValue={selectedCountry}
+        onCountryChanges={setSelectedCountry}
+      />
       <SearchItem
         title="Sort by"
         isDropdown={false}
@@ -104,11 +109,6 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
         selectedValuesUpdate={(filter: string | string[]) =>
           setSelectedSortFilter(filter as string)
         }
-      />
-      <SearchItemCountries
-        isDropdown={false}
-        defaultSelectedValue={selectedCountry}
-        onCountryChanges={setSelectedCountry}
       />
     </section>
   );

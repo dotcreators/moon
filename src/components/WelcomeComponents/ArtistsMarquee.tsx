@@ -8,19 +8,7 @@ export default function ArtistsMarquee() {
     status: string;
     response: { data: ArtistProfile[]; has_next: boolean };
   }>(
-    `${process.env.API_URL}artists?page=1&limit=5`,
-    async (input: RequestInfo, init: RequestInit) => {
-      const res = await fetch(input, init);
-      return res.json();
-    },
-    {}
-  );
-
-  const { data: artistProfilesTwo } = useSWR<{
-    status: string;
-    response: { data: ArtistProfile[]; has_next: boolean };
-  }>(
-    `${process.env.API_URL}artists?page=2&limit=5`,
+    `${process.env.API_URL}artists?page=1&limit=10`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
@@ -32,7 +20,7 @@ export default function ArtistsMarquee() {
     <section className="flex flex-col gap-5">
       <Marquee pauseOnHover={true}>
         {artistProfiles &&
-          artistProfiles.response.data.map((artist, index) => (
+          artistProfiles.response.data.slice(0, 5).map((artist, index) => (
             <div className="mx-3">
               <SuggestArtistCard
                 key={index}
@@ -46,8 +34,8 @@ export default function ArtistsMarquee() {
           ))}
       </Marquee>
       <Marquee direction="right" pauseOnHover={true}>
-        {artistProfilesTwo &&
-          artistProfilesTwo.response.data.map((artist, index) => (
+        {artistProfiles &&
+          artistProfiles.response.data.slice(5, 10).map((artist, index) => (
             <div className="mx-3">
               <SuggestArtistCard
                 key={index}
