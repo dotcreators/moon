@@ -7,18 +7,18 @@ import DotcreatorsLogo from '../DotcreatorsLogo';
 export default function BottomNavigation() {
   const supportLinks = [
     {
-      title: 'FAQ',
-      link: '',
-      newTab: false,
-    },
-    {
       title: 'Contact',
-      link: '',
-      newTab: false,
+      link: 'https://anivire.xyz',
+      newTab: true,
     },
     {
-      title: 'Discord Support',
-      link: '',
+      title: 'Issues',
+      link: 'https://github.com/dotcreators/moon/issues',
+      newTab: true,
+    },
+    {
+      title: 'Feedback',
+      link: 'https://github.com/orgs/dotcreators/discussions',
       newTab: true,
     },
   ];
@@ -63,22 +63,22 @@ export default function BottomNavigation() {
               </span>{' '}
               dotcreators
             </h1>
-            <p className="max-w-96 text-sm">
+            <p className="max-w-96 text-base">
               Track, share and grow together with community of talented
               pixel-related artists.
             </p>
           </div>
-          <p className="max-w-96 text-sm">
+          <p className="max-w-96 text-base text-zinc-400">
             Dotcreators is{' '}
             <Link
               href={'https://github.com/dotcreators'}
+              target="_blank"
               className="inline-flex items-center text-dot-rose"
             >
               open source
               <RiArrowRightUpLine />
             </Link>
           </p>
-          {/* <p className="text-xs text-zinc-400">dotcreators © 2024</p> */}
         </div>
 
         <div className="flex flex-row place-items-start gap-16">
@@ -89,8 +89,9 @@ export default function BottomNavigation() {
             {supportLinks.map((link, indexLink) => (
               <Link
                 key={indexLink}
-                className="inline max-w-40 text-sm text-zinc-400 duration-200 ease-in-out md:hover:text-dot-white"
+                className="inline max-w-40 text-base text-zinc-400 duration-200 ease-in-out md:hover:text-dot-white"
                 href={link.link}
+                target={link.newTab ? '_blank' : '_parent'}
               >
                 {link.title} <RiArrowRightUpLine className="inline" />
               </Link>
@@ -103,8 +104,9 @@ export default function BottomNavigation() {
             {legalLinks.map((link, indexLink) => (
               <Link
                 key={indexLink}
-                className="inline max-w-40 text-sm text-zinc-400 duration-200 ease-in-out md:hover:text-dot-white"
+                className="inline max-w-40 text-base text-zinc-400 duration-200 ease-in-out md:hover:text-dot-white"
                 href={link.link}
+                target={link.newTab ? '_blank' : '_parent'}
               >
                 {link.title} <RiArrowRightUpLine className="inline" />
               </Link>
