@@ -38,6 +38,7 @@ export const ImageLoader: FC<Props> = props => {
           }
         )}
         onLoad={() => setIsLoaded(true)}
+        onError={() => console.log('error')}
       />
       <div
         className={classNames(

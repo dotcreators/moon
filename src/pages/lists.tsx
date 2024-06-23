@@ -62,13 +62,14 @@ export default function Lists() {
             currentPage={currentPage}
           />
         </div>
-        <section className="col-span-3 flex w-full flex-col gap-5">
+        <section className="col-span-3 flex w-full flex-col gap-3">
           <Pagination
             currentPage={pagination.pagination.page}
             isNext={pagination.pagination.isNext}
             lastPage={pagination.pagination.totalPages}
             totalResults={data ? data.response.data.length : 0}
             onPageChange={handlePageChange}
+            className={'mb-2'}
           />
           {data && !error ? (
             data && data.response.data.length !== 0 ? (
@@ -92,6 +93,7 @@ export default function Lists() {
             lastPage={pagination.pagination.totalPages}
             totalResults={data ? data.response.data.length : 0}
             onPageChange={handlePageChange}
+            className={'mt-2'}
           />
         </section>
       </section>

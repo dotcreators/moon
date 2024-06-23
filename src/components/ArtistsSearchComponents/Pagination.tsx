@@ -3,6 +3,7 @@ import RiArrowLeftLine from '~icons/ri/arrow-left-line';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiMoreFill from '~icons/ri/more-fill';
 import RiBrushFill from '~icons/ri/brush-fill';
+import classNames from 'classnames';
 
 interface Props {
   currentPage: number;
@@ -10,6 +11,7 @@ interface Props {
   lastPage: number;
   totalResults: number;
   onPageChange: (page: number) => void;
+  className?: string;
 }
 
 export const Pagination: FC<Props> = ({
@@ -18,53 +20,77 @@ export const Pagination: FC<Props> = ({
   lastPage,
   totalResults,
   onPageChange,
+  className: customClassName,
 }) => {
   const handlePrevious = () => {
     if (currentPage > 1) {
       onPageChange(currentPage - 1);
-      scroolToTop();
+      scrollToTop();
     }
   };
 
   const handleNext = () => {
     if (isNext) {
       onPageChange(currentPage + 1);
-      scroolToTop();
+      scrollToTop();
     }
   };
 
-  function scroolToTop() {
+  const handleCustom = (page: number) => {
+    if (page !== currentPage && page > 0 && page <= lastPage) {
+      onPageChange(page);
+      scrollToTop();
+    }
+  };
+
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       left: 0,
     });
-  }
-
-  console.log(currentPage);
+  };
 
   return (
-    <section className="flex w-full flex-row items-center justify-between gap-5">
+    <section
+      className={classNames(
+        'flex w-full flex-row items-center justify-between gap-5',
+        customClassName
+      )}
+    >
       <div className="flex flex-row items-center justify-center gap-5">
         <button
           onClick={handlePrevious}
-          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out md:hover:bg-dot-secondary"
+          disabled={currentPage <= 1}
+          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 md:hover:bg-dot-secondary"
         >
           <RiArrowLeftLine />
         </button>
-        <div className="flex flex-row items-center gap-3">
+        <div className="flex flex-row items-center gap-2">
           {lastPage !== 0 ? (
             <>
               {currentPage !== 1 && (
                 <>
-                  <div className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums">
-                    <p>{1}</p>
-                  </div>
-                  <div className="px-3">
-                    <RiMoreFill />
-                  </div>
-                  <div className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums">
+                  {currentPage > 2 && (
+                    <>
+                      <button
+                        onClick={() => handleCustom(1)}
+                        className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
+                      >
+                        <p>{1}</p>
+                      </button>
+                      {currentPage > 3 && (
+                        <div className="px-2">
+                          <RiMoreFill />
+                        </div>
+                      )}
+                    </>
+                  )}
+                  <button
+                    onClick={() => handleCustom(currentPage - 1)}
+                    className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
+                  >
                     <p>{currentPage - 1}</p>
-                  </div>
+                  </button>
                 </>
               )}
               <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold tabular-nums text-dot-body">
@@ -72,15 +98,25 @@ export const Pagination: FC<Props> = ({
               </div>
               {currentPage !== lastPage && (
                 <>
-                  <div className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums">
+                  <button
+                    onClick={() => handleCustom(currentPage + 1)}
+                    className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
+                  >
                     <p>{currentPage + 1}</p>
-                  </div>
-                  <div className="px-3">
-                    <RiMoreFill />
-                  </div>
-                  <div className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums">
-                    <p>{lastPage}</p>
-                  </div>
+                  </button>
+                  {currentPage + 1 < lastPage && (
+                    <>
+                      <div className="px-2">
+                        <RiMoreFill />
+                      </div>
+                      <button
+                        onClick={() => handleCustom(lastPage)}
+                        className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
+                      >
+                        <p>{lastPage}</p>
+                      </button>
+                    </>
+                  )}
                 </>
               )}
             </>
@@ -92,7 +128,8 @@ export const Pagination: FC<Props> = ({
         </div>
         <button
           onClick={handleNext}
-          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out md:hover:bg-dot-secondary"
+          disabled={!isNext}
+          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 md:hover:bg-dot-secondary"
         >
           <RiArrowRightLine />
         </button>
