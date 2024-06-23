@@ -41,7 +41,11 @@ export default function UserPage() {
     }
   }, [artistData, artistError]);
 
-  const { data: trendData, error: trendError } = useSWR<{
+  const {
+    data: trendData,
+    error: trendError,
+    isLoading: isTrendsLoading,
+  } = useSWR<{
     status: string;
     response: ArtistTrend[];
   }>(
@@ -78,13 +82,15 @@ export default function UserPage() {
       {artist && artistTrend && artistTrend.length > 1 ? (
         <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
       ) : (
-        <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
-          <RiLineChartFill className="text-xl" />
-          <p>
-            Sorry, but there is currently no trend data recorded for this
-            artist.
-          </p>
-        </div>
+        !isTrendsLoading && (
+          <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
+            <RiLineChartFill className="text-xl" />
+            <p>
+              Sorry, but there is currently no trend data recorded for this
+              artist.
+            </p>
+          </div>
+        )
       )}
     </section>
   );

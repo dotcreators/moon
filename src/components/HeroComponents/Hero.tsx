@@ -43,7 +43,7 @@ export default function Hero() {
   };
 
   return (
-    <section className="relative min-h-screen">
+    <section className="relative">
       <div className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-32">
         <DotcreatorsLogoHero />
         <h1 className="max-w-[60%] text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
