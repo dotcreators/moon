@@ -9,7 +9,7 @@ import { useRouter } from 'next/router';
 
 interface Props {
   isDropdown: boolean;
-  onCountryChanges: (country: SelectCountry) => void;
+  onCountryChanges: (country: SelectCountry | null) => void;
   defaultSelectedValue?: SelectCountry;
   classNames?: string;
 }
@@ -22,14 +22,9 @@ export const SearchItemCountries: FC<Props> = ({
 }) => {
   const [toggleCountries, setToggleCountries] = useState<boolean>(false);
   const [searchText, setSearchText] = useState<string>('');
-  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>(
-    defaultSelectedValue !== undefined
-      ? defaultSelectedValue
-      : {
-          title: '',
-          value: '',
-        }
-  );
+  const [selectedCountry, setSelectedCountry] = useState<
+    SelectCountry | undefined
+  >(defaultSelectedValue !== undefined ? defaultSelectedValue : undefined);
   const dropdownRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
@@ -60,7 +55,7 @@ export const SearchItemCountries: FC<Props> = ({
       >
         <p>Country</p>
         <div className="flex w-full flex-row items-center justify-end gap-3">
-          {selectedCountry.title ? (
+          {selectedCountry && selectedCountry.title ? (
             <section
               className={classNames(
                 'flex w-fit cursor-pointer flex-row items-center gap-3 rounded-3xl p-1 px-3 text-sm',
@@ -71,14 +66,14 @@ export const SearchItemCountries: FC<Props> = ({
               )}
             >
               <Image
-                alt={selectedCountry.title}
+                alt={selectedCountry!.title}
                 src={`https://flagcdn.com/${selectedCountry.value.toLowerCase()}.svg`}
                 width={24}
                 height={20}
                 className="h-5 w-7 rounded-md"
               />
               <p className="max-w-20 truncate text-ellipsis">
-                {selectedCountry.title}
+                {selectedCountry && selectedCountry.title}
               </p>
             </section>
           ) : (
@@ -131,6 +126,7 @@ export const SearchItemCountries: FC<Props> = ({
                     'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
                     {
                       'bg-dot-secondary':
+                        selectedCountry &&
                         selectedCountry.value === country.value,
                     }
                   )}
@@ -149,8 +145,8 @@ export const SearchItemCountries: FC<Props> = ({
         </section>
         <button
           onClick={() => {
-            setSelectedCountry({ title: '', value: '' });
-            onCountryChanges({ title: '', value: '' });
+            setSelectedCountry(undefined);
+            onCountryChanges(null);
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >

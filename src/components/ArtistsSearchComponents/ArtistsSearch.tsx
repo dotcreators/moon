@@ -1,123 +1,122 @@
-import { FC, useState, useEffect } from 'react';
+import { FC, useEffect } from 'react';
 import { useRouter } from 'next/router';
-import { ParsedUrlQuery } from 'querystring';
 import { SearchQ } from './SearchContainer/SearchQ';
 import { SearchItemCountries } from './SearchContainer/SearchItemCountries';
 import { SearchItem } from './SearchContainer/SearchItem';
 import { filterDataSort, filterDataTags } from '@/utils/FiltersData';
 import { SelectCountry, countryCodes } from '@/utils/CountryCode';
+import { useSearchStore } from '@/store/useSearchStore';
+
+interface SearchQueryParams {
+  page?: number;
+  sortBy?: string;
+  tags?: string | string[];
+  country?: string;
+  username?: string;
+}
 
 interface Props {
   onSearchStringChanges: (searchString: string) => void;
-  searchString: ParsedUrlQuery;
-  currentPage: number;
 }
 
-export const ArtistsSearch: FC<Props> = ({
-  onSearchStringChanges,
-  currentPage,
-}) => {
+export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
   const router = useRouter();
 
-  const [searchQ, setSearchQ] = useState<string>('');
-  const [selectedTags, setSelectedTags] = useState<string[]>([]);
-  const [selectedCountry, setSelectedCountry] = useState<SelectCountry>({
-    title: '',
-    value: '',
-  });
-  const [selectedSortFilter, setSelectedSortFilter] =
-    useState<string>('Followers');
-  const [limit, setLimit] = useState<number>(25);
+  const {
+    searchFilter,
+    updateSearchFilter,
+    updateSearchCountry,
+    updateSearchSortBy,
+    updateSearchTags,
+    updateSearchUsername,
+    resetSearchCountry,
+  } = useSearchStore();
 
   useEffect(() => {
     if (!router.isReady) return;
 
-    const { tags, country, sortBy, username } = router.query;
+    const { tags, country, sortBy, username, page } =
+      router.query as SearchQueryParams;
 
-    const foundSortBy = sortBy as string;
-    const foundCountry: SelectCountry = countryCodes.find(
+    const formatTags = typeof tags === 'string' ? [tags] : tags;
+    const formatCountry: SelectCountry | undefined = countryCodes.find(
       x => x.value.toLowerCase() === country
-    ) ?? { title: '', value: '' };
+    );
 
-    let foundTags: string[] = [];
-    if (tags) {
-      if (Array.isArray(tags)) {
-        foundTags = tags;
-      } else if (typeof tags === 'string') {
-        foundTags = [tags];
-      }
-    }
-
-    if (foundCountry) setSelectedCountry(foundCountry);
-    if (foundTags) {
-      const formattedTags = foundTags.map(tag =>
-        tag === 'workoffers'
-          ? 'Work offers'
-          : tag.charAt(0).toUpperCase() + tag.slice(1)
-      );
-      setSelectedTags(formattedTags);
-    }
-    if (foundSortBy)
-      setSelectedSortFilter(
-        (foundSortBy.slice(0, 1).toLocaleUpperCase() +
-          foundSortBy.substring(1, foundSortBy.length)) as string
-      );
-    if (username) setSearchQ(username as string);
+    updateSearchFilter({
+      username: (username as string) ?? undefined,
+      country: formatCountry ?? undefined,
+      sortBy:
+        (sortBy &&
+          sortBy.slice(0, 1).toLocaleUpperCase() +
+            sortBy.substring(1, sortBy.length)) ??
+        undefined,
+      tags:
+        (formatTags &&
+          formatTags.map((tag: string) =>
+            tag === 'workoffers'
+              ? 'Work offers'
+              : tag.charAt(0).toUpperCase() + tag.slice(1)
+          )) ??
+        undefined,
+      limit: 25,
+      page: {
+        currentPage: page ?? 1,
+        isNext: false,
+        totalPages: page ?? 1,
+      },
+    });
   }, [router.isReady]);
 
   useEffect(() => {
     const query = new URLSearchParams();
-    query.append('page', currentPage.toString());
-    query.append('limit', limit.toString());
-    if (searchQ) query.append('username', searchQ);
-    if (selectedTags.length > 0) {
-      selectedTags.forEach(tag =>
+
+    query.append('page', searchFilter.page.currentPage.toString());
+    query.append('limit', searchFilter.limit.toString());
+    query.append('sortBy', searchFilter.sortBy.toLowerCase());
+
+    if (searchFilter.username) query.append('username', searchFilter.username);
+    if (searchFilter.tags && searchFilter.tags.length > 0) {
+      searchFilter.tags.forEach(tag =>
         query.append('tags', tag.toLowerCase().replace(/ /g, ''))
       );
     }
-    if (selectedCountry.value)
-      query.append('country', selectedCountry.value.toLowerCase());
-    if (selectedSortFilter)
-      query.append('sortBy', selectedSortFilter.toLowerCase());
+    if (searchFilter.country)
+      query.append('country', searchFilter.country.value.toLowerCase());
 
     const queryString = query.toString();
     router.push(`/lists?${queryString}`, undefined, { shallow: true });
     onSearchStringChanges(queryString);
-  }, [
-    currentPage,
-    limit,
-    searchQ,
-    selectedTags,
-    selectedCountry,
-    selectedSortFilter,
-  ]);
+  }, [searchFilter]);
 
   return (
     <section className="flex flex-col gap-3 overflow-y-auto pb-6">
-      <SearchQ onQChanges={setSearchQ} />
+      <SearchQ onQChanges={updateSearchUsername} />
       <SearchItem
         title="Tags"
         isDropdown={false}
         filtersData={filterDataTags}
         isMultiSelect={true}
-        defaultSelectedValue={selectedTags}
+        defaultSelectedValue={searchFilter.tags}
         selectedValuesUpdate={(filters: string | string[]) =>
-          setSelectedTags(filters as string[])
+          updateSearchTags(filters as string[])
         }
       />
       <SearchItemCountries
         isDropdown={false}
-        defaultSelectedValue={selectedCountry}
-        onCountryChanges={setSelectedCountry}
+        defaultSelectedValue={searchFilter.country}
+        onCountryChanges={country =>
+          country ? updateSearchCountry(country) : resetSearchCountry()
+        }
       />
       <SearchItem
         title="Sort by"
         isDropdown={false}
         filtersData={filterDataSort}
         isMultiSelect={false}
-        defaultSelectedValue={[selectedSortFilter]}
+        defaultSelectedValue={[searchFilter.sortBy]}
         selectedValuesUpdate={(filter: string | string[]) =>
-          setSelectedSortFilter(filter as string)
+          updateSearchSortBy(filter as string)
         }
       />
     </section>

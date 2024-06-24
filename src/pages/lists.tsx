@@ -4,27 +4,14 @@ import { ArtistsSearch } from '@/components/ArtistsSearchComponents/ArtistsSearc
 import useSWR from 'swr';
 import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistListCardLoader';
 import { useState, useEffect } from 'react';
-import { useRouter } from 'next/router';
 import { Pagination } from '@/components/ArtistsSearchComponents/Pagination';
 import RiEmotionUnhappyFill from '~icons/ri/emotion-unhappy-fill';
-import { usePaginationStore } from '@/store/usePaginationStore';
+import { useSearchStore } from '@/store/useSearchStore';
 
 export default function Lists() {
-  const router = useRouter();
   const [searchString, setSearchString] = useState<string>('');
-  const [openedProfileId, setOpenedProfileId] = useState<string | null>(null);
-  const [currentPage, setCurrentPage] = useState<number>(1);
-
-  const pagination = usePaginationStore();
-
-  useEffect(() => {
-    if (router.isReady) {
-      const { page } = router.query;
-      if (page) {
-        setCurrentPage(parseInt(page as string, 10));
-      }
-    }
-  }, [router.isReady, router.query]);
+  const { searchFilter, updateSearchTotalPage, updateSearchIsNext } =
+    useSearchStore();
 
   const { data, error } = useSWR<{
     status: string;
@@ -38,39 +25,22 @@ export default function Lists() {
     {}
   );
 
-  const handlePageChange = (page: number) => {
-    setCurrentPage(page);
-  };
-
   useEffect(() => {
-    if (data) {
-      pagination.updatePagination({
-        page: currentPage,
-        isNext: data.response.has_next,
-        totalPages: data.response.total_pages,
-      });
-    }
-  }, [currentPage, data?.response.has_next, data?.response.total_pages]);
+    if (data && data.response.total_pages)
+      updateSearchTotalPage(data.response.total_pages);
+    if (data && data.response.has_next)
+      updateSearchIsNext(data.response.has_next);
+  }, [data]);
+
+  console.log(searchFilter);
 
   return (
     <>
       <section className="relative m-auto grid h-fit w-full max-w-7xl grid-cols-4 items-start justify-center gap-5 pt-32">
         <div className="sticky top-8">
-          <ArtistsSearch
-            searchString={router.query}
-            onSearchStringChanges={setSearchString}
-            currentPage={currentPage}
-          />
+          <ArtistsSearch onSearchStringChanges={setSearchString} />
         </div>
         <section className="col-span-3 flex w-full flex-col gap-3">
-          <Pagination
-            currentPage={pagination.pagination.page}
-            isNext={pagination.pagination.isNext}
-            lastPage={pagination.pagination.totalPages}
-            totalResults={data ? data.response.data.length : 0}
-            onPageChange={handlePageChange}
-            className={'mb-2'}
-          />
           {data && !error ? (
             data && data.response.data.length !== 0 ? (
               data.response.data.map(artist => (
@@ -88,11 +58,7 @@ export default function Lists() {
             ))
           )}
           <Pagination
-            currentPage={pagination.pagination.page}
-            isNext={pagination.pagination.isNext}
-            lastPage={pagination.pagination.totalPages}
             totalResults={data ? data.response.data.length : 0}
-            onPageChange={handlePageChange}
             className={'mt-2'}
           />
         </section>
