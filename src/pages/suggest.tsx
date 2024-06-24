@@ -1,9 +1,16 @@
 import SuggestArtistController from '@/components/ArtistsSuggestComponents/SuggestArtistController';
+import { NextSeo } from 'next-seo';
 
 export default function Suggest() {
   return (
-    <section className="min-h-screen pt-32 ">
-      <SuggestArtistController />
-    </section>
+    <>
+      <NextSeo
+        title="Suggest artist"
+        description="Suggest favorite artist or yourself."
+      />
+      <section className="min-h-screen pt-32 ">
+        <SuggestArtistController />
+      </section>
+    </>
   );
 }

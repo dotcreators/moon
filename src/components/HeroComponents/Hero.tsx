@@ -3,27 +3,12 @@ import useSWR from 'swr';
 import { ArtistListCardHero } from './ArtistListCardHero';
 import DotcreatorsLogoHero from './DotcreatorsLogoHero';
 import Image from 'next/image';
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import { motion } from 'framer-motion';
 
 export default function Hero() {
-  const usernames = ['aniv1re', 'cyan', 'the08games'];
-  const [username, setUsername] = useState<string>(usernames[0]);
-  let currentItem = 0;
-  const SWAP_TIME = 10;
-
-  // useEffect(() => {
-  //   const timer = setInterval(() => {
-  //     if (currentItem === usernames.length - 1) {
-  //       currentItem = 0;
-  //     } else {
-  //       currentItem += 1;
-  //     }
-  //     setUsername(usernames[currentItem]);
-  //   }, 1000 * SWAP_TIME);
-
-  //   return () => clearInterval(timer);
-  // }, []);
+  const usernames = ['cyan'];
+  const [username] = useState<string>(usernames[0]);
 
   const { data: artistProfile } = useSWR<{
     status: string;
@@ -46,7 +31,7 @@ export default function Hero() {
     <section className="relative">
       <div className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-32">
         <DotcreatorsLogoHero />
-        <h1 className="max-w-[60%] text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
+        <h1 className="max-w-[60%] text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl text-transparent uppercase leading-[95.9%]">
           The place for pixel artists
         </h1>
         <p className="max-w-[40%] text-pretty text-center text-2xl">
@@ -67,8 +52,8 @@ export default function Hero() {
         )}
       </div>
 
-      <div className="absolute inset-0 -z-30 h-screen max-h-screen w-full overflow-hidden">
-        <div className="absolute -top-[200px] h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
+      <div className="-z-30 absolute inset-0 h-screen max-h-screen w-full overflow-hidden">
+        <div className="-top-[200px] absolute h-1/2 w-full rounded-full bg-dot-rose opacity-20 blur-[256px]" />
         <Image
           src={'/bg-pattern.jpeg'}
           alt="Background pattern"

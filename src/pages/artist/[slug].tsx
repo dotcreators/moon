@@ -6,9 +6,8 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
 import { ArtistPageTrendGraph } from '@/components/ArtistPageComponents/ArtistPageTrendGraph';
 import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
-import Link from 'next/link';
-import RiCalendarFill from '~icons/ri/calendar-fill';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
+import { NextSeo } from 'next-seo';
 
 const fetcher = (url: string) => fetch(url).then(res => res.json());
 
@@ -62,36 +61,42 @@ export default function UserPage() {
   }, [trendData, trendError]);
 
   return (
-    <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 pt-32">
-      <div className="flex w-full flex-row items-center justify-between">
-        <button
-          onClick={() => router.back()}
-          className="flex flex-row items-center gap-1 text-sm text-zinc-400 duration-300 ease-in-out md:hover:text-dot-white"
-        >
-          <RiArrowLeftSLine />
-          <p>Back to artists</p>
-        </button>
-        <p className="text-sm text-zinc-400">
-          Profile created:{' '}
-          {artist && new Date(artist.createdAt).toLocaleDateString()}
-        </p>
-      </div>
-      <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">
-        {artist && <ArtistPageCard artist={artist} />}
-      </div>
-      {artist && artistTrend && artistTrend.length > 1 ? (
-        <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
-      ) : (
-        !isTrendsLoading && (
-          <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
-            <RiLineChartFill className="text-xl" />
-            <p>
-              Sorry, but there is currently no trend data recorded for this
-              artist.
-            </p>
-          </div>
-        )
-      )}
-    </section>
+    <>
+      <NextSeo
+        title={artist ? artist.username : 'Artist profile'}
+        description="Artist profile with basic Twitter account information, followers and posts trends."
+      />
+      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 pt-32">
+        <div className="flex w-full flex-row items-center justify-between">
+          <button
+            onClick={() => router.back()}
+            className="flex flex-row items-center gap-1 text-sm text-zinc-400 duration-300 ease-in-out md:hover:text-dot-white"
+          >
+            <RiArrowLeftSLine />
+            <p>Back to artists</p>
+          </button>
+          <p className="text-sm text-zinc-400">
+            Profile created:{' '}
+            {artist && new Date(artist.createdAt).toLocaleDateString()}
+          </p>
+        </div>
+        <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">
+          {artist && <ArtistPageCard artist={artist} />}
+        </div>
+        {artist && artistTrend && artistTrend.length > 1 ? (
+          <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
+        ) : (
+          !isTrendsLoading && (
+            <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
+              <RiLineChartFill className="text-xl" />
+              <p>
+                Sorry, but there is currently no trend data recorded for this
+                artist.
+              </p>
+            </div>
+          )
+        )}
+      </section>
+    </>
   );
 }

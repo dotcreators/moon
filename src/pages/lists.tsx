@@ -7,6 +7,7 @@ import { useState, useEffect } from 'react';
 import { Pagination } from '@/components/ArtistsSearchComponents/Pagination';
 import RiEmotionUnhappyFill from '~icons/ri/emotion-unhappy-fill';
 import { useSearchStore } from '@/store/useSearchStore';
+import { NextSeo } from 'next-seo';
 
 export default function Lists() {
   const [searchString, setSearchString] = useState<string>('');
@@ -47,6 +48,10 @@ export default function Lists() {
 
   return (
     <>
+      <NextSeo
+        title="Artists"
+        description="Search wonderful pixel-related creators!"
+      />
       <section className="relative m-auto grid h-fit w-full max-w-7xl grid-cols-4 items-start justify-center gap-5 pt-32">
         <div className="sticky top-8">
           <ArtistsSearch onSearchStringChanges={setSearchString} />
