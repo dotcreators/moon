@@ -1,4 +1,4 @@
-import { FC, useEffect } from 'react';
+import { FC } from 'react';
 import RiArrowLeftLine from '~icons/ri/arrow-left-line';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiMoreFill from '~icons/ri/more-fill';
@@ -15,8 +15,7 @@ export const Pagination: FC<Props> = ({
   totalResults,
   className: customClassName,
 }) => {
-  const { searchFilter, updateSearchPage, updateSearchPagination } =
-    useSearchStore();
+  const { searchFilter, updateSearchPage } = useSearchStore();
 
   const handlePrevious = () => {
     if (searchFilter.page.currentPage > 1) {
@@ -54,7 +53,7 @@ export const Pagination: FC<Props> = ({
   return (
     <section
       className={classNames(
-        'flex w-full flex-row items-center justify-between gap-5',
+        'flex w-full items-center flex-row justify-between gap-5',
         customClassName
       )}
     >
