@@ -1,11 +1,8 @@
 import { FC, useEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import classNames from 'classnames';
-import styles from '@/components/ArtistsSearchComponents/SearchCountries.module.css';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
-import RiQuestionMark from '~icons/ri/question-mark';
 import { SelectCountry, countryCodes } from '@/utils/CountryCode';
-import { useRouter } from 'next/router';
 
 interface Props {
   isDropdown: boolean;
@@ -112,7 +109,7 @@ export const SearchItemCountries: FC<Props> = ({
             className="w-full rounded-md border-b-2 border-transparent bg-dot-secondary p-2 px-3 text-sm outline-none placeholder:text-zinc-400 focus:outline focus:outline-dot-rose"
           />
         </div>
-        <section className="max-h-44 overflow-y-auto overscroll-none">
+        <section className="max-h-44 w-full overflow-y-auto overscroll-none">
           {filteredCountries.map(
             (country, index) =>
               country.title !== '' && (
@@ -123,7 +120,7 @@ export const SearchItemCountries: FC<Props> = ({
                     onCountryChanges(country);
                   }}
                   className={classNames(
-                    'flex w-fit cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
+                    'flex w-full cursor-pointer flex-row gap-3 rounded-3xl p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-secondary',
                     {
                       'bg-dot-secondary':
                         selectedCountry &&
