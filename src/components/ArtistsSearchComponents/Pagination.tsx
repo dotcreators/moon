@@ -20,14 +20,14 @@ export const Pagination: FC<Props> = ({
 
   const handlePrevious = () => {
     if (searchFilter.page.currentPage > 1) {
-      updateSearchPage(searchFilter.page.currentPage - 1);
+      updateSearchPage(Number(searchFilter.page.currentPage) - 1);
       scrollToTop();
     }
   };
 
   const handleNext = () => {
     if (searchFilter.page.isNext) {
-      updateSearchPage(searchFilter.page.currentPage + 1);
+      updateSearchPage(Number(searchFilter.page.currentPage) + 1);
       scrollToTop();
     }
   };
