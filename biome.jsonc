@@ -53,7 +53,11 @@
 				"useValidForDirection": "error",
 				"useYield": "error"
 			},
-			"style": { "noNamespace": "off", "useBlockStatements": "off" },
+			"style": { 
+				"noNamespace": "off", 
+				"useBlockStatements": "off", 
+				"useImportType": "off" 
+			},
 			"suspicious": {
 				"noAsyncPromiseExecutor": "error",
 				"noCatchAssign": "error",
