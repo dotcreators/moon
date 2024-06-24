@@ -56,11 +56,6 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
     updateSearchFilter({
       username: (username as string) ?? undefined,
       country: formatCountry ?? undefined,
-      sortBy:
-        (sortBy &&
-          sortBy.slice(0, 1).toLocaleUpperCase() +
-            sortBy.substring(1, sortBy.length)) ??
-        undefined,
       tags:
         (formatTags &&
           formatTags.map((tag: string) =>
@@ -69,13 +64,17 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
               : tag.charAt(0).toUpperCase() + tag.slice(1)
           )) ??
         undefined,
+      sortBy:
+        (sortBy &&
+          sortBy.slice(0, 1).toLocaleUpperCase() +
+            sortBy.substring(1, sortBy.length)) ??
+        'Followers',
       page: {
         currentPage: _page || 1,
         isNext: false,
         totalPages: 1,
       },
     });
-    console.log(searchFilter);
   }, [router.isReady]);
 
   useEffect(() => {
@@ -90,9 +89,9 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
   useEffect(() => {
     const query = new URLSearchParams();
 
-    query.append('page', searchFilter.page.currentPage.toString());
-    query.append('limit', searchFilter.limit.toString());
-    query.append('sortBy', searchFilter.sortBy.toLowerCase());
+    query.append('page', searchFilter.page.currentPage.toString() ?? 1);
+    query.append('limit', searchFilter.limit.toString() ?? 25);
+    query.append('sortBy', searchFilter.sortBy.toLowerCase() ?? 'Followers');
 
     if (searchFilter.username) query.append('username', searchFilter.username);
     if (searchFilter.tags && searchFilter.tags.length > 0) {
