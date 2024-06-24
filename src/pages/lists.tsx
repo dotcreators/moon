@@ -10,8 +10,12 @@ import { useSearchStore } from '@/store/useSearchStore';
 
 export default function Lists() {
   const [searchString, setSearchString] = useState<string>('');
-  const { searchFilter, updateSearchTotalPage, updateSearchIsNext } =
-    useSearchStore();
+  const {
+    searchFilter,
+    updateSearchTotalPage,
+    updateSearchIsNext,
+    updateSearchPage,
+  } = useSearchStore();
 
   const { data, error } = useSWR<{
     status: string;
@@ -26,11 +30,18 @@ export default function Lists() {
   );
 
   useEffect(() => {
-    if (data && data.response.total_pages)
+    if (data) {
       updateSearchTotalPage(data.response.total_pages);
-    if (data && data.response.has_next)
       updateSearchIsNext(data.response.has_next);
-  }, [data]);
+      updateSearchPage(searchFilter.page.currentPage);
+    }
+  }, [
+    data,
+    updateSearchTotalPage,
+    updateSearchIsNext,
+    updateSearchPage,
+    searchFilter.page.currentPage,
+  ]);
 
   console.log(searchFilter);
 

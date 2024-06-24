@@ -59,11 +59,10 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
               : tag.charAt(0).toUpperCase() + tag.slice(1)
           )) ??
         undefined,
-      limit: 25,
       page: {
-        currentPage: page ?? 1,
+        currentPage: page || 1,
         isNext: false,
-        totalPages: page ?? 1,
+        totalPages: 1,
       },
     });
   }, [router.isReady]);

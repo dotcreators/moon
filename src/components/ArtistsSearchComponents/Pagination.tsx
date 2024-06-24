@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useEffect } from 'react';
 import RiArrowLeftLine from '~icons/ri/arrow-left-line';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiMoreFill from '~icons/ri/more-fill';
@@ -15,7 +15,8 @@ export const Pagination: FC<Props> = ({
   totalResults,
   className: customClassName,
 }) => {
-  const { searchFilter, updateSearchPage } = useSearchStore();
+  const { searchFilter, updateSearchPage, updateSearchPagination } =
+    useSearchStore();
 
   const handlePrevious = () => {
     if (searchFilter.page.currentPage > 1) {
@@ -37,7 +38,7 @@ export const Pagination: FC<Props> = ({
       page > 0 &&
       page <= searchFilter.page.totalPages
     ) {
-      updateSearchPage(page);
+      updateSearchPage(Number(page));
       scrollToTop();
     }
   };
@@ -66,11 +67,11 @@ export const Pagination: FC<Props> = ({
           <RiArrowLeftLine />
         </button>
         <div className="flex flex-row items-center gap-2">
-          {searchFilter.page.totalPages !== 0 ? (
+          {Number(searchFilter.page.totalPages) !== 0 ? (
             <>
-              {searchFilter.page.currentPage !== 1 && (
+              {Number(searchFilter.page.currentPage) !== 1 && (
                 <>
-                  {searchFilter.page.currentPage > 2 && (
+                  {Number(searchFilter.page.currentPage) > 2 && (
                     <>
                       <button
                         onClick={() => handleCustom(1)}
@@ -87,29 +88,29 @@ export const Pagination: FC<Props> = ({
                   )}
                   <button
                     onClick={() =>
-                      handleCustom(searchFilter.page.currentPage - 1)
+                      handleCustom(Number(searchFilter.page.currentPage) - 1)
                     }
                     className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
                   >
-                    <p>{searchFilter.page.currentPage - 1}</p>
+                    <p>{Number(searchFilter.page.currentPage) - 1}</p>
                   </button>
                 </>
               )}
               <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold tabular-nums text-dot-body">
-                <p>{searchFilter.page.currentPage}</p>
+                <p>{Number(searchFilter.page.currentPage)}</p>
               </div>
               {searchFilter.page.currentPage !==
                 searchFilter.page.totalPages && (
                 <>
                   <button
                     onClick={() =>
-                      handleCustom(searchFilter.page.currentPage + 1)
+                      handleCustom(Number(searchFilter.page.currentPage) + 1)
                     }
                     className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
                   >
-                    <p>{searchFilter.page.currentPage + 1}</p>
+                    <p>{Number(searchFilter.page.currentPage) + 1}</p>
                   </button>
-                  {searchFilter.page.currentPage + 1 <
+                  {Number(searchFilter.page.currentPage) + 1 <
                     searchFilter.page.totalPages && (
                     <>
                       <div className="px-2">
