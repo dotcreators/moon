@@ -5,7 +5,7 @@ import Layout from '@/components/NavComponents/Layout';
 import Head from 'next/head';
 import './globals.css';
 import { useRouter } from 'next/router';
-import { DefaultSeo } from 'next-seo';
+import { BreadcrumbJsonLd, DefaultSeo } from 'next-seo';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -89,16 +89,40 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         titleTemplate="%s › Dotcreators"
         canonical="https://dotcreators.xyz/"
         openGraph={{
+          title: 'dotcreators',
+          description:
+            'Track, share and grow together with community of talented pixel-related artists!',
           type: 'website',
           locale: 'en_IE',
           url: 'https://dotcreators.xyz/',
-          siteName: 'Dotcreators',
+          siteName: 'dotcreators',
+          images: [
+            {
+              url: '/summary_large_image.png',
+              width: 1280,
+              height: 720,
+            },
+          ],
         }}
         twitter={{
           handle: '@handle',
           site: '@site',
           cardType: 'summary_large_image',
         }}
+      />
+      <BreadcrumbJsonLd
+        itemListElements={[
+          {
+            position: 1,
+            name: 'Artists',
+            item: 'https://dotcreators.xyz/lists',
+          },
+          {
+            position: 2,
+            name: 'Suggest artist',
+            item: 'https://dotcreators.xyz/suggest',
+          },
+        ]}
       />
       {router.pathname !== '/auth' ? (
         <Layout>
