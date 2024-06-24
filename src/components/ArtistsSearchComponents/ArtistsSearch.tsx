@@ -30,6 +30,7 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
     updateSearchTags,
     updateSearchUsername,
     resetSearchCountry,
+    updateSearchPage,
   } = useSearchStore();
 
   useEffect(() => {
@@ -42,6 +43,15 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
     const formatCountry: SelectCountry | undefined = countryCodes.find(
       x => x.value.toLowerCase() === country
     );
+    let _page = page;
+
+    if (
+      formatTags !== searchFilter.tags ||
+      formatCountry !== searchFilter.country ||
+      sortBy !== searchFilter.sortBy ||
+      username !== searchFilter.username
+    )
+      _page = 1;
 
     updateSearchFilter({
       username: (username as string) ?? undefined,
@@ -60,12 +70,22 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
           )) ??
         undefined,
       page: {
-        currentPage: page || 1,
+        currentPage: _page || 1,
         isNext: false,
         totalPages: 1,
       },
     });
+    console.log(searchFilter);
   }, [router.isReady]);
+
+  useEffect(() => {
+    updateSearchPage(1);
+  }, [
+    searchFilter.country,
+    searchFilter.sortBy,
+    searchFilter.tags,
+    searchFilter.username,
+  ]);
 
   useEffect(() => {
     const query = new URLSearchParams();
