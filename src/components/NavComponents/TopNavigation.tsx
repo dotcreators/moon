@@ -30,7 +30,7 @@ export default function TopNavigation() {
             )}
             href="/lists"
           >
-            Lists
+            Artists list
           </Link>
           <Link
             href={'/suggest'}
