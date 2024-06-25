@@ -24,7 +24,7 @@ export default function TrackGrowingTrend() {
     <section className="grid w-full grid-cols-2 items-center gap-16">
       <div className="relative min-h-[622px] overflow-hidden rounded-2xl p-2">
         <div className="grid min-h-[622px] grid-cols-1 place-items-center rounded-2xl border border-dot-white/5 bg-dot-primary/50 p-8">
-          {!isLoading || error ? (
+          {isLoading || error ? (
             <RiLoader5Line className="animate-spin text-xl text-zinc-400" />
           ) : (
             artistProfile && (
