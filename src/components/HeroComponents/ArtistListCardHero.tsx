@@ -1,8 +1,6 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
-import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
-import RiExternalLinkLine from '~icons/ri/external-link-line';
 import Link from 'next/link';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
@@ -103,7 +101,7 @@ export const ArtistListCardHero: FC<Props> = props => {
           )}
           <div
             className={classNames('flex flex-row items-center gap-1.5 ', {
-              'absolute right-3 top-2.5 z-20 ': props.artist.images.banner,
+              'absolute top-2.5 right-3 z-20 ': props.artist.images.banner,
               'mx-5 mt-5 place-self-end': !props.artist.images.banner,
             })}
           >
@@ -165,13 +163,13 @@ export const ArtistListCardHero: FC<Props> = props => {
                 </div>
                 <div className="flex flex-row items-center gap-5 rounded-xl">
                   <div>
-                    <h1 className="font-hubot-sans text-2xl font-black leading-tight">
+                    <h1 className="font-black font-hubot-sans text-2xl leading-tight">
                       {props.artist.followersCount}
                     </h1>
                     <p className="text-zinc-400">followers</p>
                   </div>
                   <div>
-                    <h1 className="font-hubot-sans text-2xl font-black">
+                    <h1 className="font-black font-hubot-sans text-2xl">
                       {props.artist.tweetsCount}
                     </h1>
                     <p className="text-zinc-400">tweets</p>
@@ -243,8 +241,8 @@ export const ArtistListCardHero: FC<Props> = props => {
                           height={20}
                           className={'h-4 w-6 rounded-sm '}
                         />
-                        <p className=" ">
-                          {countryCodes.map((country, index) => {
+                        <p>
+                          {countryCodes.map(country => {
                             if (
                               props.artist.country ===
                               country.value.toLocaleLowerCase()
