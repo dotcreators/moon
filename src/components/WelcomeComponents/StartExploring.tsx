@@ -7,12 +7,12 @@ export default function StartExploring() {
   const router = useRouter();
   return (
     <section className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-48">
-      <span className="absolute -top-8 -z-10">
-        <div className="absolute h-full w-full bg-gradient-to-b from-transparent from-5% to-dot-body to-65%" />
+      <span className="-top-8 -z-10 absolute">
+        <div className="absolute h-full w-full bg-gradient-to-b from-5% from-transparent to-65% to-dot-body" />
         <DotcreatorsLogoFooter />
       </span>
       <div className="flex flex-col gap-3 text-center">
-        <h1 className="text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text font-hubot-sans text-7xl uppercase leading-[95.9%] text-transparent">
+        <h1 className="text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text font-hubot-sans text-7xl text-transparent uppercase leading-[95.9%]">
           Start <br />
           exploring!
         </h1>

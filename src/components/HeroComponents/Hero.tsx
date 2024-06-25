@@ -28,10 +28,16 @@ export default function Hero() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
   };
 
+  const slideUpVariantsCard = {
+    hidden: { opacity: 0, y: 50 },
+    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+  };
+
   const opacityVariantsBg = {
     hidden: { opacity: 0 },
     visible: { opacity: 0.1, transition: { duration: 1 } },
   };
+
   const opacityVariantsFill = {
     hidden: { opacity: 0 },
     visible: { opacity: 0.2, transition: { duration: 1 } },
@@ -61,7 +67,7 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
           exit="hidden"
-          variants={slideUpVariants}
+          variants={slideUpVariantsCard}
         >
           {!artistProfile ? (
             <ArtistListCardHeroSkeleton />

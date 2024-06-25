@@ -12,7 +12,7 @@ export default function ArtistSearchPanel() {
     useState<string>('Followers');
   const [searchQ, setSearchQ] = useState<string>('');
 
-  const { data: artistProfiles } = useSWR<{
+  const { data: artistProfiles, isLoading } = useSWR<{
     status: string;
     response: { data: ArtistProfile[]; has_next: boolean };
   }>(
@@ -43,12 +43,13 @@ export default function ArtistSearchPanel() {
           </div>
         </div>
 
-        {artistProfiles
-          ? artistProfiles.response.data.map(artist => (
-              <CustomArtistListCardSmall key={artist.id} artist={artist} />
-            ))
-          : [...Array(8)].map((_, index) => (
+        {isLoading
+          ? [...Array(8)].map((_, index) => (
               <ArtistListCardLoader key={index} />
+            ))
+          : artistProfiles &&
+            artistProfiles.response.data.map(artist => (
+              <CustomArtistListCardSmall key={artist.id} artist={artist} />
             ))}
       </section>
     </>

@@ -61,6 +61,12 @@ export default function SuggestArtistController() {
         }
       })
       .catch(console.error);
+
+    window.scrollTo({
+      top: 0,
+      left: 0,
+      behavior: 'smooth',
+    });
   };
 
   const handleNextStep = () => {
@@ -86,7 +92,7 @@ export default function SuggestArtistController() {
           width={150}
           height={150}
           draggable={false}
-          className="absolute -right-5 -rotate-12"
+          className="-right-5 -rotate-12 absolute"
         />
       </section>
       <section className="flex w-full flex-row gap-2">
