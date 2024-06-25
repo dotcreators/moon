@@ -60,8 +60,6 @@ export const SuggestStepOne: FC<Props> = props => {
         props.onArtistFetched(_apiResponse.response);
         props.onNextStepAllowed(true);
         setIsError(undefined);
-        console.log('ok:fetchedArtistsProfile', fetchedArtistsProfile);
-        console.log('ok:_apiResponse.response', _apiResponse.response);
       } else {
         setIsError({
           message:
@@ -72,9 +70,9 @@ export const SuggestStepOne: FC<Props> = props => {
         });
         props.onArtistFetched(undefined);
         props.onNextStepAllowed(false);
-        console.log('!ok:fetchedArtistsProfile', fetchedArtistsProfile);
       }
     } catch (error) {
+      console.log(error);
       setIsError({ message: 'Failed to fetch data', error: true });
       props.onArtistFetched(undefined);
       props.onNextStepAllowed(false);

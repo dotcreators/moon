@@ -1,7 +1,7 @@
 import { SelectCountry, countryCodes } from '@/utils/CountryCode';
 import { FetchedArtistProfile } from '@/utils/models/FetchedArtistProfile';
 import classNames from 'classnames';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { SuggestStepOne } from './Steps/SuggestStepOne';
 import { SuggestStepTwo } from './Steps/SuggestStepTwo';
 import { SuggestStepThree } from './Steps/SuggestStepThree';
@@ -23,6 +23,7 @@ export default function SuggestArtistController() {
     countryCodes[0]
   );
   const [isNextStepAllowed, setIsNextStepAllowed] = useState(false);
+  const [error, setError] = useState<string>('');
 
   const resetForm = () => {
     setCurrentFormStep(0);
@@ -32,8 +33,18 @@ export default function SuggestArtistController() {
     setIsNextStepAllowed(false);
   };
 
-  const createSuggestion = () => {
+  const createSuggestion = async () => {
     if (!fetchedArtistsProfile) return;
+
+    const req = await fetch(
+      `${process.env.API_URL}suggestions/check/${fetchedArtistsProfile.username}`
+    );
+    const res = await req.json();
+
+    if (res.response === true) {
+      setError('Artist is alredy exists!');
+      return;
+    }
 
     let _suggestion: any = {};
     _suggestion.username = fetchedArtistsProfile.username;
@@ -82,6 +93,10 @@ export default function SuggestArtistController() {
     visible: { opacity: 1, y: 0, transition: { duration: 0.3 } },
   };
 
+  useEffect(() => {
+    setError('');
+  }, [currentFormStep]);
+
   const renderSteps = () => (
     <section className="flex w-full flex-col gap-8">
       <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dot-secondary p-5 px-10">
@@ -115,34 +130,38 @@ export default function SuggestArtistController() {
   );
 
   const renderButtons = () => (
-    <section className="flex w-full flex-row gap-3">
-      {currentFormStep > 0 && (
-        <button
-          onClick={() => setCurrentFormStep(prev => prev - 1)}
-          className="rounded-xl bg-dot-secondary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
-        >
-          <RiArrowGoBackFill />
-        </button>
-      )}
-      <button
-        onClick={handleNextStep}
-        disabled={!isNextStepAllowed}
-        className={classNames(
-          'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dot-body transition-colors duration-200 ease-in-out',
-          {
-            'cursor-pointer bg-c-amber-dark md:hover:bg-c-amber-light':
-              isNextStepAllowed && currentFormStep !== 2,
-            'cursor-pointer bg-lime-400 md:hover:bg-lime-200':
-              isNextStepAllowed && currentFormStep === 2,
-            'cursor-not-allowed bg-red-400 md:hover:bg-red-200':
-              !isNextStepAllowed,
-          }
+    <div className="flex w-full flex-col items-center gap-5">
+      <div className="flex w-full flex-row gap-3">
+        {currentFormStep > 0 && (
+          <button
+            onClick={() => setCurrentFormStep(prev => prev - 1)}
+            className="rounded-xl bg-dot-secondary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
+          >
+            <RiArrowGoBackFill />
+          </button>
         )}
-      >
-        {currentFormStep === steps.length - 1 ? 'Finish' : 'Next'}
-        {!isNextStepAllowed ? <RiForbidLine /> : <RiArrowRightLine />}
-      </button>
-    </section>
+        <button
+          onClick={handleNextStep}
+          disabled={!isNextStepAllowed}
+          type="submit"
+          className={classNames(
+            'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dot-body transition-colors duration-200 ease-in-out',
+            {
+              'cursor-pointer bg-c-amber-dark md:hover:bg-c-amber-light':
+                isNextStepAllowed && currentFormStep !== 2,
+              'cursor-pointer bg-lime-400 md:hover:bg-lime-200':
+                isNextStepAllowed && currentFormStep === 2,
+              'cursor-not-allowed bg-red-400 md:hover:bg-red-200':
+                !isNextStepAllowed,
+            }
+          )}
+        >
+          {currentFormStep === steps.length - 1 ? 'Submit' : 'Next'}
+          {!isNextStepAllowed ? <RiForbidLine /> : <RiArrowRightLine />}
+        </button>
+      </div>
+      {error && <p className="text-dot-rose text-sm">{error}</p>}
+    </div>
   );
 
   return (
