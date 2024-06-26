@@ -5,6 +5,7 @@ import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { DotcreatorsLogoResponsive } from '@/components/DotcreatorsLogoResponsive';
+import { NextSeo } from 'next-seo';
 
 export default function Auth() {
   const [accessToken, setAccessToken] = useState<string>();
@@ -53,47 +54,55 @@ export default function Auth() {
     }
   }
   return (
-    <section className="grid h-screen w-full grid-cols-3 items-center justify-end">
-      <div className="flex h-full w-full max-w-2xl flex-col items-center justify-center gap-5 bg-dot-body">
-        <DotcreatorsLogoResponsive width={40} height={38} />
-        <p className="max-w-72 text-center text-zinc-400">
-          Welcome to dotcreators! Please paste code below to access the site
-        </p>
-        <section className="h-15 flex flex-row items-center gap-5 rounded-2xl bg-dot-secondary p-4 px-5 outline-dot-primary focus-within:outline focus-within:outline-2 focus-within:outline-dot-rose">
-          <RiLockPasswordFill />
-          <input
-            onChange={e => setAccessToken(e.target.value)}
-            type="password"
-            maxLength={7}
-            placeholder="Input access token"
-            className="h-full bg-transparent outline-none placeholder:text-sm placeholder:text-zinc-400"
-          />
-          <button
-            onClick={() => {
-              checkToken();
-            }}
-          >
-            {!isLoading ? (
-              <RiArrowRightLine />
-            ) : (
-              <RiLoader5Fill className="animate-spin" />
-            )}
-          </button>
-        </section>
-        {isError && (
-          <p className="text-center text-sm text-dot-rose">Invalid code</p>
-        )}
-      </div>
-      <Image
-        src="/mesh-gradient.webp"
-        alt="Background"
-        width={1000}
-        height={500}
-        quality={80}
-        priority={true}
-        className="-z-10 col-span-2 h-screen w-full opacity-50 blur-md"
+    <>
+      <NextSeo
+        title="Get access"
+        description="Paste code below to access the site!"
+        noindex={true}
+        nofollow={true}
       />
-    </section>
+      <section className="md:grid h-screen w-full md:grid-cols-3 items-center justify-end">
+        <div className="flex h-full w-full max-w-2xl flex-col items-center justify-center gap-5 bg-dot-body">
+          <DotcreatorsLogoResponsive width={40} height={38} />
+          <p className="max-w-72 text-center text-zinc-400">
+            Welcome to dotcreators! Please paste code below to access the site
+          </p>
+          <section className="h-15 flex flex-row items-center gap-5 rounded-2xl bg-dot-secondary p-4 px-5 outline-dot-primary focus-within:outline focus-within:outline-2 focus-within:outline-dot-rose">
+            <RiLockPasswordFill />
+            <input
+              onChange={e => setAccessToken(e.target.value)}
+              type="password"
+              maxLength={7}
+              placeholder="Input access token"
+              className="h-full bg-transparent outline-none placeholder:text-sm placeholder:text-zinc-400"
+            />
+            <button
+              onClick={() => {
+                checkToken();
+              }}
+            >
+              {!isLoading ? (
+                <RiArrowRightLine />
+              ) : (
+                <RiLoader5Fill className="animate-spin" />
+              )}
+            </button>
+          </section>
+          {isError && (
+            <p className="text-center text-sm text-dot-rose">Invalid code</p>
+          )}
+        </div>
+        <Image
+          src="/mesh-gradient.webp"
+          alt="Background"
+          width={1000}
+          height={500}
+          quality={80}
+          priority={true}
+          className="-z-10 md:block hidden col-span-2 h-screen w-full opacity-50 blur-md"
+        />
+      </section>
+    </>
   );
 }
 
