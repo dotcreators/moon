@@ -28,8 +28,10 @@ export default function ArtistSearchPanel() {
     <>
       <section className="flex flex-col gap-3">
         <div className="flex w-full flex-col items-center gap-3 md:flex-row">
-          <SearchQ onQChanges={setSearchQ} />
-          <div className="w-full">
+          <div>
+            <SearchQ onQChanges={setSearchQ} />
+          </div>
+          <div className="w-full grow">
             <SearchItem
               title="Sort by"
               isDropdown={true}

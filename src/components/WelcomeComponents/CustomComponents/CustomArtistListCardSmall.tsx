@@ -51,7 +51,7 @@ export const CustomArtistListCardSmall: FC<Props> = props => {
                   width={35}
                   height={35}
                   className={classNames(
-                    'h-[32px] w-[32px] transition-opacity duration-200 ease-in-out md:h-max md:w-max group-hover:opacity-50 group-hover:blur-sm'
+                    'h-8 w-8 md:h-[35px] md:w-[35px] transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
                   )}
                 />
               </div>
