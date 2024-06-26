@@ -20,8 +20,8 @@ export const ArtistPageTrendGraph: FC<Props> = props => {
 
   return (
     <>
-      <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
-        <>
+      <div className="z-20 flex w-full flex-col bg-dot-primary md:bg-transparent md:divide-none md:divide-transparent rounded-2xl divide-y divide-dot-secondary md:flex-row justify-between md:gap-5 text-xs">
+        <div className="grow">
           <ArtistListCardTrendGraph
             key={'followersGraph'}
             artistInfo={props.artist}
@@ -29,6 +29,8 @@ export const ArtistPageTrendGraph: FC<Props> = props => {
             trendData={props.trendData}
             bgColor="bg-dot-primary"
           />
+        </div>
+        <div className="grow">
           <ArtistListCardTrendGraph
             key={'tweetsGraph'}
             artistInfo={props.artist}
@@ -36,7 +38,7 @@ export const ArtistPageTrendGraph: FC<Props> = props => {
             trendData={props.trendData}
             bgColor="bg-dot-primary"
           />
-        </>
+        </div>
       </div>
     </>
   );

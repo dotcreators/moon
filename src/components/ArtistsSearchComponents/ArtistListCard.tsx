@@ -329,6 +329,7 @@ export const ArtistListCard: FC<Props> = props => {
                   </p>
                 </div>
               )}
+
               <div className="flex flex-row gap-2 flex-wrap">
                 {props.artist.country && props.artist.country !== undefined && (
                   <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">

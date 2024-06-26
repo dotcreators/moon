@@ -14,6 +14,14 @@ interface Props {
 }
 
 export const ArtistPageCard: FC<Props> = props => {
+  function formatValue(value: number): string {
+    if (value >= 1000) {
+      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`;
+    } else {
+      return value.toString();
+    }
+  }
+
   return (
     <>
       <div
@@ -42,7 +50,7 @@ export const ArtistPageCard: FC<Props> = props => {
                 width={600}
                 height={200}
                 unoptimized={true}
-                className="h-40 w-full object-cover"
+                className="h-24 md:h-40 w-full object-cover"
               />
             </div>
           </>
@@ -54,72 +62,90 @@ export const ArtistPageCard: FC<Props> = props => {
         >
           <div className="z-20 flex flex-row items-center justify-between gap-3">
             <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
-              <div className="flex flex-row items-center gap-3">
-                <ImageLoader
-                  alt={'Avatar for ' + props.artist.username}
-                  src={props.artist.images.avatar}
-                  width={75}
-                  height={75}
-                  className={'absolute rounded-xl'}
-                />
-                <div className="w-fit ">
-                  <p className="flex w-fit flex-row items-center gap-2 rounded-md font-hubot-sans text-xl">
-                    {props.artist.name}
-                  </p>
-                  <div className="flex flex-row gap-1 text-zinc-400">
-                    <Link
-                      href={props.artist.url}
-                      target="__blank"
-                      className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
-                    >
-                      @{props.artist.username}
-                    </Link>
-                    {props.artist.website && (
-                      <>
-                        <p>•</p>
-                        <Link
-                          href={props.artist.website}
-                          target="__blank"
-                          className="max-w-48 truncate text-ellipsis transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
-                        >
-                          {props.artist.website
-                            .replace(/^(https?:\/\/)?(www\.)?/, '')
-                            .replace(/\/$/, '')}
-                        </Link>
-                      </>
-                    )}
-                    <p>•</p>
-                    <p className="">
-                      Account created{' '}
-                      {new Date(props.artist.joinedAt).toLocaleDateString()}
+              <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
+                <div className="flex flex-row items-center gap-3">
+                  <ImageLoader
+                    alt={'Avatar for ' + props.artist.username}
+                    src={props.artist.images.avatar}
+                    width={75}
+                    height={75}
+                    className={
+                      'absolute h-12 w-12 rounded-xl md:h-max md:w-max'
+                    }
+                  />
+                  <div className="w-fit ">
+                    <p className="block max-w-32 line-clamp-2 rounded-md font-hubot-sans text-base md:text-xl">
+                      {props.artist.name}
                     </p>
+                    <div className="flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base">
+                      <Link
+                        href={props.artist.url}
+                        target="__blank"
+                        className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                      >
+                        @{props.artist.username}
+                      </Link>
+                      <div className="ml-1 hidden flex-row gap-1 md:flex">
+                        {props.artist.website && (
+                          <>
+                            <p>•</p>
+                            <Link
+                              href={props.artist.website}
+                              target="__blank"
+                              className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                            >
+                              {props.artist.website.replace(
+                                /^(https?:\/\/)?(www\.)?/,
+                                ''
+                              )}
+                            </Link>
+                          </>
+                        )}
+                        <p>•</p>
+                        <p className="">
+                          Account created{' '}
+                          {new Date(props.artist.joinedAt).toLocaleDateString()}
+                        </p>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-              <div className="flex flex-row items-center gap-5 rounded-xl">
-                <div>
-                  <h1 className="font-hubot-sans text-2xl font-black leading-tight">
-                    {props.artist.followersCount}
-                  </h1>
-                  <p className="text-zinc-400">followers</p>
-                </div>
-                <div>
-                  <h1 className="font-hubot-sans text-2xl font-black">
-                    {props.artist.tweetsCount}
-                  </h1>
-                  <p className="text-zinc-400">tweets</p>
+                <div className="flex flex-row items-center gap-3 rounded-xl md:gap-5">
+                  <div>
+                    <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
+                      {props.artist.followersCount}
+                    </h1>
+
+                    <h1 className="block font-black font-hubot-sans text-xl leading-tight md:hidden">
+                      {formatValue(props.artist.followersCount)}
+                    </h1>
+
+                    <p className="text-sm text-zinc-400 md:text-base">
+                      followers
+                    </p>
+                  </div>
+                  <div>
+                    <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
+                      {props.artist.tweetsCount}
+                    </h1>
+
+                    <h1 className="block font-black font-hubot-sans text-xl leading-tight md:hidden">
+                      {formatValue(props.artist.tweetsCount)}
+                    </h1>
+                    <p className="text-sm text-zinc-400 md:text-base">tweets</p>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
 
           {props.artist.bio && (
-            <p className="whitespace-pre-line">
+            <p className="whitespace-pre-line text-sm md:text-base">
               <CreateLinks text={props.artist.bio} />
             </p>
           )}
 
-          <div className="flex flex-row gap-2">
+          <div className="flex flex-row gap-2 flex-wrap">
             {props.artist.country && props.artist.country !== undefined && (
               <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
                 <Image
