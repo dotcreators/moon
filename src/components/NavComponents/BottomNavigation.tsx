@@ -2,7 +2,6 @@ import Link from 'next/link';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import SimpleIconsBoosty from '~icons/simple-icons/boosty';
 import RiDiscordFill from '~icons/ri/discord-fill';
-import DotcreatorsLogo from '../DotcreatorsLogo';
 import { DotcreatorsLogoResponsive } from '../DotcreatorsLogoResponsive';
 import RiAddFill from '~icons/ri/add-fill';
 import classNames from 'classnames';
