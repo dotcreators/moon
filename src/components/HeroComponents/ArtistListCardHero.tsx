@@ -126,7 +126,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                     >
                       @{props.artist.username}
                     </Link>
-                    <div className="ml-1 hidden flex-row gap-1 md:flex">
+                    <div className="ml-0.5 hidden flex-row gap-1 md:flex">
                       {props.artist.website && (
                         <>
                           <p>•</p>
