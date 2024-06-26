@@ -123,16 +123,6 @@ export default function BottomNavigation() {
             <RiArrowRightUpLine />
           </Link>
         </p>
-
-        <Link
-          className={classNames(
-            'flex md:hidden flex-row items-center gap-1 justify-between bg-dot-rose text-dot-body font-semibold rounded-full p-3 px-4'
-          )}
-          href="/suggest"
-        >
-          Suggest artist
-          <RiAddFill className="text-lg" />
-        </Link>
       </div>
     </section>
   );
