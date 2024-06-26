@@ -98,8 +98,8 @@ export default function SuggestArtistController() {
   }, [currentFormStep]);
 
   const renderSteps = () => (
-    <section className="flex w-full flex-col gap-8">
-      <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dot-secondary p-5 px-10">
+    <section className="flex w-full flex-col gap-5 md:gap-8">
+      <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dot-secondary p-5 md:px-10">
         <p className="text-lg">Suggest artist</p>
         <Image
           src="/icons/thinking_face_anim.png"
@@ -172,7 +172,7 @@ export default function SuggestArtistController() {
           animate="visible"
           exit="hidden"
           variants={slideUpVariants}
-          className=" relative mx-auto my-10 flex h-fit w-full max-w-lg flex-col items-start justify-center gap-16 overflow-hidden rounded-2xl bg-dot-primary p-10"
+          className=" relative mx-auto min-h-[30rem] md:my-10 flex h-full w-full max-w-lg flex-col items-start justify-between gap-8 md:gap-16 overflow-hidden rounded-2xl bg-dot-primary p-5 md:p-10"
         >
           {renderSteps()}
           <SuggestStepOne
@@ -206,7 +206,7 @@ export default function SuggestArtistController() {
           animate="visible"
           exit="hidden"
           variants={slideUpVariants}
-          className="relative mx-auto my-32 flex h-fit w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-10"
+          className="relative mx-auto min-h-[30rem] md:my-32 flex h-full w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-5 md:p-10"
         >
           <SuggestStepSuccess
             onAddAnother={() => resetForm()}
