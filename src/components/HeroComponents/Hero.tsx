@@ -1,6 +1,5 @@
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistListCardHero } from './ArtistListCardHero';
-import DotcreatorsLogoHero from './DotcreatorsLogoHero';
 import Image from 'next/image';
 import { FC } from 'react';
 import { motion } from 'framer-motion';
