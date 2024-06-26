@@ -61,7 +61,7 @@ export default function TopNavigation() {
             )}
             href="/lists"
           >
-            Artists list
+            Artists
           </Link>
           <Link
             href={'/suggest'}

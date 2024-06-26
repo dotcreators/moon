@@ -27,7 +27,7 @@ export default function StartExploring() {
           or suggest yourself as an artist!
         </p>
       </div>
-      <div className="md:mt-5 flex flex-row gap-3 w-full md:w-auto">
+      <div className="md:mt-5 flex flex-row gap-3 w-full md:w-fit">
         <button
           onClick={() => router.push('/lists')}
           className="flex w-full md:w-80 flex-row items-center justify-between gap-3 rounded-[2rem] border border-dot-white/10 bg-dot-primary p-4 px-5 md:p-5 md:px-8 duration-200 ease-in-out md:hover:rounded-xl md:hover:bg-dot-secondary"

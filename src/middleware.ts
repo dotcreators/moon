@@ -8,6 +8,7 @@ export function middleware(request: NextRequest) {
   if (
     (request.nextUrl.pathname === '/' ||
       request.nextUrl.pathname.includes('lists') ||
+      request.nextUrl.pathname.includes('artist') ||
       request.nextUrl.pathname === 'suggest') &&
     token === undefined
   ) {

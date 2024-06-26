@@ -28,12 +28,12 @@ export default function BottomNavigation() {
   const legalLinks = [
     {
       title: 'Privacy Policy',
-      link: '',
+      link: '/privacy',
       newTab: false,
     },
     {
       title: 'Terms of Service',
-      link: '',
+      link: '/terms',
       newTab: false,
     },
   ];
