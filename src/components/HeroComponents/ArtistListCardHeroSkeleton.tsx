@@ -3,10 +3,10 @@ export default function ArtistListCardHeroSkeleton() {
     <>
       <section
         className={
-          'flex w-full animate-pulse flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary'
+          'flex w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary'
         }
       >
-        <div className={'relative flex flex-col gap-5 '}>
+        <div className={'relative flex animate-pulse flex-col gap-5'}>
           <div className="h-48 w-full bg-dot-secondary object-cover" />
           <div className="flex w-full flex-col gap-5 px-5 pb-5">
             <div className="flex flex-row gap-3">

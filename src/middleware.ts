@@ -11,19 +11,16 @@ export function middleware(request: NextRequest) {
       request.nextUrl.pathname === 'suggest') &&
     token === undefined
   ) {
-    console.log('Redirecting to /auth, no token found.');
     const url = request.nextUrl.clone();
     url.pathname = '/auth';
     return NextResponse.redirect(url);
   }
 
   if (isAuthPage && token) {
-    console.log('Redirecting to / as user is already authenticated.');
     const url = request.nextUrl.clone();
     url.pathname = '/';
     return NextResponse.redirect(url);
   }
 
-  console.log('Token found or not needed, processing request...');
   return NextResponse.next();
 }

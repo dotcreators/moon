@@ -1,29 +1,17 @@
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import Marquee from 'react-fast-marquee';
-import useSWR from 'swr';
 import { SuggestArtistCard } from '../ArtistsSuggestComponents/SuggestArtistCard';
 import SuggestArtistCardSkeleton from '../ArtistsSuggestComponents/SuggestArtistCardSkeleton';
+import { FC } from 'react';
 
-export default function ArtistsMarquee() {
-  const {
-    data: artistProfiles,
-    error,
-    isLoading,
-  } = useSWR<{
-    status: string;
-    response: { data: ArtistProfile[]; has_next: boolean };
-  }>(
-    `${process.env.API_URL}artists?page=1&limit=30`,
-    async (input: RequestInfo, init: RequestInit) => {
-      const res = await fetch(input, init);
-      return res.json();
-    },
-    {}
-  );
+interface Props {
+  artists: ArtistProfile[] | undefined;
+}
 
+export const ArtistsMarquee: FC<Props> = ({ artists: artistProfiles }) => {
   return (
     <section className="flex flex-col gap-5">
-      {isLoading && !artistProfiles ? (
+      {!artistProfiles ? (
         <>
           <Marquee pauseOnHover={true}>
             {[...Array(15)].map((_, index) => (
@@ -44,7 +32,7 @@ export default function ArtistsMarquee() {
         <>
           <Marquee pauseOnHover={true}>
             {artistProfiles &&
-              artistProfiles.response.data.slice(0, 15).map((artist, index) => (
+              artistProfiles.slice(0, 15).map((artist, index) => (
                 <div className="mx-3">
                   <SuggestArtistCard
                     key={index}
@@ -63,27 +51,25 @@ export default function ArtistsMarquee() {
           </Marquee>
           <Marquee direction="right" pauseOnHover={true}>
             {artistProfiles &&
-              artistProfiles.response.data
-                .slice(15, 30)
-                .map((artist, index) => (
-                  <div className="mx-3">
-                    <SuggestArtistCard
-                      key={index}
-                      avatar={artist.images.avatar}
-                      followers={artist.followersCount}
-                      posts={artist.tweetsCount}
-                      user={{
-                        name: artist.name || '',
-                        username: artist.username,
-                      }}
-                      isTwitterLink={false}
-                      className="bg-dot-primary md:hover:bg-dot-secondary"
-                    />
-                  </div>
-                ))}
+              artistProfiles.slice(15, 30).map((artist, index) => (
+                <div className="mx-3">
+                  <SuggestArtistCard
+                    key={index}
+                    avatar={artist.images.avatar}
+                    followers={artist.followersCount}
+                    posts={artist.tweetsCount}
+                    user={{
+                      name: artist.name || '',
+                      username: artist.username,
+                    }}
+                    isTwitterLink={false}
+                    className="bg-dot-primary md:hover:bg-dot-secondary"
+                  />
+                </div>
+              ))}
           </Marquee>
         </>
       )}
     </section>
   );
-}
+};

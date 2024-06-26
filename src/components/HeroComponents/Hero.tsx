@@ -1,28 +1,16 @@
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
-import useSWR from 'swr';
 import { ArtistListCardHero } from './ArtistListCardHero';
 import DotcreatorsLogoHero from './DotcreatorsLogoHero';
 import Image from 'next/image';
-import { useState } from 'react';
+import { FC } from 'react';
 import { motion } from 'framer-motion';
 import ArtistListCardHeroSkeleton from './ArtistListCardHeroSkeleton';
 
-export default function Hero() {
-  const usernames = ['cyan'];
-  const [username] = useState<string>(usernames[0]);
+interface Props {
+  artist: ArtistProfile | undefined;
+}
 
-  const { data: artistProfile } = useSWR<{
-    status: string;
-    response: { data: ArtistProfile[]; has_next: boolean };
-  }>(
-    `${process.env.API_URL}artists?page=1&limit=1&username=${username}`,
-    async (input: RequestInfo, init: RequestInit) => {
-      const res = await fetch(input, init);
-      return res.json();
-    },
-    {}
-  );
-
+export const Hero: FC<Props> = ({ artist: artistProfile }) => {
   const slideUpVariants = {
     hidden: { opacity: 0, y: 50 },
     visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
@@ -62,7 +50,6 @@ export default function Hero() {
         </p>
 
         <motion.div
-          key={username}
           className="mt-8 w-full"
           initial="hidden"
           animate="visible"
@@ -72,7 +59,7 @@ export default function Hero() {
           {!artistProfile ? (
             <ArtistListCardHeroSkeleton />
           ) : (
-            <ArtistListCardHero artist={artistProfile.response.data[0]} />
+            <ArtistListCardHero artist={artistProfile} />
           )}
         </motion.div>
       </motion.div>
@@ -104,4 +91,4 @@ export default function Hero() {
       </div>
     </section>
   );
-}
+};
