@@ -17,12 +17,9 @@ export default function Auth() {
     try {
       setIsLoading(true);
 
-      let codeResponse = await fetch(
-        `${process.env.API_URL}auth?accessToken=${accessToken}`,
-        {
-          method: 'POST',
-        }
-      ).then(async response => {
+      fetch(`${process.env.API_URL}auth?accessToken=${accessToken}`, {
+        method: 'POST',
+      }).then(async response => {
         let data = await response.json();
         if (data.status === 'success') {
           console.log('Success');
@@ -88,12 +85,13 @@ export default function Auth() {
         )}
       </div>
       <Image
-        src="/meshGradient.png"
+        src="/mesh-gradient.webp"
         alt="Background"
         width={1000}
         height={500}
-        quality={100}
-        className="-z-10 col-span-2 h-screen w-full opacity-50"
+        quality={80}
+        priority={true}
+        className="-z-10 col-span-2 h-screen w-full opacity-50 blur-md"
       />
     </section>
   );

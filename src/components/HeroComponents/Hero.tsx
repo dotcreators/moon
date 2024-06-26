@@ -35,7 +35,7 @@ export default function Hero() {
 
   const opacityVariantsBg = {
     hidden: { opacity: 0 },
-    visible: { opacity: 0.1, transition: { duration: 1 } },
+    visible: { opacity: 1, transition: { duration: 1 } },
   };
 
   const opacityVariantsFill = {
@@ -77,7 +77,7 @@ export default function Hero() {
         </motion.div>
       </motion.div>
 
-      <div className="-z-30 absolute inset-0 h-screen max-h-screen w-full overflow-hidden">
+      <div className="-z-30 absolute inset-0 h-[1000px] w-full overflow-hidden">
         <motion.div
           initial="hidden"
           animate="visible"
@@ -92,10 +92,11 @@ export default function Hero() {
           variants={opacityVariantsBg}
         >
           <Image
-            src={'/bg-pattern.jpeg'}
+            src={'/bg-pattern.webp'}
             alt="Background pattern"
             draggable={false}
             fill={true}
+            quality={60}
             className="absolute top-0 object-cover opacity-10"
             priority={true}
           />
