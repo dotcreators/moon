@@ -131,7 +131,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row items-center gap-3 rounded-xl md:gap-5">
+              <div className="flex flex-row items-center gap-3 rounded-xl md:gap-5 text-start">
                 <div>
                   <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
                     {props.artist.followersCount}

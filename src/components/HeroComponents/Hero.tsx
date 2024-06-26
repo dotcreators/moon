@@ -76,7 +76,7 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
           animate="visible"
           exit="hidden"
           variants={opacityVariantsFill}
-          className="-top-10  md:-top-[100px] -translate-x-1/2 absolute left-1/2 h-1/2 w-1/2 md:h-1/2 md:w-1/2 w rounded-full bg-dot-rose blur-3xl md:blur-[256px]"
+          className="-top-10  md:-top-[100px] -translate-x-1/2 absolute left-1/2 h-1/2 w-1/2 rounded-full bg-dot-rose blur-3xl md:blur-[256px]"
         />
         <motion.div
           initial="hidden"
