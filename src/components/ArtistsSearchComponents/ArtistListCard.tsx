@@ -310,7 +310,7 @@ export const ArtistListCard: FC<Props> = props => {
                       className={'h-4 w-6 rounded-sm '}
                     />
                     <p className=" ">
-                      {countryCodes.map((country, index) => {
+                      {countryCodes.map(country => {
                         if (
                           props.artist.country ===
                           country.value.toLocaleLowerCase()

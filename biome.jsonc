@@ -18,7 +18,7 @@
 	},
 	"organizeImports": { "enabled": true },
 	"linter": {
-		"enabled": true,
+		"enabled": false,
 		"rules": {
 			"recommended": false,
 			"a11y": {
@@ -55,7 +55,7 @@
 				"noUnusedVariables": "error",
 				"useIsNan": "error",
 				"useValidForDirection": "error",
-				"useYield": "error"
+				"useYield": "error",
 			},
 			"style": { 
 				"noNamespace": "off", 

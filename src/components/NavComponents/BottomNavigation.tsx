@@ -3,6 +3,9 @@ import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import SimpleIconsBoosty from '~icons/simple-icons/boosty';
 import RiDiscordFill from '~icons/ri/discord-fill';
 import DotcreatorsLogo from '../DotcreatorsLogo';
+import { DotcreatorsLogoResponsive } from '../DotcreatorsLogoResponsive';
+import RiAddFill from '~icons/ri/add-fill';
+import classNames from 'classnames';
 
 export default function BottomNavigation() {
   const supportLinks = [
@@ -36,8 +39,8 @@ export default function BottomNavigation() {
   ];
 
   return (
-    <section className="w-full py-16">
-      <div className="mx-auto flex h-56 max-w-7xl flex-row justify-between rounded-2xl bg-dot-primary p-10">
+    <section className="w-full md:py-16">
+      <div className="mx-auto flex md:h-56 max-w-7xl flex-col justify-between gap-8 md:gap-5 rounded-t-3xl md:rounded-2xl bg-dot-primary p-10 md:flex-row">
         {/* <div className="flex flex-row gap-5">
           <button
             onClick={() => {}}
@@ -55,20 +58,16 @@ export default function BottomNavigation() {
           </button>
         </div> */}
 
-        <div className="flex flex-col justify-between">
-          <div className="flex flex-col gap-3">
-            <h1 className="flex flex-row items-center gap-1 font-hubot-sans text-xl uppercase text-dot-rose">
-              <span className="scale-[60%]">
-                <DotcreatorsLogo />
-              </span>{' '}
-              dotcreators
-            </h1>
-            <p className="max-w-96 text-base">
-              Track, share and grow together with community of talented
-              pixel-related artists.
-            </p>
-          </div>
-          <p className="max-w-96 text-base text-zinc-400">
+        <div className="flex flex-col justify-between gap-3">
+          <h1 className="flex flex-row items-center gap-2 font-hubot-sans text-dot-rose text-xl uppercase">
+            <DotcreatorsLogoResponsive width={20} height={18} />
+            dotcreators
+          </h1>
+          <p className="max-w-96 text-sm md:text-base">
+            Track, share and grow together with community of talented
+            pixel-related artists.
+          </p>
+          <p className="hidden md:block max-w-96 text-sm md:text-base text-zinc-400">
             Dotcreators is{' '}
             <Link
               href={'https://github.com/dotcreators'}
@@ -81,7 +80,7 @@ export default function BottomNavigation() {
           </p>
         </div>
 
-        <div className="flex flex-row place-items-start gap-16">
+        <div className="flex flex-col md:flex-row place-items-start gap-6 md:gap-16">
           <div className="grid grid-rows-1 gap-2">
             <h1 className="mb-1 font-hubot-sans text-lg font-semibold uppercase">
               Support
@@ -113,6 +112,28 @@ export default function BottomNavigation() {
             ))}
           </div>
         </div>
+
+        <p className="block md:hidden max-w-96 text-sm md:text-base text-zinc-400">
+          Dotcreators is{' '}
+          <Link
+            href={'https://github.com/dotcreators'}
+            target="_blank"
+            className="inline-flex items-center text-dot-rose"
+          >
+            open source
+            <RiArrowRightUpLine />
+          </Link>
+        </p>
+
+        <Link
+          className={classNames(
+            'flex md:hidden flex-row items-center gap-1 justify-between bg-dot-rose text-dot-body font-semibold rounded-full p-3 px-4'
+          )}
+          href="/suggest"
+        >
+          Suggest artist
+          <RiAddFill className="text-lg" />
+        </Link>
       </div>
     </section>
   );

@@ -51,16 +51,16 @@ export const CustomArtistListCardSmall: FC<Props> = props => {
                   width={35}
                   height={35}
                   className={classNames(
-                    'transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
+                    'h-[32px] w-[32px] transition-opacity duration-200 ease-in-out md:h-max md:w-max group-hover:opacity-50 group-hover:blur-sm'
                   )}
                 />
               </div>
-              <RiExternalLinkLine className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-sm opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100" />
+              <RiExternalLinkLine className="-translate-x-1/2 -translate-y-1/2 absolute top-1/2 left-1/2 z-20 transform text-sm opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100" />
             </Link>
             <div className={classNames('flex flex-row items-center gap-4')}>
-              <h1
+              <div
                 className={classNames(
-                  'flex max-w-32 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black'
+                  'flex max-w-32 flex-row items-center gap-2 font-black font-hubot-sans'
                 )}
               >
                 {props.artist.country && (
@@ -72,11 +72,11 @@ export const CustomArtistListCardSmall: FC<Props> = props => {
                     className={'rounded-sm'}
                   />
                 )}
-                {props.artist.name}
-              </h1>
+                <p className="truncate text-ellipsis">{props.artist.name}</p>
+              </div>
               <p
                 className={classNames(
-                  'max-w-32 truncate text-ellipsis text-zinc-400'
+                  'hidden max-w-32 truncate text-ellipsis text-zinc-400 md:block'
                 )}
               >
                 @{props.artist.username}
@@ -86,11 +86,11 @@ export const CustomArtistListCardSmall: FC<Props> = props => {
           <div className="flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
             <div
               className={classNames(
-                'flex min-w-16 flex-row items-center justify-end gap-2'
+                'flex min-w-8 md:min-w-16 flex-row items-center justify-end gap-2'
               )}
             >
               <h1>{formatValue(props.artist.followersCount)}</h1>
-              <p className="text-zinc-400">followers</p>
+              <p className="hidden text-zinc-400 md:block">followers</p>
             </div>
             <RiArrowRightUpLine />
           </div>

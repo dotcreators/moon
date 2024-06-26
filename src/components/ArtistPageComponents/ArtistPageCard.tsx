@@ -129,8 +129,8 @@ export const ArtistPageCard: FC<Props> = props => {
                   height={20}
                   className={'h-4 w-6 rounded-sm '}
                 />
-                <p className=" ">
-                  {countryCodes.map((country, index) => {
+                <p>
+                  {countryCodes.map(country => {
                     if (
                       props.artist.country === country.value.toLocaleLowerCase()
                     ) {

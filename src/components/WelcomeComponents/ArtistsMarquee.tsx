@@ -10,7 +10,9 @@ interface Props {
 
 export const ArtistsMarquee: FC<Props> = ({ artists: artistProfiles }) => {
   return (
-    <section className="flex flex-col gap-5">
+    <section className="relative mx-auto flex max-w-[1920px] flex-col gap-5">
+      <div className="absolute left-0 z-20 h-full w-10 bg-gradient-to-r from-dot-body via-dot-body/50 to-transparent" />
+      <div className="absolute right-0 z-20 h-full w-10 bg-gradient-to-l from-dot-body via-dot-body/50 to-transparent" />
       {!artistProfiles ? (
         <>
           <Marquee pauseOnHover={true}>

@@ -34,7 +34,7 @@ export const SearchQ: FC<Props> = props => {
   return (
     <section
       className={classNames(
-        'flex h-14 flex-row items-center gap-5 rounded-3xl bg-dot-primary p-4 px-5 outline-dot-primary focus-within:outline focus-within:outline-2 focus-within:outline-dot-rose',
+        'flex h-14 w-full flex-row items-center gap-5 rounded-3xl bg-dot-primary p-4 px-5 outline-dot-primary focus-within:outline focus-within:outline-2 focus-within:outline-dot-rose',
         props.classNames
       )}
     >

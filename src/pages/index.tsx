@@ -22,7 +22,7 @@ export default function Home() {
 
   const trendingArtistProfile = artistProfiles?.response.data.sort(
     (a, b) => b.weeklyFollowersGrowingTrend! - a.weeklyFollowersGrowingTrend!
-  )[0];
+  )[2];
 
   return (
     <>
@@ -31,10 +31,10 @@ export default function Home() {
         description="Track, share and grow together with community of talented pixel-related artists!"
       />
       <Hero artist={trendingArtistProfile} />
-      <div className="mt-32">
+      <div className="mt-16 md:mt-32">
         <ArtistsMarquee artists={artistProfiles?.response.data} />
       </div>
-      <section className="m-auto my-32 flex w-full max-w-7xl flex-col items-center justify-center gap-16">
+      <section className="m-auto my-16 md:my-32 flex w-full max-w-7xl flex-col items-center justify-center gap-8 md:gap-16">
         <FindCreators />
         <TrackGrowingTrend artist={trendingArtistProfile} />
       </section>

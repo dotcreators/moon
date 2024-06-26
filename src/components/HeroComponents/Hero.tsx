@@ -5,6 +5,7 @@ import Image from 'next/image';
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import ArtistListCardHeroSkeleton from './ArtistListCardHeroSkeleton';
+import { DotcreatorsLogoResponsive } from '../DotcreatorsLogoResponsive';
 
 interface Props {
   artist: ArtistProfile | undefined;
@@ -38,19 +39,25 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
         animate="visible"
         exit="hidden"
         variants={slideUpVariants}
-        className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-32"
+        className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-[100px] md:pt-32"
       >
-        <DotcreatorsLogoHero />
-        <h1 className="max-w-[60%] text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-7xl text-transparent uppercase leading-[95.9%]">
+        <span className="block md:hidden">
+          <DotcreatorsLogoResponsive width={50} height={40} />
+        </span>
+        <span className="hidden md:block">
+          <DotcreatorsLogoResponsive width={100} height={80} />
+        </span>
+        <h1 className="text-pretty bg-gradient-to-b from-dot-rose to-zinc-400 bg-clip-text text-center font-hubot-sans text-5xl text-transparent uppercase leading-[95.9%] md:max-w-[60%] md:text-7xl">
           The place for pixel artists
         </h1>
-        <p className="max-w-[40%] text-pretty text-center text-2xl">
-          Track, share and grow together with community of talented
+        <p className="text-pretty text-center text-xl md:max-w-[40%] md:text-2xl">
+          Track, share and grow together <br className="md:hidden" />
+          with community of talented <br className="md:hidden" />
           pixel-related artists!
         </p>
 
         <motion.div
-          className="mt-8 w-full"
+          className="w-full p-3 md:mt-8 md:p-0"
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -70,7 +77,7 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
           animate="visible"
           exit="hidden"
           variants={opacityVariantsFill}
-          className="-top-[200px] absolute h-1/2 w-full rounded-full bg-dot-rose blur-[256px]"
+          className="-top-[100px] -translate-x-1/2 absolute left-1/2 h-1/2 w-1/2 rounded-full bg-dot-rose blur-[256px]"
         />
         <motion.div
           initial="hidden"

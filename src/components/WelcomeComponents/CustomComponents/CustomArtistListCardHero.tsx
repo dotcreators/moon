@@ -1,24 +1,26 @@
 import classNames from 'classnames';
 import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
+import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import Link from 'next/link';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
-import { ImageLoader } from '../ImageLoader';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListCardTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
+import { ImageLoader } from '@/components/ImageLoader';
+import { ArtistListCardTrendGraph } from '@/components/ArtistsSearchComponents/ArtistListCardTrendGraph';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
-import CreateLinks from '../CreateLinks';
+import { useRouter } from 'next/router';
+import CreateLinks from '@/components/CreateLinks';
 
 interface Props {
   artist: ArtistProfile;
   className?: string;
 }
 
-export const ArtistListCardHero: FC<Props> = props => {
+export const CustomArtistListCardHero: FC<Props> = props => {
   const [trendsLoading, setTrendsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [artistTrends, setArtistTrends] = useState<ArtistTrend[] | undefined>(
@@ -178,12 +180,6 @@ export const ArtistListCardHero: FC<Props> = props => {
               </div>
             </div>
 
-            {props.artist.bio && (
-              <p className="whitespace-pre-line text-sm md:text-base">
-                <CreateLinks text={props.artist.bio} />
-              </p>
-            )}
-
             {trendsLoading ? (
               <div className="flex w-full flex-row">
                 <div className="h-[240px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
@@ -197,12 +193,6 @@ export const ArtistListCardHero: FC<Props> = props => {
                     trendBy="followers"
                     trendData={artistTrends}
                   />
-                  <ArtistListCardTrendGraph
-                    key={'tweetsGraph'}
-                    artistInfo={props.artist}
-                    trendBy="tweets"
-                    trendData={artistTrends}
-                  />
                 </>
               </div>
             ) : (
@@ -214,47 +204,6 @@ export const ArtistListCardHero: FC<Props> = props => {
                 </p>
               </div>
             )}
-            {props.artist.tags !== undefined &&
-              props.artist.tags.length !== 0 && (
-                <div className="flex flex-row gap-2">
-                  {props.artist.tags.map((tag, index) => (
-                    <p
-                      key={index}
-                      className="rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
-                    >
-                      {searchTagsArray.map(_tag => {
-                        if (
-                          tag === _tag.toLocaleLowerCase().replace(/ /g, '')
-                        ) {
-                          return _tag;
-                        }
-                      })}
-                    </p>
-                  ))}
-                  {props.artist.country &&
-                    props.artist.country !== undefined && (
-                      <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
-                        <Image
-                          alt={`${props.artist.country}`}
-                          src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
-                          width={24}
-                          height={20}
-                          className={'h-4 w-6 rounded-sm '}
-                        />
-                        <p>
-                          {countryCodes.map(country => {
-                            if (
-                              props.artist.country ===
-                              country.value.toLocaleLowerCase()
-                            ) {
-                              return country.title;
-                            }
-                          })}
-                        </p>
-                      </div>
-                    )}
-                </div>
-              )}
           </div>
         </div>
       </section>
