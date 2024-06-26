@@ -1,10 +1,10 @@
-import DotcreatorsLogo from '@/components/DotcreatorsLogo';
 import RiLockPasswordFill from '~icons/ri/lock-password-fill';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiLoader5Fill from '~icons/ri/loader-5-fill';
 import { useState } from 'react';
 import { useRouter } from 'next/router';
 import Image from 'next/image';
+import { DotcreatorsLogoResponsive } from '@/components/DotcreatorsLogoResponsive';
 
 export default function Auth() {
   const [accessToken, setAccessToken] = useState<string>();
@@ -55,7 +55,7 @@ export default function Auth() {
   return (
     <section className="grid h-screen w-full grid-cols-3 items-center justify-end">
       <div className="flex h-full w-full max-w-2xl flex-col items-center justify-center gap-5 bg-dot-body">
-        <DotcreatorsLogo />
+        <DotcreatorsLogoResponsive width={40} height={38} />
         <p className="max-w-72 text-center text-zinc-400">
           Welcome to dotcreators! Please paste code below to access the site
         </p>
