@@ -38,7 +38,7 @@ export const SuggestStepSuccess: FC<Props> = props => {
       </div>
       <div className="flex w-full flex-row gap-5">
         <Link
-          href="/lists"
+          href="/artists"
           className="bg-dot-secondary md:hover:bg-dot-tertiary group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 transition-colors duration-200 ease-in-out"
         >
           Back to artists

@@ -18,7 +18,7 @@ export default function BentoViewArtistsList() {
         draggable={false}
         className="absolute inset-y-0 -right-24 m-auto"
       />
-      <InnerButton title={'Show'} link="/lists" />
+      <InnerButton title={'Show'} link="/artists" />
     </section>
   );
 }

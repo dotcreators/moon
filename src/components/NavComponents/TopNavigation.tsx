@@ -23,17 +23,16 @@ export default function TopNavigation() {
           <div className="flex w-fit flex-row gap-3">
             <Link
               className={classNames(
-                'flex flex-row items-center gap-1 rounded-full p-2 px-4 transition-all duration-200 ease-in-out',
-                { 'bg-dot-secondary': path === '/lists' }
+                'flex flex-row items-center gap-1 rounded-full p-2 px-4'
               )}
-              href="/lists"
+              href="/artists"
             >
               Artists
             </Link>
 
             <Link
               className={classNames(
-                'flex flex-row items-center gap-1 bg-dot-rose text-dot-body text-bold rounded-full p-2 px-4 transition-all duration-200 ease-in-out'
+                'flex flex-row items-center gap-1 bg-dot-rose text-dot-body text-bold rounded-full p-2 px-4'
               )}
               href="/suggest"
             >
@@ -57,9 +56,9 @@ export default function TopNavigation() {
           <Link
             className={classNames(
               ' rounded-full p-2 px-5 transition-all duration-200 ease-in-out md:hover:bg-dot-secondary',
-              { 'bg-dot-secondary': path === '/lists' }
+              { 'bg-dot-secondary': path === '/artists' }
             )}
-            href="/lists"
+            href="/artists"
           >
             Artists
           </Link>

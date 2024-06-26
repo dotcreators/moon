@@ -68,7 +68,7 @@ export const ArtistListCard: FC<Props> = props => {
         key={props.artist.userId}
         onClick={() => (!isOpen ? handleToggle() : '')}
         className={classNames(
-          'group/main flex w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary transition-transform duration-200 ease-in-out md:hover:bg-dot-secondary',
+          'group/main flex w-full flex-col h-full justify-between gap-5 overflow-hidden md:rounded-2xl bg-dot-primary transition-transform duration-200 ease-in-out md:hover:bg-dot-secondary',
           props.className,
           {
             'md:hover:cursor-default': isOpen,
@@ -79,11 +79,13 @@ export const ArtistListCard: FC<Props> = props => {
       >
         <div
           className={classNames(
-            'flex w-full flex-row items-center justify-between p-2 px-5',
+            'flex w-full flex-row items-center justify-between p-2 px-3 md:px-5 min-h-[51px] md:min-h-max',
             { hidden: isOpen, block: !isOpen }
           )}
         >
-          <div className={classNames('flex flex-row items-center gap-4')}>
+          <div
+            className={classNames('flex flex-row items-center gap-2 md:gap-4')}
+          >
             <Link
               href={props.artist.url}
               target="_blank"
@@ -96,7 +98,7 @@ export const ArtistListCard: FC<Props> = props => {
                   width={35}
                   height={35}
                   className={classNames(
-                    'transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
+                    'w-[24px] h-[24px] md:w-max md:h-max transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
                   )}
                 />
               </div>
@@ -105,7 +107,7 @@ export const ArtistListCard: FC<Props> = props => {
             <div className={classNames('flex flex-row items-center gap-4')}>
               <h1
                 className={classNames(
-                  'flex max-w-96 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black'
+                  'flex max-w-32 md:max-w-96 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black'
                 )}
               >
                 {props.artist.country && (
@@ -117,9 +119,13 @@ export const ArtistListCard: FC<Props> = props => {
                     className={'rounded-sm'}
                   />
                 )}
-                {props.artist.name}
+                <p className="truncate text-ellipsis">{props.artist.name}</p>
               </h1>
-              <p className={classNames('truncate text-ellipsis text-zinc-400')}>
+              <p
+                className={classNames(
+                  'hidden max-w-48 truncate text-ellipsis text-zinc-400 md:block'
+                )}
+              >
                 @{props.artist.username}
               </p>
             </div>
@@ -127,7 +133,7 @@ export const ArtistListCard: FC<Props> = props => {
           <div className="flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
             <div
               className={classNames(
-                'flex min-w-16 flex-row items-center justify-end gap-2'
+                'flex min-w-8 flex-row items-center justify-end gap-2'
               )}
             >
               <h1>{formatValue(props.artist.followersCount)}</h1>
@@ -135,7 +141,7 @@ export const ArtistListCard: FC<Props> = props => {
             </div>
             <div
               className={classNames(
-                'flex min-w-16 flex-row items-center justify-end gap-2'
+                'hidden md:flex min-w-8 flex-row items-center justify-end gap-2'
               )}
             >
               <h1>{formatValue(props.artist.tweetsCount)}</h1>
@@ -173,7 +179,7 @@ export const ArtistListCard: FC<Props> = props => {
                     width={600}
                     height={200}
                     unoptimized={true}
-                    className="h-40 w-full object-cover"
+                    className="h-24 md:h-40 w-full object-cover"
                   />
                 </div>
               </>
@@ -201,7 +207,11 @@ export const ArtistListCard: FC<Props> = props => {
                 <RiArrowDownSLine className="rotate-180" />
               </button>
             </div>
-            <div className={classNames('flex w-full flex-col gap-5 px-5 pb-5')}>
+            <div
+              className={classNames(
+                'flex w-full flex-col gap-3 md:gap-5 px-3 md:px-5 pb-3 md:pb-5'
+              )}
+            >
               <div className="z-20 flex flex-row items-center justify-between gap-3">
                 <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
                   <div className="flex flex-row items-center gap-3">
@@ -210,13 +220,15 @@ export const ArtistListCard: FC<Props> = props => {
                       src={props.artist.images.avatar}
                       width={75}
                       height={75}
-                      className={'absolute rounded-xl'}
+                      className={
+                        'absolute h-12 w-12 rounded-xl md:h-max md:w-max'
+                      }
                     />
                     <div className="w-fit ">
-                      <p className="flex w-fit flex-row items-center gap-2 rounded-md font-hubot-sans text-xl">
+                      <p className="block max-w-32 line-clamp-2 rounded-md font-hubot-sans text-base md:text-xl">
                         {props.artist.name}
                       </p>
-                      <div className="flex flex-row gap-1 text-zinc-400">
+                      <div className="flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base">
                         <Link
                           href={props.artist.url}
                           target="__blank"
@@ -224,47 +236,65 @@ export const ArtistListCard: FC<Props> = props => {
                         >
                           @{props.artist.username}
                         </Link>
-                        {props.artist.website && (
-                          <>
-                            <p>•</p>
-                            <Link
-                              href={props.artist.website}
-                              target="__blank"
-                              className="max-w-48 truncate text-ellipsis transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
-                            >
-                              {props.artist.website
-                                .replace(/^(https?:\/\/)?(www\.)?/, '')
-                                .replace(/\/$/, '')}
-                            </Link>
-                          </>
-                        )}
-                        <p>•</p>
-                        <p className="">
-                          Account created{' '}
-                          {new Date(props.artist.joinedAt).toLocaleDateString()}
-                        </p>
+                        <div className="ml-1 hidden flex-row gap-1 md:flex">
+                          {props.artist.website && (
+                            <>
+                              <p>•</p>
+                              <Link
+                                href={props.artist.website}
+                                target="__blank"
+                                className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                              >
+                                {props.artist.website.replace(
+                                  /^(https?:\/\/)?(www\.)?/,
+                                  ''
+                                )}
+                              </Link>
+                            </>
+                          )}
+                          <p>•</p>
+                          <p className="">
+                            Account created{' '}
+                            {new Date(
+                              props.artist.joinedAt
+                            ).toLocaleDateString()}
+                          </p>
+                        </div>
                       </div>
                     </div>
                   </div>
-                  <div className="flex flex-row items-center gap-5 rounded-xl">
+                  <div className="flex flex-row items-center gap-3 rounded-xl md:gap-5">
                     <div>
-                      <h1 className="font-hubot-sans text-2xl font-black leading-tight">
+                      <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
                         {props.artist.followersCount}
                       </h1>
-                      <p className="text-zinc-400">followers</p>
+
+                      <h1 className="block font-black font-hubot-sans text-xl leading-tight md:hidden">
+                        {formatValue(props.artist.followersCount)}
+                      </h1>
+
+                      <p className="text-sm text-zinc-400 md:text-base">
+                        followers
+                      </p>
                     </div>
                     <div>
-                      <h1 className="font-hubot-sans text-2xl font-black">
+                      <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
                         {props.artist.tweetsCount}
                       </h1>
-                      <p className="text-zinc-400">tweets</p>
+
+                      <h1 className="block font-black font-hubot-sans text-xl leading-tight md:hidden">
+                        {formatValue(props.artist.tweetsCount)}
+                      </h1>
+                      <p className="text-sm text-zinc-400 md:text-base">
+                        tweets
+                      </p>
                     </div>
                   </div>
                 </div>
               </div>
 
               {props.artist.bio && (
-                <p className="whitespace-pre-line">
+                <p className="whitespace-pre-line text-sm md:text-base">
                   <CreateLinks text={props.artist.bio} />
                 </p>
               )}
@@ -274,7 +304,7 @@ export const ArtistListCard: FC<Props> = props => {
                   <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
                 </div>
               ) : artistTrends && artistTrends.length !== 0 ? (
-                <div className="z-20 flex w-full flex-row justify-between gap-5 text-xs">
+                <div className="z-20 flex w-full flex-col md:flex-row justify-between gap-3 md:gap-5 text-xs">
                   <>
                     <ArtistListCardTrendGraph
                       key={'followersGraph'}
@@ -299,7 +329,7 @@ export const ArtistListCard: FC<Props> = props => {
                   </p>
                 </div>
               )}
-              <div className="flex flex-row gap-2">
+              <div className="flex flex-row gap-2 flex-wrap">
                 {props.artist.country && props.artist.country !== undefined && (
                   <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
                     <Image

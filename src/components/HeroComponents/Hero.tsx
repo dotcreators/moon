@@ -71,13 +71,13 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
         </motion.div>
       </motion.div>
 
-      <div className="-z-30 absolute inset-0 h-[1000px] w-full overflow-hidden">
+      <div className="-z-30 absolute inset-0 h-96 md:h-[1000px] w-full overflow-hidden">
         <motion.div
           initial="hidden"
           animate="visible"
           exit="hidden"
           variants={opacityVariantsFill}
-          className="-top-[100px] -translate-x-1/2 absolute left-1/2 h-1/2 w-1/2 rounded-full bg-dot-rose blur-[256px]"
+          className="-top-10  md:-top-[100px] -translate-x-1/2 absolute left-1/2 h-1/2 w-1/2 md:h-1/2 md:w-1/2 w rounded-full bg-dot-rose blur-3xl md:blur-[256px]"
         />
         <motion.div
           initial="hidden"

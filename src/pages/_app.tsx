@@ -115,7 +115,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
           {
             position: 1,
             name: 'Artists list',
-            item: 'https://dotcreators.xyz/lists',
+            item: 'https://dotcreators.xyz/artists',
           },
           {
             position: 2,

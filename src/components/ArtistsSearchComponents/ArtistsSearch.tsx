@@ -103,12 +103,12 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
       query.append('country', searchFilter.country.value.toLowerCase());
 
     const queryString = query.toString();
-    router.push(`/lists?${queryString}`, undefined, { shallow: true });
+    router.push(`/artists?${queryString}`, undefined, { shallow: true });
     onSearchStringChanges(queryString);
   }, [searchFilter]);
 
   return (
-    <section className="flex flex-col gap-3 overflow-y-auto pb-6">
+    <section className="flex flex-col gap-3 overflow-y-auto w-full">
       <SearchQ onQChanges={updateSearchUsername} />
       <SearchItem
         title="Tags"
