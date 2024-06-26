@@ -8,8 +8,8 @@ export default function NotFound() {
   return (
     <>
       <NextSeo
-        title="Error"
-        description="Error page."
+        title="Page not found"
+        description="Error, page not found!"
         noindex={true}
         nofollow={true}
       />
