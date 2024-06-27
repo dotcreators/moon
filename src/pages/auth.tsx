@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { DotcreatorsLogoResponsive } from '@/components/DotcreatorsLogoResponsive';
 import { NextSeo } from 'next-seo';
+import useSWR from 'swr';
 
 export default function Auth() {
   const [accessToken, setAccessToken] = useState<string>();
@@ -18,11 +19,31 @@ export default function Auth() {
     try {
       setIsLoading(true);
 
+      const { data, error } = useSWR<{
+        status: string;
+        response: string;
+      }>(
+        `${process.env.API_URL}access?accessToken=${accessToken}`,
+        async (input: RequestInfo, init: RequestInit) => {
+          const res = await fetch(input, init);
+          return res.json();
+        },
+        {}
+      );
+
+      console.log(data);
+      console.log(error);
+
       fetch(`${process.env.API_URL}access?accessToken=${accessToken}`, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
       }).then(async (response) => {
+        if (!response.ok) {
+          throw new Error('Network response was not ok');
+        }
+
         const data = await response.json();
+
         if (data.status === 'success') {
           console.log('Success');
 
