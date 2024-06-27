@@ -6,6 +6,7 @@ import { useRouter } from 'next/router';
 import Image from 'next/image';
 import { DotcreatorsLogoResponsive } from '@/components/DotcreatorsLogoResponsive';
 import { NextSeo } from 'next-seo';
+import useSWR from 'swr';
 
 export default function Auth() {
   const [accessToken, setAccessToken] = useState<string>();
@@ -18,47 +19,53 @@ export default function Auth() {
     try {
       setIsLoading(true);
 
-      fetch(`${process.env.API_URL}access?accessToken=${accessToken}`, {
+      const apiUrl = `${process.env.API_URL}access?accessToken=${accessToken}`;
+      console.log(`Making request to: ${apiUrl}`);
+
+      const response = await fetch(apiUrl, {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-      }).then(async (response) => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
-        }
+      });
 
-        const data = await response.json();
+      if (!response.ok) {
+        throw new Error('Network response was not ok');
+      }
 
-        if (data.status === 'success') {
-          console.log('Success');
+      const data = await response.json();
 
-          fetch('/api/auth', {
+      if (data.status === 'success') {
+        console.log('Success');
+
+        try {
+          const authResponse = await fetch('/api/auth', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({ accessToken: data.response }),
-          })
-            .then(() => {
-              setIsLoading(false);
-              setIsError(false);
-              router.push('/');
-            })
-            .catch((e) => {
-              setIsError(true);
-              setIsLoading(false);
-              throw new Error(
-                'Failed to send access token to the server: ' + e
-              );
-            });
-        } else {
+          });
+
+          if (!authResponse.ok) {
+            throw new Error('Failed to send access token to the server');
+          }
+
+          setIsLoading(false);
+          setIsError(false);
+          router.push('/');
+        } catch (e) {
           setIsError(true);
           setIsLoading(false);
+          console.error('Failed to send access token to the server:', e);
         }
-      });
+      } else {
+        setIsError(true);
+        setIsLoading(false);
+      }
     } catch (e) {
       setIsError(true);
       setIsLoading(false);
       console.error('Failed to send access token to the server:', e);
     }
   }
+
   return (
     <>
       <NextSeo
