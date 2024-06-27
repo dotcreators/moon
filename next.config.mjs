@@ -26,6 +26,7 @@ export default {
     ],
   },
   env: {
-    API_URL: process.env.API_URL
+    API_URL: process.env.API_URL,
+    UNAMI_ANALYTICS: process.env.UNAMI_ANALYTICS
   }
 };

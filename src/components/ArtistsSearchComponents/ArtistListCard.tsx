@@ -225,7 +225,7 @@ export const ArtistListCard: FC<Props> = props => {
                       }
                     />
                     <div className="w-fit ">
-                      <p className="block max-w-32 line-clamp-2 rounded-md font-hubot-sans text-base md:text-xl">
+                      <p className="block max-w-96 truncate line-clamp-2 rounded-md font-hubot-sans text-base md:text-xl">
                         {props.artist.name}
                       </p>
                       <div className="flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base">

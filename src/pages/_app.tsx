@@ -6,6 +6,7 @@ import Head from 'next/head';
 import './globals.css';
 import { useRouter } from 'next/router';
 import { BreadcrumbJsonLd, DefaultSeo } from 'next-seo';
+import Script from 'next/script';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;
@@ -21,6 +22,11 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
 
   return getLayout(
     <>
+      <Script
+        src="https://cloud.umami.is/script.js"
+        defer={true}
+        data-website-id={process.env.UNAMI_ANALYTICS}
+      />
       <Head>
         <meta
           name="viewport"
