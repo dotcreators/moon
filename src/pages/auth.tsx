@@ -24,7 +24,6 @@ export default function Auth() {
 
       const response = await fetch(apiUrl, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
       });
 
       if (!response.ok) {
