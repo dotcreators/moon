@@ -87,7 +87,7 @@ export default function UserPage() {
         }}
       />
 
-      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 pt-[100px] md:pt-32 px-3 md:px-0">
+      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 px-3 pt-[100px] md:px-10 md:pt-32 lg:px-0">
         <div className="flex w-full flex-row items-center justify-between">
           <button
             onClick={() => router.back()}

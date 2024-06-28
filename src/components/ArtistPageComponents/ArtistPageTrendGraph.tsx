@@ -20,7 +20,7 @@ export const ArtistPageTrendGraph: FC<Props> = props => {
 
   return (
     <>
-      <div className="z-20 flex w-full flex-col bg-dot-primary md:bg-transparent md:divide-none md:divide-transparent rounded-2xl divide-y divide-dot-secondary md:flex-row justify-between md:gap-5 text-xs">
+      <div className="z-20 flex w-full flex-col justify-between divide-y divide-dot-secondary rounded-2xl bg-dot-primary text-xs md:gap-5 md:divide-none md:divide-transparent md:bg-transparent lg:flex-row">
         <div className="grow">
           <ArtistListCardTrendGraph
             key={'followersGraph'}
