@@ -1,13 +1,13 @@
 /** @type {import('next-sitemap').IConfig} */
 module.exports = {
-  siteUrl: 'https://localhost:3000',
+  siteUrl: process.env.SITE_URL,
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,
   exclude: ['/server-sitemap.xml', '/404'],
   robotsTxtOptions: {
     additionalSitemaps: [
-      'https://localhost:3000/server-sitemap.xml',
+      `${process.env.SITE_URL}/server-sitemap.xml`,
     ],
   },
   transform: async (config, path) => {
