@@ -53,7 +53,7 @@ export default function SuggestArtistController() {
       _suggestion.country = selectedCountry.value.toLocaleLowerCase();
     }
     if (selectedTags.length !== 0) {
-      _suggestion.tags = selectedTags.map(tag =>
+      _suggestion.tags = selectedTags.map((tag) =>
         tag.replace(/ /g, '').toLocaleLowerCase()
       );
     }
@@ -63,11 +63,11 @@ export default function SuggestArtistController() {
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(_suggestion),
     })
-      .then(async response => {
+      .then(async (response) => {
         if (response.ok) {
           const resParsed = await response.json();
           if (resParsed.status === 'success') {
-            setCurrentFormStep(prev => prev + 1);
+            setCurrentFormStep((prev) => prev + 1);
           }
         }
       })
@@ -84,7 +84,7 @@ export default function SuggestArtistController() {
     if (currentFormStep === steps.length - 1) {
       createSuggestion();
     } else {
-      setCurrentFormStep(prev => prev + 1);
+      setCurrentFormStep((prev) => prev + 1);
     }
   };
 
@@ -98,23 +98,23 @@ export default function SuggestArtistController() {
   }, [currentFormStep]);
 
   const renderSteps = () => (
-    <section className="flex w-full flex-col gap-5 md:gap-8">
-      <section className="relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dot-secondary p-5 md:px-10">
-        <p className="text-lg">Suggest artist</p>
+    <section className='flex w-full flex-col gap-5 md:gap-8'>
+      <section className='relative flex h-24 w-full flex-row items-center justify-between gap-3 overflow-hidden rounded-2xl bg-dot-secondary p-5 md:px-10'>
+        <p className='text-lg'>Suggest artist</p>
         <Image
-          src="/icons/thinking_face_anim.png"
-          alt="Thinking face"
+          src='/icons/thinking_face_anim.png'
+          alt='Thinking face'
           width={150}
           height={150}
           draggable={false}
-          className="-right-5 -rotate-12 absolute"
+          className='-right-5 -rotate-12 absolute'
         />
       </section>
-      <section className="flex w-full flex-row gap-2">
+      <section className='flex w-full flex-row gap-2'>
         {steps.map((step, index) => (
           <div
             key={index}
-            className="flex w-full flex-col gap-1 text-center text-sm"
+            className='flex w-full flex-col gap-1 text-center text-sm'
           >
             <p>{step}</p>
             <div
@@ -130,12 +130,12 @@ export default function SuggestArtistController() {
   );
 
   const renderButtons = () => (
-    <div className="flex w-full flex-col items-center gap-5">
-      <div className="flex w-full flex-row gap-3">
+    <div className='flex w-full flex-col items-center gap-5'>
+      <div className='flex w-full flex-row gap-3'>
         {currentFormStep > 0 && (
           <button
-            onClick={() => setCurrentFormStep(prev => prev - 1)}
-            className="rounded-xl bg-dot-secondary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
+            onClick={() => setCurrentFormStep((prev) => prev - 1)}
+            className='rounded-xl bg-dot-secondary p-2 px-3 transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary'
           >
             <RiArrowGoBackFill />
           </button>
@@ -143,7 +143,7 @@ export default function SuggestArtistController() {
         <button
           onClick={handleNextStep}
           disabled={!isNextStepAllowed}
-          type="submit"
+          type='submit'
           className={classNames(
             'group flex w-full flex-row items-center justify-between gap-1 rounded-xl p-2 px-5 font-bold text-dot-body transition-colors duration-200 ease-in-out',
             {
@@ -160,7 +160,7 @@ export default function SuggestArtistController() {
           {!isNextStepAllowed ? <RiForbidLine /> : <RiArrowRightLine />}
         </button>
       </div>
-      {error && <p className="text-dot-rose text-sm">{error}</p>}
+      {error && <p className='text-dot-rose text-sm'>{error}</p>}
     </div>
   );
 
@@ -168,11 +168,11 @@ export default function SuggestArtistController() {
     <>
       {currentFormStep !== steps.length ? (
         <motion.section
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
           variants={slideUpVariants}
-          className=" relative mx-auto min-h-[30rem] md:my-10 flex h-full w-full max-w-lg flex-col items-start justify-between gap-8 md:gap-16 overflow-hidden rounded-2xl bg-dot-primary p-5 md:p-10"
+          className='relative mx-auto min-h-[30rem] md:my-10 flex h-full w-full max-w-lg flex-col items-start justify-between gap-8 md:gap-16 overflow-hidden rounded-2xl bg-dot-primary p-5 md:p-10'
         >
           {renderSteps()}
           <SuggestStepOne
@@ -202,11 +202,11 @@ export default function SuggestArtistController() {
         </motion.section>
       ) : (
         <motion.section
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
+          initial='hidden'
+          animate='visible'
+          exit='hidden'
           variants={slideUpVariants}
-          className="relative mx-auto min-h-[30rem] md:my-32 flex h-full w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-5 md:p-10"
+          className='relative mx-auto min-h-[30rem] md:min-h-max md:my-10 flex h-full w-full max-w-2xl flex-col items-start justify-center overflow-hidden rounded-2xl bg-dot-primary p-5 md:p-10'
         >
           <SuggestStepSuccess
             onAddAnother={() => resetForm()}
