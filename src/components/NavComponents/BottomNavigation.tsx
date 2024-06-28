@@ -30,11 +30,6 @@ export default function BottomNavigation() {
       link: '/privacy',
       newTab: false,
     },
-    {
-      title: 'Terms of Service',
-      link: '/terms',
-      newTab: false,
-    },
   ];
 
   return (
