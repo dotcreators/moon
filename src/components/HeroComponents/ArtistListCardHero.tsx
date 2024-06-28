@@ -18,7 +18,7 @@ interface Props {
   className?: string;
 }
 
-export const ArtistListCardHero: FC<Props> = props => {
+export const ArtistListCardHero: FC<Props> = (props) => {
   const [trendsLoading, setTrendsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [artistTrends, setArtistTrends] = useState<ArtistTrend[] | undefined>(
@@ -65,7 +65,7 @@ export const ArtistListCardHero: FC<Props> = props => {
         <div className={classNames('relative flex flex-col gap-3 md:gap-5 ')}>
           {props.artist.images.banner !== undefined && (
             <>
-              <div className="absolute w-full">
+              <div className='absolute w-full'>
                 <ImageLoader
                   src={props.artist.images.banner + '/mobile	'}
                   alt={'Profile Banner for ' + props.artist.username}
@@ -73,17 +73,17 @@ export const ArtistListCardHero: FC<Props> = props => {
                   height={200}
                   unoptimized={true}
                   hideLoader={true}
-                  className="z-10 h-24 w-full object-cover opacity-50 blur-3xl md:h-48"
+                  className='z-10 h-24 w-full object-cover opacity-50 blur-3xl md:h-48'
                 />
               </div>
-              <div className="relative">
+              <div className='relative'>
                 <ImageLoader
                   src={props.artist.images.banner + '/1500x500	'}
                   alt={'Profile Banner for ' + props.artist.username}
                   width={600}
                   height={200}
                   unoptimized={true}
-                  className="h-24 w-full object-cover md:h-48"
+                  className='h-24 w-full object-cover md:h-48'
                 />
               </div>
             </>
@@ -104,9 +104,9 @@ export const ArtistListCardHero: FC<Props> = props => {
             </Link>
           </div>
 
-          <div className="flex w-full flex-col gap-3 px-3 pb-3 md:gap-5 md:px-5 md:pb-5">
-            <div className="z-20 flex flex-row items-center justify-between gap-3">
-              <div className="flex flex-row items-center gap-3">
+          <div className='flex w-full flex-col gap-3 px-3 pb-3 md:gap-5 md:px-5 md:pb-5'>
+            <div className='z-20 flex flex-row items-center justify-between gap-3'>
+              <div className='flex flex-row items-center gap-3'>
                 <ImageLoader
                   alt={'Avatar for ' + props.artist.username}
                   src={props.artist.images.avatar}
@@ -114,26 +114,26 @@ export const ArtistListCardHero: FC<Props> = props => {
                   height={75}
                   className={'absolute h-14 w-14 rounded-xl md:h-max md:w-max'}
                 />
-                <div className="w-fit ">
-                  <p className="flex w-fit flex-row items-center gap-2 rounded-md font-hubot-sans text-base md:text-xl">
+                <div className='w-fit '>
+                  <p className='flex w-fit flex-row items-center gap-2 rounded-md font-hubot-sans text-base md:text-xl'>
                     {props.artist.name}
                   </p>
-                  <div className="flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base">
+                  <div className='flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base'>
                     <Link
                       href={props.artist.url}
-                      target="__blank"
-                      className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                      target='__blank'
+                      className='transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary'
                     >
                       @{props.artist.username}
                     </Link>
-                    <div className="ml-0.5 hidden flex-row gap-1 md:flex">
+                    <div className='hidden flex-row gap-1 md:flex'>
                       {props.artist.website && (
                         <>
                           <p>•</p>
                           <Link
                             href={props.artist.website}
-                            target="__blank"
-                            className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                            target='__blank'
+                            className='transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary'
                           >
                             {props.artist.website.replace(
                               /^(https?:\/\/)?(www\.)?/,
@@ -143,7 +143,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                         </>
                       )}
                       <p>•</p>
-                      <p className="">
+                      <p className=''>
                         Account created{' '}
                         {new Date(props.artist.joinedAt).toLocaleDateString()}
                       </p>
@@ -151,63 +151,63 @@ export const ArtistListCardHero: FC<Props> = props => {
                   </div>
                 </div>
               </div>
-              <div className="flex flex-row items-center gap-3 rounded-xl md:gap-5">
+              <div className='flex flex-row items-center gap-3 rounded-xl md:gap-5'>
                 <div>
-                  <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
+                  <h1 className='hidden font-black font-hubot-sans text-2xl leading-tight md:block'>
                     {props.artist.followersCount}
                   </h1>
 
-                  <h1 className="block font-black font-hubot-sans text-xl leading-tight md:hidden">
+                  <h1 className='block font-black font-hubot-sans text-xl leading-tight md:hidden'>
                     {formatValue(props.artist.followersCount)}
                   </h1>
 
-                  <p className="text-sm text-zinc-400 md:text-base">
+                  <p className='text-sm text-zinc-400 md:text-base'>
                     followers
                   </p>
                 </div>
                 <div>
-                  <h1 className="hidden font-black font-hubot-sans text-2xl leading-tight md:block">
+                  <h1 className='hidden font-black font-hubot-sans text-2xl leading-tight md:block'>
                     {props.artist.tweetsCount}
                   </h1>
 
-                  <h1 className="block font-black font-hubot-sans text-xl leading-tight md:hidden">
+                  <h1 className='block font-black font-hubot-sans text-xl leading-tight md:hidden'>
                     {formatValue(props.artist.tweetsCount)}
                   </h1>
-                  <p className="text-sm text-zinc-400 md:text-base">tweets</p>
+                  <p className='text-sm text-zinc-400 md:text-base'>tweets</p>
                 </div>
               </div>
             </div>
 
             {props.artist.bio && (
-              <p className="whitespace-pre-line text-sm md:text-base">
+              <p className='whitespace-pre-line text-sm md:text-base'>
                 <CreateLinks text={props.artist.bio} />
               </p>
             )}
 
             {trendsLoading ? (
-              <div className="flex w-full flex-row">
-                <div className="h-[240px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
+              <div className='flex w-full flex-row'>
+                <div className='h-[240px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50' />
               </div>
             ) : artistTrends && artistTrends.length !== 0 ? (
-              <div className="flex w-full flex-col justify-between gap-3 text-xs md:flex-row md:gap-5">
+              <div className='flex w-full flex-col justify-between gap-3 text-xs md:flex-row md:gap-5'>
                 <>
                   <ArtistListCardTrendGraph
                     key={'followersGraph'}
                     artistInfo={props.artist}
-                    trendBy="followers"
+                    trendBy='followers'
                     trendData={artistTrends}
                   />
                   <ArtistListCardTrendGraph
                     key={'tweetsGraph'}
                     artistInfo={props.artist}
-                    trendBy="tweets"
+                    trendBy='tweets'
                     trendData={artistTrends}
                   />
                 </>
               </div>
             ) : (
-              <div className="flex h-[240px] w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400">
-                <RiLineChartFill className="text-xl" />
+              <div className='flex h-[240px] w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400'>
+                <RiLineChartFill className='text-xl' />
                 <p>
                   Sorry, but there is currently no trend data recorded for this
                   artist.
@@ -216,13 +216,13 @@ export const ArtistListCardHero: FC<Props> = props => {
             )}
             {props.artist.tags !== undefined &&
               props.artist.tags.length !== 0 && (
-                <div className="flex flex-row gap-2">
+                <div className='flex flex-row gap-2'>
                   {props.artist.tags.map((tag, index) => (
                     <p
                       key={index}
-                      className="rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                      className='rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out '
                     >
-                      {searchTagsArray.map(_tag => {
+                      {searchTagsArray.map((_tag) => {
                         if (
                           tag === _tag.toLocaleLowerCase().replace(/ /g, '')
                         ) {
@@ -233,7 +233,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                   ))}
                   {props.artist.country &&
                     props.artist.country !== undefined && (
-                      <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
+                      <div className='flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm'>
                         <Image
                           alt={`${props.artist.country}`}
                           src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
@@ -242,7 +242,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                           className={'h-4 w-6 rounded-sm '}
                         />
                         <p>
-                          {countryCodes.map(country => {
+                          {countryCodes.map((country) => {
                             if (
                               props.artist.country ===
                               country.value.toLocaleLowerCase()
