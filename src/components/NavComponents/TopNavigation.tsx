@@ -10,13 +10,13 @@ export default function TopNavigation() {
 
   return (
     <>
-      <header className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between gap-3">
-        <Link href="/" className="hidden scale-75 md:flex md:scale-100">
+      <header className="mx-auto flex w-full max-w-7xl flex-row items-center justify-between gap-3 md:px-10 lg:px-0">
+        <Link href="/" className="hidden md:flex">
           <DotcreatorsLogoResponsive width={30} height={28} />
         </Link>
 
         {/* Mobile */}
-        <div className="flex w-full flex-row items-center border border-dot-white/5 rounded-full justify-between gap-3 bg-dot-primary/70 p-3 px-5 md:p-5 text-sm backdrop-blur-xl md:hidden mx-3">
+        <div className="mx-3 flex w-full flex-row items-center justify-between gap-3 rounded-full border border-dot-white/5 bg-dot-primary/70 p-3 px-5 text-sm backdrop-blur-xl md:hidden md:p-5">
           <Link href="/" className="ml-2">
             <DotcreatorsLogoResponsive width={25} height={23} />
           </Link>
@@ -32,7 +32,7 @@ export default function TopNavigation() {
 
             <Link
               className={classNames(
-                'flex flex-row items-center gap-1 bg-dot-rose text-dot-body text-bold rounded-full p-2 px-4'
+                'text-bold flex flex-row items-center gap-1 rounded-full bg-dot-rose p-2 px-4 text-dot-body'
               )}
               href="/suggest"
             >

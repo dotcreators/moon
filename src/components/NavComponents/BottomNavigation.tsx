@@ -38,8 +38,8 @@ export default function BottomNavigation() {
   ];
 
   return (
-    <section className="w-full md:py-16">
-      <div className="mx-auto flex md:h-56 max-w-7xl flex-col justify-between gap-8 md:gap-5 rounded-t-3xl md:rounded-2xl bg-dot-primary p-10 md:flex-row">
+    <section className="w-full py-0 lg:py-16">
+      <div className="mx-auto flex max-w-7xl flex-col justify-between gap-8 rounded-t-3xl bg-dot-primary p-10 md:h-56 md:flex-row md:gap-5 md:rounded-t-3xl lg:rounded-2xl">
         {/* <div className="flex flex-row gap-5">
           <button
             onClick={() => {}}
@@ -58,7 +58,7 @@ export default function BottomNavigation() {
         </div> */}
 
         <div className="flex flex-col justify-between gap-3">
-          <h1 className="flex flex-row items-center gap-2 font-hubot-sans text-dot-rose text-xl uppercase">
+          <h1 className="flex flex-row items-center gap-2 font-hubot-sans text-xl uppercase text-dot-rose">
             <DotcreatorsLogoResponsive width={20} height={18} />
             dotcreators
           </h1>
@@ -66,7 +66,7 @@ export default function BottomNavigation() {
             Track, share and grow together with community of talented
             pixel-related artists.
           </p>
-          <p className="hidden md:block max-w-96 text-sm md:text-base text-zinc-400">
+          <p className="hidden max-w-96 text-sm text-zinc-400 md:block md:text-base">
             Dotcreators is{' '}
             <Link
               href={'https://github.com/dotcreators'}
@@ -79,7 +79,7 @@ export default function BottomNavigation() {
           </p>
         </div>
 
-        <div className="flex flex-col md:flex-row place-items-start gap-6 md:gap-16">
+        <div className="flex flex-col place-items-start gap-6 md:flex-row md:gap-16">
           <div className="grid grid-rows-1 gap-2">
             <h1 className="mb-1 font-hubot-sans text-lg font-semibold uppercase">
               Support
@@ -112,7 +112,7 @@ export default function BottomNavigation() {
           </div>
         </div>
 
-        <p className="block md:hidden max-w-96 text-sm md:text-base text-zinc-400">
+        <p className="block max-w-96 text-sm text-zinc-400 md:hidden md:text-base">
           Dotcreators is{' '}
           <Link
             href={'https://github.com/dotcreators'}

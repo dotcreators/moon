@@ -44,20 +44,18 @@ export default function artists() {
     searchFilter.page.currentPage,
   ]);
 
-  console.log(searchFilter);
-
   return (
     <>
       <NextSeo
         title="Artists"
         description="Search wonderful pixel-related creators!"
       />
-      <section className="relative m-auto md:grid flex h-fit w-full max-w-7xl flex-col md:grid-cols-4 items-start justify-center gap-5 pt-[100px] md:pt-32 p-3 md:p-0">
-        <div className="md:sticky md:top-8 w-full">
+      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 p-3 pt-[100px] md:p-0 md:px-10 md:pt-32 lg:grid lg:grid-cols-4 lg:px-0">
+        <div className="w-full lg:sticky lg:top-8">
           <ArtistsSearch onSearchStringChanges={setSearchString} />
         </div>
         <section className="col-span-3 flex w-full flex-col gap-5">
-          <div className="divide-y divide-dot-secondary md:divide-none flex-col flex md:gap-3 rounded-xl overflow-hidden">
+          <div className="flex flex-col divide-y divide-dot-secondary overflow-hidden rounded-xl md:gap-3 md:divide-none">
             {data && !error ? (
               data && data.response.data.length !== 0 ? (
                 data.response.data.map(artist => (

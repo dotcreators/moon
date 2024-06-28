@@ -8,7 +8,7 @@ export default function Suggest() {
         title="Suggest artist"
         description="Suggest favorite artist or yourself."
       />
-      <section className="min-h-screen pt-[100px] md:pt-32 p-3 md:p-0">
+      <section className="min-h-screen p-3 pt-[100px] md:p-0 md:px-10 md:pt-32 lg:p-0">
         <SuggestArtistController />
       </section>
     </>

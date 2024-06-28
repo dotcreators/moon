@@ -108,7 +108,7 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
   }, [searchFilter]);
 
   return (
-    <section className="flex flex-col gap-3 overflow-y-auto w-full">
+    <section className="flex w-full flex-col gap-3 overflow-y-auto md:grid md:grid-cols-2 lg:flex lg:flex-col">
       <SearchQ onQChanges={updateSearchUsername} />
       <SearchItem
         title="Tags"

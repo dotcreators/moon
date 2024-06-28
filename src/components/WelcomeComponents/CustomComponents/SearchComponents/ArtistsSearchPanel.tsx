@@ -28,7 +28,7 @@ export default function ArtistSearchPanel() {
     <>
       <section className="flex flex-col gap-3">
         <div className="flex w-full flex-col items-center gap-3 md:flex-row">
-          <div>
+          <div className="w-full">
             <SearchQ onQChanges={setSearchQ} />
           </div>
           <div className="w-full grow">

@@ -21,7 +21,7 @@ interface Props {
   className?: string;
 }
 
-export const ArtistListCard: FC<Props> = (props) => {
+export const ArtistListCard: FC<Props> = props => {
   const [trendsLoading, setTrendsLoading] = useState(true);
   const [isOpen, setIsOpen] = useState<boolean>(false);
   const [artistTrends, setArtistTrends] = useState<ArtistTrend[] | undefined>(
@@ -68,7 +68,7 @@ export const ArtistListCard: FC<Props> = (props) => {
         key={props.artist.userId}
         onClick={() => (!isOpen ? handleToggle() : '')}
         className={classNames(
-          'group/main flex w-full flex-col h-full justify-between gap-5 overflow-hidden md:rounded-2xl bg-dot-primary transition-transform duration-200 ease-in-out md:hover:bg-dot-secondary',
+          'group/main flex h-full w-full flex-col justify-between gap-5 overflow-hidden bg-dot-primary transition-transform duration-200 ease-in-out md:rounded-2xl md:hover:bg-dot-secondary',
           props.className,
           {
             'md:hover:cursor-default': isOpen,
@@ -79,7 +79,7 @@ export const ArtistListCard: FC<Props> = (props) => {
       >
         <div
           className={classNames(
-            'flex w-full flex-row items-center justify-between p-2 px-3 md:px-5 min-h-[51px] md:min-h-max',
+            'flex min-h-[51px] w-full flex-row items-center justify-between p-2 px-3 md:min-h-max md:px-5',
             { hidden: isOpen, block: !isOpen }
           )}
         >
@@ -88,26 +88,26 @@ export const ArtistListCard: FC<Props> = (props) => {
           >
             <Link
               href={props.artist.url}
-              target='_blank'
-              className='group relative'
+              target="_blank"
+              className="group relative"
             >
-              <div className='relative z-10 overflow-hidden rounded-full'>
+              <div className="relative z-10 overflow-hidden rounded-full">
                 <ImageLoader
                   alt={'Avatar for ' + props.artist.username}
                   src={props.artist.images.avatar}
                   width={35}
                   height={35}
                   className={classNames(
-                    'w-[24px] h-[24px] md:w-max md:h-max transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm'
+                    'h-[24px] w-[24px] transition-opacity duration-200 ease-in-out group-hover:opacity-50 group-hover:blur-sm md:h-max md:w-max'
                   )}
                 />
               </div>
-              <RiExternalLinkLine className='absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-sm opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100' />
+              <RiExternalLinkLine className="absolute left-1/2 top-1/2 z-20 -translate-x-1/2 -translate-y-1/2 transform text-sm opacity-0 transition-opacity duration-200 ease-in-out group-hover:opacity-100" />
             </Link>
             <div className={classNames('flex flex-row items-center gap-4')}>
               <h1
                 className={classNames(
-                  'flex max-w-32 md:max-w-96 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black'
+                  'flex flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black md:max-w-52 lg:max-w-96'
                 )}
               >
                 {props.artist.country && (
@@ -119,33 +119,33 @@ export const ArtistListCard: FC<Props> = (props) => {
                     className={'rounded-sm'}
                   />
                 )}
-                <p className='truncate text-ellipsis'>{props.artist.name}</p>
+                <p className="truncate text-ellipsis">{props.artist.name}</p>
               </h1>
               <p
                 className={classNames(
-                  'hidden max-w-48 truncate text-ellipsis text-zinc-400 md:block'
+                  'hidden truncate text-ellipsis text-zinc-400 md:block md:max-w-32 lg:max-w-48'
                 )}
               >
                 @{props.artist.username}
               </p>
             </div>
           </div>
-          <div className='flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0'>
+          <div className="flex translate-x-10 select-none flex-row items-center justify-end gap-5 transition-transform duration-200 ease-in-out md:group-hover/main:translate-x-0">
             <div
               className={classNames(
                 'flex min-w-8 flex-row items-center justify-end gap-2'
               )}
             >
               <h1>{formatValue(props.artist.followersCount)}</h1>
-              <p className='text-zinc-400'>followers</p>
+              <p className="text-zinc-400">followers</p>
             </div>
             <div
               className={classNames(
-                'hidden md:flex min-w-8 flex-row items-center justify-end gap-2'
+                'hidden min-w-8 flex-row items-center justify-end gap-2 md:flex'
               )}
             >
               <h1>{formatValue(props.artist.tweetsCount)}</h1>
-              <p className='text-zinc-400'>posts</p>
+              <p className="text-zinc-400">posts</p>
             </div>
             <RiArrowDownSLine />
           </div>
@@ -161,7 +161,7 @@ export const ArtistListCard: FC<Props> = (props) => {
           >
             {props.artist.images.banner && (
               <>
-                <div className='absolute w-full'>
+                <div className="absolute w-full">
                   <ImageLoader
                     src={props.artist.images.banner + '/mobile	'}
                     alt={'Profile Banner for ' + props.artist.username}
@@ -169,17 +169,17 @@ export const ArtistListCard: FC<Props> = (props) => {
                     height={200}
                     unoptimized={true}
                     hideLoader={true}
-                    className='z-10 h-44 w-full object-cover opacity-50 blur-3xl'
+                    className="z-10 h-44 w-full object-cover opacity-50 blur-3xl"
                   />
                 </div>
-                <div className='relative cursor-pointer' onClick={handleToggle}>
+                <div className="relative cursor-pointer" onClick={handleToggle}>
                   <ImageLoader
                     src={props.artist.images.banner + '/1500x500	'}
                     alt={'Profile Banner for ' + props.artist.username}
                     width={600}
                     height={200}
                     unoptimized={true}
-                    className='h-24 md:h-40 w-full object-cover'
+                    className="h-24 w-full object-cover md:h-40"
                   />
                 </div>
               </>
@@ -204,17 +204,17 @@ export const ArtistListCard: FC<Props> = (props) => {
                   'h-fit rounded-xl bg-dot-primary/50 p-2 backdrop-blur-md transition-colors duration-200 ease-in-out md:hover:bg-dot-primary'
                 )}
               >
-                <RiArrowDownSLine className='rotate-180' />
+                <RiArrowDownSLine className="rotate-180" />
               </button>
             </div>
             <div
               className={classNames(
-                'flex w-full flex-col gap-3 md:gap-5 px-3 md:px-5 pb-3 md:pb-5'
+                'flex w-full flex-col gap-3 px-3 pb-3 md:gap-5 md:px-5 md:pb-5'
               )}
             >
-              <div className='z-20 flex flex-row items-center justify-between gap-3'>
-                <div className='z-20 flex w-full flex-row items-center justify-between gap-3'>
-                  <div className='flex flex-row items-center gap-3'>
+              <div className="z-20 flex flex-row items-center justify-between gap-3">
+                <div className="z-20 flex w-full flex-row items-center justify-between gap-3">
+                  <div className="flex flex-row items-center gap-3">
                     <ImageLoader
                       alt={'Avatar for ' + props.artist.username}
                       src={props.artist.images.avatar}
@@ -224,26 +224,26 @@ export const ArtistListCard: FC<Props> = (props) => {
                         'absolute h-12 w-12 rounded-xl md:h-max md:w-max'
                       }
                     />
-                    <div className='w-fit '>
-                      <p className='block max-w-96 truncate line-clamp-2 rounded-md font-hubot-sans text-base md:text-xl'>
+                    <div className="w-fit ">
+                      <p className="line-clamp-2 block max-w-96 truncate rounded-md font-hubot-sans text-base md:text-xl">
                         {props.artist.name}
                       </p>
-                      <div className='flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base'>
+                      <div className="flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base">
                         <Link
                           href={props.artist.url}
-                          target='__blank'
-                          className='transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary'
+                          target="__blank"
+                          className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
                         >
                           @{props.artist.username}
                         </Link>
-                        <div className='hidden flex-row gap-1 md:flex'>
+                        <div className="hidden flex-row gap-1 md:flex">
                           {props.artist.website && (
                             <>
                               <p>•</p>
                               <Link
                                 href={props.artist.website}
-                                target='__blank'
-                                className='transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary'
+                                target="__blank"
+                                className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
                               >
                                 {props.artist.website.replace(
                                   /^(https?:\/\/)?(www\.)?/,
@@ -252,40 +252,42 @@ export const ArtistListCard: FC<Props> = (props) => {
                               </Link>
                             </>
                           )}
-                          <p>•</p>
-                          <p className=''>
-                            Account created{' '}
-                            {new Date(
-                              props.artist.joinedAt
-                            ).toLocaleDateString()}
-                          </p>
+                          <div className="hidden flex-row items-center gap-1 lg:flex">
+                            <p>•</p>
+                            <p className="">
+                              Account created{' '}
+                              {new Date(
+                                props.artist.joinedAt
+                              ).toLocaleDateString()}
+                            </p>
+                          </div>
                         </div>
                       </div>
                     </div>
                   </div>
-                  <div className='flex flex-row items-center gap-3 rounded-xl md:gap-5'>
+                  <div className="flex flex-row items-center gap-3 rounded-xl md:gap-5">
                     <div>
-                      <h1 className='hidden font-black font-hubot-sans text-2xl leading-tight md:block'>
+                      <h1 className="hidden font-hubot-sans text-2xl font-black leading-tight md:block">
                         {props.artist.followersCount}
                       </h1>
 
-                      <h1 className='block font-black font-hubot-sans text-xl leading-tight md:hidden'>
+                      <h1 className="block font-hubot-sans text-xl font-black leading-tight md:hidden">
                         {formatValue(props.artist.followersCount)}
                       </h1>
 
-                      <p className='text-sm text-zinc-400 md:text-base'>
+                      <p className="text-sm text-zinc-400 md:text-base">
                         followers
                       </p>
                     </div>
                     <div>
-                      <h1 className='hidden font-black font-hubot-sans text-2xl leading-tight md:block'>
+                      <h1 className="hidden font-hubot-sans text-2xl font-black leading-tight md:block">
                         {props.artist.tweetsCount}
                       </h1>
 
-                      <h1 className='block font-black font-hubot-sans text-xl leading-tight md:hidden'>
+                      <h1 className="block font-hubot-sans text-xl font-black leading-tight md:hidden">
                         {formatValue(props.artist.tweetsCount)}
                       </h1>
-                      <p className='text-sm text-zinc-400 md:text-base'>
+                      <p className="text-sm text-zinc-400 md:text-base">
                         tweets
                       </p>
                     </div>
@@ -294,35 +296,35 @@ export const ArtistListCard: FC<Props> = (props) => {
               </div>
 
               {props.artist.bio && (
-                <p className='whitespace-pre-line text-sm md:text-base'>
+                <p className="whitespace-pre-line text-sm md:text-base">
                   <CreateLinks text={props.artist.bio} />
                 </p>
               )}
 
               {trendsLoading ? (
-                <div className='flex w-full flex-row'>
-                  <div className='h-[104px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50' />
+                <div className="flex w-full flex-row">
+                  <div className="h-[104px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
                 </div>
               ) : artistTrends && artistTrends.length !== 0 ? (
-                <div className='z-20 flex w-full flex-col md:flex-row justify-between gap-3 md:gap-5 text-xs'>
+                <div className="z-20 flex w-full flex-col justify-between gap-3 text-xs md:gap-5 lg:flex-row">
                   <>
                     <ArtistListCardTrendGraph
                       key={'followersGraph'}
                       artistInfo={props.artist}
-                      trendBy='followers'
+                      trendBy="followers"
                       trendData={artistTrends}
                     />
                     <ArtistListCardTrendGraph
                       key={'tweetsGraph'}
                       artistInfo={props.artist}
-                      trendBy='tweets'
+                      trendBy="tweets"
                       trendData={artistTrends}
                     />
                   </>
                 </div>
               ) : (
-                <div className='flex w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 p-10 text-zinc-400'>
-                  <RiLineChartFill className='text-xl' />
+                <div className="flex w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 p-10 text-zinc-400">
+                  <RiLineChartFill className="text-xl" />
                   <p>
                     Sorry, but there is currently no trend data recorded for
                     this artist.
@@ -330,9 +332,9 @@ export const ArtistListCard: FC<Props> = (props) => {
                 </div>
               )}
 
-              <div className='flex flex-row gap-2 flex-wrap'>
+              <div className="flex flex-row flex-wrap gap-2">
                 {props.artist.country && props.artist.country !== undefined && (
-                  <div className='flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm'>
+                  <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
                     <Image
                       alt={`${props.artist.country}`}
                       src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
@@ -340,8 +342,8 @@ export const ArtistListCard: FC<Props> = (props) => {
                       height={20}
                       className={'h-4 w-6 rounded-sm '}
                     />
-                    <p className=' '>
-                      {countryCodes.map((country) => {
+                    <p className=" ">
+                      {countryCodes.map(country => {
                         if (
                           props.artist.country ===
                           country.value.toLocaleLowerCase()
@@ -359,9 +361,9 @@ export const ArtistListCard: FC<Props> = (props) => {
                       {props.artist.tags.map((tag, index) => (
                         <p
                           key={index}
-                          className='rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out '
+                          className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
                         >
-                          {searchTagsArray.map((_tag) => {
+                          {searchTagsArray.map(_tag => {
                             if (
                               tag === _tag.toLocaleLowerCase().replace(/ /g, '')
                             ) {
@@ -373,8 +375,8 @@ export const ArtistListCard: FC<Props> = (props) => {
                     </>
                   )}
                 {props.artist && (
-                  <div className='flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm'>
-                    <p className='text-zinc-400'>
+                  <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
+                    <p className="text-zinc-400">
                       Profile updated{' '}
                       {new Date(
                         props.artist.lastUpdatedAt
