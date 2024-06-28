@@ -4,6 +4,7 @@ module.exports = {
   generateRobotsTxt: true,
   changefreq: 'daily',
   priority: 0.7,
+  generateIndexSitemap: false,
   exclude: ['/server-sitemap.xml', '/404'],
   robotsTxtOptions: {
     additionalSitemaps: [
