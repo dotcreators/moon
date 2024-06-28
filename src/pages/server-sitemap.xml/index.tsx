@@ -5,7 +5,7 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
   let fields: any = [];
 
   try {
-    const response = await fetch(`${process.env.API_URL}/artists/usernames`, {
+    const response = await fetch(`${process.env.API_URL}artists/usernames`, {
       method: 'GET',
       headers: {
         'Content-Type': 'application/json',
@@ -13,7 +13,8 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
     });
 
     if (response.ok) {
-      const usernames: string[] = await response.json();
+      const res = await response.json();
+      const usernames: string[] = res.response;
 
       fields = usernames.map(username => ({
         loc: `https://dotcreators.com/artist/${username}`,
@@ -25,7 +26,10 @@ export const getServerSideProps: GetServerSideProps = async ctx => {
       console.error(`Failed to fetch usernames. Status: ${response.status}`);
     }
   } catch (error) {
-    console.error('Error fetching usernames:', error);
+    console.error(
+      'Error fetching usernames:',
+      error instanceof Error && error.message
+    );
   }
 
   return getServerSideSitemapLegacy(ctx, fields);
