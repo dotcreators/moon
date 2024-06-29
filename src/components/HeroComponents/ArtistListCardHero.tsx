@@ -122,7 +122,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                     <Link
                       href={props.artist.url}
                       target="__blank"
-                      className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                      className="max-w-32 transition-colors duration-150 ease-in-out md:max-w-52 md:hover:text-dot-link-primary lg:max-w-96"
                     >
                       @{props.artist.username}
                     </Link>

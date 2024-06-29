@@ -17,7 +17,7 @@ export default function Home() {
       const res = await fetch(input, init);
       return res.json();
     },
-    {}
+    { refreshInterval: -1 }
   );
 
   const { data: randomArtist } = useSWR<{
