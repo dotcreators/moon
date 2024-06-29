@@ -20,7 +20,7 @@ export default function TopNavigation() {
           <Link href="/" className="ml-2">
             <DotcreatorsLogoResponsive width={25} height={23} />
           </Link>
-          <div className="flex w-fit flex-row gap-3">
+          <div className="flex w-fit flex-row">
             <Link
               className={classNames(
                 'flex flex-row items-center gap-1 rounded-full p-2 px-4'
@@ -55,7 +55,7 @@ export default function TopNavigation() {
           </Link>
           <Link
             className={classNames(
-              ' rounded-full p-2 px-5 transition-all duration-200 ease-in-out md:hover:bg-dot-secondary',
+              'rounded-full p-2 px-5 transition-all duration-200 ease-in-out md:hover:bg-dot-secondary',
               { 'bg-dot-secondary': path === '/artists' }
             )}
             href="/artists"

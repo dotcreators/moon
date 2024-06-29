@@ -107,7 +107,7 @@ export const ArtistListCard: FC<Props> = props => {
             <div className={classNames('flex flex-row items-center gap-4')}>
               <h1
                 className={classNames(
-                  'flex flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black md:max-w-52 lg:max-w-96'
+                  'flex max-w-32 flex-row items-center gap-2 truncate text-ellipsis font-hubot-sans font-black md:max-w-52 lg:max-w-96'
                 )}
               >
                 {props.artist.country && (
@@ -154,7 +154,7 @@ export const ArtistListCard: FC<Props> = props => {
         {/* MoreInfo */}
         {isOpen && (
           <div
-            className={classNames('test relative flex flex-col  ', {
+            className={classNames('test relative flex flex-col', {
               'justify-items-end gap-3': !props.artist.images.banner,
               'gap-5': props.artist.images.banner,
             })}
@@ -185,8 +185,8 @@ export const ArtistListCard: FC<Props> = props => {
               </>
             )}
             <div
-              className={classNames('flex flex-row items-center gap-1.5 ', {
-                'absolute right-3 top-2.5 z-20 ': props.artist.images.banner,
+              className={classNames('flex flex-row items-center gap-1.5', {
+                'absolute right-3 top-2.5 z-20': props.artist.images.banner,
                 'mx-5 mt-5 place-self-end': !props.artist.images.banner,
               })}
             >
@@ -224,8 +224,8 @@ export const ArtistListCard: FC<Props> = props => {
                         'absolute h-12 w-12 rounded-xl md:h-max md:w-max'
                       }
                     />
-                    <div className="w-fit ">
-                      <p className="line-clamp-2 block max-w-96 truncate rounded-md font-hubot-sans text-base md:text-xl">
+                    <div className="w-fit">
+                      <p className="line-clamp-2 block max-w-32 truncate rounded-md font-hubot-sans text-base md:max-w-96 md:text-xl">
                         {props.artist.name}
                       </p>
                       <div className="flex flex-col gap-1 text-sm text-zinc-400 md:flex-row md:text-base">
@@ -340,7 +340,7 @@ export const ArtistListCard: FC<Props> = props => {
                       src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
                       width={24}
                       height={20}
-                      className={'h-4 w-6 rounded-sm '}
+                      className={'h-4 w-6 rounded-sm'}
                     />
                     <p className=" ">
                       {countryCodes.map(country => {
@@ -361,7 +361,7 @@ export const ArtistListCard: FC<Props> = props => {
                       {props.artist.tags.map((tag, index) => (
                         <p
                           key={index}
-                          className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                          className="rounded-md bg-dot-tertiary p-2 px-4 text-sm transition-colors duration-200 ease-in-out"
                         >
                           {searchTagsArray.map(_tag => {
                             if (

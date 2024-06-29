@@ -102,7 +102,7 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
       >
         <AreaChart
           data={props.trendData}
-          margin={{ top: 0, right: 30, left: 0, bottom: -10 }}
+          margin={{ top: 5, right: 25, left: 0, bottom: -5 }}
         >
           <defs>
             <linearGradient
@@ -123,6 +123,7 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
           <XAxis
             dataKey="recordedAt"
             strokeOpacity={0.1}
+            tickSize={10}
             tickFormatter={(value: string) =>
               new Date(value).toLocaleDateString('en-EN', {
                 month: 'long',
@@ -130,7 +131,13 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
               })
             }
           />
-          <YAxis strokeOpacity={0.1} />
+          <YAxis
+            strokeOpacity={0.1}
+            tickSize={10}
+            tickCount={5}
+            domain={['auto', 'auto']}
+            interval={0}
+          />
           <CartesianGrid strokeOpacity={0.1} />
           <Tooltip
             contentStyle={{
@@ -152,6 +159,7 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
             separator=": "
           />
           <Area
+            isAnimationActive={false}
             type="bump"
             dataKey={getArtistValue()}
             stroke={getStrokeColor()}

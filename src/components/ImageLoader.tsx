@@ -16,12 +16,7 @@ export const ImageLoader: FC<Props> = props => {
   const [isLoaded, setIsLoaded] = useState<boolean>(false);
 
   return (
-    <div
-      className={classNames(
-        'relative h-fit w-fit overflow-hidden',
-        props.className
-      )}
-    >
+    <div className={classNames('relative overflow-hidden', props.className)}>
       <Image
         src={props.src}
         alt={props.alt}
@@ -34,7 +29,7 @@ export const ImageLoader: FC<Props> = props => {
           props.unoptimized && props.className,
           {
             'opacity-0 blur-sm': !isLoaded,
-            'opacity-100 blur-0 ': isLoaded,
+            'opacity-100 blur-0': isLoaded,
           }
         )}
         onLoad={() => setIsLoaded(true)}

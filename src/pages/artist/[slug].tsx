@@ -1,6 +1,5 @@
-import { useEffect, useState } from 'react';
+import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import useSWR from 'swr';
 import { ArtistPageCard } from '@/components/ArtistPageComponents/ArtistPageCard';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
@@ -9,56 +8,39 @@ import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import { NextSeo } from 'next-seo';
 
-const fetcher = (url: string) => fetch(url).then(res => res.json());
+interface UserPageProps {
+  artist: ArtistProfile | null;
+  artistTrend: ArtistTrend[] | null;
+}
 
-export default function UserPage() {
-  const [artist, setArtist] = useState<ArtistProfile | null>(null);
-  const [artistTrend, setArtistTrend] = useState<ArtistTrend[] | null>(null);
+export const getServerSideProps: GetServerSideProps<
+  UserPageProps
+> = async context => {
+  const { slug } = context.query;
+  const artistRes = await fetch(
+    `${process.env.API_URL}artists?limit=1&page=1&username=${slug}`
+  );
+  const artistData = await artistRes.json();
+
+  let trendData = null;
+  if (artistData?.response?.data[0]?.userId) {
+    const trendRes = await fetch(
+      `${process.env.API_URL}trends/${artistData.response.data[0].userId}?range=7`
+    );
+    trendData = await trendRes.json();
+  }
+
+  return {
+    props: {
+      artist: artistData?.response?.data[0] || null,
+      artistTrend: trendData?.response || null,
+    },
+  };
+};
+
+const UserPage = ({ artist, artistTrend }: UserPageProps) => {
   const router = useRouter();
-
   const { slug } = router.query;
-
-  const { data: artistData, error: artistError } = useSWR<{
-    status: string;
-    response: {
-      data: ArtistProfile[];
-      has_next: boolean;
-    };
-  }>(
-    slug
-      ? `${process.env.API_URL}artists?limit=1&page=1&username=${slug}`
-      : null,
-    fetcher
-  );
-
-  useEffect(() => {
-    if (artistData && artistData.response) {
-      console.log(artistData.response.data[0]);
-      setArtist(artistData.response.data[0]);
-    } else if (artistError) {
-      console.log(artistError);
-    }
-  }, [artistData, artistError]);
-
-  const {
-    data: trendData,
-    error: trendError,
-    isLoading: isTrendsLoading,
-  } = useSWR<{
-    status: string;
-    response: ArtistTrend[];
-  }>(
-    artist ? `${process.env.API_URL}trends/${artist.userId}?range=7` : null,
-    fetcher
-  );
-
-  useEffect(() => {
-    if (trendData && trendData.response) {
-      setArtistTrend(trendData.response);
-    } else if (trendError) {
-      console.log(trendError);
-    }
-  }, [trendData, trendError]);
 
   return (
     <>
@@ -70,15 +52,6 @@ export default function UserPage() {
           locale: 'en_IE',
           url: 'https://dotcreators.xyz/',
           siteName: 'dotcreators',
-          // images: [
-          //   {
-          //     url: artist
-          //       ? artist.images.avatar
-          //       : 'https://dotcreators.xyz/summary_large_image.png',
-          //     width: 1280,
-          //     height: 720,
-          //   },
-          // ],
         }}
         twitter={{
           handle: '@handle',
@@ -107,17 +80,17 @@ export default function UserPage() {
         {artist && artistTrend && artistTrend.length > 1 ? (
           <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
         ) : (
-          !isTrendsLoading && (
-            <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
-              <RiLineChartFill className="text-xl" />
-              <p>
-                Sorry, but there is currently no trend data recorded for this
-                artist.
-              </p>
-            </div>
-          )
+          <div className="flex h-48 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
+            <RiLineChartFill className="text-xl" />
+            <p>
+              Sorry, but there is currently no trend data recorded for this
+              artist.
+            </p>
+          </div>
         )}
       </section>
     </>
   );
-}
+};
+
+export default UserPage;
