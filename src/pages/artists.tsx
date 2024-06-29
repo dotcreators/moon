@@ -54,7 +54,7 @@ export default function artists() {
         <div className="w-full lg:sticky lg:top-8">
           <ArtistsSearch onSearchStringChanges={setSearchString} />
         </div>
-        <section className="col-span-3 flex w-full flex-col gap-5">
+        <section className="col-span-3 flex w-full flex-col gap-5 md:p-1">
           <div className="flex flex-col divide-y divide-dot-secondary overflow-hidden rounded-xl md:gap-3 md:divide-none">
             {data && !error ? (
               data && data.response.data.length !== 0 ? (
