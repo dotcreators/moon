@@ -206,9 +206,9 @@ export const ArtistListCardHero: FC<Props> = props => {
                 </>
               </div>
             ) : (
-              <div className="flex h-[240px] w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400">
-                <RiLineChartFill className="text-xl" />
-                <p>
+              <div className="flex h-[240px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
+                <RiLineChartFill className="w-8 text-xl" />
+                <p className="text-start text-sm md:text-base">
                   Sorry, but there is currently no trend data recorded for this
                   artist.
                 </p>
