@@ -26,7 +26,7 @@ export default function BottomNavigation() {
   ];
   const legalLinks = [
     {
-      title: 'Privacy Policy',
+      title: 'Privacy stuff',
       link: '/privacy',
       newTab: false,
     },
@@ -61,7 +61,7 @@ export default function BottomNavigation() {
             Track, share and grow together with community of talented
             pixel-related artists.
           </p>
-          <p className="hidden max-w-96 text-sm text-zinc-400 md:block md:text-base">
+          <p className="hidden max-w-96 text-sm md:block md:text-base">
             Dotcreators is{' '}
             <Link
               href={'https://github.com/dotcreators'}
