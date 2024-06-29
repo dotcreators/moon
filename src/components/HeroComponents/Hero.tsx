@@ -38,7 +38,7 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
         animate="visible"
         exit="hidden"
         variants={slideUpVariants}
-        className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-[100px] md:px-10 md:pt-32 lg:px-0"
+        className="relative mx-auto flex h-full max-w-7xl flex-col items-center gap-5 pt-[110px] md:px-10 md:pt-32 lg:px-0"
       >
         <span className="block md:hidden">
           <DotcreatorsLogoResponsive width={50} height={40} />
@@ -56,7 +56,7 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
         </p>
 
         <motion.div
-          className="w-full p-3 lg:mt-8"
+          className="w-full p-3"
           initial="hidden"
           animate="visible"
           exit="hidden"
@@ -76,7 +76,7 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
           animate="visible"
           exit="hidden"
           variants={opacityVariantsFill}
-          className="absolute left-1/2 h-1/2 w-1/2 -translate-x-1/2 rounded-full bg-dot-rose blur-3xl md:-top-[100px] md:blur-[256px]"
+          className="absolute left-1/2 top-5 h-1/2 w-1/2 -translate-x-1/2 rounded-full bg-dot-rose blur-3xl md:-top-[100px] md:blur-[256px]"
         />
         <motion.div
           initial="hidden"

@@ -42,10 +42,10 @@ export const SuggestCountries: FC<Props> = props => {
       <button
         onClick={() => setToggleCountries(!toggleCountries)}
         className={classNames(
-          'h-15 flex w-full flex-row items-center gap-5 bg-dot-secondary p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
+          'flex min-h-16 w-full flex-row items-center gap-5 bg-dot-secondary p-3 px-5 outline-none transition-colors duration-200 ease-in-out',
           {
-            'rounded-t-3xl bg-dot-secondary': toggleCountries,
-            'rounded-3xl': !toggleCountries,
+            'rounded-t-[2rem] bg-dot-secondary': toggleCountries,
+            'rounded-[2rem]': !toggleCountries,
           }
         )}
       >
@@ -103,10 +103,7 @@ export const SuggestCountries: FC<Props> = props => {
           />
         </div>
         <section
-          className={classNames(
-            'max-h-64 overflow-y-auto overscroll-none'
-            // styles['searchContainer']
-          )}
+          className={classNames('max-h-44 overflow-y-auto overscroll-none')}
         >
           {filteredCountries.map(
             (country, index) =>
@@ -147,6 +144,7 @@ export const SuggestCountries: FC<Props> = props => {
           onClick={() => {
             setSelectedCountry({ title: '', value: '' });
             props.onCountryChanges(undefined);
+            setToggleCountries(false);
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
         >

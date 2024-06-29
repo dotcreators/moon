@@ -30,13 +30,11 @@ export default function Layout({
       className={`${hubotSans.variable} relative flex flex-col font-sans`}
       style={inter.style}
     >
-      <div className="fixed top-0 z-50 mx-auto h-fit w-full pt-3 md:absolute md:max-w-full md:pt-0">
+      <div className="fixed top-0 z-50 mx-auto h-fit w-full pt-5 md:absolute md:max-w-full md:pt-0">
         <TopNavigation />
       </div>
 
-      <main
-        className={classNames('mb-16 min-h-screen w-full md:mb-16 lg:mb-32')}
-      >
+      <main className={classNames('mb-20 w-full md:mb-12 md:min-h-screen')}>
         {children}
       </main>
       <footer>

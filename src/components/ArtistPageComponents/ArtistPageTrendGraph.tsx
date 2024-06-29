@@ -10,14 +10,6 @@ interface Props {
 }
 
 export const ArtistPageTrendGraph: FC<Props> = props => {
-  function formatValue(value: number): string {
-    if (value >= 1000) {
-      return `${Math.floor(value / 1000)}.${Math.floor((value % 1000) / 100)}K`;
-    } else {
-      return value.toString();
-    }
-  }
-
   return (
     <>
       <div className="z-20 flex w-full flex-col justify-between divide-y divide-dot-secondary rounded-2xl bg-dot-primary text-xs md:gap-5 md:divide-none md:divide-transparent md:bg-transparent lg:flex-row">

@@ -135,6 +135,9 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
             strokeOpacity={0.1}
             tickSize={10}
             tickCount={5}
+            tickFormatter={(value: any, index: number) =>
+              Math.round(value as unknown as number).toString()
+            }
             domain={['auto', 'auto']}
             interval={0}
           />
