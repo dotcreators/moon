@@ -6,7 +6,7 @@ export default function Suggest() {
     <>
       <NextSeo
         title="Suggest artist"
-        description="Suggest favorite artist or yourself."
+        description="Suggest your favorite artist or yourself."
       />
       <section className="p-3 pt-[100px] md:mt-32 md:p-0 md:px-10 lg:p-0">
         <SuggestArtistController />

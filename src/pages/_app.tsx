@@ -97,7 +97,7 @@ export default function App({ Component, pageProps }: AppPropsWithLayout) {
         openGraph={{
           title: 'dotcreators',
           description:
-            'Track, share and grow together with community of talented pixel-related artists!',
+            'Track, share and grow together with a community of talented pixel artists! Discover wonderful creators using our filters or suggest an artist yourself.',
           type: 'website',
           locale: 'en_IE',
           url: 'https://dotcreators.xyz/',

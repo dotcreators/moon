@@ -12,10 +12,7 @@ export default function Privacy() {
           Privacy Policy
         </h1>
         <div className="flex flex-col gap-5 text-pretty text-center text-lg md:text-start md:text-xl">
-          <p>
-            We do not collect data about you, either when you use the site or
-            when you submit a new artist request
-          </p>
+          <p>We do not collect any data about users on the website</p>
           <p>
             We use{' '}
             <Link
@@ -25,11 +22,11 @@ export default function Privacy() {
             >
               unami
             </Link>{' '}
-            to roughly understand how many users are using it
+            to roughly understand how many people are using it
           </p>
           <p>
-            We only use public sources to gather information about authors
-            (public profiles{' '}
+            We use only public sources to gather information about authors
+            (public profiles on{' '}
             <Link
               href="https://x.com/"
               target="_blank"
@@ -40,7 +37,7 @@ export default function Privacy() {
             ex Twitter)
           </p>
           <p>
-            You can contact{' '}
+            You can contact us{' '}
             <Link
               href="mailto:anivire.work@gmail.com"
               target="_blank"
@@ -48,7 +45,7 @@ export default function Privacy() {
             >
               us
             </Link>{' '}
-            at any time if you don't like your presence on our platform
+            at any time if you would not like to be featured on our platform
           </p>
           <div className="mx-auto mt-3">
             <DotcreatorsLogoResponsive width={30} height={28} />

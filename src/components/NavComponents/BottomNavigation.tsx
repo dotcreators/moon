@@ -58,8 +58,8 @@ export default function BottomNavigation() {
             dotcreators
           </h1>
           <p className="max-w-96 text-sm md:text-base">
-            Track, share and grow together with community of talented
-            pixel-related artists.
+            Track, share and grow together with a community of talented pixel
+            artists.
           </p>
           <p className="hidden max-w-96 text-sm md:block md:text-base">
             Dotcreators is{' '}

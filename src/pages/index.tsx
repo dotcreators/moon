@@ -20,9 +20,17 @@ export default function Home() {
     {}
   );
 
-  const trendingArtistProfile = artistProfiles?.response.data.sort(
-    (a, b) => b.weeklyFollowersGrowingTrend! - a.weeklyFollowersGrowingTrend!
-  )[2];
+  const { data: randomArtist } = useSWR<{
+    status: string;
+    response: ArtistProfile;
+  }>(
+    `${process.env.API_URL}artists/random`,
+    async (input: RequestInfo, init: RequestInit) => {
+      const res = await fetch(input, init);
+      return res.json();
+    },
+    {}
+  );
 
   return (
     <>
@@ -30,13 +38,13 @@ export default function Home() {
         title="Home"
         description="Track, share and grow together with community of talented pixel-related artists!"
       />
-      <Hero artist={trendingArtistProfile} />
+      <Hero artist={randomArtist?.response} />
       <div className="mt-16 md:mt-16 lg:mt-32">
         <ArtistsMarquee artists={artistProfiles?.response.data} />
       </div>
       <section className="m-auto my-16 flex w-full max-w-7xl flex-col items-center justify-center gap-8 md:my-16 md:gap-16 md:px-10 lg:my-32 lg:px-0">
         <FindCreators />
-        <TrackGrowingTrend artist={trendingArtistProfile} />
+        <TrackGrowingTrend artist={randomArtist?.response} />
       </section>
       <StartExploring />
     </>

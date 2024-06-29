@@ -48,7 +48,7 @@ export default function artists() {
     <>
       <NextSeo
         title="Artists"
-        description="Search wonderful pixel-related creators!"
+        description="Discover wonderful creators using our filters or suggest an artist yourself!"
       />
       <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 p-3 pt-[100px] md:p-0 md:px-10 md:pt-32 lg:grid lg:grid-cols-4 lg:px-0">
         <div className="w-full lg:sticky lg:top-8">

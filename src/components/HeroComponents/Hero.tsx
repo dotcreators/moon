@@ -51,8 +51,8 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
         </h1>
         <p className="text-pretty text-center text-xl md:max-w-[60%] lg:max-w-[40%] lg:text-2xl">
           Track, share and grow together <br className="md:hidden" />
-          with community of talented <br className="md:hidden" />
-          pixel-related artists!
+          with a community of talented <br className="md:hidden" />
+          pixel artists!
         </p>
 
         <motion.div

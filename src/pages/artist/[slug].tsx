@@ -53,11 +53,6 @@ const UserPage = ({ artist, artistTrend }: UserPageProps) => {
           url: 'https://dotcreators.xyz/',
           siteName: 'dotcreators',
         }}
-        twitter={{
-          handle: '@handle',
-          site: '@site',
-          cardType: 'summary_large_image',
-        }}
       />
 
       <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 px-3 pt-[100px] md:px-10 md:pt-32 lg:px-0">
