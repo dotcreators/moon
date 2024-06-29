@@ -107,7 +107,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
           </div>
 
           <div className="flex w-full flex-col gap-3 px-3 pb-3 md:gap-5 md:px-5 md:pb-5">
-            <div className="z-20 flex flex-row items-center justify-between gap-3">
+            <div className="z-20 flex flex-row items-center justify-between gap-3 text-start">
               <div className="flex flex-row items-center gap-3">
                 <ImageLoader
                   alt={'Avatar for ' + props.artist.username}
