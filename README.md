@@ -1,4 +1,4 @@
-![summary_large_image](https://github.com/dotcreators/moon/assets/56642689/22fd13c9-9573-4810-8475-d05d0a9b26f4)
+![summary](https://github.com/dotcreators/moon/assets/56642689/7b0ef13e-3122-4b7a-ba2b-732427b25957)
 
 ## Dotcreators Moon
 
