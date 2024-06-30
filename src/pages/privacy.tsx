@@ -37,7 +37,7 @@ export default function Privacy() {
             ex Twitter)
           </p>
           <p>
-            You can contact us{' '}
+            You can contact{' '}
             <Link
               href="mailto:anivire.work@gmail.com"
               target="_blank"
