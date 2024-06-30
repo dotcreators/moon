@@ -133,7 +133,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                           <Link
                             href={props.artist.website}
                             target="__blank"
-                            className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                            className="max-w-48 truncate transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
                           >
                             {props.artist.website.replace(
                               /^(https?:\/\/)?(www\.)?/,

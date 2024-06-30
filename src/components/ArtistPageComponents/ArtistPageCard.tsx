@@ -25,7 +25,7 @@ export const ArtistPageCard: FC<Props> = props => {
   return (
     <>
       <div
-        className={classNames('test relative flex flex-col  ', {
+        className={classNames('test relative flex flex-col', {
           'justify-items-end gap-3': !props.artist.images.banner,
           'gap-5': props.artist.images.banner,
         })}
@@ -73,7 +73,7 @@ export const ArtistPageCard: FC<Props> = props => {
                       'absolute h-12 w-12 rounded-xl md:h-max md:w-max'
                     }
                   />
-                  <div className="w-fit ">
+                  <div className="w-fit">
                     <p className="line-clamp-2 block max-w-96 truncate rounded-md font-hubot-sans text-base md:text-xl">
                       {props.artist.name}
                     </p>
@@ -92,7 +92,7 @@ export const ArtistPageCard: FC<Props> = props => {
                             <Link
                               href={props.artist.website}
                               target="__blank"
-                              className="transition-colors duration-150 ease-in-out md:hover:text-dot-link-primary"
+                              className="truncate transition-colors duration-150 ease-in-out md:max-w-44 md:hover:text-dot-link-primary lg:max-w-96"
                             >
                               {props.artist.website.replace(
                                 /^(https?:\/\/)?(www\.)?/,
@@ -157,7 +157,7 @@ export const ArtistPageCard: FC<Props> = props => {
                   src={`https://flagcdn.com/${props.artist.country.toLowerCase()}.svg`}
                   width={24}
                   height={20}
-                  className={'h-4 w-6 rounded-sm '}
+                  className={'h-4 w-6 rounded-sm'}
                 />
                 <p>
                   {countryCodes.map(country => {
@@ -177,7 +177,7 @@ export const ArtistPageCard: FC<Props> = props => {
                   {props.artist.tags.map((tag, index) => (
                     <p
                       key={index}
-                      className="rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out "
+                      className="rounded-md bg-dot-secondary p-2 px-4 text-sm transition-colors duration-200 ease-in-out"
                     >
                       {searchTagsArray.map(_tag => {
                         if (
