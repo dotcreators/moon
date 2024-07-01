@@ -13,6 +13,7 @@ interface Props {
   }[];
   selectedValuesUpdate: (selectedValues: string | string[]) => void;
   defaultSelectedValue?: string[];
+  withResetButton?: boolean;
   classNames?: string;
 }
 
@@ -23,6 +24,7 @@ export const SearchItem: FC<Props> = ({
   filtersData,
   selectedValuesUpdate,
   defaultSelectedValue,
+  withResetButton,
   classNames: customClassNames,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -170,7 +172,7 @@ export const SearchItem: FC<Props> = ({
       <section
         className={classNames(
           'grid w-full grid-cols-2 flex-wrap place-items-center gap-1 rounded-b-3xl border-x border-b border-dot-secondary bg-dot-primary p-3 text-sm shadow-xl',
-          { hidden: !isOpen, 'absolute z-20 ': isDropdown }
+          { hidden: !isOpen, 'absolute z-20': isDropdown }
         )}
       >
         {filtersData.map((filter, index) => (
@@ -186,12 +188,15 @@ export const SearchItem: FC<Props> = ({
             {filter.title}
           </button>
         ))}
-        <button
-          onClick={resetFilter}
-          className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
-        >
-          Reset sort
-        </button>
+        {withResetButton ||
+          (withResetButton === undefined && (
+            <button
+              onClick={resetFilter}
+              className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
+            >
+              Reset sort
+            </button>
+          ))}
       </section>
     </section>
   );

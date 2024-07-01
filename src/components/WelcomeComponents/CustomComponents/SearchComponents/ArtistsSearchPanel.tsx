@@ -38,6 +38,7 @@ export default function ArtistSearchPanel() {
               filtersData={filterDataSort}
               isMultiSelect={false}
               defaultSelectedValue={[selectedSortFilter]}
+              withResetButton={false}
               selectedValuesUpdate={(filter: string | string[]) =>
                 setSelectedSortFilter(filter as string)
               }

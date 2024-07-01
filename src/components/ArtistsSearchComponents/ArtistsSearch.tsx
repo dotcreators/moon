@@ -133,6 +133,7 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
         filtersData={filterDataSort}
         isMultiSelect={false}
         defaultSelectedValue={[searchFilter.sortBy]}
+        withResetButton={false}
         selectedValuesUpdate={(filter: string | string[]) =>
           updateSearchSortBy(filter as string)
         }
