@@ -186,7 +186,7 @@ export const ArtistListCardHero: FC<Props> = props => {
 
             {trendsLoading ? (
               <div className="flex w-full flex-row">
-                <div className="h-[240px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
+                <div className="h-[204px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
               </div>
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="flex w-full flex-col justify-between gap-3 text-xs md:gap-5 lg:flex-row">
@@ -206,7 +206,7 @@ export const ArtistListCardHero: FC<Props> = props => {
                 </>
               </div>
             ) : (
-              <div className="flex h-[240px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
+              <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
                 <RiLineChartFill className="w-8 text-xl" />
                 <p className="text-start text-sm md:text-base">
                   Sorry, but there is currently no trend data recorded for this

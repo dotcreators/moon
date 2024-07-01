@@ -16,26 +16,47 @@ interface UserPageProps {
 export const getServerSideProps: GetServerSideProps<
   UserPageProps
 > = async context => {
-  const { slug } = context.query;
-  const artistRes = await fetch(
-    `${process.env.API_URL}artists?limit=1&page=1&username=${slug}`
-  );
-  const artistData = await artistRes.json();
-
-  let trendData = null;
-  if (artistData?.response?.data[0]?.userId) {
-    const trendRes = await fetch(
-      `${process.env.API_URL}trends/${artistData.response.data[0].userId}?range=7`
+  try {
+    const { slug } = context.query;
+    const artistRes = await fetch(
+      `${process.env.API_URL}artists?limit=1&page=1&username=${slug}`
     );
-    trendData = await trendRes.json();
-  }
+    const artistData: {
+      status: string;
+      response: {
+        data: ArtistProfile[];
+        has_next: boolean;
+        total_pages: number;
+      };
+    } = await artistRes.json();
 
-  return {
-    props: {
-      artist: artistData?.response?.data[0] || null,
-      artistTrend: trendData?.response || null,
-    },
-  };
+    console.log(artistData.response.data[0].userId);
+
+    let trendData = null;
+    if (artistData.response.data[0].userId) {
+      const trendRes = await fetch(
+        `${process.env.API_URL}trends/${artistData.response.data[0].userId}?range=7`
+      );
+
+      if (trendRes.ok) trendData = await trendRes.json();
+    }
+
+    return {
+      props: {
+        artist: artistData.response.data[0] || null,
+        artistTrend: trendData.response || null,
+      },
+    };
+  } catch (e) {
+    console.log(e);
+
+    return {
+      props: {
+        artist: null,
+        artistTrend: null,
+      },
+    };
+  }
 };
 
 const UserPage = ({ artist, artistTrend }: UserPageProps) => {
@@ -75,7 +96,7 @@ const UserPage = ({ artist, artistTrend }: UserPageProps) => {
         {artist && artistTrend && artistTrend.length > 1 ? (
           <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
         ) : (
-          <div className="flex h-[240px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
+          <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-primary px-10 text-zinc-400 md:flex-row">
             <RiLineChartFill className="w-8 text-xl" />
             <p className="text-start text-sm md:text-base">
               Sorry, but there is currently no trend data recorded for this
