@@ -195,12 +195,14 @@ export const ArtistListCardHero: FC<Props> = props => {
                     key={'followersGraph'}
                     artistInfo={props.artist}
                     trendBy="followers"
+                    range={7}
                     trendData={artistTrends}
                   />
                   <ArtistListCardTrendGraph
                     key={'tweetsGraph'}
                     artistInfo={props.artist}
                     trendBy="tweets"
+                    range={7}
                     trendData={artistTrends}
                   />
                 </>
