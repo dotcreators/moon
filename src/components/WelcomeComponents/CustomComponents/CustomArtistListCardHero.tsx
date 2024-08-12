@@ -169,6 +169,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
                     key={'followersGraph'}
                     artistInfo={props.artist}
                     trendBy="followers"
+                    range={7}
                     trendData={artistTrends}
                   />
                 </>
