@@ -306,22 +306,36 @@ export const ArtistListCard: FC<Props> = props => {
                   <div className="h-[204px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
                 </div>
               ) : artistTrends && artistTrends.length !== 0 ? (
-                <div className="z-20 flex w-full flex-col justify-between gap-3 text-xs md:gap-5 lg:flex-row">
-                  <>
+                <section className="flex flex-col gap-3">
+                  <div className="z-20 flex w-full flex-col justify-between gap-3 text-xs lg:flex-row">
                     <ArtistListCardTrendGraph
                       key={'followersGraph'}
                       artistInfo={props.artist}
                       trendBy="followers"
+                      range={7}
                       trendData={artistTrends}
                     />
                     <ArtistListCardTrendGraph
                       key={'tweetsGraph'}
                       artistInfo={props.artist}
                       trendBy="tweets"
+                      range={7}
                       trendData={artistTrends}
                     />
-                  </>
-                </div>
+                  </div>
+                  {/* Uncomment later */}
+                  {/* <Link
+                    href={`/artist/${props.artist.username}`}
+                    className="flex flex-row items-center justify-between rounded-2xl bg-dot-tertiary/50 p-3 px-5 text-zinc-400 transition-colors duration-200 ease-in-out md:gap-1 md:hover:bg-dot-quaternary/50 md:hover:text-dot-white"
+                  >
+                    <p className="inline-flex items-center gap-3 text-sm md:gap-2 md:text-base">
+                      <RiLineChartFill className="block w-8 text-base" />
+                      Detailed trends statistics (more than week) available on
+                      the artist profile page
+                    </p>
+                    <RiArrowRightUpLine className="block w-8 text-base" />
+                  </Link> */}
+                </section>
               ) : (
                 <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
                   <RiLineChartFill className="w-8 text-xl" />

@@ -7,10 +7,11 @@ import { ArtistPageTrendGraph } from '@/components/ArtistPageComponents/ArtistPa
 import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import { NextSeo } from 'next-seo';
+import { useState } from 'react';
+import useSWR from 'swr';
 
 interface UserPageProps {
   artist: ArtistProfile | null;
-  artistTrend: ArtistTrend[] | null;
 }
 
 export const getServerSideProps: GetServerSideProps<
@@ -30,21 +31,19 @@ export const getServerSideProps: GetServerSideProps<
       };
     } = await artistRes.json();
 
-    console.log(artistData.response.data[0].userId);
+    // let trendData = null;
+    // if (artistData.response.data[0].userId) {
+    //   const trendRes = await fetch(
+    //     `${process.env.API_URL}trends/${artistData.response.data[0].userId}?range=14`
+    //   );
 
-    let trendData = null;
-    if (artistData.response.data[0].userId) {
-      const trendRes = await fetch(
-        `${process.env.API_URL}trends/${artistData.response.data[0].userId}?range=7`
-      );
-
-      if (trendRes.ok) trendData = await trendRes.json();
-    }
+    //   if (trendRes.ok) trendData = await trendRes.json();
+    // }
 
     return {
       props: {
         artist: artistData.response.data[0] || null,
-        artistTrend: trendData.response || null,
+        // artistTrend: trendData.response || null,
       },
     };
   } catch (e) {
@@ -59,9 +58,24 @@ export const getServerSideProps: GetServerSideProps<
   }
 };
 
-const UserPage = ({ artist, artistTrend }: UserPageProps) => {
+const UserPage = ({ artist }: UserPageProps) => {
   const router = useRouter();
   const { slug } = router.query;
+  const [trendsRange, setTrendsRange] = useState<number>(7);
+
+  const { data: trendsData, error } = useSWR<{
+    status: string;
+    response: ArtistTrend[];
+  }>(
+    artist
+      ? `${process.env.API_URL}trends/${artist.userId}?range=${trendsRange}`
+      : null,
+    async (input: RequestInfo, init: RequestInit) => {
+      const res = await fetch(input, init);
+      return res.json();
+    },
+    {}
+  );
 
   return (
     <>
@@ -79,7 +93,13 @@ const UserPage = ({ artist, artistTrend }: UserPageProps) => {
       <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 px-3 pt-[100px] md:px-10 md:pt-32 lg:px-0">
         <div className="flex w-full flex-row items-center justify-between">
           <button
-            onClick={() => router.back()}
+            onClick={() => {
+              if (window.history.length > 1) {
+                router.back();
+              } else {
+                router.push('/artists');
+              }
+            }}
             className="flex flex-row items-center gap-1 text-sm text-zinc-400 duration-300 ease-in-out md:hover:text-dot-white"
           >
             <RiArrowLeftSLine />
@@ -93,8 +113,12 @@ const UserPage = ({ artist, artistTrend }: UserPageProps) => {
         <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">
           {artist && <ArtistPageCard artist={artist} />}
         </div>
-        {artist && artistTrend && artistTrend.length > 1 ? (
-          <ArtistPageTrendGraph artist={artist} trendData={artistTrend} />
+        {artist && trendsData && trendsData.response.length > 1 ? (
+          <ArtistPageTrendGraph
+            artist={artist}
+            trendData={trendsData.response}
+            range={trendsRange}
+          />
         ) : (
           <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-primary px-10 text-zinc-400 md:flex-row">
             <RiLineChartFill className="w-8 text-xl" />

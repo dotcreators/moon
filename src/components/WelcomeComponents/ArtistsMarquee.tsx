@@ -17,15 +17,15 @@ export const ArtistsMarquee: FC<Props> = ({ artists: artistProfiles }) => {
         <>
           <Marquee pauseOnHover={true}>
             {[...Array(15)].map((_, index) => (
-              <div className="mx-3">
+              <div className="mx-3" key={index + 'array1'}>
                 <SuggestArtistCardSkeleton key={index} />
               </div>
             ))}
           </Marquee>
           <Marquee direction="right" pauseOnHover={true}>
             {[...Array(15)].map((_, index) => (
-              <div className="mx-3">
-                <SuggestArtistCardSkeleton key={index} />
+              <div className="mx-3" key={index + 'array2'}>
+                <SuggestArtistCardSkeleton  />
               </div>
             ))}
           </Marquee>

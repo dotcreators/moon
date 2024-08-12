@@ -1,4 +1,4 @@
-import { FC } from 'react';
+import { FC, useState } from 'react';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
 import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListCardTrendGraph';
@@ -6,6 +6,7 @@ import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListC
 interface Props {
   artist: ArtistProfile;
   trendData: ArtistTrend[];
+  range: number;
   className?: string;
 }
 
@@ -19,6 +20,7 @@ export const ArtistPageTrendGraph: FC<Props> = props => {
             artistInfo={props.artist}
             trendBy="followers"
             trendData={props.trendData}
+            range={props.range}
             bgColor="bg-dot-primary"
           />
         </div>
@@ -28,6 +30,7 @@ export const ArtistPageTrendGraph: FC<Props> = props => {
             artistInfo={props.artist}
             trendBy="tweets"
             trendData={props.trendData}
+            range={props.range}
             bgColor="bg-dot-primary"
           />
         </div>

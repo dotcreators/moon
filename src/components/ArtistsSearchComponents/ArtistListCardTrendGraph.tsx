@@ -18,6 +18,7 @@ interface Props {
   artistInfo: ArtistProfile;
   trendData: ArtistTrend[];
   trendBy: 'followers' | 'tweets';
+  range: number;
   height?: number;
   bgColor?: string;
 }
@@ -126,7 +127,7 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
             tickSize={10}
             tickFormatter={(value: string) =>
               new Date(value).toLocaleDateString('en-EN', {
-                month: 'long',
+                month: 'short',
                 day: 'numeric',
               })
             }
@@ -152,7 +153,10 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
               color: '#FDFDFD',
             }}
             labelFormatter={(value: string) =>
-              new Date(value).toLocaleDateString()
+              new Date(value).toLocaleDateString('en-US', {
+                month: 'long',
+                day: 'numeric',
+              })
             }
             formatter={(value: number, name: string, props: any) => [
               value,
@@ -174,7 +178,7 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
       </ResponsiveContainer>
 
       <div className="flex flex-row items-center justify-between gap-5">
-        <p className="text-sm text-zinc-400">Last 7d</p>
+        <p className="text-sm text-zinc-400">Last {props.range}d</p>
         <div className="flex flex-row items-center gap-5">
           <p className="leading text-xl font-bold">
             {getTrendDifference(props.trendBy) > 0

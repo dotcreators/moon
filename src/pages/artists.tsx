@@ -6,6 +6,7 @@ import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistLis
 import { useState, useEffect } from 'react';
 import { Pagination } from '@/components/ArtistsSearchComponents/Pagination';
 import RiEmotionUnhappyFill from '~icons/ri/emotion-unhappy-fill';
+import RiInformationLine from '~icons/ri/information-line';
 import { useSearchStore } from '@/store/useSearchStore';
 import { NextSeo } from 'next-seo';
 
@@ -55,6 +56,12 @@ export default function artists() {
           <ArtistsSearch onSearchStringChanges={setSearchString} />
         </div>
         <section className="col-span-3 flex w-full flex-col gap-5 md:p-1">
+          {searchFilter.sortBy.toLocaleLowerCase() === 'trending' && (
+            <div className="bg-dot-amber/10 flex h-[52px] flex-row items-center gap-3 rounded-xl p-3 px-5 text-sm md:text-base">
+              <RiInformationLine className="text-dot-amber text-xl" />
+              Showing trending artists with more than 300 followers
+            </div>
+          )}
           <div className="flex flex-col divide-y divide-dot-secondary overflow-hidden rounded-xl md:gap-3 md:divide-none">
             {data && !error ? (
               data && data.response.data.length !== 0 ? (
