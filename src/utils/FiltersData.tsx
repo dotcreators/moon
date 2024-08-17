@@ -9,6 +9,7 @@ import RiUserHeartFill from '~icons/ri/user-heart-fill';
 import RiFilePaper2Fill from '~icons/ri/file-paper-2-fill';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiAtLine from '~icons/ri/at-line';
+import RiSeedlingFill from '~icons/ri/seedling-fill';
 
 export const filterDataTags = [
   {
@@ -61,5 +62,9 @@ export const filterDataSort = [
   {
     title: 'Trending',
     icon: <RiLineChartFill className="text-zinc-400" />,
+  },
+  {
+    title: 'New',
+    icon: <RiSeedlingFill className="text-zinc-400" />,
   },
 ];
