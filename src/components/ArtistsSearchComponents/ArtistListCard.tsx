@@ -15,6 +15,7 @@ import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import CreateLinks from '../CreateLinks';
+import { delay } from 'framer-motion/dom';
 
 interface Props {
   artist: ArtistProfile;
@@ -300,51 +301,66 @@ export const ArtistListCard: FC<Props> = props => {
                   <CreateLinks text={props.artist.bio} />
                 </p>
               )}
-
-              {trendsLoading ? (
-                <div className="flex w-full flex-row">
-                  <div className="h-[204px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
-                </div>
-              ) : artistTrends && artistTrends.length !== 0 ? (
-                <section className="flex flex-col gap-3">
-                  <div className="z-20 flex w-full flex-col justify-between gap-3 text-xs lg:flex-row">
-                    <ArtistListCardTrendGraph
-                      key={'followersGraph'}
-                      artistInfo={props.artist}
-                      trendBy="followers"
-                      range={7}
-                      trendData={artistTrends}
-                    />
-                    <ArtistListCardTrendGraph
-                      key={'tweetsGraph'}
-                      artistInfo={props.artist}
-                      trendBy="tweets"
-                      range={7}
-                      trendData={artistTrends}
-                    />
-                  </div>
-                  {/* Uncomment later */}
-                  {/* <Link
+              <AnimatePresence>
+                <motion.div
+                  key="content"
+                  initial={{ opacity: 0 }}
+                  animate={{
+                    opacity: 1,
+                    transition: { duration: 0.3 },
+                  }}
+                  exit={{
+                    opacity: 0,
+                    transition: { duration: 0.3 },
+                  }}
+                  style={{ overflow: 'hidden' }}
+                >
+                  {trendsLoading ? (
+                    <div className="flex w-full flex-row">
+                      <div className="h-[204px] w-full animate-pulse rounded-2xl bg-dot-tertiary/50" />
+                    </div>
+                  ) : artistTrends && artistTrends.length !== 0 ? (
+                    <section className="flex flex-col gap-3">
+                      <div className="z-20 flex w-full flex-col justify-between gap-3 text-xs lg:flex-row">
+                        <ArtistListCardTrendGraph
+                          key={'followersGraph'}
+                          artistInfo={props.artist}
+                          trendBy="followers"
+                          range={7}
+                          trendData={artistTrends}
+                        />
+                        <ArtistListCardTrendGraph
+                          key={'tweetsGraph'}
+                          artistInfo={props.artist}
+                          trendBy="tweets"
+                          range={7}
+                          trendData={artistTrends}
+                        />
+                      </div>
+                      {/* Uncomment later */}
+                      {/* <Link
                     href={`/artist/${props.artist.username}`}
                     className="flex flex-row items-center justify-between rounded-2xl bg-dot-tertiary/50 p-3 px-5 text-zinc-400 transition-colors duration-200 ease-in-out md:gap-1 md:hover:bg-dot-quaternary/50 md:hover:text-dot-white"
                   >
                     <p className="inline-flex items-center gap-3 text-sm md:gap-2 md:text-base">
                       <RiLineChartFill className="block w-8 text-base" />
-                      Detailed trends statistics (more than week) available on
-                      the artist profile page
+                      Growing trend statistics more than week available on the
+                      artist profile page
                     </p>
                     <RiArrowRightUpLine className="block w-8 text-base" />
                   </Link> */}
-                </section>
-              ) : (
-                <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
-                  <RiLineChartFill className="w-8 text-xl" />
-                  <p className="text-start text-sm md:text-base">
-                    Sorry, but there is currently no trend data recorded for
-                    this artist.
-                  </p>
-                </div>
-              )}
+                    </section>
+                  ) : (
+                    <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">
+                      <RiLineChartFill className="w-8 text-xl" />
+                      <p className="text-start text-sm md:text-base">
+                        Sorry, but there is currently no trend data recorded for
+                        this artist.
+                      </p>
+                    </div>
+                  )}
+                </motion.div>
+              </AnimatePresence>
 
               <div className="flex flex-row flex-wrap gap-2">
                 {props.artist.country && props.artist.country !== undefined && (
