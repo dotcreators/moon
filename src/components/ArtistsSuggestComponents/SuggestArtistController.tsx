@@ -9,6 +9,7 @@ import Image from 'next/image';
 import RiArrowGoBackFill from '~icons/ri/arrow-go-back-fill';
 import RiArrowRightLine from '~icons/ri/arrow-right-line';
 import RiForbidLine from '~icons/ri/forbid-line';
+import RiInformationLine from '~icons/ri/information-line';
 import { SuggestStepSuccess } from './Steps/SuggestStepSuccess';
 import { motion } from 'framer-motion';
 
@@ -166,6 +167,10 @@ export default function SuggestArtistController() {
 
   return (
     <>
+      <div className="mx-auto mb-5 flex h-[52px] max-w-lg flex-row items-center gap-3 rounded-xl bg-dot-amber/10 p-3 px-5 text-sm md:mb-0 md:text-base">
+        <RiInformationLine className="w-8 text-xl text-dot-amber" />
+        NSFW and artists not related to pixel-art will be rejected
+      </div>
       {currentFormStep !== steps.length ? (
         <motion.section
           initial="hidden"
