@@ -97,7 +97,7 @@ export const SearchItemCountries: FC<Props> = ({
       <section
         className={classNames(
           'flex w-full flex-col flex-wrap place-items-center items-start justify-start gap-1 rounded-b-3xl border-x border-b border-dot-secondary bg-dot-primary p-3 text-sm shadow-xl',
-          { hidden: !toggleCountries, 'absolute z-20 ': isDropdown }
+          { hidden: !toggleCountries, 'absolute z-20': isDropdown }
         )}
       >
         <div className="mb-3 flex w-full flex-row items-center justify-center gap-3">
@@ -143,6 +143,7 @@ export const SearchItemCountries: FC<Props> = ({
         <button
           onClick={() => {
             setSelectedCountry(undefined);
+            setSearchText('');
             onCountryChanges(null);
           }}
           className="col-span-2 mt-3 w-full rounded-full bg-dot-secondary p-2 px-3 text-sm transition-colors duration-200 ease-in-out md:hover:bg-dot-tertiary"
