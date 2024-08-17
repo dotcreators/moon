@@ -94,11 +94,7 @@ const UserPage = ({ artist }: UserPageProps) => {
         <div className="flex w-full flex-row items-center justify-between">
           <button
             onClick={() => {
-              if (window.history.length > 1) {
-                router.back();
-              } else {
-                router.push('/artists');
-              }
+              router.push('/artists');
             }}
             className="flex flex-row items-center gap-1 text-sm text-zinc-400 duration-300 ease-in-out md:hover:text-dot-white"
           >
