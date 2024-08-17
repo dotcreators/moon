@@ -20,14 +20,18 @@ export const Pagination: FC<Props> = ({
   const handlePrevious = () => {
     if (searchFilter.page.currentPage > 1) {
       updateSearchPage(Number(searchFilter.page.currentPage) - 1);
-      scrollToTop();
+      setTimeout(() => {
+        scrollToTop();
+      }, 300);
     }
   };
 
   const handleNext = () => {
     if (searchFilter.page.isNext) {
       updateSearchPage(Number(searchFilter.page.currentPage) + 1);
-      scrollToTop();
+      setTimeout(() => {
+        scrollToTop();
+      }, 300);
     }
   };
 
@@ -53,7 +57,7 @@ export const Pagination: FC<Props> = ({
   return (
     <section
       className={classNames(
-        'flex w-full flex-col md:flex-row items-center justify-center md:justify-between gap-5',
+        'flex w-full flex-col items-center justify-center gap-5 md:flex-row md:justify-between',
         customClassName
       )}
     >
@@ -61,7 +65,7 @@ export const Pagination: FC<Props> = ({
         <button
           onClick={handlePrevious}
           disabled={searchFilter.page.currentPage <= 1}
-          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed md:hover:bg-dot-secondary disabled:opacity-50"
+          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 md:hover:bg-dot-secondary"
         >
           <RiArrowLeftLine />
         </button>
@@ -95,7 +99,7 @@ export const Pagination: FC<Props> = ({
                   </button>
                 </>
               )}
-              <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold text-dot-body tabular-nums">
+              <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold tabular-nums text-dot-body">
                 <p>{Number(searchFilter.page.currentPage)}</p>
               </div>
               {searchFilter.page.currentPage !==
@@ -129,7 +133,7 @@ export const Pagination: FC<Props> = ({
               )}
             </>
           ) : (
-            <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold text-dot-body tabular-nums">
+            <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold tabular-nums text-dot-body">
               <p>1</p>
             </div>
           )}
@@ -137,12 +141,12 @@ export const Pagination: FC<Props> = ({
         <button
           onClick={handleNext}
           disabled={!searchFilter.page.isNext}
-          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed md:hover:bg-dot-secondary disabled:opacity-50"
+          className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 md:hover:bg-dot-secondary"
         >
           <RiArrowRightLine />
         </button>
       </div>
-      <div className="flex flex-row items-center gap-2 rounded-2xl bg-dot-primary p-2.5 px-4 text-center text-zinc-400 tabular-nums">
+      <div className="flex flex-row items-center gap-2 rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums text-zinc-400">
         <RiBrushFill />
         Showed <span className="text-dot-white">{totalResults}</span> artist
       </div>
