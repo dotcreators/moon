@@ -72,6 +72,17 @@ export const TrendGraph: FC<Props> = props => {
         : '#fa4545'
   );
 
+  const trendsFollowersPercent =
+    ((props.trendData[props.trendData.length - 1].followersCount -
+      props.trendData[0].followersCount) /
+      props.trendData[0].followersCount) *
+    100;
+  const trendsTweetsPercent =
+    ((props.trendData[props.trendData.length - 1].tweetsCount -
+      props.trendData[0].tweetsCount) /
+      props.trendData[0].tweetsCount) *
+    100;
+
   function getArtistValue(): string {
     return props.trendBy + 'Count';
   }
@@ -240,11 +251,19 @@ export const TrendGraph: FC<Props> = props => {
             {props.trendBy === 'followers'
               ? props.artistInfo.weeklyFollowersGrowingTrend &&
                 Math.round(
-                  Math.abs(props.artistInfo.weeklyFollowersGrowingTrend) * 100
+                  Math.abs(
+                    props.range < 7
+                      ? props.artistInfo.weeklyFollowersGrowingTrend
+                      : trendsFollowersPercent
+                  ) * 100
                 ) / 100
               : props.artistInfo.weeklyPostsGrowingTrend &&
                 Math.round(
-                  Math.abs(props.artistInfo.weeklyPostsGrowingTrend) * 100
+                  Math.abs(
+                    props.range < 7
+                      ? props.artistInfo.weeklyPostsGrowingTrend
+                      : trendsTweetsPercent
+                  ) * 100
                 ) / 100}
             %
           </p>
