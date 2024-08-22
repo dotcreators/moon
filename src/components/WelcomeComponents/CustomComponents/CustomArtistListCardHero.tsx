@@ -1,19 +1,13 @@
 import classNames from 'classnames';
-import Image from 'next/image';
 import { FC, useEffect, useState } from 'react';
-import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 import Link from 'next/link';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { countryCodes } from '@/utils/CountryCode';
-import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import { ImageLoader } from '@/components/ImageLoader';
-import { ArtistListCardTrendGraph } from '@/components/ArtistsSearchComponents/ArtistListCardTrendGraph';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
-import { useRouter } from 'next/router';
-import CreateLinks from '@/components/CreateLinks';
+import { TrendGraph } from '@/components/TrendGraphComponent/TrendGraph';
 
 interface Props {
   artist: ArtistProfile;
@@ -165,12 +159,12 @@ export const CustomArtistListCardHero: FC<Props> = props => {
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="flex w-full flex-col justify-between gap-3 text-left text-xs md:flex-row md:gap-5">
                 <>
-                  <ArtistListCardTrendGraph
-                    key={'followersGraph'}
+                  <TrendGraph
                     artistInfo={props.artist}
+                    trendData={artistTrends}
                     trendBy="followers"
                     range={7}
-                    trendData={artistTrends}
+                    isSmall={true}
                   />
                 </>
               </div>

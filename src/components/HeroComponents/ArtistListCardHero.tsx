@@ -6,12 +6,12 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListCardTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import CreateLinks from '../CreateLinks';
+import { TrendGraph } from '../TrendGraphComponent/TrendGraph';
 
 interface Props {
   artist: ArtistProfile;
@@ -191,19 +191,19 @@ export const ArtistListCardHero: FC<Props> = props => {
             ) : artistTrends && artistTrends.length !== 0 ? (
               <div className="flex w-full flex-col justify-between gap-3 text-xs md:gap-5 lg:flex-row">
                 <>
-                  <ArtistListCardTrendGraph
-                    key={'followersGraph'}
+                  <TrendGraph
                     artistInfo={props.artist}
+                    trendData={artistTrends}
                     trendBy="followers"
                     range={7}
-                    trendData={artistTrends}
+                    isSmall={true}
                   />
-                  <ArtistListCardTrendGraph
-                    key={'tweetsGraph'}
+                  <TrendGraph
                     artistInfo={props.artist}
+                    trendData={artistTrends}
                     trendBy="tweets"
                     range={7}
-                    trendData={artistTrends}
+                    isSmall={true}
                   />
                 </>
               </div>

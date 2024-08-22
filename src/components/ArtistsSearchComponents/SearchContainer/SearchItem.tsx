@@ -1,5 +1,4 @@
 import classNames from 'classnames';
-import { useRouter } from 'next/router';
 import { FC, useCallback, useEffect, useRef, useState } from 'react';
 import RiArrowDownSLine from '~icons/ri/arrow-down-s-line';
 
@@ -50,6 +49,10 @@ export const SearchItem: FC<Props> = ({
       } else {
         setSelectedFilters([filterItem]);
         selectedValuesUpdate(filterItem);
+      }
+
+      if (isDropdown) {
+        setIsOpen(false);
       }
     },
     [selectedFilters, selectedValuesUpdate]
@@ -172,7 +175,7 @@ export const SearchItem: FC<Props> = ({
       <section
         className={classNames(
           'grid w-full grid-cols-2 flex-wrap place-items-center gap-1 rounded-b-3xl border-x border-b border-dot-secondary bg-dot-primary p-3 text-sm shadow-xl',
-          { hidden: !isOpen, 'absolute z-20': isDropdown }
+          { hidden: !isOpen, 'absolute z-30': isDropdown }
         )}
       >
         {filtersData.map((filter, index) => (

@@ -125,6 +125,7 @@ export const ArtistListCardTrendGraph: FC<Props> = props => {
             dataKey="recordedAt"
             strokeOpacity={0.1}
             tickSize={10}
+            interval={0}
             tickFormatter={(value: string) =>
               new Date(value).toLocaleDateString('en-EN', {
                 month: 'short',

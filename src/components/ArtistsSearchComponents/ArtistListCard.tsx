@@ -9,13 +9,12 @@ import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ImageLoader } from '../ImageLoader';
 import useSWR from 'swr';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistListCardTrendGraph } from './ArtistListCardTrendGraph';
 import { countryCodes } from '@/utils/CountryCode';
 import { searchTagsArray } from '@/utils/Tags';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import RiArrowRightUpLine from '~icons/ri/arrow-right-up-line';
 import CreateLinks from '../CreateLinks';
-import { delay } from 'framer-motion/dom';
+import { TrendGraph } from '../TrendGraphComponent/TrendGraph';
 
 interface Props {
   artist: ArtistProfile;
@@ -322,33 +321,34 @@ export const ArtistListCard: FC<Props> = props => {
                   ) : artistTrends && artistTrends.length !== 0 ? (
                     <section className="flex flex-col gap-3">
                       <div className="z-20 flex w-full flex-col justify-between gap-3 text-xs lg:flex-row">
-                        <ArtistListCardTrendGraph
-                          key={'followersGraph'}
+                        <TrendGraph
                           artistInfo={props.artist}
+                          trendData={artistTrends}
                           trendBy="followers"
                           range={7}
-                          trendData={artistTrends}
+                          isSmall={true}
                         />
-                        <ArtistListCardTrendGraph
-                          key={'tweetsGraph'}
+                        <TrendGraph
                           artistInfo={props.artist}
+                          trendData={artistTrends}
                           trendBy="tweets"
                           range={7}
-                          trendData={artistTrends}
+                          isSmall={true}
                         />
                       </div>
+
                       {/* Uncomment later */}
                       {/* <Link
-                    href={`/artist/${props.artist.username}`}
-                    className="flex flex-row items-center justify-between rounded-2xl bg-dot-tertiary/50 p-3 px-5 text-zinc-400 transition-colors duration-200 ease-in-out md:gap-1 md:hover:bg-dot-quaternary/50 md:hover:text-dot-white"
-                  >
-                    <p className="inline-flex items-center gap-3 text-sm md:gap-2 md:text-base">
-                      <RiLineChartFill className="block w-8 text-base" />
-                      Growing trend statistics more than week available on the
-                      artist profile page
-                    </p>
-                    <RiArrowRightUpLine className="block w-8 text-base" />
-                  </Link> */}
+                        href={`/artist/${props.artist.username}`}
+                        className="flex flex-row items-center justify-between rounded-xl bg-dot-tertiary/50 p-3 px-5 text-zinc-400 transition-colors duration-200 ease-in-out md:gap-1 md:hover:bg-dot-quaternary/50 md:hover:text-dot-white"
+                      >
+                        <p className="inline-flex items-center gap-3 text-sm md:gap-2">
+                          <RiLineChartFill className="block w-8 text-base" />
+                          Growing trend statistics more than week available on
+                          the artist profile page
+                        </p>
+                        <RiArrowRightUpLine className="block w-8 text-base" />
+                      </Link> */}
                     </section>
                   ) : (
                     <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-tertiary/50 px-10 text-zinc-400 md:flex-row">

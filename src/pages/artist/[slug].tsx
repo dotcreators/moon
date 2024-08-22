@@ -9,6 +9,9 @@ import RiLineChartFill from '~icons/ri/line-chart-fill';
 import { NextSeo } from 'next-seo';
 import { useState } from 'react';
 import useSWR from 'swr';
+import { SearchItem } from '@/components/ArtistsSearchComponents/SearchContainer/SearchItem';
+import { filterDataRange } from '@/utils/FiltersData';
+import { useTrendsStore } from '@/store/useTrendsStore';
 
 interface UserPageProps {
   artist: ArtistProfile | null;
@@ -61,7 +64,8 @@ export const getServerSideProps: GetServerSideProps<
 const UserPage = ({ artist }: UserPageProps) => {
   const router = useRouter();
   const { slug } = router.query;
-  const [trendsRange, setTrendsRange] = useState<number>(7);
+
+  const { trendsRange, updateTrendsRange } = useTrendsStore();
 
   const { data: trendsData, error } = useSWR<{
     status: string;
@@ -77,6 +81,28 @@ const UserPage = ({ artist }: UserPageProps) => {
     {}
   );
 
+  function getDateRange(selectedFilter: string): 7 | 14 | 31 | 93 | 186 | 372 {
+    console.log(selectedFilter);
+    if (selectedFilter === '7 days') return 7;
+    else if (selectedFilter === '14 days') return 14;
+    else if (selectedFilter === '1 month') return 31;
+    else if (selectedFilter === '3 months') return 93;
+    else if (selectedFilter === '6 months') return 186;
+    else if (selectedFilter === '12 months') return 372;
+    else return 7;
+  }
+
+  function getDateRangeFromStore(selectedFilter: number): string {
+    console.log(selectedFilter);
+    if (selectedFilter === 7) return '7 days';
+    else if (selectedFilter === 14) return '14 days';
+    else if (selectedFilter === 31) return '1 month';
+    else if (selectedFilter === 93) return '3 months';
+    else if (selectedFilter === 186) return '6 months';
+    else if (selectedFilter === 372) return '12 months';
+    else return '7 days';
+  }
+
   return (
     <>
       <NextSeo
@@ -90,7 +116,7 @@ const UserPage = ({ artist }: UserPageProps) => {
         }}
       />
 
-      <section className="relative m-auto flex h-fit w-full max-w-7xl flex-col items-start justify-center gap-5 px-3 pt-[100px] md:px-10 md:pt-32 lg:px-0">
+      <section className="relative m-auto flex h-fit w-full max-w-5xl flex-col items-start justify-center gap-5 px-3 pt-[100px] md:px-10 md:pt-32 lg:px-0">
         <div className="flex w-full flex-row items-center justify-between">
           <button
             onClick={() => {
@@ -108,6 +134,19 @@ const UserPage = ({ artist }: UserPageProps) => {
         </div>
         <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">
           {artist && <ArtistPageCard artist={artist} />}
+        </div>
+        <div className="w-full">
+          <SearchItem
+            title="Trends range"
+            isDropdown={true}
+            filtersData={filterDataRange}
+            isMultiSelect={false}
+            defaultSelectedValue={[getDateRangeFromStore(trendsRange)]}
+            withResetButton={false}
+            selectedValuesUpdate={(filter: string | string[]) => {
+              updateTrendsRange(getDateRange(filter as string));
+            }}
+          />
         </div>
         {artist && trendsData && trendsData.response.length > 1 ? (
           <ArtistPageTrendGraph

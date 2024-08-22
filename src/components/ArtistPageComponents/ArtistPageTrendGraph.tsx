@@ -1,7 +1,7 @@
 import { FC, useState } from 'react';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistListCardTrendGraph } from '../ArtistsSearchComponents/ArtistListCardTrendGraph';
+import { TrendGraph } from '../TrendGraphComponent/TrendGraph';
 
 interface Props {
   artist: ArtistProfile;
@@ -13,25 +13,26 @@ interface Props {
 export const ArtistPageTrendGraph: FC<Props> = props => {
   return (
     <>
-      <div className="z-20 flex w-full flex-col justify-between divide-y divide-dot-secondary rounded-2xl bg-dot-primary text-xs md:gap-5 md:divide-none md:divide-transparent md:bg-transparent lg:flex-row">
+      {/* lg:flex-row */}
+      <div className="z-20 flex w-full flex-col justify-between divide-y divide-dot-secondary rounded-2xl bg-dot-primary text-xs md:gap-5 md:divide-none md:divide-transparent md:bg-transparent">
         <div className="grow">
-          <ArtistListCardTrendGraph
-            key={'followersGraph'}
+          <TrendGraph
             artistInfo={props.artist}
-            trendBy="followers"
             trendData={props.trendData}
+            trendBy="followers"
             range={props.range}
             bgColor="bg-dot-primary"
+            isSmall={false}
           />
         </div>
         <div className="grow">
-          <ArtistListCardTrendGraph
-            key={'tweetsGraph'}
+          <TrendGraph
             artistInfo={props.artist}
-            trendBy="tweets"
             trendData={props.trendData}
+            trendBy="tweets"
             range={props.range}
             bgColor="bg-dot-primary"
+            isSmall={false}
           />
         </div>
       </div>
