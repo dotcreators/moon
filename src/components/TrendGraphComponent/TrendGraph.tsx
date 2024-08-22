@@ -34,7 +34,7 @@ export const TrendGraph: FC<Props> = props => {
     }
   });
 
-  const [trendDifference, setTrendDifference] = useState<number>();
+  const [trendDifference, setTrendDifference] = useState<number>(0);
 
   const [growthDynamics, setGrowthDynamics] = useState<
     'positive' | 'neutral' | 'negative'
