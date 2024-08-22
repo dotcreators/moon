@@ -1,7 +1,7 @@
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
 import classNames from 'classnames';
-import { FC, useState } from 'react';
+import { FC, useEffect, useState } from 'react';
 import {
   Area,
   AreaChart,
@@ -34,19 +34,7 @@ export const TrendGraph: FC<Props> = props => {
     }
   });
 
-  const [trendDifference, setTrendDifference] = useState<number>(() => {
-    if (props.trendBy === 'followers') {
-      return (
-        props.trendData[props.trendData.length - 1].followersCount -
-        props.trendData[0].followersCount
-      );
-    } else {
-      return (
-        props.trendData[props.trendData.length - 1].tweetsCount -
-        props.trendData[0].tweetsCount
-      );
-    }
-  });
+  const [trendDifference, setTrendDifference] = useState<number>();
 
   const [growthDynamics, setGrowthDynamics] = useState<
     'positive' | 'neutral' | 'negative'
@@ -72,16 +60,36 @@ export const TrendGraph: FC<Props> = props => {
         : '#fa4545'
   );
 
+  useEffect(() => {
+    if (props.trendBy === 'followers') {
+      setTrendDifference(
+        props.trendData[props.trendData.length - 1].followersCount -
+          props.trendData[0].followersCount
+      );
+    } else {
+      setTrendDifference(
+        props.trendData[props.trendData.length - 1].tweetsCount -
+          props.trendData[0].tweetsCount
+      );
+    }
+  }, [props.trendData]);
+
   const trendsFollowersPercent =
     ((props.trendData[props.trendData.length - 1].followersCount -
       props.trendData[0].followersCount) /
       props.trendData[0].followersCount) *
     100;
+  const trendsFollowersChange =
+    props.trendData[props.trendData.length - 1].followersCount -
+    props.trendData[0].followersCount;
   const trendsTweetsPercent =
     ((props.trendData[props.trendData.length - 1].tweetsCount -
       props.trendData[0].tweetsCount) /
       props.trendData[0].tweetsCount) *
     100;
+  const trendstweetsChange =
+    props.trendData[props.trendData.length - 1].tweetsCount -
+    props.trendData[0].tweetsCount;
 
   function getArtistValue(): string {
     return props.trendBy + 'Count';
