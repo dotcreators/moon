@@ -82,7 +82,6 @@ const UserPage = ({ artist }: UserPageProps) => {
   );
 
   function getDateRange(selectedFilter: string): 7 | 14 | 31 | 93 | 186 | 372 {
-    console.log(selectedFilter);
     if (selectedFilter === '7 days') return 7;
     else if (selectedFilter === '14 days') return 14;
     else if (selectedFilter === '1 month') return 31;
@@ -93,7 +92,6 @@ const UserPage = ({ artist }: UserPageProps) => {
   }
 
   function getDateRangeFromStore(selectedFilter: number): string {
-    console.log(selectedFilter);
     if (selectedFilter === 7) return '7 days';
     else if (selectedFilter === 14) return '14 days';
     else if (selectedFilter === 31) return '1 month';
