@@ -39,7 +39,7 @@ export default function CreateLinks({ text }: { text: string }) {
               passHref={true}
               className="text-dot-link-primary"
             >
-              {part.replace(/^(https?:\/\/)?(www\.)?/, '')}
+              {part.replace(/^(https?:\/\/)?(www\.)?|\/$/g, '')}
             </Link>
           );
         }

@@ -3,7 +3,6 @@ import { useRouter } from 'next/router';
 import { ArtistPageCard } from '@/components/ArtistPageComponents/ArtistPageCard';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistPageTrendGraph } from '@/components/ArtistPageComponents/ArtistPageTrendGraph';
 import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
 import { NextSeo } from 'next-seo';
@@ -12,6 +11,7 @@ import useSWR from 'swr';
 import { SearchItem } from '@/components/ArtistsSearchComponents/SearchContainer/SearchItem';
 import { filterDataRange } from '@/utils/FiltersData';
 import { useTrendsStore } from '@/store/useTrendsStore';
+import { TrendGraph } from '@/components/TrendGraphComponent/TrendGraph';
 
 interface UserPageProps {
   artist: ArtistProfile | null;
@@ -34,19 +34,9 @@ export const getServerSideProps: GetServerSideProps<
       };
     } = await artistRes.json();
 
-    // let trendData = null;
-    // if (artistData.response.data[0].userId) {
-    //   const trendRes = await fetch(
-    //     `${process.env.API_URL}trends/${artistData.response.data[0].userId}?range=14`
-    //   );
-
-    //   if (trendRes.ok) trendData = await trendRes.json();
-    // }
-
     return {
       props: {
         artist: artistData.response.data[0] || null,
-        // artistTrend: trendData.response || null,
       },
     };
   } catch (e) {
@@ -147,11 +137,28 @@ const UserPage = ({ artist }: UserPageProps) => {
           />
         </div>
         {artist && trendsData && trendsData.response.length > 1 ? (
-          <ArtistPageTrendGraph
-            artist={artist}
-            trendData={trendsData.response}
-            range={trendsRange}
-          />
+          <div className="z-20 flex w-full flex-col justify-between divide-y divide-dot-secondary rounded-2xl bg-dot-primary text-xs md:gap-5 md:divide-none md:divide-transparent md:bg-transparent">
+            <div className="grow">
+              <TrendGraph
+                artistInfo={artist}
+                trendData={trendsData.response}
+                trendBy="followers"
+                range={trendsRange}
+                bgColor="bg-dot-primary"
+                isSmall={false}
+              />
+            </div>
+            <div className="grow">
+              <TrendGraph
+                artistInfo={artist}
+                trendData={trendsData.response}
+                trendBy="tweets"
+                range={trendsRange}
+                bgColor="bg-dot-primary"
+                isSmall={false}
+              />
+            </div>
+          </div>
         ) : (
           <div className="flex h-[104px] w-full flex-col items-center justify-center gap-3 rounded-2xl bg-dot-primary px-10 text-zinc-400 md:flex-row">
             <RiLineChartFill className="w-8 text-xl" />
