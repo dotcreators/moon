@@ -1,4 +1,4 @@
-import SuggestArtistController from '@/components/ArtistsSuggestComponents/SuggestArtistController';
+import SuggestArtistController from '@/components/ArtistsSuggest/SuggestArtistController';
 import { NextSeo } from 'next-seo';
 
 export default function Suggest() {

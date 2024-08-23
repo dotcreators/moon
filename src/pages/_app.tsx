@@ -1,12 +1,12 @@
 import { AppProps } from 'next/app';
 import { ReactElement, ReactNode } from 'react';
 import { NextPage } from 'next';
-import Layout from '@/components/NavComponents/Layout';
 import Head from 'next/head';
 import './globals.css';
 import { useRouter } from 'next/router';
 import { BreadcrumbJsonLd, DefaultSeo } from 'next-seo';
 import Script from 'next/script';
+import Layout from '@/components/Nav/Layout';
 
 export type NextPageWithLayout<P = {}, IP = P> = NextPage<P, IP> & {
   getLayout?: (page: ReactElement) => ReactNode;

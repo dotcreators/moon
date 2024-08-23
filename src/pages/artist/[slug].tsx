@@ -1,17 +1,16 @@
 import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
-import { ArtistPageCard } from '@/components/ArtistPageComponents/ArtistPageCard';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
+import { useTrendsStore } from '@/store/useTrendsStore';
+import { NextSeo } from 'next-seo';
 import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
-import { NextSeo } from 'next-seo';
-import { useState } from 'react';
 import useSWR from 'swr';
-import { SearchItem } from '@/components/ArtistsSearchComponents/SearchContainer/SearchItem';
-import { filterDataRange } from '@/utils/FiltersData';
-import { useTrendsStore } from '@/store/useTrendsStore';
-import { TrendGraph } from '@/components/TrendGraphComponent/TrendGraph';
+import { ArtistPageCard } from '@/components/Artists/ArtistProfile/ArtistPageCard';
+import { SearchItem } from '@/components/Search/SearchContainer/SearchItem';
+import { TrendGraph } from '@/components/Artists/TrendGraph';
+import { filterDataRange } from '@/components/Other/FiltersData';
 
 interface UserPageProps {
   artist: ArtistProfile | null;

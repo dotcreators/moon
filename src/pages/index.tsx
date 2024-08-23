@@ -1,12 +1,12 @@
-import { Hero } from '@/components/HeroComponents/Hero';
 import { NextSeo } from 'next-seo';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
-import { ArtistsMarquee } from '@/components/WelcomeComponents/ArtistsMarquee';
-import { TrackGrowingTrend } from '@/components/WelcomeComponents/TrackGrowingTrend';
 import useSWR from 'swr';
-import FindCreators from '@/components/WelcomeComponents/FindCreators';
-import StartExploring from '@/components/WelcomeComponents/StartExploring';
 import { useEffect, useState } from 'react';
+import { Hero } from '@/components/Hero/Hero';
+import { ArtistsMarquee } from '@/components/Welcome/ArtistsMarquee';
+import FindCreators from '@/components/Welcome/FindCreators';
+import { TrackGrowingTrend } from '@/components/Welcome/TrackGrowingTrend';
+import StartExploring from '@/components/Welcome/StartExploring';
 
 export default function Home() {
   const [artistProfiles, setArtistProfiles] = useState<ArtistProfile[]>();

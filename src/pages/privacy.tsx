@@ -1,5 +1,4 @@
-import { DotcreatorsLogoResponsive } from '@/components/DotcreatorsLogoResponsive';
-import DotcreatorsLogoFooter from '@/components/HeroComponents/DotcreatorsLogoFooter';
+import { DotcreatorsLogoResponsive } from '@/components/Other/DotcreatorsLogoResponsive';
 import { NextSeo } from 'next-seo';
 import Link from 'next/link';
 

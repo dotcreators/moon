@@ -1,14 +1,14 @@
-import { ArtistListCard } from '@/components/ArtistsSearchComponents/ArtistListCard';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
-import { ArtistsSearch } from '@/components/ArtistsSearchComponents/ArtistsSearch';
 import useSWR from 'swr';
-import ArtistListCardLoader from '@/components/ArtistsSearchComponents/ArtistListCardLoader';
 import { useState, useEffect } from 'react';
-import { Pagination } from '@/components/ArtistsSearchComponents/Pagination';
 import RiEmotionUnhappyFill from '~icons/ri/emotion-unhappy-fill';
 import RiInformationLine from '~icons/ri/information-line';
 import { useSearchStore } from '@/store/useSearchStore';
 import { NextSeo } from 'next-seo';
+import { ArtistsSearch } from '@/components/Search/ArtistsSearch';
+import { ArtistListCard } from '@/components/Artists/ArtistCard/ArtistListCard';
+import ArtistListCardSkeletonLoader from '@/components/Artists/ArtistCard/ArtistListCardSkeletonLoader';
+import { Pagination } from '@/components/Search/Pagination';
 
 export default function artists() {
   const [searchString, setSearchString] = useState<string>('');
@@ -57,8 +57,8 @@ export default function artists() {
         </div>
         <section className="col-span-3 flex w-full flex-col gap-5 md:p-1">
           {searchFilter.sortBy.toLocaleLowerCase() === 'trending' && (
-            <div className="bg-dot-amber/10 flex h-[52px] flex-row items-center gap-3 rounded-xl p-3 px-5 text-sm md:text-base">
-              <RiInformationLine className="text-dot-amber text-xl" />
+            <div className="flex h-[52px] flex-row items-center gap-3 rounded-xl bg-dot-amber/10 p-3 px-5 text-sm md:text-base">
+              <RiInformationLine className="text-xl text-dot-amber" />
               Showing trending artists with more than 300 followers
             </div>
           )}
@@ -76,7 +76,7 @@ export default function artists() {
               )
             ) : (
               [...Array(25)].map((_, index) => (
-                <ArtistListCardLoader key={index} />
+                <ArtistListCardSkeletonLoader key={index} />
               ))
             )}
           </div>
