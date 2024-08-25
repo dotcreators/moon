@@ -14,6 +14,7 @@ import {
 import RiArrowDownSFill from '~icons/ri/arrow-down-s-fill';
 import RiEqualFill from '~icons/ri/equal-fill';
 import RiLineChartFill from '~icons/ri/line-chart-fill';
+import { useMediaQuery } from 'react-responsive';
 
 interface Props {
   artistInfo: ArtistProfile;
@@ -38,6 +39,12 @@ export const TrendGraph: FC<Props> = props => {
     'positive' | 'neutral' | 'negative'
   >('neutral');
   const [strokeColor, setStrokeColor] = useState<string>('#a1a1aa');
+
+  const isMobile = useMediaQuery({ query: '(max-width: 600px)' });
+  const isTablet = useMediaQuery({
+    query: '(min-width: 600px) and (max-width: 1024px)',
+  });
+  const isDesktop = useMediaQuery({ query: '(min-width: 1025px)' });
 
   useEffect(() => {
     const lastIndex = props.trendData.length - 1;
@@ -149,7 +156,11 @@ export const TrendGraph: FC<Props> = props => {
       >
         <AreaChart
           data={props.trendData}
-          margin={{ top: 5, right: 25, left: 0, bottom: -5 }}
+          margin={
+            !isMobile
+              ? { top: 5, right: 25, left: 0, bottom: -5 }
+              : { top: 5, right: 0, left: 0, bottom: 0 }
+          }
         >
           <defs>
             <linearGradient
@@ -160,18 +171,23 @@ export const TrendGraph: FC<Props> = props => {
               y2="1"
             >
               <stop offset="5%" stopColor={strokeColor} stopOpacity={0.8} />
-              <stop offset="95%" stopColor={strokeColor} stopOpacity={0} />
+              <stop offset="100%" stopColor={strokeColor} stopOpacity={0} />
             </linearGradient>
           </defs>
           <XAxis
+            hide={isMobile ? true : false}
             dataKey="recordedAt"
             strokeOpacity={0.1}
             tickSize={12}
             interval={
               props.range === 31
-                ? 1
+                ? !isTablet
+                  ? 1
+                  : 3
                 : props.range === 93
-                  ? 3
+                  ? !isTablet
+                    ? 3
+                    : 7
                   : props.range === 186
                     ? 5
                     : props.range === 372
@@ -186,9 +202,10 @@ export const TrendGraph: FC<Props> = props => {
             }
           />
           <YAxis
+            hide={isMobile ? true : false}
             strokeOpacity={0.1}
             tickSize={10}
-            tickCount={5}
+            tickCount={!isMobile ? 5 : 2}
             tickFormatter={(value: number) => Math.round(value).toString()}
             domain={['auto', 'auto']}
             interval={0}
