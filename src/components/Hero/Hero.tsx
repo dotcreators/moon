@@ -1,6 +1,5 @@
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistListCardHero } from './ArtistListCardHero';
-import Image from 'next/image';
 import { FC } from 'react';
 import { motion } from 'framer-motion';
 import ArtistListCardHeroSkeleton from './ArtistListCardHeroSkeleton';
@@ -18,8 +17,8 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
   };
 
   const slideUpVariantsCard = {
-    hidden: { opacity: 0, y: 50 },
-    visible: { opacity: 1, y: 0, transition: { duration: 1 } },
+    hidden: { y: 50 },
+    visible: { y: 0, transition: { duration: 1 } },
   };
 
   const opacityVariantsBg = {
@@ -29,7 +28,7 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
 
   const opacityVariantsFill = {
     hidden: { opacity: 0 },
-    visible: { opacity: 0.2, transition: { duration: 1 } },
+    visible: { opacity: 0.1, transition: { duration: 1 } },
   };
 
   return (
@@ -71,17 +70,15 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
         </motion.div>
       </motion.div>
 
+      <motion.div
+        initial="hidden"
+        animate="visible"
+        exit="hidden"
+        variants={opacityVariantsFill}
+        className="absolute left-1/2 top-5 -z-20 h-1/2 w-1/2 -translate-x-1/2 rounded-full bg-dot-rose blur-3xl md:-top-[100px] md:blur-[256px]"
+      />
       <div className="absolute inset-0 -z-30 h-96 w-full overflow-hidden md:h-[1000px]">
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={opacityVariantsFill}
-          className="absolute left-1/2 top-5 h-1/2 w-1/2 -translate-x-1/2 rounded-full bg-dot-rose blur-3xl md:-top-[100px] md:blur-[256px]"
-        />
-        <motion.div initial="hidden" animate="visible" exit="hidden">
-          <GridPattern />
-        </motion.div>
+        <GridPattern />
       </div>
     </section>
   );

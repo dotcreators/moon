@@ -1,9 +1,9 @@
-import { FC } from 'react';
+import { FC, useMemo } from 'react';
 import styles from './GridPattern.module.css';
 import classNames from 'classnames';
 
 const GridPattern: FC = () => {
-  const gridSize = 15;
+  const gridSize = 20;
 
   const getRandomOpacity = (): number => {
     return Math.random();
