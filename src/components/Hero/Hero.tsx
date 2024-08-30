@@ -5,6 +5,7 @@ import { FC } from 'react';
 import { motion } from 'framer-motion';
 import ArtistListCardHeroSkeleton from './ArtistListCardHeroSkeleton';
 import { DotcreatorsLogoResponsive } from '../Other/DotcreatorsLogoResponsive';
+import GridPattern from '../Other/GridPattern';
 
 interface Props {
   artist: ArtistProfile | undefined;
@@ -78,21 +79,8 @@ export const Hero: FC<Props> = ({ artist: artistProfile }) => {
           variants={opacityVariantsFill}
           className="absolute left-1/2 top-5 h-1/2 w-1/2 -translate-x-1/2 rounded-full bg-dot-rose blur-3xl md:-top-[100px] md:blur-[256px]"
         />
-        <motion.div
-          initial="hidden"
-          animate="visible"
-          exit="hidden"
-          variants={opacityVariantsBg}
-        >
-          <Image
-            src={'/bg-pattern.webp'}
-            alt="Background pattern"
-            draggable={false}
-            fill={true}
-            quality={60}
-            className="absolute top-0 object-cover opacity-10"
-            priority={true}
-          />
+        <motion.div initial="hidden" animate="visible" exit="hidden">
+          <GridPattern />
         </motion.div>
       </div>
     </section>
