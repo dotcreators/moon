@@ -37,7 +37,7 @@ export const ArtistsMarquee: FC<Props> = ({ artists: artistProfiles }) => {
               artistProfiles.slice(0, 15).map((artist, index) => (
                 <div className="mx-3">
                   <SuggestArtistCard
-                    key={index}
+                    key={index + artist.id}
                     avatar={artist.images.avatar}
                     followers={artist.followersCount}
                     posts={artist.tweetsCount}

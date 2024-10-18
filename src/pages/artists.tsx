@@ -65,7 +65,7 @@ export default function artists() {
           {searchFilter.sortBy.toLocaleLowerCase() === 'new' && (
             <div className="flex h-[52px] flex-row items-center gap-3 rounded-xl bg-dot-amber/10 p-3 px-5 text-sm md:text-base">
               <RiInformationLine className="text-xl text-dot-amber" />
-              Trend information will be available within 7 days
+              Trends information will be available within 7 days
             </div>
           )}
           <div className="flex flex-col divide-y divide-dot-secondary overflow-hidden rounded-xl md:gap-3 md:divide-none">
