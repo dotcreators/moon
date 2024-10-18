@@ -28,13 +28,13 @@ export default function Layout({
 }>) {
   return (
     <>
-      <div className="flex h-10 w-full flex-row items-center justify-center gap-1.5 bg-dot-rose/40">
+      {/* <div className="flex h-10 w-full flex-row items-center justify-center gap-1.5 bg-dot-rose/40">
         <RiErrorWarningFill />
         <p className="text-sm">
           We are currently experiencing connectivity issues from our hosting
           provider, some features of site may be unstable
         </p>
-      </div>
+      </div> */}
       <div
         className={`${hubotSans.variable} relative flex flex-col font-sans`}
         style={inter.style}
