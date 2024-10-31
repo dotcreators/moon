@@ -93,6 +93,7 @@ export const SuggestStepOne: FC<Props> = props => {
             <div className="flex w-full flex-row items-center">
               <p className="text-zinc-400">twitter.com/</p>
               <input
+                disabled
                 onChange={e => setSearchArtistTag(e.target.value)}
                 type="search"
                 placeholder="tag"
