@@ -167,15 +167,9 @@ export default function SuggestArtistController() {
 
   return (
     <>
-      <div className="mx-auto flex w-full max-w-lg flex-col gap-3">
-        <div className="mx-auto flex h-[52px] w-full flex-row items-center gap-3 rounded-xl bg-dot-rose/10 p-3 px-5 text-sm md:mb-0 md:text-base">
-          <RiInformationLine className="w-8 text-xl text-dot-rose" />
-          Artist suggestion is temporarily disabled
-        </div>
-        {/* <div className="mx-auto flex h-[52px] w-full flex-row items-center gap-3 rounded-xl bg-dot-amber/10 p-3 px-5 text-sm md:mb-0 md:text-base">
-          <RiInformationLine className="w-8 text-xl text-dot-amber" />
-          NSFW and artists not related to pixel-art will be rejected
-        </div> */}
+      <div className="mx-auto mb-5 flex h-[52px] max-w-lg flex-row items-center gap-3 rounded-xl bg-dot-amber/10 p-3 px-5 text-sm md:mb-0 md:text-base">
+        <RiInformationLine className="w-8 text-xl text-dot-amber" />
+        NSFW and artists not related to pixel-art will be rejected
       </div>
       {currentFormStep !== steps.length ? (
         <motion.section
