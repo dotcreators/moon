@@ -34,6 +34,9 @@ export default function artists() {
     {}
   );
 
+  console.log(`${process.env.API_URL}artists/search?${searchString}`);
+  console.log(data);
+
   useEffect(() => {
     if (data) {
       updateSearchTotalPage(data.totalPages);

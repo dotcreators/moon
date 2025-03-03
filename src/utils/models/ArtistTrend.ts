@@ -1,5 +1,7 @@
 export interface ArtistTrend {
+  id: string;
+  twitterUserId: string;
   followersCount: number;
   tweetsCount: number;
-  recordedAt: Date;
+  createdAt: Date;
 }

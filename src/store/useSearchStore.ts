@@ -10,7 +10,7 @@ export interface SearchPage {
 export interface SearchFilter {
   sortBy: string;
   page: SearchPage;
-  limit: number;
+  perPage: number;
   tags?: string[];
   username?: string;
   country?: SelectCountry;
@@ -42,7 +42,7 @@ export const useSearchStore = create<State & Action>(set => ({
       isNext: false,
       totalPages: 1,
     },
-    limit: 25,
+    perPage: 25,
   },
   updateSearchFilter: updatedSearchFilter =>
     set(state => ({

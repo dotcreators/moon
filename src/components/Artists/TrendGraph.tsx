@@ -180,7 +180,7 @@ export const TrendGraph: FC<Props> = props => {
           </defs>
           <XAxis
             hide={isMobile ? true : false}
-            dataKey="recordedAt"
+            dataKey="createdAt"
             strokeOpacity={0.1}
             tickSize={12}
             interval={

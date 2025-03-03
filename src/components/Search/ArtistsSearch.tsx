@@ -90,7 +90,7 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
     const query = new URLSearchParams();
 
     query.append('page', searchFilter.page.currentPage.toString() ?? 1);
-    query.append('limit', searchFilter.limit.toString() ?? 25);
+    query.append('perPage', searchFilter.perPage.toString() ?? 25);
     query.append('sortBy', searchFilter.sortBy.toLowerCase() ?? 'Followers');
 
     if (searchFilter.username) query.append('username', searchFilter.username);
