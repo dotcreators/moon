@@ -29,8 +29,11 @@ export const ArtistListCard: FC<Props> = props => {
   );
 
   const { data, error } = useSWR<{
-    status: string;
-    response: ArtistTrend[];
+    items: ArtistTrend[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
   }>(
     isOpen
       ? `${process.env.API_URL}trends/search?twitterUserId=${props.artist.twitterUserId}&perPage=7&page=1`
@@ -44,7 +47,7 @@ export const ArtistListCard: FC<Props> = props => {
 
   useEffect(() => {
     if (data) {
-      setArtistTrends(data.response);
+      setArtistTrends(data.items);
       setTrendsLoading(false);
     }
     if (error) console.error('Error fetching artist trends:', error);

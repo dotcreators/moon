@@ -57,8 +57,11 @@ const UserPage = ({ artist }: UserPageProps) => {
   const { trendsRange, updateTrendsRange } = useTrendsStore();
 
   const { data: trendsData, error } = useSWR<{
-    status: string;
-    response: ArtistTrend[];
+    items: ArtistTrend[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
   }>(
     artist
       ? `${process.env.API_URL}trends/search?twitterUserId=${artist.twitterUserId}&perPage=${trendsRange}&page=1`
@@ -135,12 +138,12 @@ const UserPage = ({ artist }: UserPageProps) => {
             }}
           />
         </div>
-        {artist && trendsData && trendsData.response.length > 1 ? (
+        {artist && trendsData && trendsData.items.length > 1 ? (
           <div className="z-20 flex w-full flex-col justify-between divide-y divide-dot-secondary rounded-2xl bg-dot-primary text-xs md:gap-5 md:divide-none md:divide-transparent md:bg-transparent">
             <div className="grow">
               <TrendGraph
                 artistInfo={artist}
-                trendData={trendsData.response}
+                trendData={trendsData.items}
                 trendBy="followers"
                 range={trendsRange}
                 bgColor="bg-dot-primary"
@@ -150,7 +153,7 @@ const UserPage = ({ artist }: UserPageProps) => {
             <div className="grow">
               <TrendGraph
                 artistInfo={artist}
-                trendData={trendsData.response}
+                trendData={trendsData.items}
                 trendBy="tweets"
                 range={trendsRange}
                 bgColor="bg-dot-primary"
