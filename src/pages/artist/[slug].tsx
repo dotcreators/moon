@@ -61,7 +61,7 @@ const UserPage = ({ artist }: UserPageProps) => {
     response: ArtistTrend[];
   }>(
     artist
-      ? `${process.env.API_URL}trends/${artist.twitterUserId}?range=${trendsRange}`
+      ? `${process.env.API_URL}trends/search?twitterUserId=${artist.twitterUserId}&perPage=${trendsRange}&page=1`
       : null,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);

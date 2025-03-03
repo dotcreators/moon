@@ -25,7 +25,7 @@ export const CustomArtistListCardHero: FC<Props> = props => {
     status: string;
     response: ArtistTrend[];
   }>(
-    `${process.env.API_URL}trends/${props.artist.twitterUserId}?range=7`,
+    `${process.env.API_URL}trends/search?twitterUserId=${props.artist.twitterUserId}&perPage=7&page=1`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
