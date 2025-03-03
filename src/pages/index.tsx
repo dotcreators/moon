@@ -16,7 +16,7 @@ interface Props {
 export const getServerSideProps: GetServerSideProps = async () => {
   try {
     const [artistProfilesData, randomArtistProfileData] = await Promise.all([
-      fetch(`${process.env.API_URL}artists?page=1&limit=30`).then(
+      fetch(`${process.env.API_URL}artists/search?page=1&limit=30`).then(
         async response => {
           if (response.ok) {
             const data: {
