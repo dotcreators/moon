@@ -94,7 +94,7 @@ export const ArtistListCard: FC<Props> = props => {
               target="_blank"
               className="group relative"
             >
-              <div className="relative z-10 overflow-hidden rounded-full">
+              <div className="relative z-10 max-h-[35px] max-w-[35px] overflow-hidden rounded-full">
                 <ImageLoader
                   alt={'Avatar for ' + props.artist.username}
                   src={props.artist.images.avatar}
