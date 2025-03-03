@@ -33,7 +33,7 @@ export const ArtistListCard: FC<Props> = props => {
     response: ArtistTrend[];
   }>(
     isOpen
-      ? `${process.env.API_URL}trends/${props.artist.userId}?range=7`
+      ? `${process.env.API_URL}trends/${props.artist.twitterUserId}?range=7`
       : null,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
@@ -65,7 +65,7 @@ export const ArtistListCard: FC<Props> = props => {
   return (
     <>
       <section
-        key={props.artist.userId}
+        key={props.artist.twitterUserId}
         onClick={() => (!isOpen ? handleToggle() : '')}
         className={classNames(
           'group/main flex h-full w-full flex-col justify-between gap-5 overflow-hidden bg-dot-primary transition-transform duration-200 ease-in-out md:rounded-2xl md:hover:bg-dot-secondary',
@@ -408,13 +408,9 @@ export const ArtistListCard: FC<Props> = props => {
                   <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
                     <p className="text-zinc-400">
                       Profile updated{' '}
-                      {new Date(
-                        props.artist.lastUpdatedAt
-                      ).toLocaleDateString() +
+                      {new Date(props.artist.updatedAt).toLocaleDateString() +
                         ' ' +
-                        new Date(
-                          props.artist.lastUpdatedAt
-                        ).toLocaleTimeString()}
+                        new Date(props.artist.updatedAt).toLocaleTimeString()}
                     </p>
                   </div>
                 )}

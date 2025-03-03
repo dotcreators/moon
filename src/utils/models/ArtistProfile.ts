@@ -1,22 +1,22 @@
 export interface ArtistProfile {
   id: string;
+  twitterUserId: string;
   username: string;
-  userId: string;
-  joinedAt: Date;
+  name?: string;
   tweetsCount: number;
   followersCount: number;
-  url: string;
+  weeklyTweetsTrend?: number;
+  weeklyFollowersTrend?: number;
   images: {
     avatar: string;
     banner?: string;
   };
-  weeklyFollowersGrowingTrend?: number;
-  weeklyPostsGrowingTrend?: number;
-  country?: string;
   tags?: string[];
-  name?: string;
+  url: string;
+  country?: string;
   website?: string;
   bio?: string;
-  lastUpdatedAt: Date;
   createdAt: Date;
+  joinedAt: Date;
+  updatedAt: Date;
 }

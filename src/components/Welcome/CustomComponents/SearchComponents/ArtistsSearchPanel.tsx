@@ -13,8 +13,11 @@ export default function ArtistSearchPanel() {
   const [searchQ, setSearchQ] = useState<string>('');
 
   const { data: artistProfiles, isLoading } = useSWR<{
-    status: string;
-    response: { data: ArtistProfile[]; has_next: boolean };
+    items: ArtistProfile[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
   }>(
     `${process.env.API_URL}artists/search?page=1&perPage=8&sortBy=${selectedSortFilter.toLowerCase()}${searchQ ? '&username=' + searchQ : ''}`,
     async (input: RequestInfo, init: RequestInit) => {
@@ -24,6 +27,7 @@ export default function ArtistSearchPanel() {
     {}
   );
 
+  console.log(artistProfiles, isLoading);
   return (
     <>
       <section className="flex flex-col gap-3">
@@ -51,7 +55,7 @@ export default function ArtistSearchPanel() {
               <ArtistListCardSkeletonLoader key={index} />
             ))
           : artistProfiles &&
-            artistProfiles.response.data.map(artist => (
+            artistProfiles.items.map(artist => (
               <CustomArtistListCardSmall key={artist.id} artist={artist} />
             ))}
       </section>

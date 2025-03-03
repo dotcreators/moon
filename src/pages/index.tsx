@@ -20,10 +20,13 @@ export const getServerSideProps: GetServerSideProps = async () => {
         async response => {
           if (response.ok) {
             const data: {
-              status: string;
-              response: { data: ArtistProfile[]; has_next: boolean };
+              items: ArtistProfile[];
+              page: number;
+              perPage: number;
+              totalItems: number;
+              totalPages: number;
             } = await response.json();
-            return data.response.data;
+            return data.items;
           } else {
             throw new Error('Failed to fetch artist profiles');
           }
@@ -31,11 +34,8 @@ export const getServerSideProps: GetServerSideProps = async () => {
       ),
       fetch(`${process.env.API_URL}artists/random`).then(async response => {
         if (response.ok) {
-          const data: {
-            status: string;
-            response: ArtistProfile;
-          } = await response.json();
-          return data.response;
+          const data: ArtistProfile = await response.json();
+          return data;
         } else {
           throw new Error('Failed to fetch random artist');
         }

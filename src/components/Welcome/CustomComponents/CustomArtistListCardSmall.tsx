@@ -26,7 +26,7 @@ export const CustomArtistListCardSmall: FC<Props> = props => {
   return (
     <>
       <section
-        key={props.artist.userId}
+        key={props.artist.twitterUserId}
         onClick={() => router.push(`/artist/${props.artist.username}`)}
         className={classNames(
           'group/main flex w-full flex-col justify-between gap-5 overflow-hidden rounded-2xl bg-dot-primary transition-transform duration-200 ease-in-out md:hover:cursor-pointer md:hover:bg-dot-secondary',

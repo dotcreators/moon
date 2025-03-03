@@ -20,10 +20,13 @@ export default function artists() {
   } = useSearchStore();
 
   const { data, error } = useSWR<{
-    status: string;
-    response: { data: ArtistProfile[]; has_next: boolean; total_pages: number };
+    items: ArtistProfile[];
+    page: number;
+    perPage: number;
+    totalItems: number;
+    totalPages: number;
   }>(
-    `${process.env.API_URL}artists?${searchString}`,
+    `${process.env.API_URL}artists/search?${searchString}`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
@@ -33,8 +36,8 @@ export default function artists() {
 
   useEffect(() => {
     if (data) {
-      updateSearchTotalPage(data.response.total_pages);
-      updateSearchIsNext(data.response.has_next);
+      updateSearchTotalPage(data.totalPages);
+      updateSearchIsNext(data.page < data.totalPages);
       updateSearchPage(searchFilter.page.currentPage);
     }
   }, [
@@ -70,9 +73,9 @@ export default function artists() {
           )}
           <div className="flex flex-col divide-y divide-dot-secondary overflow-hidden rounded-xl md:gap-3 md:divide-none">
             {data && !error ? (
-              data && data.response.data.length !== 0 ? (
-                data.response.data.map(artist => (
-                  <ArtistListCard key={artist.userId} artist={artist} />
+              data && data.items.length !== 0 ? (
+                data.items.map(artist => (
+                  <ArtistListCard key={artist.twitterUserId} artist={artist} />
                 ))
               ) : (
                 <div className="flex h-16 w-full flex-row items-center justify-center gap-3 rounded-2xl bg-dot-primary p-10 text-zinc-400">
@@ -87,7 +90,7 @@ export default function artists() {
             )}
           </div>
           <Pagination
-            totalResults={data ? data.response.data.length : 0}
+            totalResults={data ? data.items.length : 0}
             className={'mt-2'}
           />
         </section>

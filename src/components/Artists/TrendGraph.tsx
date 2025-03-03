@@ -29,8 +29,8 @@ interface Props {
 export const TrendGraph: FC<Props> = props => {
   const [trendValue, setTrendValue] = useState<number | undefined>(() => {
     return props.trendBy === 'followers'
-      ? props.artistInfo.weeklyFollowersGrowingTrend
-      : props.artistInfo.weeklyPostsGrowingTrend;
+      ? props.artistInfo.weeklyFollowersTrend
+      : props.artistInfo.weeklyTweetsTrend;
   });
 
   const [trendDifference, setTrendDifference] = useState<number>(0);
@@ -134,14 +134,14 @@ export const TrendGraph: FC<Props> = props => {
               ? Math.round(
                   Math.abs(
                     props.range < 7
-                      ? props.artistInfo.weeklyFollowersGrowingTrend!
+                      ? props.artistInfo.weeklyFollowersTrend!
                       : trendsPercent
                   ) * 100
                 ) / 100
               : Math.round(
                   Math.abs(
                     props.range < 7
-                      ? props.artistInfo.weeklyPostsGrowingTrend!
+                      ? props.artistInfo.weeklyTweetsTrend!
                       : trendsPercent
                   ) * 100
                 ) / 100}
@@ -150,7 +150,7 @@ export const TrendGraph: FC<Props> = props => {
         </div>
       </div>
       <ResponsiveContainer
-        key={props.artistInfo.userId + props.trendBy}
+        key={props.artistInfo.twitterUserId + props.trendBy}
         width="100%"
         height={props.height ? props.height : 200}
       >
@@ -164,7 +164,11 @@ export const TrendGraph: FC<Props> = props => {
         >
           <defs>
             <linearGradient
-              id={getArtistValue() + props.artistInfo.userId + props.trendBy}
+              id={
+                getArtistValue() +
+                props.artistInfo.twitterUserId +
+                props.trendBy
+              }
               x1="0"
               y1="0"
               x2="0"
@@ -240,7 +244,7 @@ export const TrendGraph: FC<Props> = props => {
             stroke={strokeColor}
             strokeWidth={3}
             fillOpacity={0.5}
-            fill={`url(#${getArtistValue() + props.artistInfo.userId + props.trendBy})`}
+            fill={`url(#${getArtistValue() + props.artistInfo.twitterUserId + props.trendBy})`}
           />
         </AreaChart>
       </ResponsiveContainer>
