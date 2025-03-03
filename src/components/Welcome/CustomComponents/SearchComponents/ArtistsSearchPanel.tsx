@@ -16,7 +16,7 @@ export default function ArtistSearchPanel() {
     status: string;
     response: { data: ArtistProfile[]; has_next: boolean };
   }>(
-    `${process.env.API_URL}artists?page=1&limit=8&sortBy=${selectedSortFilter.toLowerCase()}${searchQ ? '&username=' + searchQ : ''}`,
+    `${process.env.API_URL}artists/search?page=1&limit=8&sortBy=${selectedSortFilter.toLowerCase()}${searchQ ? '&username=' + searchQ : ''}`,
     async (input: RequestInfo, init: RequestInit) => {
       const res = await fetch(input, init);
       return res.json();
