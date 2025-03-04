@@ -2,7 +2,6 @@ import { GetServerSideProps } from 'next';
 import { useRouter } from 'next/router';
 import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { ArtistTrend } from '@/utils/models/ArtistTrend';
-import { ArtistProfile } from '@/utils/models/ArtistProfile';
 import { useTrendsStore } from '@/store/useTrendsStore';
 import { NextSeo } from 'next-seo';
 import RiArrowLeftSLine from '~icons/ri/arrow-left-s-line';
@@ -25,8 +24,6 @@ export const getServerSideProps: GetServerSideProps<
     const artistRes = await fetch(
       `${process.env.API_URL}artists/search?perPage=1&page=1&username=${slug}`
     );
-    //  `${process.env.API_URL}artists?limit=1&page=1&username=${slug}`
-    // trends/search?twitterUserId=${artist.twitterUserId}&perPage=${trendsRange}&page=1
     const artistData: {
       items: ArtistProfile[];
       page: number;
