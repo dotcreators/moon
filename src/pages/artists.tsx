@@ -38,14 +38,14 @@ export default function artists() {
     if (data) {
       updateSearchTotalPage(data.totalPages);
       updateSearchIsNext(data.page < data.totalPages);
-      updateSearchPage(searchFilter.page.currentPage);
+      updateSearchPage(searchFilter.pagination.page);
     }
   }, [
     data,
     updateSearchTotalPage,
     updateSearchIsNext,
     updateSearchPage,
-    searchFilter.page.currentPage,
+    searchFilter.pagination.page,
   ]);
 
   return (
@@ -72,8 +72,8 @@ export default function artists() {
             </div>
           )}
           <div className="flex flex-col divide-y divide-dot-secondary overflow-hidden rounded-xl md:gap-3 md:divide-none">
-            {data && !error ? (
-              data && data.items.length !== 0 ? (
+            {data && data.items && !error ? (
+              data && data.items.length > 0 ? (
                 data.items.map(artist => (
                   <ArtistListCard key={artist.twitterUserId} artist={artist} />
                 ))
@@ -89,10 +89,12 @@ export default function artists() {
               ))
             )}
           </div>
-          <Pagination
-            totalResults={data ? data.items.length : 0}
-            className={'mt-2'}
-          />
+          {data && data.items && (
+            <Pagination
+              totalResults={data ? data.items.length : 0}
+              className={'mt-2'}
+            />
+          )}
         </section>
       </section>
     </>

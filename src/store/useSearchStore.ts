@@ -2,14 +2,15 @@ import { SelectCountry } from '@/utils/CountryCode';
 import { create } from 'zustand';
 
 export interface SearchPage {
-  currentPage: number;
-  isNext: boolean;
+  page: number;
+  perPage: number;
+  totalItems: number;
   totalPages: number;
 }
 
 export interface SearchFilter {
   sortBy: string;
-  page: SearchPage;
+  pagination: SearchPage;
   perPage: number;
   tags?: string[];
   username?: string;
@@ -37,10 +38,11 @@ type Action = {
 export const useSearchStore = create<State & Action>(set => ({
   searchFilter: {
     sortBy: 'Followers',
-    page: {
-      currentPage: 1,
-      isNext: false,
+    pagination: {
+      page: 1,
       totalPages: 1,
+      perPage: 20,
+      totalItems: 20,
     },
     perPage: 25,
   },
@@ -97,16 +99,19 @@ export const useSearchStore = create<State & Action>(set => ({
     set(state => ({
       searchFilter: {
         ...state.searchFilter,
-        page: updatedPagination,
+        pagination: {
+          ...state.searchFilter.pagination,
+          ...updatedPagination,
+        },
       },
     })),
   updateSearchPage: updatedCurrentPage =>
     set(state => ({
       searchFilter: {
         ...state.searchFilter,
-        page: {
-          ...state.searchFilter.page,
-          currentPage: updatedCurrentPage,
+        pagination: {
+          ...state.searchFilter.pagination,
+          page: updatedCurrentPage,
         },
       },
     })),
@@ -114,8 +119,8 @@ export const useSearchStore = create<State & Action>(set => ({
     set(state => ({
       searchFilter: {
         ...state.searchFilter,
-        page: {
-          ...state.searchFilter.page,
+        pagination: {
+          ...state.searchFilter.pagination,
           totalPages: updatedTotalPage,
         },
       },
@@ -124,8 +129,8 @@ export const useSearchStore = create<State & Action>(set => ({
     set(state => ({
       searchFilter: {
         ...state.searchFilter,
-        page: {
-          ...state.searchFilter.page,
+        pagination: {
+          ...state.searchFilter.pagination,
           isNext: updatedIsNext,
         },
       },

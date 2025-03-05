@@ -17,9 +17,11 @@ export const Pagination: FC<Props> = ({
 }) => {
   const { searchFilter, updateSearchPage } = useSearchStore();
 
+  console.log(searchFilter);
+
   const handlePrevious = () => {
-    if (searchFilter.page.currentPage > 1) {
-      updateSearchPage(Number(searchFilter.page.currentPage) - 1);
+    if (searchFilter.pagination.page > 1) {
+      updateSearchPage(Number(searchFilter.pagination.page) - 1);
       setTimeout(() => {
         scrollToTop();
       }, 300);
@@ -27,8 +29,8 @@ export const Pagination: FC<Props> = ({
   };
 
   const handleNext = () => {
-    if (searchFilter.page.isNext) {
-      updateSearchPage(Number(searchFilter.page.currentPage) + 1);
+    if (searchFilter.pagination.totalPages > searchFilter.pagination.page) {
+      updateSearchPage(Number(searchFilter.pagination.page) + 1);
       setTimeout(() => {
         scrollToTop();
       }, 300);
@@ -37,9 +39,9 @@ export const Pagination: FC<Props> = ({
 
   const handleCustom = (page: number) => {
     if (
-      page !== searchFilter.page.currentPage &&
+      page !== searchFilter.pagination.page &&
       page > 0 &&
-      page <= searchFilter.page.totalPages
+      page <= searchFilter.pagination.totalPages
     ) {
       updateSearchPage(Number(page));
       scrollToTop();
@@ -64,17 +66,17 @@ export const Pagination: FC<Props> = ({
       <div className="flex flex-row items-center justify-center gap-5">
         <button
           onClick={handlePrevious}
-          disabled={searchFilter.page.currentPage <= 1}
+          disabled={searchFilter.pagination.page <= 1}
           className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 md:hover:bg-dot-secondary"
         >
           <RiArrowLeftLine />
         </button>
         <div className="flex flex-row items-center gap-2">
-          {Number(searchFilter.page.totalPages) !== 0 ? (
+          {Number(searchFilter.pagination.totalPages) !== 0 ? (
             <>
-              {Number(searchFilter.page.currentPage) !== 1 && (
+              {Number(searchFilter.pagination.page) !== 1 && (
                 <>
-                  {Number(searchFilter.page.currentPage) > 2 && (
+                  {Number(searchFilter.pagination.page) > 2 && (
                     <>
                       <button
                         onClick={() => handleCustom(1)}
@@ -82,7 +84,7 @@ export const Pagination: FC<Props> = ({
                       >
                         <p>{1}</p>
                       </button>
-                      {searchFilter.page.currentPage > 3 && (
+                      {searchFilter.pagination.page > 3 && (
                         <div className="px-2">
                           <RiMoreFill />
                         </div>
@@ -91,41 +93,41 @@ export const Pagination: FC<Props> = ({
                   )}
                   <button
                     onClick={() =>
-                      handleCustom(Number(searchFilter.page.currentPage) - 1)
+                      handleCustom(Number(searchFilter.pagination.page) - 1)
                     }
                     className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
                   >
-                    <p>{Number(searchFilter.page.currentPage) - 1}</p>
+                    <p>{Number(searchFilter.pagination.page) - 1}</p>
                   </button>
                 </>
               )}
               <div className="rounded-2xl bg-dot-rose p-2.5 px-4 text-center font-bold tabular-nums text-dot-body">
-                <p>{Number(searchFilter.page.currentPage)}</p>
+                <p>{Number(searchFilter.pagination.page)}</p>
               </div>
-              {searchFilter.page.currentPage !==
-                searchFilter.page.totalPages && (
+              {searchFilter.pagination.page !==
+                searchFilter.pagination.totalPages && (
                 <>
                   <button
                     onClick={() =>
-                      handleCustom(Number(searchFilter.page.currentPage) + 1)
+                      handleCustom(Number(searchFilter.pagination.page) + 1)
                     }
                     className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
                   >
-                    <p>{Number(searchFilter.page.currentPage) + 1}</p>
+                    <p>{Number(searchFilter.pagination.page) + 1}</p>
                   </button>
-                  {Number(searchFilter.page.currentPage) + 1 <
-                    searchFilter.page.totalPages && (
+                  {Number(searchFilter.pagination.page) + 1 <
+                    searchFilter.pagination.totalPages && (
                     <>
                       <div className="px-2">
                         <RiMoreFill />
                       </div>
                       <button
                         onClick={() =>
-                          handleCustom(searchFilter.page.totalPages)
+                          handleCustom(searchFilter.pagination.totalPages)
                         }
                         className="rounded-2xl bg-dot-primary p-2.5 px-4 text-center tabular-nums"
                       >
-                        <p>{searchFilter.page.totalPages}</p>
+                        <p>{searchFilter.pagination.totalPages}</p>
                       </button>
                     </>
                   )}
@@ -140,7 +142,11 @@ export const Pagination: FC<Props> = ({
         </div>
         <button
           onClick={handleNext}
-          disabled={!searchFilter.page.isNext}
+          disabled={
+            searchFilter.pagination.page >= searchFilter.pagination.totalPages
+              ? true
+              : false
+          }
           className="rounded-2xl bg-dot-primary p-3 duration-200 ease-in-out disabled:cursor-not-allowed disabled:opacity-50 md:hover:bg-dot-secondary"
         >
           <RiArrowRightLine />

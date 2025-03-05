@@ -69,10 +69,9 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
           sortBy.slice(0, 1).toLocaleUpperCase() +
             sortBy.substring(1, sortBy.length)) ??
         'Followers',
-      page: {
-        currentPage: _page || 1,
-        isNext: false,
-        totalPages: 1,
+      pagination: {
+        ...searchFilter.pagination,
+        page: _page || 1,
       },
     });
   }, [router.isReady]);
@@ -89,7 +88,7 @@ export const ArtistsSearch: FC<Props> = ({ onSearchStringChanges }) => {
   useEffect(() => {
     const query = new URLSearchParams();
 
-    query.append('page', searchFilter.page.currentPage.toString() ?? 1);
+    query.append('page', searchFilter.pagination.page.toString() ?? 1);
     query.append('perPage', searchFilter.perPage.toString() ?? 25);
     query.append('sortBy', searchFilter.sortBy.toLowerCase() ?? 'Followers');
 
