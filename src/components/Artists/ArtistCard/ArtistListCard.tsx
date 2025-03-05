@@ -261,7 +261,7 @@ export const ArtistListCard: FC<Props> = props => {
                               Account created{' '}
                               {new Date(
                                 props.artist.joinedAt
-                              ).toLocaleDateString()}
+                              ).toLocaleDateString('en-EN')}
                             </p>
                           </div>
                         </div>
@@ -411,7 +411,9 @@ export const ArtistListCard: FC<Props> = props => {
                   <div className="flex flex-row items-center gap-2 rounded-md bg-dot-tertiary p-2 px-4 text-sm">
                     <p className="text-zinc-400">
                       Profile updated{' '}
-                      {new Date(props.artist.updatedAt).toLocaleDateString() +
+                      {new Date(props.artist.updatedAt).toLocaleDateString(
+                        'en-EN'
+                      ) +
                         ' ' +
                         new Date(props.artist.updatedAt).toLocaleTimeString()}
                     </p>

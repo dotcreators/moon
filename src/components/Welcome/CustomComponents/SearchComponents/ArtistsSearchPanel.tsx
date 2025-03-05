@@ -27,7 +27,6 @@ export default function ArtistSearchPanel() {
     {}
   );
 
-  console.log(artistProfiles, isLoading);
   return (
     <>
       <section className="flex flex-col gap-3">

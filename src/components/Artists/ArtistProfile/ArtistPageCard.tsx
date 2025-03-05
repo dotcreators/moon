@@ -105,9 +105,9 @@ export const ArtistPageCard: FC<Props> = props => {
                           <p>•</p>
                           <p className="">
                             Account created{' '}
-                            {new Date(
-                              props.artist.joinedAt
-                            ).toLocaleDateString()}
+                            {new Date(props.artist.joinedAt).toLocaleDateString(
+                              'en-EN'
+                            )}
                           </p>
                         </div>
                       </div>
@@ -194,7 +194,9 @@ export const ArtistPageCard: FC<Props> = props => {
               <div className="flex flex-row items-center gap-2 rounded-md bg-dot-secondary p-2 px-4 text-sm">
                 <p className="text-zinc-400">
                   Profile updated{' '}
-                  {new Date(props.artist.updatedAt).toLocaleDateString() +
+                  {new Date(props.artist.updatedAt).toLocaleDateString(
+                    'en-EN'
+                  ) +
                     ' ' +
                     new Date(props.artist.updatedAt).toLocaleTimeString()}
                 </p>

@@ -118,7 +118,7 @@ const UserPage = ({ artist }: UserPageProps) => {
           </button>
           <p className="text-sm text-zinc-400">
             Profile created:{' '}
-            {artist && new Date(artist.createdAt).toLocaleDateString()}
+            {artist && new Date(artist.createdAt).toLocaleDateString('en-EN')}
           </p>
         </div>
         <div className="w-full overflow-hidden rounded-2xl bg-dot-primary">

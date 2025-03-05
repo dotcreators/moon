@@ -148,7 +148,9 @@ export const ArtistListCardHero: FC<Props> = props => {
                       <p>•</p>
                       <p className="">
                         Account created{' '}
-                        {new Date(props.artist.joinedAt).toLocaleDateString()}
+                        {new Date(props.artist.joinedAt).toLocaleDateString(
+                          'en-EN'
+                        )}
                       </p>
                     </div>
                   </div>
