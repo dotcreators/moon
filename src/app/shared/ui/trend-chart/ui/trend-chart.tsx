@@ -1,7 +1,7 @@
 import { Artist } from '@/app/shared/types/artist';
 import { Trend } from '@/app/shared/types/trend';
 import { trimValue } from '@/app/shared/utils/trim-value';
-import { HTMLAttributes, useEffect, useMemo, useState } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import {
   AreaChart,
   ResponsiveContainer,
@@ -13,6 +13,10 @@ import {
 } from 'recharts';
 import { twJoin } from 'tailwind-merge';
 import { Icon } from '@/app/shared/ui/icon';
+import { useTrendData } from '../models/use-trend-data';
+import { useGrowthDynamics } from '../models/use-growth-dynamics';
+import { useStrokeColor } from '../models/use-stroke-color';
+import { useFormattedValue } from '../models/use-formatted-value';
 
 type TrendChartProps = HTMLAttributes<HTMLDivElement> & {
   artistData: Artist;
@@ -20,58 +24,6 @@ type TrendChartProps = HTMLAttributes<HTMLDivElement> & {
   range: number;
   trendBy: 'followers' | 'tweets';
   height?: number;
-};
-
-const useTrendData = (data: Trend[], trendBy: 'followers' | 'tweets') => {
-  return useMemo(() => {
-    const lastIndex = data.length - 1;
-    const initialCount =
-      trendBy === 'followers' ? data[0].followersCount : data[0].tweetsCount;
-    const currentCount =
-      trendBy === 'followers'
-        ? data[lastIndex].followersCount
-        : data[lastIndex].tweetsCount;
-
-    const difference = currentCount - initialCount;
-    const percent = ((currentCount - initialCount) / initialCount) * 100;
-
-    return { difference, percent };
-  }, [data, trendBy]);
-};
-
-const useGrowthDynamics = (difference: number) => {
-  return useMemo(() => {
-    if (difference === 0) return 'neutral';
-    return difference > 0 ? 'positive' : 'negative';
-  }, [difference]);
-};
-
-const useStrokeColor = (growthDynamics: string) => {
-  return useMemo(() => {
-    switch (growthDynamics) {
-      case 'positive':
-        return '#a3e635';
-      case 'negative':
-        return '#fa4545';
-      default:
-        return '#a1a1aa';
-    }
-  }, [growthDynamics]);
-};
-
-const useFormattedValue = (
-  trendBy: 'followers' | 'tweets',
-  artistData: Artist,
-  range: number,
-  percent: number
-) => {
-  return useMemo(() => {
-    const value =
-      trendBy === 'followers'
-        ? artistData.weeklyFollowersTrend
-        : artistData.weeklyTweetsTrend;
-    return Math.round(Math.abs(range < 7 ? value! : percent) * 100) / 100;
-  }, [trendBy, artistData, range, percent]);
 };
 
 function TrendChart({

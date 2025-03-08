@@ -11,6 +11,10 @@ import { FormatBio } from '@/app/shared/ui/format-bio';
 import { Trend } from '@/app/shared/types/trend';
 import { Response } from '@/app/shared/types/response';
 import { TrendChart } from '../../trend-chart';
+import { Transition } from '@headlessui/react';
+import { BannerButton } from '../components/banner-button';
+import { ProfileComponent } from '../components/profile-component';
+import { COUNTRY_CODES } from '@/app/shared/constants/country-codes';
 
 const API_URL = process.env.API_URL;
 
@@ -36,10 +40,10 @@ function ArtistProfile({
   return (
     <section
       className={twJoin(
-        'w-full overflow-hidden rounded-xl border',
+        'w-full overflow-hidden rounded-xl border-[1.5px]',
         isOpen && 'sticky top-5 bottom-5 z-[1]',
-        isOpen ? 'border-gray-01/20' : 'border-transparent', // or shadow-[0_0_35px_rgba(0,0,0,1)]
-        'transition-shadow duration-200 ease-in-out',
+        isOpen ? 'border-gray-01/20' : 'border-transparent',
+        'transition-[max-height] duration-200 ease-in-out',
         className
       )}
       {...props}
@@ -88,6 +92,7 @@ function ArtistProfile({
           </div>
         </button>
       )}
+
       {isOpen && (
         <ArtistProfile.Detailed data={data} handleClick={handleClick} />
       )}
@@ -141,30 +146,51 @@ function Detailed({
       className={twJoin('bg-black-02 flex w-full flex-col', className)}
       {...props}
     >
-      {!data.images.banner ? (
+      <div className="flex flex-col">
         <div
-          onClick={() => handleClick()}
-          className={twJoin('bg-black-03 h-36 w-full hover:cursor-pointer')}
-        />
-      ) : (
-        <Image
-          onClick={() => handleClick()}
-          src={data.images.banner}
-          // alt={`Banner for ${data.username}`}
-          alt={''}
-          width={1280}
-          height={720}
-          className="bg-black-03 h-36 object-cover hover:cursor-pointer"
-        />
-      )}
+          className={twJoin(
+            'flex flex-row justify-end gap-2',
+            data.images.banner ? 'absolute top-3 right-3 left-3' : 'mx-5 mt-5'
+          )}
+        >
+          <BannerButton isImageExist={Boolean(data.images.banner)}>
+            <Icon ico="i-ri-pushpin-fill" className="text-lg" />
+          </BannerButton>
+          <BannerButton isImageExist={Boolean(data.images.banner)}>
+            <Icon ico="i-ri-arrow-right-up-line" className="text-xl" />
+          </BannerButton>
+          <BannerButton
+            onClick={handleClick}
+            isImageExist={Boolean(data.images.banner)}
+          >
+            <Icon
+              ico="i-ri-arrow-down-s-line"
+              className={twJoin('rotate-180 text-xl')}
+            />
+          </BannerButton>
+        </div>
+        {data.images.banner && (
+          <Image
+            onClick={() => handleClick()}
+            src={data.images.banner}
+            // alt={`Banner for ${data.username}`}
+            alt={''}
+            width={1280}
+            height={720}
+            draggable={false}
+            className="bg-black-03 h-36 object-cover hover:cursor-pointer"
+          />
+        )}
+      </div>
       <div className="flex w-full flex-col gap-4 p-5">
         <div className="flex flex-row items-center gap-4">
           <Image
             src={data.images.avatar}
             // alt={`Avatar for ${data.username}`}
             alt={''}
-            width={81}
-            height={81}
+            width={128}
+            height={128}
+            draggable={false}
             className="bg-black-03 h-[81px] w-[81px] rounded-xl"
           />
           <div className="flex w-full flex-row items-center justify-between gap-4">
@@ -199,12 +225,38 @@ function Detailed({
           </div>
         </div>
         {data.bio && <FormatBio text={data.bio} className="my-2" />}
+
         <ArtistProfile.Trends
           artistData={data}
           isLoading={isLoading}
           error={error}
           data={trendsData}
         />
+        {(data.country || data.tags) && (
+          <div className="flex flex-row items-center gap-3">
+            {data.country && (
+              <ProfileComponent>
+                <Flag country={data.country} />
+                <p>
+                  {
+                    COUNTRY_CODES.find(
+                      x => x.value.toLowerCase() === data.country.toLowerCase()
+                    )?.title
+                  }
+                </p>
+              </ProfileComponent>
+            )}
+            {data.tags &&
+              data.tags.map(item => (
+                <ProfileComponent key={`${item}`}>
+                  <p>
+                    {item.slice(0, 1).toUpperCase() +
+                      item.slice(1, item.length)}
+                  </p>
+                </ProfileComponent>
+              ))}
+          </div>
+        )}
       </div>
     </div>
   );
@@ -229,33 +281,75 @@ function Trends({
   ...props
 }: TrendsArtistProfileProps) {
   console.log(error);
+
   return (
-    <div className={twJoin('w-full', className)} {...props}>
-      {isLoading ? (
-        <></>
-      ) : (
-        data && (
-          <div className="flex w-full flex-row gap-6">
-            <TrendChart
-              artistData={artistData}
-              data={data}
-              range={7}
-              trendBy="followers"
-              className="w-full"
-            />
-            <TrendChart
-              artistData={artistData}
-              data={data}
-              range={7}
-              trendBy="tweets"
-              className="w-full"
-            />
-          </div>
-        )
-      )}
+    <div
+      className={twJoin('relative z-[1] h-[248px] w-full', className)}
+      {...props}
+    >
+      {/* Индикатор загрузки */}
+      <Transition
+        as={'div'}
+        show={isLoading}
+        enter="transition-opacity duration-200"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-200"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+        className={twJoin('absolute inset-0 z-[1]')}
+      >
+        <div className="flex h-full w-full flex-row gap-6">
+          {[0, 1].map(i => (
+            <div
+              key={`loader-${i}`}
+              className="bg-black-03 relative h-full w-full animate-pulse rounded-xl"
+            >
+              <Icon
+                ico="i-ri-loader-5-fill"
+                className={twJoin(
+                  'text-gray-01 absolute animate-spin text-2xl',
+                  'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                )}
+              />
+            </div>
+          ))}
+        </div>
+      </Transition>
+
+      <Transition
+        as={'div'}
+        show={!isLoading && !!data}
+        enter="transition-opacity duration-200"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-200"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+        className={twJoin('absolute inset-0 z-[1]')}
+      >
+        <div className="flex h-full w-full flex-row gap-6">
+          <TrendChart
+            artistData={artistData}
+            data={data!}
+            range={7}
+            trendBy="followers"
+            className="w-full"
+          />
+          <TrendChart
+            artistData={artistData}
+            data={data!}
+            range={7}
+            trendBy="tweets"
+            className="w-full"
+          />
+        </div>
+      </Transition>
     </div>
   );
 }
+
+export default Trends;
 
 ArtistProfile.Detailed = Detailed;
 ArtistProfile.Trends = Trends;

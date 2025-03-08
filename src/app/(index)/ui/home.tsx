@@ -16,7 +16,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   useEffect(() => {
     async function getArtistsData() {
       const r = await fetch(
-        `${API_URL}/artists/search?page=1&perPage=25&sortBy=followers`
+        `${API_URL}/artists/search?page=1&perPage=55&sortBy=followers`
       );
       const data: Response<Artist[]> = await r.json();
 
