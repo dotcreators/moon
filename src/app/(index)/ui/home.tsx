@@ -35,7 +35,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={twJoin(
-        'mx-auto flex max-w-[900px] flex-col gap-[16px] p-5',
+        'mx-auto flex max-w-[750px] flex-col gap-[16px] p-5',
         className
       )}
       {...props}
