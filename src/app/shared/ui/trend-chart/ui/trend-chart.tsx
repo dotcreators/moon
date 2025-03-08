@@ -23,7 +23,6 @@ type TrendChartProps = HTMLAttributes<HTMLDivElement> & {
   data: Trend[];
   range: number;
   trendBy: 'followers' | 'tweets';
-  height?: number;
 };
 
 function TrendChart({
@@ -32,11 +31,9 @@ function TrendChart({
   data,
   range,
   trendBy,
-  height = 200,
   ...props
 }: TrendChartProps) {
   const [trendValue, setTrendValue] = useState<number | null>(null);
-
   const { difference, percent } = useTrendData(data, trendBy);
   const growthDynamics = useGrowthDynamics(difference);
   const strokeColor = useStrokeColor(growthDynamics);
@@ -54,35 +51,37 @@ function TrendChart({
       className={twJoin('flex flex-col gap-2 text-xs', className)}
       {...props}
     >
-      <div className="flex flex-row items-center justify-between gap-5">
-        <p className="text-sm text-zinc-400">
-          {trendBy.charAt(0).toUpperCase() + trendBy.slice(1)}
-        </p>
-        <div className="flex flex-row items-center gap-4">
-          <p className="text-xl font-bold">
+      <div className="flex flex-row items-center justify-between gap-3 rounded-lg">
+        <div className="flex w-full flex-row items-center justify-between">
+          <p className="text-sm text-zinc-400">
+            {trendBy.charAt(0).toUpperCase() + trendBy.slice(1)}
+          </p>
+          <p className="text-base font-bold">
             {difference > 0 ? `+${difference}` : difference}
           </p>
+        </div>
+        <div className="flex flex-row items-center gap-4">
           <p
             className={twJoin(
-              'flex flex-row items-center gap-1 rounded-lg p-2 px-4 text-base font-bold',
+              'flex flex-row items-center gap-1 rounded-md p-1.5 pr-3 pl-2 text-sm font-bold',
               growthDynamics === 'neutral' && 'bg-zinc-400/10 text-zinc-400',
               growthDynamics === 'positive' && 'bg-[#a3e635]/10 text-[#a3e635]',
               growthDynamics === 'negative' && 'bg-[#FA4545]/10 text-[#FA4545]'
             )}
           >
             {trendValue === 0 ? (
-              <Icon ico="i-ri-arrow-up-s-fill" className="text-2xl" />
+              <Icon ico="i-ri-arrow-up-s-fill" className="text-xl" />
             ) : (
               <Icon
                 ico="i-ri-arrow-up-s-fill"
-                className={twJoin('text-2xl', trendValue! < 0 && 'rotate-180')}
+                className={twJoin('text-xl', trendValue! < 0 && 'rotate-180')}
               />
             )}
             {formattedValue}%
           </p>
         </div>
       </div>
-      <ResponsiveContainer width="100%" height={height}>
+      <ResponsiveContainer width="100%">
         <AreaChart
           data={data}
           margin={{ top: 5, right: 0, left: -60, bottom: 0 }}
@@ -102,7 +101,7 @@ function TrendChart({
           <YAxis
             strokeOpacity={0.1}
             tickSize={10}
-            tickCount={3}
+            tickCount={4}
             domain={['auto', 'auto']}
             interval={0}
             tickFormatter={(value: number) => trimValue(value)}

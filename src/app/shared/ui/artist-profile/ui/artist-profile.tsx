@@ -149,7 +149,7 @@ function Detailed({
       <div className="flex flex-col">
         <div
           className={twJoin(
-            'flex flex-row justify-end gap-2',
+            'flex w-fit flex-row gap-2 place-self-end',
             data.images.banner ? 'absolute top-3 right-3 left-3' : 'mx-5 mt-5'
           )}
         >
@@ -225,39 +225,47 @@ function Detailed({
           </div>
         </div>
         {data.bio && <FormatBio text={data.bio} className="my-2" />}
-
         <ArtistProfile.Trends
           artistData={data}
           isLoading={isLoading}
           error={error}
           data={trendsData}
         />
-        {(data.country || data.tags) && (
-          <div className="flex flex-row items-center gap-3">
-            {data.country && (
-              <ProfileComponent>
-                <Flag country={data.country} />
+        {(data.tags || data.country) && <Components data={data} />}
+      </div>
+    </div>
+  );
+}
+
+type ComponentsProps = HTMLAttributes<HTMLDivElement> & { data: Artist };
+
+function Components({ className, data, ...props }: ComponentsProps) {
+  return (
+    <div className={twJoin(className)} {...props}>
+      {(data.country || data.tags) && (
+        <div className="flex flex-row items-center gap-3">
+          {data.country && (
+            <ProfileComponent>
+              <Flag country={data.country} />
+              <p>
+                {
+                  COUNTRY_CODES.find(
+                    x => x.value.toLowerCase() === data.country.toLowerCase()
+                  )?.title
+                }
+              </p>
+            </ProfileComponent>
+          )}
+          {data.tags &&
+            data.tags.map(item => (
+              <ProfileComponent key={`${item}`}>
                 <p>
-                  {
-                    COUNTRY_CODES.find(
-                      x => x.value.toLowerCase() === data.country.toLowerCase()
-                    )?.title
-                  }
+                  {item.slice(0, 1).toUpperCase() + item.slice(1, item.length)}
                 </p>
               </ProfileComponent>
-            )}
-            {data.tags &&
-              data.tags.map(item => (
-                <ProfileComponent key={`${item}`}>
-                  <p>
-                    {item.slice(0, 1).toUpperCase() +
-                      item.slice(1, item.length)}
-                  </p>
-                </ProfileComponent>
-              ))}
-          </div>
-        )}
-      </div>
+            ))}
+        </div>
+      )}
     </div>
   );
 }
