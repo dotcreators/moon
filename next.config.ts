@@ -1,5 +1,12 @@
-/** @type {import('next').NextConfig} */
-export default {
+import UnoCSS from '@unocss/webpack';
+import { NextConfig } from 'next';
+
+const nextConfig: NextConfig = {
+  webpack: (config: import('webpack').Configuration) => {
+    config.plugins = config.plugins || [];
+    config.plugins.push(UnoCSS());
+    return config;
+  },
   images: {
     remotePatterns: [
       { protocol: 'https', hostname: '**.twimg.com', port: '' },
@@ -12,3 +19,5 @@ export default {
     SITE_URL: process.env.SITE_URL,
   },
 };
+
+export default nextConfig;
