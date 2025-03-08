@@ -102,7 +102,7 @@ function TrendChart({
           <YAxis
             strokeOpacity={0.1}
             tickSize={10}
-            tickCount={0}
+            tickCount={3}
             domain={['auto', 'auto']}
             interval={0}
             tickFormatter={(value: number) => trimValue(value)}
