@@ -41,7 +41,7 @@ function ArtistProfile({
     <section
       className={twJoin(
         'w-full overflow-hidden rounded-xl border-[1.5px]',
-        isOpen && 'sticky top-5 bottom-5 z-[1]',
+        isOpen && 'sticky top-[144px] bottom-5 z-[1]',
         isOpen ? 'border-gray-01/20' : 'border-transparent',
         'transition-[max-height] duration-200 ease-in-out',
         className
@@ -58,13 +58,13 @@ function ArtistProfile({
             'transition-colors duration-200 ease-in-out'
           )}
         >
-          <div className="flex flex-row items-center gap-4">
+          <div className="flex max-w-[400px] flex-row items-center gap-4">
             <Image
               src={data.images.avatar}
               alt={`Avatar for ${data.username}`}
               width={48}
               height={48}
-              className="bg-black-02 max-h-[36px] max-w-[36px] overflow-hidden rounded-full"
+              className="bg-black-02 max-h-[36px] min-h-[36px] max-w-[36px] min-w-[36px] overflow-hidden rounded-full"
             />
             {data.country && <Flag country={data.country} />}
             <p className="font-hubot max-w-[250px] truncate text-ellipsis">
@@ -191,11 +191,11 @@ function Detailed({
             width={128}
             height={128}
             draggable={false}
-            className="bg-black-03 h-[81px] w-[81px] rounded-xl"
+            className="bg-black-03 h-[72px] w-[72px] rounded-xl"
           />
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
-              <p className="font-hubot max-w-[450px] truncate text-xl text-ellipsis">
+              <p className="font-hubot max-w-[330px] truncate text-xl text-ellipsis">
                 {data.name}
               </p>
               <div className="text-gray-01/80 flex flex-row items-center gap-1">
