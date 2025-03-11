@@ -10,7 +10,7 @@ export type SortFilter =
 
 type SearchStoreProps = {
   q: string | null;
-  sortBy: SortFilter | null;
+  sortBy: SortFilter;
   tags: string[] | null;
   country: string | null;
   page: number;

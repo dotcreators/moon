@@ -23,21 +23,22 @@ type TrendChartProps = HTMLAttributes<HTMLDivElement> & {
   data: Trend[];
   range: number;
   trendBy: 'followers' | 'tweets';
+  height?: string | number;
 };
 
 function TrendChart({
   className,
   artistData,
   data,
-  range,
   trendBy,
+  height = '100%',
   ...props
 }: TrendChartProps) {
   const [trendValue, setTrendValue] = useState<number | null>(null);
   const { difference, percent } = useTrendData(data, trendBy);
   const growthDynamics = useGrowthDynamics(difference);
   const strokeColor = useStrokeColor(growthDynamics);
-  const formattedValue = useFormattedValue(trendBy, artistData, range, percent);
+  const formattedValue = useFormattedValue(trendBy, artistData);
 
   useEffect(() => {
     setTrendValue(percent);
@@ -48,7 +49,7 @@ function TrendChart({
 
   return (
     <div
-      className={twJoin('flex flex-col gap-2 text-xs', className)}
+      className={twJoin('flex h-full flex-col gap-2 text-xs', className)}
       {...props}
     >
       <div className="flex flex-row items-center justify-between gap-3 rounded-lg">
@@ -81,7 +82,7 @@ function TrendChart({
           </p>
         </div>
       </div>
-      <ResponsiveContainer width="100%">
+      <ResponsiveContainer width="100%" height={height}>
         <AreaChart
           data={data}
           margin={{ top: 5, right: 0, left: -60, bottom: 0 }}

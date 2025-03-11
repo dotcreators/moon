@@ -3,6 +3,7 @@ import { Metadata } from 'next';
 import localFont from 'next/font/local';
 import './globals.css';
 import 'uno.css';
+import 'overlayscrollbars/overlayscrollbars.css';
 
 export const hubotSans = localFont({
   src: '../../../public/hubot-sans.woff2',

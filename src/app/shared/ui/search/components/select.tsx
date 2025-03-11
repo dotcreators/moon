@@ -72,7 +72,7 @@ function Item({
           : selectedValue[0];
         return (
           <div className="felx-row line-clamp-1 flex items-center gap-1 text-ellipsis">
-            {firstItem} <p>+ {selectedValue.length - 1} more</p>
+            {firstItem} <p>+ {selectedValue.length - 1}</p>
           </div>
         );
       } else {
@@ -127,7 +127,7 @@ function Item({
         <div
           className={twJoin(
             'flex h-12 flex-row items-center gap-2',
-            'rounded-3xl p-4 px-5'
+            'rounded-3xl p-4 pr-5'
           )}
         >
           <div

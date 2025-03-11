@@ -3,17 +3,15 @@ import { useMemo } from 'react';
 
 const useFormattedValue = (
   trendBy: 'followers' | 'tweets',
-  artistData: Artist,
-  range: number,
-  percent: number
+  artistData: Artist
 ) => {
   return useMemo(() => {
     const value =
       trendBy === 'followers'
         ? artistData.weeklyFollowersTrend
         : artistData.weeklyTweetsTrend;
-    return Math.round(Math.abs(range < 7 ? value! : percent) * 100) / 100;
-  }, [trendBy, artistData, range, percent]);
+    return Math.round(Math.abs(value) * 100) / 100;
+  }, [trendBy, artistData]);
 };
 
 export { useFormattedValue };
