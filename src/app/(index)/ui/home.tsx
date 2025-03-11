@@ -1,17 +1,17 @@
 'use client';
 
-import useArtistStore from '@/app/shared/hooks/use-artist-store';
-import usePinnedArtistStore from '@/app/shared/hooks/use-pinned-artist-store';
-import useSearchStore from '@/app/shared/hooks/use-search-store';
-import { Artist } from '@/app/shared/types/artist';
-import { Response } from '@/app/shared/types/response';
-import { ArtistProfile } from '@/app/shared/ui/artist-profile';
-import { ArtistProfilePinned } from '@/app/shared/ui/artist-profile-pinned';
-import { Search } from '@/app/shared/ui/search';
+import useArtistStore from '@/shared/hooks/use-artist-store';
+import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
+import useSearchStore from '@/shared/hooks/use-search-store';
+import { Artist } from '@/shared/types/artist';
+import { Response } from '@/shared/types/response';
 import { useRouter } from 'next/navigation';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
+import ArtistProfilePinned from '@/shared/ui/artist-profile-pinned/ui/artist-profile-pinned';
+import { Search } from '@/shared/ui/search';
+import { ArtistProfile } from '@/shared/ui/artist-profile';
 
 const API_URL = process.env.API_URL;
 
@@ -27,6 +27,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 
   useEffect(() => {
     async function getArtistsData() {
+      setArtistsData(null);
       const query = new URLSearchParams();
 
       query.append('page', page.toString());
