@@ -17,14 +17,15 @@
 }
 
 @layer components {
-  .font-hubot {
-    font-family: var(--font-hubot);
+  .font-mona-sans {
+    font-family: var(--font-mona-sans);
     font-stretch: 125%;
+    font-weight: 700;
   }
 }
 
 body {
   background: var(--color-black-01);
   color: var(--color-white-01);
-  font-family: var(--font-hubot);
+  font-family: var(--font-mona-sans);
 }

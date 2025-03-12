@@ -54,7 +54,7 @@ function ArtistProfilePinned({
           className="bg-black-03 h-[52px] w-[52px] rounded-xl"
         />
         <div className="flex flex-col">
-          <p className="font-hubot max-w-[235px] truncate text-lg leading-tight text-ellipsis">
+          <p className="font-mona-sans max-w-[235px] truncate text-lg leading-tight text-ellipsis">
             {data.name}
           </p>
           <p className="text-gray-01/80 flex max-w-[270px] flex-row items-center gap-1 text-sm">

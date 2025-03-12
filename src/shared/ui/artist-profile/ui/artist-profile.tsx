@@ -76,7 +76,7 @@ function ArtistProfile({
             )}
           />
           {data.country && <Flag country={data.country} />}
-          <p className="font-hubot max-w-[175px] truncate text-ellipsis">
+          <p className="font-mona-sans max-w-[175px] truncate text-ellipsis">
             {data.name}
           </p>
           {/* <p className="text-gray-01/80 truncate text-ellipsis">
@@ -238,7 +238,7 @@ function Detailed({
           />
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
-              <p className="font-hubot max-w-[235px] truncate text-xl text-ellipsis">
+              <p className="font-mona-sans max-w-[235px] truncate text-xl text-ellipsis">
                 {data.name}
               </p>
               <div className="text-gray-01/80 flex max-w-[270px] flex-row items-center gap-1">
@@ -268,13 +268,13 @@ function Detailed({
             </div>
             <div className="flex flex-row items-center gap-6">
               <div className="flex flex-col">
-                <p className="font-hubot text-2xl">
+                <p className="font-mona-sans text-2xl">
                   {trimValue(data.followersCount)}
                 </p>
                 <p className="text-gray-01/80">followers</p>
               </div>
               <div className="flex flex-col">
-                <p className="font-hubot text-2xl">
+                <p className="font-mona-sans text-2xl">
                   {trimValue(data.tweetsCount)}
                 </p>
                 <p className="text-gray-01/80">tweets</p>

@@ -1,11 +1,11 @@
-import { Hubot_Sans, Inter } from 'next/font/google';
+import { Inter, Mona_Sans } from 'next/font/google';
 
-export const hubotSans = Hubot_Sans({
-  variable: '--font-hubot',
-  weight: '700',
+export const hubotSans = Mona_Sans({
+  variable: '--font-mona-sans',
   display: 'block',
   subsets: ['latin'],
   preload: true,
+  axes: ['wdth'],
 });
 
 export const inter = Inter({

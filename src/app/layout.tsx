@@ -1,8 +1,8 @@
 import { Metadata } from 'next';
+import { hubotSans, inter } from '@/shared/utils/fonts';
 import './globals.css';
 import 'uno.css';
 import 'overlayscrollbars/overlayscrollbars.css';
-import { hubotSans, inter } from './fonts';
 
 export const metadata: Metadata = {
   title: 'dotcreators',
