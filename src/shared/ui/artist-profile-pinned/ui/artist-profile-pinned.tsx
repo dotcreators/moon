@@ -30,7 +30,7 @@ function ArtistProfilePinned({
       </button>
       <article
         className={twJoin(
-          'bg-black-02 relative z-[1] flex flex-row items-center gap-3 p-4 px-6',
+          'bg-black-02 relative z-[1] flex flex-row items-center gap-2 p-3 px-4',
           'overflow-hidden rounded-xl',
           'group-hover:bg-black-03 transition-colors duration-200 ease-in-out',
           className
@@ -51,13 +51,13 @@ function ArtistProfilePinned({
           width={91}
           height={91}
           draggable={false}
-          className="bg-black-03 h-[52px] w-[52px] rounded-xl"
+          className="bg-black-03 h-[36px] w-[36px] rounded-lg"
         />
         <div className="flex flex-col">
-          <p className="font-mona-sans max-w-[235px] truncate text-lg leading-tight text-ellipsis">
+          <p className="font-mona-sans max-w-[135px] truncate text-sm leading-tight text-ellipsis">
             {data.name}
           </p>
-          <p className="text-gray-01/80 flex max-w-[270px] flex-row items-center gap-1 text-sm">
+          <p className="text-gray-01/80 flex max-w-[135px] flex-row items-center gap-1 truncate text-xs text-ellipsis">
             @{data.username}
           </p>
         </div>

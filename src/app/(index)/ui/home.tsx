@@ -21,7 +21,16 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     null
   );
   const { selectedArtist, setSelectedArtist } = useArtistStore();
-  const { page, perPage, country, q, sortBy, tags } = useSearchStore();
+  const {
+    page,
+    perPage,
+    country,
+    q,
+    sortBy,
+    tags,
+    setTotalItems,
+    setTotalPages,
+  } = useSearchStore();
   const { pinnedArtists } = usePinnedArtistStore();
   const router = useRouter();
 
@@ -50,11 +59,24 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         setArtistsData(data.items);
         setSelectedArtist(data.items[0]);
         setSelectedTab('profile');
+        setTotalItems(data.totalItems);
+        setTotalPages(data.totalPages);
       }
     }
 
     getArtistsData();
-  }, [page, perPage, country, q, sortBy, tags, router, setSelectedArtist]);
+  }, [
+    q,
+    page,
+    tags,
+    sortBy,
+    router,
+    country,
+    perPage,
+    setTotalItems,
+    setTotalPages,
+    setSelectedArtist,
+  ]);
 
   const handleOpen = (id: string): boolean => {
     return selectedArtist && id === selectedArtist.id ? true : false;
@@ -105,6 +127,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                   isOpen={handleOpen(item.id)}
                 />
               ))}
+          <Search.Pagination />
         </div>
       </div>
       <div className="sticky top-0 ml-5 flex h-fit flex-col gap-3 py-5">
