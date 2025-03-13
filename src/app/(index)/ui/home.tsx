@@ -86,6 +86,15 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     setSelectedArtist(null);
   };
 
+  useEffect(() => {
+    if (artistsData) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+    }
+  }, [artistsData]);
+
   return (
     <div
       className={twJoin(

@@ -1,17 +1,10 @@
 import useSearchStore from '@/shared/hooks/use-search-store';
-import { HTMLAttributes, useEffect } from 'react';
+import { HTMLAttributes } from 'react';
 import { Icon } from '@/shared/ui/icon';
 import { twJoin } from 'tailwind-merge';
 
 function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   const { page, setPage, totalPages } = useSearchStore();
-
-  const scrollToTop = () => {
-    window.scrollTo({
-      top: 0,
-      behavior: 'smooth',
-    });
-  };
 
   const handleClickPrev = () => {
     if (page === 1) return;
@@ -22,10 +15,6 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     if (page === totalPages) return;
     setPage(page + 1);
   };
-
-  useEffect(() => {
-    scrollToTop();
-  }, [page]);
 
   return (
     <div
