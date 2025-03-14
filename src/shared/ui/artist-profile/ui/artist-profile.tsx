@@ -3,7 +3,7 @@ import { twJoin } from 'tailwind-merge';
 import { Artist } from '@/shared/types/artist';
 import { Flag } from '@/shared/ui/flag';
 import { trimValue } from '@/shared/utils/trim-value';
-import Icon from '@/shared/ui/icon/ui/icon';
+import Icon from '@/shared/ui/icon';
 import Image from 'next/image';
 import useArtistStore from '@/shared/hooks/use-artist-store';
 import Link from 'next/link';
@@ -221,7 +221,7 @@ function Detailed({
             width={1280}
             height={720}
             draggable={false}
-            className="bg-black-03 max-h-48 object-cover hover:cursor-pointer"
+            className="bg-black-03 max-h-42 object-cover hover:cursor-pointer"
           />
         )}
       </div>

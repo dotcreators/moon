@@ -1,10 +1,12 @@
 import UnoCSS from '@unocss/webpack';
+import presetIcons from '@unocss/preset-icons';
 import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
-  webpack: (config: import('webpack').Configuration) => {
-    config.plugins = config.plugins || [];
-    config.plugins.push(UnoCSS());
+  reactStrictMode: true,
+  webpack(config) {
+    config.cache = false;
+    config.plugins.push(UnoCSS({ presets: [presetIcons()] }));
     return config;
   },
   images: {

@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { twJoin } from 'tailwind-merge';
-import { Icon } from '@/shared/ui/icon';
+import Icon from '@/shared/ui/icon';
 
 function Navigation({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (

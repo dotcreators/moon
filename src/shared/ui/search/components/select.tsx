@@ -1,5 +1,5 @@
 import { twJoin } from 'tailwind-merge';
-import { Icon } from '@/shared/ui/icon';
+import Icon from '@/shared/ui/icon';
 import {
   ChangeEvent,
   HTMLAttributes,

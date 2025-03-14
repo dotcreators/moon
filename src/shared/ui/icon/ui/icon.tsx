@@ -1,10 +1,12 @@
 import { HTMLAttributes } from 'react';
 import { twJoin } from 'tailwind-merge';
 
-type IconProps = HTMLAttributes<HTMLDivElement> & { ico: string };
+type IconProps = HTMLAttributes<HTMLDivElement> & {
+  ico: string;
+};
 
 function Icon({ className, ico, ...props }: IconProps) {
-  if (ico === 'i-dotcreators-logo')
+  if (ico === 'i-dotcreators-logo') {
     return (
       <span className={twJoin(className)}>
         <svg viewBox="0 0 26 20" className="inline-block h-[1em] w-[1em]">
@@ -15,8 +17,9 @@ function Icon({ className, ico, ...props }: IconProps) {
         </svg>
       </span>
     );
-
-  return <span className={twJoin(ico, className)} {...props} />;
+  } else {
+    return <span className={twJoin('block', ico, className)} {...props} />;
+  }
 }
 
 export default Icon;

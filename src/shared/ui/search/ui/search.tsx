@@ -2,9 +2,9 @@ import { ChangeEvent, HTMLAttributes, useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import useSearchStore, { SortFilter } from '@/shared/hooks/use-search-store';
 import Select from '../components/select';
-import { SEARCH_FILTERS_DATA } from '@/shared/constants/search-filters-data';
 import Pagination from '../components/pagination';
 import useDebounce from '@/shared/hooks/use-debounce';
+import { SEARCH_FILTERS_DATA } from '../components/search-filters-data';
 
 function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   const { q, setQ, country, setCountry, tags, setTags, sortBy, setSortBy } =

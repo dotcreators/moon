@@ -1,3 +1,3 @@
 import Icon from './ui/icon';
 
-export { Icon };
+export default Icon;

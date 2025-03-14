@@ -12,7 +12,7 @@ import {
   Area,
 } from 'recharts';
 import { twJoin } from 'tailwind-merge';
-import { Icon } from '@/shared/ui/icon';
+import Icon from '@/shared/ui/icon';
 import { useTrendData } from '../models/use-trend-data';
 import { useGrowthDynamics } from '../models/use-growth-dynamics';
 import { useStrokeColor } from '../models/use-stroke-color';

@@ -1,6 +1,7 @@
 import { Metadata, Viewport } from 'next';
 import { hubotSans, inter } from '@/shared/utils/fonts';
 import Navigation from '@/shared/ui/navigation';
+import Footer from '@/shared/ui/footer';
 import { twJoin } from 'tailwind-merge';
 import './globals.css';
 import 'uno.css';
@@ -91,6 +92,7 @@ export default function RootLayout({
       >
         <Navigation />
         <main>{children}</main>
+        <Footer />
       </body>
     </html>
   );

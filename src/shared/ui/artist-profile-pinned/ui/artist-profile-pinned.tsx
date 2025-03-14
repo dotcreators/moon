@@ -2,7 +2,7 @@ import { PinnedArtist } from '@/shared/types/pinned-artist';
 import Image from 'next/image';
 import { HTMLAttributes } from 'react';
 import { twJoin } from 'tailwind-merge';
-import { Icon } from '@/shared/ui/icon';
+import Icon from '@/shared/ui/icon';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
 
 type ArtistProfilePinnedProps = HTMLAttributes<HTMLDivElement> & {

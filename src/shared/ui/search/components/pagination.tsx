@@ -1,6 +1,6 @@
 import useSearchStore from '@/shared/hooks/use-search-store';
 import { HTMLAttributes } from 'react';
-import { Icon } from '@/shared/ui/icon';
+import Icon from '@/shared/ui/icon';
 import { twJoin } from 'tailwind-merge';
 
 function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
