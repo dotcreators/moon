@@ -5,6 +5,8 @@ import Link from 'next/link';
 import { LINK } from '@/shared/constants/links';
 import { FOOTER } from '@/shared/constants/footer';
 
+const API_URL = process.env.API_URL;
+
 function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   const [status, setStatus] = useState<
     'operational' | 'downtime' | 'degraded' | 'maintenance' | null
@@ -13,18 +15,11 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   useEffect(() => {
     async function getStatus() {
       try {
-        const response = await fetch(
-          'https://uptime.betterstack.com/api/v2/status-pages/211117',
-          {
-            headers: {
-              Authorization: `Bearer ${process.env.UPTIME_API_TOKEN}`,
-            },
-          }
-        );
+        const response = await fetch(`${API_URL}/health-check/status`);
 
         if (response.ok) {
           const data = await response.json();
-          setStatus(data.data.attributes.aggregate_state);
+          setStatus(data.status);
         }
       } catch (e) {
         console.error(e);
@@ -131,7 +126,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                 )}
               />
             </div>
-            <p>Services online</p>
+            <p>Services {status ? status : 'unknown'}</p>
           </Link>
 
           <div className="flex flex-row items-center gap-2">
