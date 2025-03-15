@@ -19,6 +19,7 @@ const nextConfig: NextConfig = {
     API_URL: process.env.API_URL,
     UNAMI_ANALYTICS: process.env.UNAMI_ANALYTICS,
     SITE_URL: process.env.SITE_URL,
+    UPTIME_API_TOKEN: process.env.UPTIME_API_TOKEN,
   },
 };
 

@@ -1,4 +1,4 @@
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import Icon from '@/shared/ui/icon';
 import Link from 'next/link';
@@ -6,6 +6,34 @@ import { LINK } from '@/shared/constants/links';
 import { FOOTER } from '@/shared/constants/footer';
 
 function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  const [status, setStatus] = useState<
+    'operational' | 'downtime' | 'degraded' | 'maintenance' | null
+  >(null);
+
+  useEffect(() => {
+    async function getStatus() {
+      try {
+        const response = await fetch(
+          'https://uptime.betterstack.com/api/v2/status-pages/211117',
+          {
+            headers: {
+              Authorization: `Bearer ${process.env.UPTIME_API_TOKEN}`,
+            },
+          }
+        );
+
+        if (response.ok) {
+          const data = await response.json();
+          setStatus(data.data.attributes.aggregate_state);
+        }
+      } catch (e) {
+        console.error(e);
+      }
+    }
+
+    getStatus();
+  }, []);
+
   return (
     <section
       className={twJoin(
@@ -79,12 +107,33 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           </div>
         </div>
         <div className="flex w-full flex-row justify-between gap-2">
-          <div className="bg-black-03 flex flex-row items-center gap-1.5 rounded-xl p-3 text-xs">
-            <div className="bg-green-01/20 flex h-[14px] w-[14px] animate-pulse items-center justify-center rounded-full">
-              <div className="bg-green-01 h-[6px] w-[6px] rounded-full" />
+          <Link
+            href={LINK.status}
+            target="_blank"
+            className="bg-black-03 flex flex-row items-center gap-1.5 rounded-xl p-3 text-xs"
+          >
+            <div
+              className={twJoin(
+                'flex h-[14px] w-[14px] animate-pulse items-center justify-center rounded-full',
+                status === 'operational' && 'bg-green-01/20',
+                status === 'downtime' && 'bg-red-01/20',
+                status === 'degraded' && 'bg-red-01/20',
+                status === 'maintenance' && 'bg-yellow-01/20'
+              )}
+            >
+              <div
+                className={twJoin(
+                  'h-[6px] w-[6px] rounded-full',
+                  status === 'operational' && 'bg-green-01',
+                  status === 'downtime' && 'bg-red-01',
+                  status === 'degraded' && 'bg-red-01',
+                  status === 'maintenance' && 'bg-yellow-01'
+                )}
+              />
             </div>
             <p>Services online</p>
-          </div>
+          </Link>
+
           <div className="flex flex-row items-center gap-2">
             <Link
               href={'/settings'}
