@@ -331,7 +331,7 @@ type TrendsArtistProfileProps = HTMLAttributes<HTMLDivElement> & {
   artistData: Artist;
   data: Trend[] | null;
   isLoading: boolean;
-  error: {
+  error?: {
     id: string;
     reason: string;
   } | null;
@@ -342,11 +342,8 @@ function Trends({
   artistData,
   isLoading,
   data,
-  error,
   ...props
 }: TrendsArtistProfileProps) {
-  console.log(error);
-
   return (
     <div
       className={twJoin('relative z-[1] h-[248px] w-full', className)}

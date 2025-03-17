@@ -10,7 +10,7 @@ type PinnedArtistStore = {
 };
 
 const usePinnedArtistStore = create<PinnedArtistStore>(set => ({
-  pinnedArtists: [],
+  pinnedArtists: null,
   addPinnedArtists: (artist: PinnedArtist) => {
     set(state => ({
       pinnedArtists: state.pinnedArtists

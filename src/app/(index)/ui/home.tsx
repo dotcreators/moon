@@ -103,25 +103,30 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       )}
       {...props}
     >
-      {pinnedArtists && pinnedArtists.length > 0 && (
-        <OverlayScrollbarsComponent
-          element="div"
-          className="col-span-2 pt-5"
-          options={{
-            scrollbars: {
-              dragScroll: true,
-              visibility: 'hidden',
-            },
-          }}
-          defer
-        >
-          <div className="relative flex flex-row gap-3">
-            {pinnedArtists.map(artist => (
-              <ArtistProfilePinned key={artist.id} data={artist} />
-            ))}
-          </div>
-        </OverlayScrollbarsComponent>
-      )}
+      <OverlayScrollbarsComponent
+        element="div"
+        className="col-span-2 pt-5"
+        options={{
+          scrollbars: {
+            dragScroll: true,
+            visibility: 'hidden',
+          },
+        }}
+        defer
+      >
+        <div className="relative flex flex-row gap-3">
+          {!pinnedArtists
+            ? Array.from({ length: 5 }).map((_, index) => (
+                <ArtistProfilePinned.Skeleton
+                  key={'pinned-artist-skeleton-' + index}
+                />
+              ))
+            : pinnedArtists.map(artist => (
+                <ArtistProfilePinned key={artist.id} data={artist} />
+              ))}
+        </div>
+      </OverlayScrollbarsComponent>
+
       <div>
         <Search className="bg-black-01 sticky top-0 z-[2] py-5" />
         <div className="flex w-full flex-col gap-2">
