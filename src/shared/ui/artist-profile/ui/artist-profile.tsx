@@ -17,6 +17,7 @@ import { COUNTRY_CODES } from '@/shared/constants/country-codes';
 import { BannerButton } from '../components/banner-button';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
 import { PinnedArtist } from '@/shared/types/pinned-artist';
+import ImageLoader from '../../image-loader';
 
 const API_URL = process.env.API_URL;
 
@@ -188,7 +189,7 @@ function Detailed({
       <div className="relative flex flex-col">
         <div
           className={twJoin(
-            'flex w-fit grow flex-row gap-2',
+            'z-[1] flex w-fit grow flex-row gap-2',
             data.images.banner ? 'absolute top-3 right-3' : 'mx-3 mt-3 self-end'
           )}
         >
@@ -213,28 +214,26 @@ function Detailed({
           </BannerButton> */}
         </div>
         {data.images.banner && (
-          <Image
-            onClick={() => handleClick()}
+          <ImageLoader
             src={data.images.banner}
-            // alt={`Banner for ${data.username}`}
             alt={''}
             width={1280}
             height={720}
-            draggable={false}
-            className="bg-black-03 max-h-42 object-cover hover:cursor-pointer"
+            onClick={handleClick}
+            variant="03"
+            className="h-42 max-h-42 min-h-42 rounded-xl hover:cursor-pointer"
           />
         )}
       </div>
       <div className="flex w-full flex-col gap-4 p-5">
         <div className="flex flex-row items-center gap-4">
-          <Image
+          <ImageLoader
             src={data.images.avatar}
-            // alt={`Avatar for ${data.username}`}
             alt={''}
             width={128}
             height={128}
-            draggable={false}
-            className="bg-black-03 h-[72px] w-[72px] rounded-xl"
+            variant="03"
+            className="h-[72px] min-h-[72px] w-[72px] min-w-[72px] rounded-xl"
           />
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">

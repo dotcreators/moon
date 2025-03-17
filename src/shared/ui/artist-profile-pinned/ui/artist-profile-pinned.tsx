@@ -1,9 +1,9 @@
 import { PinnedArtist } from '@/shared/types/pinned-artist';
-import Image from 'next/image';
 import { HTMLAttributes } from 'react';
 import { twJoin } from 'tailwind-merge';
 import Icon from '@/shared/ui/icon';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
+import ImageLoader from '../../image-loader';
 
 type ArtistProfilePinnedProps = HTMLAttributes<HTMLDivElement> & {
   data: PinnedArtist;
@@ -37,21 +37,23 @@ function ArtistProfilePinned({
         )}
         {...props}
       >
-        <Image
-          src={data.images.avatar}
-          alt={''}
-          width={25}
-          height={25}
-          draggable={false}
-          className="bg-black-03 absolute left-0 -z-[1] h-full w-[100px] opacity-75 blur-3xl"
-        />
-        <Image
+        <div className="absolute left-0 -z-[1] opacity-75 blur-3xl">
+          <ImageLoader
+            src={data.images.avatar}
+            alt={''}
+            width={25}
+            height={25}
+            variant="03"
+            className="h-full w-[100px] min-w-[100px]"
+          />
+        </div>
+        <ImageLoader
           src={data.images.avatar}
           alt={''}
           width={91}
           height={91}
-          draggable={false}
-          className="bg-black-03 h-[36px] w-[36px] rounded-lg"
+          variant="03"
+          className="h-[36px] min-h-[36px] w-[36px] min-w-[36px] rounded-lg"
         />
         <div className="flex flex-col">
           <p className="font-mona-sans max-w-[135px] truncate text-sm leading-tight text-ellipsis">
