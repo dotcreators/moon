@@ -110,9 +110,9 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
             <div
               className={twJoin(
                 'flex h-[14px] w-[14px] animate-pulse items-center justify-center rounded-full',
+                (!status || status === 'downtime' || status === 'degraded') &&
+                  'bg-red-01/20',
                 status === 'operational' && 'bg-green-01/20',
-                status === 'downtime' && 'bg-red-01/20',
-                status === 'degraded' && 'bg-red-01/20',
                 status === 'maintenance' && 'bg-yellow-01/20'
               )}
             >
@@ -120,8 +120,8 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                 className={twJoin(
                   'h-[6px] w-[6px] rounded-full',
                   status === 'operational' && 'bg-green-01',
-                  status === 'downtime' && 'bg-red-01',
-                  status === 'degraded' && 'bg-red-01',
+                  (!status || status === 'downtime' || status === 'degraded') &&
+                    'bg-red-01',
                   status === 'maintenance' && 'bg-yellow-01'
                 )}
               />
