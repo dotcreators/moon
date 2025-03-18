@@ -429,7 +429,7 @@ function SkeletonDetailed() {
   return (
     <div className="bg-black-02 flex h-[500px] w-full flex-col items-center gap-4 overflow-hidden rounded-xl">
       <div className="flex w-full animate-pulse flex-row items-center gap-4">
-        <div className="bg-black-03 h-[150px] w-full" />
+        <div className="bg-black-03 h-42 max-h-42 min-h-42 w-full rounded-xl" />
       </div>
       <div className="flex w-full animate-pulse flex-row items-center justify-between gap-4 px-5">
         <div className="flex flex-row items-center gap-4">
