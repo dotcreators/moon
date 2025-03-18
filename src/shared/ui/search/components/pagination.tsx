@@ -1,20 +1,32 @@
 import useSearchStore from '@/shared/hooks/use-search-store';
-import { HTMLAttributes } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import Icon from '@/shared/ui/icon';
 import { twJoin } from 'tailwind-merge';
 
 function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  const [currentPage, setCurrentPage] = useState<number>(1);
   const { page, setPage, totalPages } = useSearchStore();
 
   const handleClickPrev = () => {
     if (page === 1) return;
     setPage(page - 1);
+    setCurrentPage(prev => prev - 1);
   };
 
   const handleClickNext = () => {
     if (page === totalPages) return;
     setPage(page + 1);
+    setCurrentPage(prev => prev + 1);
   };
+
+  useEffect(() => {
+    if (page === currentPage) return;
+
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth',
+    });
+  }, [currentPage, page]);
 
   return (
     <div
@@ -52,7 +64,7 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           )}
         >
           <Icon
-            ico="i-ri-arrow-left-line"
+            ico="i-ri-arrow-left-s-line"
             className={twJoin(
               '!text-gray-01 text-xl',
               page !== 1 && 'group-hover:text-white-01'
@@ -72,7 +84,7 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           )}
         >
           <Icon
-            ico="i-ri-arrow-right-line"
+            ico="i-ri-arrow-right-s-line"
             className={twJoin(
               '!text-gray-01 text-xl',
               page === totalPages && 'group-hover:text-white-01'
