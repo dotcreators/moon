@@ -47,11 +47,11 @@ function ArtistProfile({
 
   const showIcon = () => {
     if (calculateRankingChange() === 0) {
-      return <Icon ico="i-ri-equal-line" />;
+      return <Icon ico="i-ri-equal-line" className="!text-xl" />;
     } else if (calculateRankingChange() > 0) {
-      return <Icon ico="i-ri-arrow-up-s-fill" />;
+      return <Icon ico="i-ri-arrow-up-s-line" className="!text-xl" />;
     } else {
-      return <Icon ico="i-ri-arrow-down-s-fill" />;
+      return <Icon ico="i-ri-arrow-down-s-line" className="!text-xl" />;
     }
   };
 
