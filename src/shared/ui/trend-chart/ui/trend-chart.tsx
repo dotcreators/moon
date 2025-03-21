@@ -47,6 +47,18 @@ function TrendChart({
   const getArtistValue = () =>
     trendBy === 'followers' ? 'followersCount' : 'tweetsCount';
 
+  const showIcon = () => {
+    if (trendValue) {
+      if (trendValue === 0) {
+        return <Icon ico="i-ri-equal-line" className="!text-xl" />;
+      } else if (trendValue > 0) {
+        return <Icon ico="i-ri-arrow-up-s-line" className="!text-xl" />;
+      } else {
+        return <Icon ico="i-ri-arrow-down-s-line" className="!text-xl" />;
+      }
+    }
+  };
+
   return (
     <div
       className={twJoin('flex h-full flex-col gap-2 text-xs', className)}
@@ -70,14 +82,7 @@ function TrendChart({
               growthDynamics === 'negative' && 'bg-[#FA4545]/10 text-[#FA4545]'
             )}
           >
-            {trendValue === 0 ? (
-              <Icon ico="i-ri-arrow-up-s-fill" className="text-xl" />
-            ) : (
-              <Icon
-                ico="i-ri-arrow-up-s-fill"
-                className={twJoin('text-xl', trendValue! < 0 && 'rotate-180')}
-              />
-            )}
+            {showIcon()}
             {formattedValue}%
           </p>
         </div>
