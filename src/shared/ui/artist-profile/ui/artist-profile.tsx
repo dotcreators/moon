@@ -1,4 +1,4 @@
-import { HTMLAttributes, useEffect, useState } from 'react';
+import { HTMLAttributes, useCallback, useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { Artist } from '@/shared/types/artist';
 import { Flag } from '@/shared/ui/flag';
@@ -29,9 +29,10 @@ type ArtistProfileProps = HTMLAttributes<HTMLDivElement> & {
 function ArtistProfile({
   className,
   isOpen,
+  withRanking,
   data,
   ...props
-}: ArtistProfileProps) {
+}: ArtistProfileProps & { withRanking: boolean }) {
   const { setSelectedArtist, selectedArtist } = useArtistStore();
 
   const handleClick = () => {
@@ -40,77 +41,113 @@ function ArtistProfile({
     );
   };
 
+  const calculateRankingChange = useCallback(() => {
+    return data.previousRanking - data.ranking;
+  }, [data.previousRanking, data.ranking]);
+
+  const showIcon = () => {
+    if (calculateRankingChange() === 0) {
+      return <Icon ico="i-ri-equal-line" />;
+    } else if (calculateRankingChange() > 0) {
+      return <Icon ico="i-ri-arrow-up-s-fill" />;
+    } else {
+      return <Icon ico="i-ri-arrow-down-s-fill" />;
+    }
+  };
+
   return (
     <section
-      className={twJoin(
-        'w-full overflow-hidden rounded-xl',
-        isOpen && 'sticky bottom-5 z-[1]',
-        // isOpen ? 'border-gray-01/20' : 'border-transparent',
-        'transition-[max-height] duration-200 ease-in-out',
-        className
-      )}
+      className={twJoin('relative flex flex-row items-center gap-2', className)}
       {...props}
     >
-      {/* {!isOpen && ( */}
-      <button
-        onClick={() => handleClick()}
-        className={twJoin(
-          'group flex flex-row items-center justify-between gap-4',
-          'w-full overflow-hidden px-4 py-2',
-          'hover:cursor-pointer',
-          'transition-colors duration-200 ease-in-out',
-          isOpen
-            ? 'bg-black-04 hover:bg-black-05'
-            : 'bg-black-02 hover:bg-black-03'
-        )}
-      >
-        <div className="flex max-w-[400px] flex-row items-center gap-4">
-          <Image
-            src={data.images.avatar}
-            // alt={`Avatar for ${data.username}`}
-            alt=""
-            width={48}
-            height={48}
-            className={twJoin(
-              'max-h-[36px] min-h-[36px] max-w-[36px] min-w-[36px] overflow-hidden rounded-full',
-              isOpen ? 'bg-black-05' : 'bg-black-04'
-            )}
-          />
-          {data.country && <Flag country={data.country} />}
-          <p className="font-mona-sans max-w-[175px] truncate text-ellipsis">
-            {data.name}
-          </p>
-          {/* <p className="text-gray-01/80 truncate text-ellipsis">
-            @{data.username}
-          </p> */}
-        </div>
+      {withRanking && calculateRankingChange() !== 0 && (
         <div
           className={twJoin(
-            'flex flex-row items-center gap-4',
-
-            'group-hover:translate-x-0',
-            'transition-transform duration-200 ease-in-out',
-            isOpen ? 'translate-x-0' : 'translate-x-8'
+            'absolute right-full mr-2',
+            'bg-black-02 rounded-md px-2 py-1',
+            'flex flex-row items-center justify-center gap-1',
+            calculateRankingChange() === 0
+              ? '!text-gray-01'
+              : calculateRankingChange() > 0
+                ? '!text-green-01'
+                : '!text-red-01'
           )}
         >
-          <div className="flex flex-row items-center gap-2">
-            <p>{trimValue(data.followersCount)}</p>
-            <p className="text-gray-01/80">followers</p>
-          </div>
-          <div className="flex min-w-24 flex-row items-center justify-end gap-2">
-            <p>{trimValue(data.tweetsCount)}</p>
-            <p className="text-gray-01/80">posts</p>
-          </div>
-          <Icon
-            ico="i-ri-arrow-down-s-line"
-            className={twJoin(
-              'text-xl',
-              'transition-transform duration-200 ease-in-out',
-              isOpen && '-rotate-90'
-            )}
-          />
+          {showIcon()}
+
+          <p className="text-sm tabular-nums">
+            {Math.abs(calculateRankingChange())}
+          </p>
         </div>
-      </button>
+      )}
+      <div
+        className={twJoin(
+          'w-full overflow-hidden rounded-xl',
+          isOpen && 'sticky bottom-5 z-[1]',
+          'transition-[max-height] duration-200 ease-in-out'
+        )}
+      >
+        {/* {!isOpen && ( */}
+        <button
+          onClick={() => handleClick()}
+          className={twJoin(
+            'group flex flex-row items-center justify-between gap-4',
+            'w-full overflow-hidden px-4 py-2',
+            'hover:cursor-pointer',
+            'transition-colors duration-200 ease-in-out',
+            isOpen
+              ? 'bg-black-04 hover:bg-black-05'
+              : 'bg-black-02 hover:bg-black-03'
+          )}
+        >
+          <div className="flex max-w-[400px] flex-row items-center gap-4">
+            <Image
+              src={data.images.avatar}
+              // alt={`Avatar for ${data.username}`}
+              alt=""
+              width={48}
+              height={48}
+              className={twJoin(
+                'max-h-[36px] min-h-[36px] max-w-[36px] min-w-[36px] overflow-hidden rounded-full',
+                isOpen ? 'bg-black-05' : 'bg-black-04'
+              )}
+            />
+            {data.country && <Flag country={data.country} />}
+            <p className="font-mona-sans max-w-[175px] truncate text-ellipsis">
+              {data.name}
+            </p>
+            {/* <p className="text-gray-01/80 truncate text-ellipsis">
+            @{data.username}
+          </p> */}
+          </div>
+          <div
+            className={twJoin(
+              'flex flex-row items-center gap-4',
+
+              'group-hover:translate-x-0',
+              'transition-transform duration-200 ease-in-out',
+              isOpen ? 'translate-x-0' : 'translate-x-8'
+            )}
+          >
+            <div className="flex flex-row items-center gap-2">
+              <p>{trimValue(data.followersCount)}</p>
+              <p className="text-gray-01/80">followers</p>
+            </div>
+            <div className="flex min-w-24 flex-row items-center justify-end gap-2">
+              <p>{trimValue(data.tweetsCount)}</p>
+              <p className="text-gray-01/80">posts</p>
+            </div>
+            <Icon
+              ico="i-ri-arrow-down-s-line"
+              className={twJoin(
+                'text-xl',
+                'transition-transform duration-200 ease-in-out',
+                isOpen && '-rotate-90'
+              )}
+            />
+          </div>
+        </button>
+      </div>
     </section>
   );
 }

@@ -119,7 +119,8 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       </OverlayScrollbarsComponent>
 
       <div>
-        <Search className="bg-black-01 sticky top-0 z-[2] py-5" />
+        {/* sticky top-0 z-[2] */}
+        <Search className="bg-black-01 py-5" />
         <div className="flex w-full flex-col gap-2">
           {!artistsData
             ? Array.from({ length: 25 }).map((_, index) => (
@@ -130,6 +131,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                   key={item.id}
                   data={item}
                   isOpen={handleOpen(item.id)}
+                  withRanking={sortBy === 'trending'}
                 />
               ))}
           <Search.Pagination />

@@ -13,6 +13,9 @@ type Artist = {
   url: string;
   country: string;
   website: string;
+  ranking: number;
+  previousRanking: number;
+  rankingChange: number;
   createdAt: Date;
   joinedAt: Date;
   updatedAt: Date;
