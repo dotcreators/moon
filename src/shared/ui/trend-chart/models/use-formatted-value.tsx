@@ -10,7 +10,7 @@ const useFormattedValue = (
       trendBy === 'followers'
         ? artistData.weeklyFollowersTrend
         : artistData.weeklyTweetsTrend;
-    return Math.round(Math.abs(value) * 100) / 100;
+    return Math.round(Math.abs(value) * 1000) / 1000;
   }, [trendBy, artistData]);
 };
 

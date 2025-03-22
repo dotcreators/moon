@@ -49,7 +49,7 @@ function TrendChart({
 
   const showIcon = () => {
     if (trendValue) {
-      if (trendValue === 0) {
+      if (trendValue == 0) {
         return <Icon ico="i-ri-equal-line" className="!text-xl" />;
       } else if (trendValue > 0) {
         return <Icon ico="i-ri-arrow-up-s-line" className="!text-xl" />;
