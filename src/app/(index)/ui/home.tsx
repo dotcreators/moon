@@ -170,11 +170,17 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 
           {!selectedArtist ? (
             <ArtistProfile.SkeletonDetailed />
-          ) : (
+          ) : selectedTab === 'profile' ? (
             <ArtistProfile.Detailed
               key={selectedArtist.id}
               data={selectedArtist!}
               handleClick={handleClick}
+              className="overflow-hidden rounded-xl"
+            />
+          ) : (
+            <ArtistProfile.DetailedTrends
+              key={selectedArtist.id}
+              artistData={selectedArtist!}
               className="overflow-hidden rounded-xl"
             />
           )}

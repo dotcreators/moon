@@ -18,6 +18,8 @@ import { BannerButton } from '../components/banner-button';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
 import { PinnedArtist } from '@/shared/types/pinned-artist';
 import ImageLoader from '../../image-loader';
+import Select from '../../search/components/select';
+import { SEARCH_FILTERS_DATA } from '../../search/components/search-filters-data';
 
 const API_URL = process.env.API_URL;
 
@@ -447,6 +449,128 @@ function Trends({
   );
 }
 
+type TrendsRange = '7' | '14' | '31' | '93' | '186' | '372';
+
+function DetailedTrends({
+  className,
+  artistData,
+  ...props
+}: HTMLAttributes<HTMLDivElement> & { artistData: Artist }) {
+  const [trendsData, setTrendsData] = useState<Trend[] | null>(null);
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [error, setError] = useState<{
+    id: string;
+    reason: string;
+  } | null>(null);
+  const [trendsRange, setTrendsRange] = useState<TrendsRange>('14');
+
+  useEffect(() => {
+    async function getArtistsData() {
+      const r = await fetch(
+        `${API_URL}/trends/search?page=1&perPage=${trendsRange}&twitterUserId=${artistData.twitterUserId}`
+      );
+      const d: Response<Trend[]> = await r.json();
+
+      if (d.errors) {
+        setError(d.errors);
+        setIsLoading(false);
+        return;
+      }
+
+      if (d.items && !d.errors) {
+        setTrendsData(d.items);
+      }
+
+      setIsLoading(false);
+    }
+
+    getArtistsData();
+  }, [artistData, trendsRange]);
+
+  console.log(error);
+
+  return (
+    <div
+      className={twJoin('bg-black-02 flex flex-col gap-5 p-5', className)}
+      {...props}
+    >
+      <Select.Item
+        items={SEARCH_FILTERS_DATA.trendsRange}
+        label="Trends range"
+        variant="02"
+        isDefaultValueNode={true}
+        selectedValue={trendsRange ? [trendsRange] : []}
+        onSelectedItem={(value: string | string[]) =>
+          setTrendsRange(
+            Array.isArray(value)
+              ? (value[0] as TrendsRange)
+              : (value as TrendsRange)
+          )
+        }
+      />
+      <div className={twJoin('relative z-[1] h-[512px] w-full')}>
+        <Transition
+          as={'div'}
+          show={isLoading}
+          enter="transition-opacity duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          className={twJoin('absolute inset-0 z-[1]')}
+        >
+          <div className="flex h-full w-full flex-col gap-6">
+            {[0, 1].map(i => (
+              <div
+                key={`loader-${i}`}
+                className="bg-black-03 relative h-full w-full animate-pulse rounded-xl"
+              >
+                <Icon
+                  ico="i-ri-loader-5-fill"
+                  className={twJoin(
+                    'text-gray-01 absolute animate-spin text-2xl',
+                    'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
+                  )}
+                />
+              </div>
+            ))}
+          </div>
+        </Transition>
+
+        <Transition
+          as={'div'}
+          show={!isLoading && !!trendsData}
+          enter="transition-opacity duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          className={twJoin('absolute inset-0 z-[1]')}
+        >
+          <div className="flex h-full w-full flex-col gap-6">
+            <TrendChart
+              artistData={artistData}
+              data={trendsData!}
+              range={7}
+              trendBy="followers"
+              className="w-full"
+            />
+            <TrendChart
+              artistData={artistData}
+              data={trendsData!}
+              range={7}
+              trendBy="tweets"
+              className="w-full"
+            />
+          </div>
+        </Transition>
+      </div>
+    </div>
+  );
+}
+
 function Skeleton() {
   return (
     <div className="bg-black-02 flex h-[52px] w-full flex-row items-center justify-between gap-4 rounded-xl px-4">
@@ -500,6 +624,7 @@ function SkeletonDetailed() {
 
 ArtistProfile.Detailed = Detailed;
 ArtistProfile.Trends = Trends;
+ArtistProfile.DetailedTrends = DetailedTrends;
 ArtistProfile.Skeleton = Skeleton;
 ArtistProfile.SkeletonDetailed = SkeletonDetailed;
 

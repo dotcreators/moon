@@ -23,6 +23,7 @@ type SelectItemProps = HTMLAttributes<HTMLDivElement> & {
   selectedValue: string[] | null;
   isDefaultValueNode?: boolean;
   isMultiselect?: boolean;
+  variant?: '01' | '02' | '03';
   onSelectedItem: (value: string | string[]) => void;
 };
 
@@ -33,6 +34,7 @@ function Item({
   selectedValue,
   isDefaultValueNode = false,
   isMultiselect = false,
+  variant = '01',
   onSelectedItem,
   ...props
 }: SelectItemProps) {
@@ -112,7 +114,12 @@ function Item({
         'group relative justify-between',
         'hover:bg-black-03',
         'transition-colors duration-200 ease-in-out',
-        !isOpen ? 'bg-black-02 rounded-3xl' : 'bg-black-03 rounded-t-3xl',
+        variant === '01' &&
+          (!isOpen ? 'bg-black-02 rounded-3xl' : 'bg-black-03 rounded-t-3xl'),
+        variant === '02' &&
+          (!isOpen ? 'bg-black-03 rounded-3xl' : 'bg-black-04 rounded-t-3xl'),
+        variant === '03' &&
+          (!isOpen ? 'bg-black-04 rounded-3xl' : 'bg-black-05 rounded-t-3xl'),
         className
       )}
       {...props}
@@ -200,7 +207,7 @@ function Item({
 }
 
 type ItemNodeProps = HTMLAttributes<HTMLDivElement> & {
-  icon: string;
+  icon?: string;
   label: string;
 };
 
@@ -210,7 +217,7 @@ function ItemNode({ className, icon, label, ...props }: ItemNodeProps) {
       className={twJoin('flex flex-row items-center gap-1.5', className)}
       {...props}
     >
-      <Icon ico={icon} className="!text-gray-01 text-md" />
+      {icon && <Icon ico={icon} className="!text-gray-01 text-md" />}
       <p className="text-sm">{label}</p>
     </div>
   );

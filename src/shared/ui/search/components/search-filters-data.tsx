@@ -39,6 +39,32 @@ const SEARCH_FILTERS_DATA = {
       node: <Select.ItemNode icon="i-ri-film-line" label="Animation" />,
     },
   ],
+  trendsRange: [
+    {
+      value: '7',
+      node: <Select.ItemNode label="7" />,
+    },
+    {
+      value: '14',
+      node: <Select.ItemNode label="14" />,
+    },
+    {
+      value: '31',
+      node: <Select.ItemNode label="31" />,
+    },
+    {
+      value: '93',
+      node: <Select.ItemNode label="93" />,
+    },
+    {
+      value: '186',
+      node: <Select.ItemNode label="186" />,
+    },
+    {
+      value: '372',
+      node: <Select.ItemNode label="372" />,
+    },
+  ],
   sortBy: [
     {
       value: 'username',
