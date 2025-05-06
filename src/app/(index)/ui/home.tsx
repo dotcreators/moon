@@ -2,88 +2,33 @@
 
 import useArtistStore from '@/shared/hooks/use-artist-store';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
-import useSearchStore from '@/shared/hooks/use-search-store';
-import { Artist } from '@/shared/types/artist';
-import { Response } from '@/shared/types/response';
-import { useRouter } from 'next/navigation';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import { OverlayScrollbarsComponent } from 'overlayscrollbars-react';
 import ArtistProfilePinned from '@/shared/ui/artist-profile-pinned/ui/artist-profile-pinned';
 import { Search } from '@/shared/ui/search';
 import { ArtistProfile } from '@/shared/ui/artist-profile';
-
-const API_URL = process.env.API_URL;
+import { useDotctreatorsAPI } from '@/shared/hooks/use-dotcreators-api';
 
 function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  const [artistsData, setArtistsData] = useState<Artist[] | null>(null);
   const [selectedTab, setSelectedTab] = useState<'profile' | 'trends' | null>(
     null
   );
+
   const { selectedArtist, setSelectedArtist } = useArtistStore();
-  const {
-    page,
-    perPage,
-    country,
-    q,
-    sortBy,
-    tags,
-    setTotalItems,
-    setTotalPages,
-  } = useSearchStore();
   const { pinnedArtists } = usePinnedArtistStore();
-  const router = useRouter();
+
+  const artistsData = useDotctreatorsAPI({ endpoint: 'getArtistsPaginated' });
 
   useEffect(() => {
-    async function getArtistsData() {
-      setArtistsData(null);
-      const query = new URLSearchParams();
-
-      query.append('page', page.toString());
-      query.append('perPage', perPage.toString());
-      query.append('sortBy', sortBy.toString());
-
-      if (q) query.append('username', q);
-      if (country) query.append('country', country.toString());
-      if (tags)
-        tags.forEach(tag =>
-          query.append('tags', tag.toLowerCase().replace(/ /g, ''))
-        );
-
-      router.push(`?${query.toString()}`, { scroll: false });
-
-      const r = await fetch(`${API_URL}/artists/search?${query.toString()}`);
-      const data: Response<Artist[]> = await r.json();
-
-      if (data.items && !data.errors) {
-        setArtistsData(data.items);
-        setSelectedArtist(data.items[0]);
-        setSelectedTab('profile');
-        setTotalItems(data.totalItems);
-        setTotalPages(data.totalPages);
-      }
+    if (artistsData) {
+      setSelectedArtist(artistsData.items[0]);
+      setSelectedTab('profile');
     }
-
-    getArtistsData();
-  }, [
-    q,
-    page,
-    tags,
-    sortBy,
-    router,
-    country,
-    perPage,
-    setTotalItems,
-    setTotalPages,
-    setSelectedArtist,
-  ]);
+  }, [artistsData, setSelectedArtist]);
 
   const handleOpen = (id: string): boolean => {
     return selectedArtist && id === selectedArtist.id ? true : false;
-  };
-
-  const handleClick = () => {
-    setSelectedArtist(null);
   };
 
   return (
@@ -105,7 +50,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         }}
         defer
       >
-        <div className="relative flex flex-row gap-3">
+        <section className="relative flex flex-row gap-3">
           {!pinnedArtists
             ? Array.from({ length: 5 }).map((_, index) => (
                 <ArtistProfilePinned.Skeleton
@@ -115,29 +60,28 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
             : pinnedArtists.map(artist => (
                 <ArtistProfilePinned key={artist.id} data={artist} />
               ))}
-        </div>
+        </section>
       </OverlayScrollbarsComponent>
 
-      <div>
-        {/* sticky top-0 z-[2] */}
+      <section>
         <Search className="bg-black-01 py-5" />
         <div className="flex w-full flex-col gap-2">
-          {!artistsData
+          {!artistsData || !artistsData.items
             ? Array.from({ length: 25 }).map((_, index) => (
                 <ArtistProfile.Skeleton key={index} />
               ))
-            : artistsData.map(item => (
+            : artistsData.items.map(item => (
                 <ArtistProfile
                   key={item.id}
                   data={item}
                   isOpen={handleOpen(item.id)}
-                  withRanking={sortBy === 'trending'}
+                  withRanking={false}
                 />
               ))}
           <Search.Pagination />
         </div>
-      </div>
-      <div className="sticky top-0 ml-5 flex h-fit flex-col gap-3 py-5">
+      </section>
+      <section className="sticky top-0 ml-5 flex h-fit flex-col gap-3 py-5">
         <div className="flex flex-col gap-4">
           <div className="flex w-full flex-row items-center gap-3">
             <div className="divide-black-03 flex w-full flex-row items-center divide-x-2 overflow-hidden rounded-full">
@@ -174,7 +118,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
             <ArtistProfile.Detailed
               key={selectedArtist.id}
               data={selectedArtist!}
-              handleClick={handleClick}
+              handleClick={() => setSelectedArtist(null)}
               className="overflow-hidden rounded-xl"
             />
           ) : (
@@ -185,7 +129,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
             />
           )}
         </div>
-      </div>
+      </section>
     </div>
   );
 }

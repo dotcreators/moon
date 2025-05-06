@@ -128,29 +128,6 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
             </div>
             <p>Services {status ? status : 'unknown'}</p>
           </Link>
-
-          <div className="flex flex-row items-center gap-2">
-            <Link
-              href={'/settings'}
-              className={twJoin(
-                'bg-black-03 flex aspect-square h-full items-center justify-center rounded-md',
-                'hover:bg-black-04 cursor-pointer',
-                'transition-colors duration-200 ease-in-out'
-              )}
-            >
-              <Icon ico="i-ri-settings-4-fill" />
-            </Link>
-            <button
-              className={twJoin(
-                'bg-black-03 flex aspect-square h-full items-center justify-center rounded-md',
-                'hover:bg-black-04 cursor-pointer',
-                'transition-colors duration-200 ease-in-out'
-              )}
-            >
-              <Icon ico="i-ri-moon-fill" />
-              {/* <Icon ico="i-ri-sun-fill" /> */}
-            </button>
-          </div>
         </div>
       </div>
     </section>

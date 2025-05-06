@@ -48,9 +48,9 @@ function ArtistProfile({
   }, [data.previousRanking, data.ranking]);
 
   const showIcon = () => {
-    if (calculateRankingChange() === 0) {
+    if (data.rankingChange === 0) {
       return <Icon ico="i-ri-equal-line" className="!text-xl" />;
-    } else if (calculateRankingChange() > 0) {
+    } else if (data.rankingChange > 0) {
       return <Icon ico="i-ri-arrow-up-s-line" className="!text-xl" />;
     } else {
       return <Icon ico="i-ri-arrow-down-s-line" className="!text-xl" />;
@@ -68,9 +68,9 @@ function ArtistProfile({
             'absolute right-full mr-2',
             'bg-black-02 rounded-md px-2 py-1',
             'flex flex-row items-center justify-center gap-1',
-            calculateRankingChange() === 0
+            data.rankingChange === 0
               ? '!text-gray-01'
-              : calculateRankingChange() > 0
+              : data.rankingChange > 0
                 ? '!text-green-01'
                 : '!text-red-01'
           )}
@@ -78,7 +78,9 @@ function ArtistProfile({
           {showIcon()}
 
           <p className="text-sm tabular-nums">
-            {Math.abs(calculateRankingChange())}
+            {/* {Math.abs(calculateRankingChange())} */}
+            {Math.abs(data.rankingChange)}
+            {/* {data.rankingChange} */}
           </p>
         </div>
       )}
