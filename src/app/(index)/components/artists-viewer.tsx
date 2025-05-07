@@ -51,7 +51,7 @@ type ArtistsViewerDetailedProps = HTMLAttributes<HTMLDivElement> & {
 
 function ArtistsViewerDetailed({
   data,
-  selectedTab,
+  selectedTab = 'profile',
   className,
   onTabsSelected,
   ...props

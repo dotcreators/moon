@@ -460,6 +460,7 @@ function DetailedTrends({
 }: HTMLAttributes<HTMLDivElement> & { artistData: Artist }) {
   const [trendsData, setTrendsData] = useState<Trend[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
   const [error, setError] = useState<{
     id: string;
     reason: string;
@@ -489,8 +490,6 @@ function DetailedTrends({
     getArtistsData();
   }, [artistData, trendsRange]);
 
-  console.log(error);
-
   return (
     <div
       className={twJoin('bg-black-02 flex flex-col gap-5 p-5', className)}
@@ -510,6 +509,7 @@ function DetailedTrends({
           )
         }
       />
+
       <div className={twJoin('relative z-[1] h-[512px] w-full')}>
         <Transition
           as={'div'}

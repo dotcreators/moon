@@ -4,6 +4,8 @@ import { twJoin } from 'tailwind-merge';
 import Icon from '@/shared/ui/icon';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
 import ImageLoader from '../../image-loader';
+import useArtistStore from '@/shared/hooks/use-artist-store';
+import { $API } from '@/shared/utils/dotcreators-api';
 
 type ArtistProfilePinnedProps = HTMLAttributes<HTMLDivElement> & {
   data: PinnedArtist;
@@ -15,6 +17,27 @@ function ArtistProfilePinned({
   ...props
 }: ArtistProfilePinnedProps) {
   const { removePinnedArtist } = usePinnedArtistStore();
+  const { selectedArtist, setSelectedArtist } = useArtistStore();
+  const { updatePinnedArtist, savePinnedArtists } = usePinnedArtistStore();
+
+  const handlePinnedProfileClick = async (twitterUserId: string) => {
+    if (selectedArtist && selectedArtist.twitterUserId !== twitterUserId) {
+      setSelectedArtist(null);
+      const p = await $API.getArtistProfile(twitterUserId);
+      if (p) {
+        setSelectedArtist(p);
+        updatePinnedArtist({
+          id: p.id,
+          images: p.images,
+          twitterUserId: p.twitterUserId,
+          username: p.username,
+          name: p.name ?? undefined,
+        });
+        savePinnedArtists();
+      }
+    }
+  };
+
   return (
     <div className="group relative min-w-max cursor-pointer">
       <button
@@ -29,6 +52,7 @@ function ArtistProfilePinned({
         <Icon ico="i-ri-close-line" />
       </button>
       <article
+        onClick={() => handlePinnedProfileClick(data.twitterUserId)}
         className={twJoin(
           'bg-black-02 relative z-[1] flex flex-row items-center gap-2 p-3 px-4',
           'overflow-hidden rounded-xl',

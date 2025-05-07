@@ -5,6 +5,7 @@ type PinnedArtistStore = {
   pinnedArtists: PinnedArtist[] | null;
   addPinnedArtists: (artist: PinnedArtist) => void;
   removePinnedArtist: (artist: PinnedArtist) => void;
+  updatePinnedArtist: (updatedArtist: PinnedArtist) => void;
   savePinnedArtists: () => void;
   loadPinnedArtists: () => void;
 };
@@ -16,6 +17,15 @@ const usePinnedArtistStore = create<PinnedArtistStore>(set => ({
       pinnedArtists: state.pinnedArtists
         ? [artist, ...state.pinnedArtists]
         : [artist],
+    }));
+  },
+  updatePinnedArtist: (updatedArtist: PinnedArtist) => {
+    set(state => ({
+      pinnedArtists: state.pinnedArtists
+        ? state.pinnedArtists.map(artist =>
+            artist.id === updatedArtist.id ? updatedArtist : artist
+          )
+        : [updatedArtist],
     }));
   },
   removePinnedArtist: (artist: PinnedArtist) => {

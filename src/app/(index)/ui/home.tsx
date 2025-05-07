@@ -5,26 +5,92 @@ import { twJoin } from 'tailwind-merge';
 import { Artist } from '@/shared/types/artist';
 import { PinnedArtists } from '../components/pinned-artists';
 import { ArtistsViewer } from '../components/artists-viewer';
-import { useDotcreatorsAPI } from '@/shared/hooks/use-dotcreators-api';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import useArtistStore from '@/shared/hooks/use-artist-store';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
+import useSearchStore from '@/shared/hooks/use-search-store';
+import { useRouter } from 'next/navigation';
+import { $API } from '@/shared/utils/dotcreators-api';
+import { Response } from '@/shared/types/response';
 
 function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  const [selectedTab, setSelectedTab] = useState<Tabs>(null);
+  const [selectedTab, setSelectedTab] = useState<Tabs>('profile');
+  const [artistsData, setArtistsData] = useState<Response<Artist[]> | null>(
+    null
+  );
+
   const { selectedArtist, setSelectedArtist } = useArtistStore();
   const { pinnedArtists } = usePinnedArtistStore();
+  const router = useRouter();
 
-  const artistsData = useDotcreatorsAPI<Artist[]>({
-    endpoint: 'getArtistsPaginated',
-  });
+  const {
+    page,
+    perPage,
+    country,
+    q,
+    sortBy,
+    tags,
+    setTotalItems,
+    setTotalPages,
+  } = useSearchStore();
 
   useEffect(() => {
-    if (artistsData) {
-      setSelectedArtist(artistsData.items[0]);
-      setSelectedTab('profile');
+    async function getArtistsProfilesPaginated() {
+      setArtistsData(null);
+
+      const query = new URLSearchParams();
+      query.append('page', page.toString());
+      query.append('perPage', perPage.toString());
+      query.append('sortBy', sortBy.toString());
+
+      if (q) query.append('username', q);
+      if (country) query.append('country', country.toString());
+      if (tags && Array.isArray(tags)) {
+        tags.forEach(tag =>
+          query.append('tags', tag.toLowerCase().replace(/ /g, ''))
+        );
+      }
+
+      try {
+        router.push(`?${query.toString()}`, { scroll: false });
+
+        const a = await $API.getArtistsPaginated({
+          q: q ?? undefined,
+          page: page ?? undefined,
+          country: country ?? undefined,
+          perPage: perPage ?? undefined,
+          sortBy: sortBy ?? undefined,
+          tags: tags ?? undefined,
+        });
+
+        if (a.items && !a.errors) {
+          setArtistsData(a);
+          setTotalItems(a.totalItems);
+          setTotalPages(a.totalPages);
+          setSelectedTab('profile');
+          setSelectedArtist(a.items[0]);
+        } else {
+          setArtistsData(null);
+        }
+      } catch (error) {
+        console.error(error);
+        setArtistsData(null);
+      }
     }
-  }, [artistsData, setSelectedArtist]);
+
+    getArtistsProfilesPaginated();
+  }, [
+    q,
+    page,
+    tags,
+    sortBy,
+    country,
+    perPage,
+    router,
+    setSelectedArtist,
+    setTotalItems,
+    setTotalPages,
+  ]);
 
   return (
     <div
@@ -41,8 +107,8 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       />
       <ArtistsViewer.Detailed
         data={selectedArtist}
-        onTabsSelected={setSelectedTab}
         selectedTab={selectedTab}
+        onTabsSelected={setSelectedTab}
       />
     </div>
   );
