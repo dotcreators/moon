@@ -20,6 +20,7 @@ import { PinnedArtist } from '@/shared/types/pinned-artist';
 import ImageLoader from '../../image-loader';
 import Select from '../../search/components/select';
 import { SEARCH_FILTERS_DATA } from '../../search/components/search-filters-data';
+import { BannerLink } from '../components/banner-link';
 
 const API_URL = process.env.API_URL;
 
@@ -244,15 +245,13 @@ function Detailed({
               <Icon ico="i-ri-unpin-fill" className={twJoin('text-lg')} />
             )}
           </BannerButton>
-          <BannerButton isImageExist={Boolean(data.images.banner)}>
-            <Icon ico="i-ri-arrow-right-up-line" className="text-lg" />
-          </BannerButton>
-          {/* <BannerButton
-            onClick={handleClick}
+
+          <BannerLink
+            href={data.url}
             isImageExist={Boolean(data.images.banner)}
           >
-            <Icon ico="i-ri-close-fill" className="text-lg" />
-          </BannerButton> */}
+            <Icon ico="i-ri-arrow-right-up-line" className="text-lg" />
+          </BannerLink>
         </div>
         {data.images.banner && (
           <ImageLoader
@@ -276,6 +275,7 @@ function Detailed({
             variant="03"
             className="h-[72px] min-h-[72px] w-[72px] min-w-[72px] rounded-xl"
           />
+
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
               <p className="font-mona-sans max-w-[235px] truncate text-xl text-ellipsis">
