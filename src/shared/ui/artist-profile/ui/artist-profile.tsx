@@ -469,6 +469,8 @@ function DetailedTrends({
 
   useEffect(() => {
     async function getArtistsData() {
+      setIsLoading(true);
+
       const r = await fetch(
         `${API_URL}/trends/search?page=1&perPage=${trendsRange}&twitterUserId=${artistData.twitterUserId}`
       );
@@ -501,13 +503,13 @@ function DetailedTrends({
         variant="02"
         isDefaultValueNode={true}
         selectedValue={trendsRange ? [trendsRange] : []}
-        onSelectedItem={(value: string | string[]) =>
+        onSelectedItem={(value: string | string[]) => {
           setTrendsRange(
             Array.isArray(value)
               ? (value[0] as TrendsRange)
               : (value as TrendsRange)
-          )
-        }
+          );
+        }}
       />
 
       <div className={twJoin('relative z-[1] h-[512px] w-full')}>

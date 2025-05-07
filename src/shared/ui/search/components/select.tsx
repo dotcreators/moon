@@ -58,7 +58,6 @@ function Item({
       onSelectedItem(newSelected);
     } else {
       onSelectedItem([value]);
-      onSelectedItem(value);
     }
   };
 
@@ -170,7 +169,7 @@ function Item({
             <button
               key={item.value}
               onClick={e => {
-                e.stopPropagation();
+                if (isMultiselect) e.stopPropagation();
                 handleItemSelect(item.value);
               }}
               className={twJoin(
@@ -188,7 +187,7 @@ function Item({
           ))}
           <button
             onClick={e => {
-              e.stopPropagation();
+              if (isMultiselect) e.stopPropagation();
               handleItemSelect(null);
             }}
             className={twJoin(
