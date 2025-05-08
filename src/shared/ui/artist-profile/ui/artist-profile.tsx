@@ -4,7 +4,6 @@ import { Artist } from '@/shared/types/artist';
 import { Flag } from '@/shared/ui/flag';
 import { trimValue } from '@/shared/utils/trim-value';
 import Icon from '@/shared/ui/icon';
-import Image from 'next/image';
 import useArtistStore from '@/shared/hooks/use-artist-store';
 import Link from 'next/link';
 import { FormatBio } from '@/shared/ui/format-bio';
@@ -106,12 +105,13 @@ function ArtistProfile({
           )}
         >
           <div className="flex max-w-[400px] flex-row items-center gap-4">
-            <Image
+            <ImageLoader
               src={data.images.avatar}
               // alt={`Avatar for ${data.username}`}
               alt=""
               width={48}
               height={48}
+              variant="03"
               className={twJoin(
                 'max-h-[36px] min-h-[36px] max-w-[36px] min-w-[36px] overflow-hidden rounded-full',
                 isOpen ? 'bg-black-05' : 'bg-black-04'
