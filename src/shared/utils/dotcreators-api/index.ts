@@ -1,16 +1,7 @@
 import { Artist } from '@/shared/types/artist';
 import { Response } from '@/shared/types/response';
-
-const API_URL = process.env.API_URL;
-
-type SearchParams = {
-  page?: number;
-  perPage?: number;
-  country?: string;
-  q?: string;
-  sortBy?: string;
-  tags?: string[];
-};
+import { API } from './api.config';
+import { SearchParams } from '@/shared/types/search-params';
 
 async function getArtistsPaginated(
   params: SearchParams
@@ -30,7 +21,7 @@ async function getArtistsPaginated(
 
   try {
     const response = await fetch(
-      `${API_URL}/artists/search?${query.toString()}`
+      `${API.URL}/artists/search?${query.toString()}`
     );
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
@@ -50,7 +41,7 @@ async function getArtistsPaginated(
 
 async function getArtistProfile(twitterUserId: string): Promise<Artist> {
   try {
-    const response = await fetch(`${API_URL}/artists/search/${twitterUserId}`);
+    const response = await fetch(`${API.URL}/artists/search/${twitterUserId}`);
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }

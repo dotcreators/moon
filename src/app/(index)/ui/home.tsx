@@ -19,7 +19,11 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     null
   );
 
-  const { selectedArtist, setSelectedArtist } = useArtistStore();
+  const {
+    selectedArtist,
+    setSelectedArtist,
+    setArtistsData: setArtistsStoreData,
+  } = useArtistStore();
   const { pinnedArtists } = usePinnedArtistStore();
   const router = useRouter();
 
@@ -69,6 +73,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           setTotalPages(a.totalPages);
           setSelectedTab('profile');
           setSelectedArtist(a.items[0]);
+          setArtistsStoreData(a.items);
         } else {
           setArtistsData(null);
         }
@@ -79,18 +84,8 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     }
 
     getArtistsProfilesPaginated();
-  }, [
-    q,
-    page,
-    tags,
-    sortBy,
-    country,
-    perPage,
-    router,
-    setSelectedArtist,
-    setTotalItems,
-    setTotalPages,
-  ]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [q, page, tags, sortBy, country, perPage, router]);
 
   return (
     <div

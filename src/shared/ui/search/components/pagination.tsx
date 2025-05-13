@@ -1,32 +1,39 @@
 import useSearchStore from '@/shared/hooks/use-search-store';
-import { HTMLAttributes, useEffect, useState } from 'react';
+import { HTMLAttributes, useEffect } from 'react';
 import Icon from '@/shared/ui/icon';
 import { twJoin } from 'tailwind-merge';
+import useArtistStore from '@/shared/hooks/use-artist-store';
 
 function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  const [currentPage, setCurrentPage] = useState<number>(1);
   const { page, setPage, totalPages } = useSearchStore();
+  const { artistsData } = useArtistStore();
 
-  const handleClickPrev = () => {
-    if (page === 1) return;
-    setPage(page - 1);
-    setCurrentPage(prev => prev - 1);
-  };
-
-  const handleClickNext = () => {
-    if (page === totalPages) return;
-    setPage(page + 1);
-    setCurrentPage(prev => prev + 1);
-  };
-
-  useEffect(() => {
-    if (page === currentPage) return;
-
+  const scrollToTop = () => {
     window.scrollTo({
       top: 0,
       behavior: 'smooth',
     });
-  }, [currentPage, page]);
+  };
+
+  const handlePageChange = (newPage: number) => {
+    if (newPage < 1 || newPage > totalPages || newPage === page) return;
+    setPage(newPage);
+  };
+
+  useEffect(() => {
+    scrollToTop();
+  }, [artistsData]);
+
+  const getButtonStyles = (isDisabled: boolean) =>
+    twJoin(
+      'group flex h-full w-[42px] items-center justify-center rounded-xl',
+      isDisabled
+        ? 'bg-black-02/50 cursor-not-allowed'
+        : 'hover:bg-black-03 bg-black-02 cursor-pointer'
+    );
+
+  const getIconStyles = (isActive: boolean) =>
+    twJoin('!text-gray-01 text-xl', isActive && 'group-hover:text-white-01');
 
   return (
     <div
@@ -37,75 +44,56 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       {...props}
     >
       <div className="flex h-full flex-row items-center gap-3">
+        {/* First Page */}
         <button
-          onClick={() => setPage(1)}
-          className={twJoin(
-            'group flex h-full w-[42px] items-center justify-center rounded-xl',
-            page === 1
-              ? 'bg-black-02/50 cursor-not-allowed'
-              : 'hover:bg-black-03 bg-black-02 cursor-pointer'
-          )}
+          onClick={() => handlePageChange(1)}
+          className={getButtonStyles(page === 1)}
+          disabled={page === 1}
         >
           <Icon
             ico="i-ri-arrow-left-double-fill"
-            className={twJoin(
-              '!text-gray-01 text-xl',
-              page !== 1 && 'group-hover:text-white-01'
-            )}
+            className={getIconStyles(page !== 1)}
           />
         </button>
+
+        {/* Previous Page */}
         <button
-          onClick={handleClickPrev}
-          className={twJoin(
-            'group flex h-full w-[42px] items-center justify-center rounded-xl',
-            page === 1
-              ? 'bg-black-02/50 cursor-not-allowed'
-              : 'hover:bg-black-03 bg-black-02 cursor-pointer'
-          )}
+          onClick={() => handlePageChange(page - 1)}
+          className={getButtonStyles(page === 1)}
+          disabled={page === 1}
         >
           <Icon
             ico="i-ri-arrow-left-s-line"
-            className={twJoin(
-              '!text-gray-01 text-xl',
-              page !== 1 && 'group-hover:text-white-01'
-            )}
+            className={getIconStyles(page !== 1)}
           />
         </button>
+
+        {/* Page Indicator */}
         <p className="tabular-nums">
           {page} / {totalPages}
         </p>
+
+        {/* Next Page */}
         <button
-          onClick={handleClickNext}
-          className={twJoin(
-            'group flex h-full w-[42px] items-center justify-center rounded-xl',
-            page === totalPages
-              ? 'bg-black-02/50 cursor-not-allowed'
-              : 'hover:bg-black-03 bg-black-02 cursor-pointer'
-          )}
+          onClick={() => handlePageChange(page + 1)}
+          className={getButtonStyles(page === totalPages)}
+          disabled={page === totalPages}
         >
           <Icon
             ico="i-ri-arrow-right-s-line"
-            className={twJoin(
-              '!text-gray-01 text-xl',
-              page === totalPages && 'group-hover:text-white-01'
-            )}
+            className={getIconStyles(page !== totalPages)}
           />
         </button>
+
+        {/* Last Page */}
         <button
-          onClick={() => setPage(totalPages)}
-          className={twJoin(
-            'group flex h-full w-[42px] items-center justify-center rounded-xl',
-            page === totalPages
-              ? 'bg-black-02/50 cursor-not-allowed'
-              : 'hover:bg-black-03 bg-black-02 cursor-pointer'
-          )}
+          onClick={() => handlePageChange(totalPages)}
+          className={getButtonStyles(page === totalPages)}
+          disabled={page === totalPages}
         >
           <Icon
             ico="i-ri-arrow-right-double-fill"
-            className={twJoin(
-              '!text-gray-01 text-xl',
-              page === totalPages && 'group-hover:text-white-01'
-            )}
+            className={getIconStyles(page !== totalPages)}
           />
         </button>
       </div>

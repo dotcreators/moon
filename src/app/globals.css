@@ -28,4 +28,5 @@ body {
   background: var(--color-black-01);
   color: var(--color-white-01);
   font-family: var(--font-mona-sans);
+  scroll-behavior: smooth;
 }
