@@ -237,6 +237,10 @@ function Input({
   className,
   ...props
 }: SelectInputProps) {
+  const handleClear = () => {
+    onChange({ target: { value: '' } } as React.ChangeEvent<HTMLInputElement>);
+  };
+
   return (
     <section
       className={twJoin(
@@ -258,6 +262,11 @@ function Input({
           'placeholder:text-gray-01 placeholder:text-sm'
         )}
       />
+      {type === 'search' && (
+        <button onClick={handleClear} className={twJoin('cursor-pointer')}>
+          <Icon ico="i-ri-close-fill" className="text-lg" />
+        </button>
+      )}
     </section>
   );
 }
