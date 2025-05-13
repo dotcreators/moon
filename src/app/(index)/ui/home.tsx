@@ -26,6 +26,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   } = useArtistStore();
   const { pinnedArtists } = usePinnedArtistStore();
   const router = useRouter();
+  // const params: SearchParams = useParams();
 
   const {
     page,
