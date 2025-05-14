@@ -39,8 +39,8 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           )
         }
       />
-      <Select.Item
-        items={[]}
+      <Select.ScrollItems
+        items={SEARCH_FILTERS_DATA.country}
         label="Country"
         isDefaultValueNode={true}
         selectedValue={country ? [country] : []}

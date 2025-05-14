@@ -35,12 +35,10 @@ function ArtistProfile({
   data,
   ...props
 }: ArtistProfileProps & { withRanking: boolean }) {
-  const { setSelectedArtist, selectedArtist } = useArtistStore();
+  const { setSelectedArtist } = useArtistStore();
 
   const handleClick = () => {
-    setSelectedArtist(
-      selectedArtist && selectedArtist.id === data.id ? null : data
-    );
+    setSelectedArtist(data);
   };
 
   const calculateRankingChange = useCallback(() => {
@@ -157,16 +155,11 @@ function ArtistProfile({
   );
 }
 
-type DetailedArtistProfileProps = Omit<ArtistProfileProps, 'isOpen'> & {
-  handleClick: () => void;
-};
-
 function Detailed({
   className,
   data,
-  handleClick,
   ...props
-}: DetailedArtistProfileProps) {
+}: Omit<ArtistProfileProps, 'isOpen'>) {
   const [trendsData, setTrendsData] = useState<Trend[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<{
@@ -259,9 +252,8 @@ function Detailed({
             alt={''}
             width={1280}
             height={720}
-            onClick={handleClick}
             variant="03"
-            className="h-42 max-h-42 min-h-42 rounded-xl hover:cursor-pointer"
+            className="h-42 max-h-42 min-h-42 rounded-xl"
           />
         )}
       </div>

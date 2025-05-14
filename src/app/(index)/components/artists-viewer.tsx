@@ -100,7 +100,6 @@ function ArtistsViewerDetailed({
           <ArtistProfile.Detailed
             key={data.id}
             data={data!}
-            handleClick={() => onTabsSelected(null)}
             className="overflow-hidden rounded-xl"
           />
         ) : (

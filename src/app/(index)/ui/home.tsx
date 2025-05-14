@@ -49,7 +49,8 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       query.append('sortBy', sortBy.toString());
 
       if (q) query.append('username', q);
-      if (country) query.append('country', country.toString());
+      if (country)
+        query.append('country', country.toString().toLocaleLowerCase());
       if (tags && Array.isArray(tags)) {
         tags.forEach(tag =>
           query.append('tags', tag.toLowerCase().replace(/ /g, ''))

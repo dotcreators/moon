@@ -1,8 +1,8 @@
 const COUNTRY_CODES = [
-  {
-    title: '',
-    value: '',
-  },
+  // {
+  //   title: '',
+  //   value: '',
+  // },
   {
     title: 'Afghanistan',
     value: 'AF',
@@ -426,10 +426,6 @@ const COUNTRY_CODES = [
   {
     title: 'Latvia',
     value: 'LV',
-  },
-  {
-    title: 'Lebanon',
-    value: 'LB',
   },
   {
     title: 'Lesotho',

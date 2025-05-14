@@ -1,4 +1,6 @@
+import { COUNTRY_CODES } from '@/shared/constants/country-codes';
 import Select from '@/shared/ui/search/components/select';
+import { Flag } from '../../flag';
 
 const SEARCH_FILTERS_DATA = {
   tags: [
@@ -91,6 +93,16 @@ const SEARCH_FILTERS_DATA = {
       node: <Select.ItemNode icon="i-ri-diamond-fill" label="Ranking" />,
     },
   ],
+  country: COUNTRY_CODES.map(item => ({
+    value: item.value,
+    additionalValue: item.title,
+    node: (
+      <Select.ItemNode
+        icon={<Flag country={item.value} />}
+        label={item.title}
+      />
+    ),
+  })),
 };
 
 export { SEARCH_FILTERS_DATA };
