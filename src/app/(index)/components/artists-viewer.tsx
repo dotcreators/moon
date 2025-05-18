@@ -59,7 +59,7 @@ function ArtistsViewerDetailed({
   return (
     <section
       className={twJoin(
-        'sticky top-0 ml-5 flex h-fit flex-col gap-3 py-5',
+        'sticky top-0 ml-5 flex h-fit flex-col gap-3 pt-5',
         className
       )}
       {...props}
