@@ -19,12 +19,12 @@ const FOOTER = {
   Legal: [
     {
       label: 'Privacy Policy',
-      link: 'https://dotcreators.xyz/wiki/privacy',
+      link: '/wiki/privacy',
       target: '_self',
     },
     {
       label: 'Data Gathering',
-      link: 'https://dotcreators.xyz/wiki/data',
+      link: '/wiki/data-gathering',
       target: '_self',
     },
   ],
