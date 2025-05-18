@@ -1,3 +1,9 @@
+import { Metadata } from 'next';
+
+export const metadata: Metadata = {
+  title: 'Data Gathering › Wiki',
+};
+
 export default function DataGathering() {
   return (
     <div className="bg-black-02 flex flex-col gap-8 rounded-xl p-8">
@@ -13,12 +19,11 @@ export default function DataGathering() {
           <div className="bg-black-03 flex flex-col gap-3 rounded-xl p-4">
             <h3 className="text-lg">Anonymous Usage Data</h3>
             <p className="text-gray-01">
-              To understand general usage trends and improve the Website, we use
-              Umami, an open-source, privacy-focused analytics tool. Umami
-              collects anonymized, aggregated data about Website usage,
-              including:
+              To understand general usage trends we use Umami, an open-source,
+              privacy-focused analytics tool. Umami collects anonymized,
+              aggregated data about Website usage, including:
             </p>
-            <ul className="text-gray-01 my-3 flex list-disc flex-col gap-2 pl-4">
+            <ul className="text-gray-01 my-1 flex list-disc flex-col gap-2 pl-4">
               <li>Number of visitors</li>
               <li>Page views</li>
               <li>General geographic regions (e.g., country-level data)</li>
@@ -30,16 +35,16 @@ export default function DataGathering() {
           </div>
 
           <div className="bg-black-03 flex flex-col gap-3 rounded-xl p-4">
-            <h3 className="text-lg">Information About Featured Authors</h3>
+            <h3 className="text-lg">Information About Featured Artists</h3>
             <p className="text-gray-01">
-              We gather information about authors featured on our platform
+              We gather information about artists featured on our platform
               exclusively from public sources, such as public profiles on X
-              (formerly Twitter) or other publicly accessible platforms. This
-              information may include:
+              (formerly Twitter). This information may include:
             </p>
-            <ul className="text-gray-01 my-3 flex list-disc flex-col gap-2 pl-4">
-              <li>Usernames</li>
-              <li>Accounts data</li>
+            <ul className="text-gray-01 my-1 flex list-disc flex-col gap-2 pl-4">
+              <li>
+                <b>Public</b> accounts data
+              </li>
               <li>
                 Other details available in the <b>public</b> domain
               </li>
@@ -55,7 +60,7 @@ export default function DataGathering() {
       <div className="flex flex-col gap-3">
         <h2 className="text-xl">How We Use Information</h2>
         <p className="text-gray-01">
-          Publicly available information about authors is used to feature their
+          Publicly available information about artists is used to feature their
           work on our platform, promoting their contributions in accordance with
           their public profiles.
         </p>

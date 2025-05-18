@@ -1,5 +1,10 @@
+import { Metadata } from 'next';
 import Link from 'next/link';
 import { twJoin } from 'tailwind-merge';
+
+export const metadata: Metadata = {
+  title: 'Privacy Policy › Wiki',
+};
 
 export default function PrivacyPage() {
   return (
@@ -21,43 +26,41 @@ export default function PrivacyPage() {
       </div>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-xl">Opt-Out for Featured Authors</h2>
+        <h2 className="text-xl">Opt-Out for Featured Artists</h2>
         <p className="text-gray-01">
-          If you are an author featured on our platform and would prefer not to
+          If you are an artists featured on our platform and would prefer not to
           have your public information displayed, you may contact us at any time
           to request removal. Please reach out to us at{' '}
           <Link
             href={'mailto:hi@anivire.xyz'}
             className={twJoin(
-              'hover:text-red-01 inline-flex items-center gap-1',
+              'text-red-01 inline-flex items-center gap-1',
               'transition-colors duration-200 ease-in-out'
             )}
           >
             hi@anivire.xyz
-          </Link>
-          , and we will promptly address your request.
+          </Link>{' '}
+          and we will promptly address your request.
         </p>
       </div>
 
       <div className="flex flex-col gap-3">
         <h2 className="text-xl">Cookies and Tracking Technologies</h2>
         <p className="text-gray-01">
-          We use minimal cookies and tracking technologies solely for the
+          We don`t use cookies minimal and tracking technologies solely for the
           operation of our analytics system, as described in our Data Gathering
-          Policy. These cookies do not collect personal information and are
-          configured to respect user privacy. You can manage your cookie
-          preferences through your browser settings.
+          Policy. These technologies do not collect personal information and are
+          configured to respect user privacy.
         </p>
       </div>
 
       <div className="flex flex-col gap-3">
         <h2 className="text-xl">Third-Party Links</h2>
         <p className="text-gray-01">
-          The Website may contain links to third-party websites or services,
-          such as X profiles or other public platforms. We are not responsible
-          for the privacy practices or content of these third-party sites. We
-          encourage you to review the privacy policies of any external sites you
-          visit.
+          The Website contain links to third-party websites or services, such as
+          X profiles or other public platforms. We are not responsible for the
+          privacy practices or content of these third-party sites. We encourage
+          you to review the privacy policies of any external sites you visit.
         </p>
       </div>
     </div>
