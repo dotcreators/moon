@@ -15,10 +15,18 @@ export default function WikiLayout({
   return (
     <section
       className={twJoin(
-        'relative mx-auto mb-5 flex max-w-[1280px] flex-row gap-5 px-5'
+        'relative mx-auto flex max-w-[1280px] flex-col',
+        'mb-3 gap-3 px-3',
+        'laptop:flex-row laptop:px-5 laptop:mb-5 laptop:gap-5'
       )}
     >
-      <section className="bg-black-02 flex h-fit w-72 min-w-72 flex-col gap-5 rounded-xl p-5">
+      <section
+        className={twJoin(
+          'bg-black-02 flex h-fit flex-col gap-5 rounded-xl p-3',
+          'laptop:w-64 laptop:min-w-64 laptop:p-5',
+          'desktop:w-72 desktop:min-w-72'
+        )}
+      >
         <div className="flex flex-col gap-1">
           <Button.Link
             href={'/wiki/privacy'}

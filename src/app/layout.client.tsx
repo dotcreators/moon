@@ -15,7 +15,8 @@ export default function ClientLayout({
       <body
         className={twJoin(
           `${hubotSans.variable} font-sans antialiased`,
-          'flex flex-col gap-5'
+          'flex flex-col gap-3',
+          'laptop:gap-5'
         )}
         style={inter.style}
       >

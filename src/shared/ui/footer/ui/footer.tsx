@@ -32,13 +32,26 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <section
       className={twJoin(
-        'mx-auto mb-5 flex w-full max-w-[1280px] flex-col p-5',
+        'relative mx-auto flex w-full max-w-[1280px] flex-col',
+        'mb-5 gap-3 px-3',
+        'laptop:flex-row laptop:px-5 laptop:gap-5',
+
         className
       )}
       {...props}
     >
-      <div className="bg-black-02 flex flex-col gap-8 rounded-xl p-8">
-        <div className="flex w-full flex-row justify-between">
+      <div
+        className={twJoin(
+          'bg-black-02 flex w-full flex-col gap-5 rounded-xl p-5',
+          'laptop:gap-8 laptop:p-8'
+        )}
+      >
+        <div
+          className={twJoin(
+            'flex w-full flex-col gap-5',
+            'tablet:flex-row tablet:justify-between'
+          )}
+        >
           <div className="flex flex-col gap-4">
             <div className="!text-red-01 flex flex-row items-center gap-2">
               <Icon ico="i-dotcreators-logo" className="text-xl" />
@@ -60,7 +73,12 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
               </Link>
             </div>
           </div>
-          <div className="flex flex-row gap-12">
+          <div
+            className={twJoin(
+              'my-5 flex flex-col gap-5',
+              'tablet:flex-row laptop:gap-12 laptop:my-0'
+            )}
+          >
             <div className="text-gray-01 flex flex-col gap-1.5 text-sm">
               <h3 className="font-mona-sans text-white-01 mb-1 text-xl uppercase">
                 Support

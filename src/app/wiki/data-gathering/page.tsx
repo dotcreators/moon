@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { twJoin } from 'tailwind-merge';
 
 export const metadata: Metadata = {
   title: 'Data Gathering › Wiki',
@@ -6,7 +7,12 @@ export const metadata: Metadata = {
 
 export default function DataGathering() {
   return (
-    <div className="bg-black-02 flex flex-col gap-8 rounded-xl p-8">
+    <div
+      className={twJoin(
+        'bg-black-02 flex flex-col gap-5 rounded-xl p-5',
+        'laptop:p-8 laptop:gap-8'
+      )}
+    >
       <h1 className="text-3xl font-bold">Data Gathering</h1>
 
       <p className="bg-black-03 text-gray-01 w-fit rounded-xl p-3 px-5">

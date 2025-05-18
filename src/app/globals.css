@@ -14,6 +14,11 @@
   --color-red-01: #fa4545;
   --color-yellow-01: #fad245;
   --color-green-01: #a3e635;
+
+  --breakpoint-desktop: 1440px;
+  --breakpoint-laptop: 1024px;
+  --breakpoint-tablet: 768px;
+  --breakpoint-mobile: 375px;
 }
 
 @layer components {
