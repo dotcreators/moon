@@ -10,7 +10,7 @@ function Flag({ className, country, ...props }: FlagProps) {
       src={`https://flagcdn.com/24x18/${country.toLowerCase()}.webp`}
       width={24}
       height={18}
-      className={twJoin('h-auto w-[24px] rounded-sm', className)}
+      className={twJoin('h-auto w-[24px] min-w-[24px] rounded-sm', className)}
       aria-label={`Flag of ${country.toUpperCase()}`}
       title={`Flag of ${country.toUpperCase()}`}
       {...props}

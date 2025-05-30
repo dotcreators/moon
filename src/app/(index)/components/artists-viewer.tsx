@@ -2,7 +2,6 @@ import { Artist } from '@/shared/types/artist';
 import { Response } from '@/shared/types/response';
 import { Tabs } from '@/shared/types/tabs';
 import { ArtistProfile } from '@/shared/ui/artist-profile';
-import { Search } from '@/shared/ui/search';
 import { HTMLAttributes } from 'react';
 import { twJoin } from 'tailwind-merge';
 
@@ -22,23 +21,22 @@ function ArtistsViewer({
   };
 
   return (
-    <section className={twJoin(className)} {...props}>
-      <Search className="bg-black-01 py-5" />
-      <div className="flex w-full flex-col gap-2">
-        {!data || !data.items
-          ? Array.from({ length: 25 }).map((_, index) => (
-              <ArtistProfile.Skeleton key={index} />
-            ))
-          : data.items.map(item => (
-              <ArtistProfile
-                key={item.id}
-                data={item}
-                isOpen={handleOpen(item.id)}
-                withRanking={false}
-              />
-            ))}
-        <Search.Pagination />
-      </div>
+    <section
+      className={twJoin('flex w-full flex-col gap-2', className)}
+      {...props}
+    >
+      {!data || !data.items
+        ? Array.from({ length: 25 }).map((_, index) => (
+            <ArtistProfile.Skeleton key={index} />
+          ))
+        : data.items.map(item => (
+            <ArtistProfile
+              key={item.id}
+              data={item}
+              isOpen={handleOpen(item.id)}
+              withRanking={false}
+            />
+          ))}
     </section>
   );
 }
@@ -59,12 +57,13 @@ function ArtistsViewerDetailed({
   return (
     <section
       className={twJoin(
-        'sticky top-0 ml-5 flex h-fit flex-col gap-3 pt-5',
+        'flex h-fit flex-col gap-3',
+        'laptop:sticky laptop:top-5',
         className
       )}
       {...props}
     >
-      <div className="flex flex-col gap-4">
+      <div className="flex flex-col gap-5">
         <div className="flex w-full flex-row items-center gap-3">
           <div className="divide-black-03 flex w-full flex-row items-center divide-x-2 overflow-hidden rounded-full">
             <button

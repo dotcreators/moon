@@ -5,7 +5,7 @@ export const metadata: Metadata = {
   title: 'Data Gathering › Wiki',
 };
 
-export default function DataGathering() {
+function DataGathering() {
   return (
     <div
       className={twJoin(
@@ -84,3 +84,5 @@ export default function DataGathering() {
     </div>
   );
 }
+
+export default DataGathering;

@@ -17,7 +17,16 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   }, [debouncedSearchQ, setQ]);
 
   return (
-    <div className={twJoin('grid grid-cols-2 gap-2', className)} {...props}>
+    <div
+      className={twJoin(
+        'flex flex-col gap-2',
+        'tablet:grid tablet:grid-cols-2',
+        'laptop:grid-cols-1',
+        'desktop:grid-cols-2',
+        className
+      )}
+      {...props}
+    >
       <Select.Input
         value={searchQ}
         onChange={(e: ChangeEvent<HTMLInputElement>) =>

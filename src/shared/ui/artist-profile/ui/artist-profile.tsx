@@ -89,54 +89,74 @@ function ArtistProfile({
           'transition-[max-height] duration-200 ease-in-out'
         )}
       >
-        {/* {!isOpen && ( */}
         <button
           onClick={() => handleClick()}
           className={twJoin(
-            'group flex flex-row items-center justify-between gap-4',
-            'w-full overflow-hidden px-4 py-2',
-            'hover:cursor-pointer',
+            'group grid grid-cols-2 items-center',
+            'w-full gap-3 overflow-hidden px-4 py-2',
             'transition-colors duration-200 ease-in-out',
+            'hover:cursor-pointer',
+            'tablet:gap-4',
             isOpen
               ? 'bg-black-04 hover:bg-black-05'
               : 'bg-black-02 hover:bg-black-03'
           )}
         >
-          <div className="flex max-w-[400px] flex-row items-center gap-4">
+          <div
+            className={twJoin(
+              'flex flex-row items-center gap-3',
+              'tablet:gap-4 max-w-full'
+            )}
+          >
             <ImageLoader
               src={data.images.avatar}
-              // alt={`Avatar for ${data.username}`}
-              alt=""
+              alt={`${data.username}`}
               width={48}
               height={48}
               variant="03"
               className={twJoin(
-                'max-h-[36px] min-h-[36px] max-w-[36px] min-w-[36px] overflow-hidden rounded-full',
+                'overflow-hidden rounded-full',
+                'max-h-[28px] min-h-[28px] max-w-[28px] min-w-[28px]',
+                'tablet:max-h-[36px] tablet:min-h-[36px] tablet:max-w-[36px] tablet:min-w-[36px]',
                 isOpen ? 'bg-black-05' : 'bg-black-04'
               )}
             />
             {data.country && <Flag country={data.country} />}
-            <p className="font-mona-sans max-w-[175px] truncate text-ellipsis">
+            <p
+              className={twJoin(
+                'font-mona-sans min-w-0 flex-1 truncate text-start text-sm',
+                'tablet:text-base'
+              )}
+            >
               {data.name}
             </p>
-            {/* <p className="text-gray-01/80 truncate text-ellipsis">
-            @{data.username}
-          </p> */}
           </div>
           <div
             className={twJoin(
-              'flex flex-row items-center gap-4',
-
+              'flex flex-row items-center justify-end gap-4',
               'group-hover:translate-x-0',
               'transition-transform duration-200 ease-in-out',
-              isOpen ? 'translate-x-0' : 'translate-x-8'
+              isOpen ? 'translate-x-0' : 'translate-x-8',
+              'flex-shrink-0'
             )}
           >
-            <div className="flex flex-row items-center gap-2">
+            <div
+              className={twJoin(
+                'flex flex-shrink-0 flex-row items-center gap-2 text-sm',
+                'tablet:text-base'
+              )}
+            >
               <p>{trimValue(data.followersCount)}</p>
               <p className="text-gray-01/80">followers</p>
             </div>
-            <div className="flex min-w-24 flex-row items-center justify-end gap-2">
+            <div
+              className={twJoin(
+                'hidden min-w-24 flex-shrink-0 flex-row items-center justify-end gap-2 text-sm',
+                'tablet:flex tablet:text-base',
+                'laptop:hidden',
+                'desktop:flex'
+              )}
+            >
               <p>{trimValue(data.tweetsCount)}</p>
               <p className="text-gray-01/80">posts</p>
             </div>
@@ -173,6 +193,7 @@ function Detailed({
     savePinnedArtists,
   } = usePinnedArtistStore();
 
+  // TODO: move away data fetching
   useEffect(() => {
     async function getArtistsData() {
       const r = await fetch(
@@ -253,7 +274,13 @@ function Detailed({
             width={1280}
             height={720}
             variant="03"
-            className="h-42 max-h-42 min-h-42 rounded-xl"
+            className={twJoin(
+              'rounded-xl',
+              'h-24 max-h-24 min-h-24',
+              'tablet:h-32 tablet:max-h-32 tablet:min-h-32',
+              'laptop:h-36 laptop:max-h-36 laptop:min-h-36',
+              'desktop:h-42 desktop:max-h-42 desktop:min-h-42'
+            )}
           />
         )}
       </div>
@@ -265,12 +292,23 @@ function Detailed({
             width={128}
             height={128}
             variant="03"
-            className="h-[72px] min-h-[72px] w-[72px] min-w-[72px] rounded-xl"
+            className={twJoin(
+              'rounded-xl',
+              'tablet:h-[72px] tablet:min-h-[72px] tablet:w-[72px] tablet:min-w-[72px]',
+              'laptop:h-[64px] laptop:min-h-[64px] laptop:w-[64px] laptop:min-w-[64px]',
+              'desktop:h-[72px] desktop:min-h-[72px] desktop:w-[72px] desktop:min-w-[72px]'
+            )}
           />
 
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
-              <p className="font-mona-sans max-w-[235px] truncate text-xl text-ellipsis">
+              <p
+                className={twJoin(
+                  'font-mona-sans truncate text-xl text-ellipsis',
+                  'laptop:max-w-[170px]',
+                  'desktop:max-w-[235px]'
+                )}
+              >
                 {data.name}
               </p>
               <div className="text-gray-01/80 flex max-w-[270px] flex-row items-center gap-1">
@@ -282,7 +320,7 @@ function Detailed({
                   @{data.username}
                 </Link>
                 {data.website && (
-                  <>
+                  <div className="laptop:hidden desktop:flex flex gap-1">
                     <span>•</span>
                     <Link
                       href={data.website}
@@ -294,7 +332,7 @@ function Detailed({
                     >
                       {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
                     </Link>
-                  </>
+                  </div>
                 )}
               </div>
             </div>
@@ -314,6 +352,23 @@ function Detailed({
             </div>
           </div>
         </div>
+        {data.website && (
+          <div className="desktop:hidden laptop:flex hidden">
+            <p className="text-gray-01 text-sm">
+              Website:{' '}
+              <Link
+                href={data.website}
+                target="_blank"
+                className={twJoin(
+                  'text-red-01 truncate text-base text-ellipsis',
+                  'hover:text-red-01 transition-colors duration-200 ease-in-out'
+                )}
+              >
+                {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
+              </Link>
+            </p>
+          </div>
+        )}
         {data.bio && <FormatBio text={data.bio} className="my-2" />}
         <ArtistProfile.Trends
           artistData={data}
@@ -393,7 +448,7 @@ function Trends({
         leaveTo="opacity-0"
         className={twJoin('absolute inset-0 z-[1]')}
       >
-        <div className="flex h-full w-full flex-row gap-6">
+        <div className="desktop:gap-5 flex h-full w-full flex-row gap-3">
           {[0, 1].map(i => (
             <div
               key={`loader-${i}`}
@@ -422,7 +477,7 @@ function Trends({
         leaveTo="opacity-0"
         className={twJoin('absolute inset-0 z-[1]')}
       >
-        <div className="flex h-full w-full flex-row gap-6">
+        <div className="desktop:gap-5 flex h-full w-full flex-row gap-3">
           <TrendChart
             artistData={artistData}
             data={data!}

@@ -38,7 +38,7 @@ function ImageLoader({
         height={height}
         {...props}
         className={twJoin(
-          'h-full w-full object-cover',
+          'h-full w-full object-cover text-xs',
           'transition-opacity duration-500',
           isLoaded ? 'opacity-100' : 'opacity-0'
         )}

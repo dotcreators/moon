@@ -6,7 +6,7 @@ export const metadata: Metadata = {
   title: 'Privacy Policy › Wiki',
 };
 
-export default function PrivacyPage() {
+function PrivacyPage() {
   return (
     <div
       className={twJoin(
@@ -71,3 +71,5 @@ export default function PrivacyPage() {
     </div>
   );
 }
+
+export default PrivacyPage;

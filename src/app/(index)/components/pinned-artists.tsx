@@ -11,15 +11,15 @@ type PinnedArtistsProps = HTMLAttributes<HTMLDivElement> & {
 function PinnedArtists({ data, className, ...props }: PinnedArtistsProps) {
   return (
     <OverlayScrollbarsComponent
+      defer
       element="div"
-      className={twJoin('col-span-2 pt-5', className)}
+      className={twJoin('col-span-2', className)}
       options={{
         scrollbars: {
           dragScroll: true,
           visibility: 'hidden',
         },
       }}
-      defer
       {...props}
     >
       <section className="relative flex flex-row gap-3">

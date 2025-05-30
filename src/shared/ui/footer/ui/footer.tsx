@@ -33,8 +33,8 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     <section
       className={twJoin(
         'relative mx-auto flex w-full max-w-[1280px] flex-col',
-        'mb-5 gap-3 px-3',
-        'laptop:flex-row laptop:px-5 laptop:gap-5',
+        'mb-3 gap-3 px-3',
+        'laptop:flex-row laptop:px-5 laptop:gap-5 laptop:mb-5',
 
         className
       )}

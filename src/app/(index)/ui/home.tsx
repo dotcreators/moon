@@ -12,6 +12,7 @@ import useSearchStore from '@/shared/hooks/use-search-store';
 import { useRouter } from 'next/navigation';
 import { $API } from '@/shared/utils/dotcreators-api';
 import { Response } from '@/shared/types/response';
+import { Search } from '@/shared/ui/search';
 
 function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   const [selectedTab, setSelectedTab] = useState<Tabs>('profile');
@@ -92,20 +93,39 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <div
       className={twJoin(
-        'relative mx-auto mb-5 grid max-w-[1280px] grid-cols-2 px-5',
+        'relative flex w-full flex-col gap-3',
+        'laptop:grid-cols-2 laptop:grid laptop:max-w-[1280px] laptop:w-fit',
+        'laptop:mb-5 laptop:mx-auto laptop:gap-5',
         className
       )}
       {...props}
     >
-      <PinnedArtists data={pinnedArtists} />
-      <ArtistsViewer.Default
-        data={artistsData}
-        selectedArtist={selectedArtist}
+      <PinnedArtists
+        data={pinnedArtists}
+        className={twJoin('px-3 pt-5', 'laptop:px-5')}
       />
+
+      <section
+        className={twJoin(
+          'flex flex-col gap-3 px-3',
+          'laptop:pr-0 laptop:pl-5 laptop:gap-5'
+        )}
+      >
+        <Search className={twJoin('bg-black-01')} />
+        <div className="flex w-full flex-col">
+          <ArtistsViewer.Default
+            data={artistsData}
+            selectedArtist={selectedArtist}
+          />
+          <Search.Pagination />
+        </div>
+      </section>
+
       <ArtistsViewer.Detailed
         data={selectedArtist}
         selectedTab={selectedTab}
         onTabsSelected={setSelectedTab}
+        className={twJoin('hidden px-3', 'laptop:flex laptop:pr-5 laptop:pl-0')}
       />
     </div>
   );

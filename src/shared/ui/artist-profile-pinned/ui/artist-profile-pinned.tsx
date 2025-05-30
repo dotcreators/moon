@@ -45,8 +45,10 @@ function ArtistProfilePinned({
         className={twJoin(
           'bg-red-01 absolute -top-2 -right-2 z-[2] flex rounded-full p-1',
           'border-black-01 cursor-pointer border-4',
-          'scale-0 rotate-45 group-hover:scale-100 group-hover:rotate-0',
-          'transform-gpu transition-all duration-100 ease-in-out'
+          'transform-gpu transition-all duration-100 ease-in-out',
+          selectedArtist && selectedArtist.id === data.id
+            ? 'scale-100'
+            : 'scale-0 group-hover:scale-100'
         )}
       >
         <Icon ico="i-ri-close-line" />
@@ -55,8 +57,11 @@ function ArtistProfilePinned({
         onClick={() => handlePinnedProfileClick(data.twitterUserId)}
         className={twJoin(
           'bg-black-02 relative z-[1] flex flex-row items-center gap-2 p-3 px-4',
-          'overflow-hidden rounded-xl',
-          'group-hover:bg-black-03 transition-colors duration-200 ease-in-out',
+          'overflow-hidden rounded-xl border border-transparent',
+          'group-hover:bg-black-03 group-hover:border-white-01/20 transition-colors duration-200 ease-in-out',
+          selectedArtist &&
+            selectedArtist.id === data.id &&
+            'border-white-01/20',
           className
         )}
         {...props}
