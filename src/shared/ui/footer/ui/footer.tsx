@@ -32,10 +32,10 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   return (
     <section
       className={twJoin(
-        'relative mx-auto flex w-full max-w-[1280px] flex-col',
-        'mb-3 gap-3 px-3',
+        'relative mx-auto flex w-full flex-col',
+        'mb-3 max-w-[1280px] gap-3 px-3',
         'laptop:flex-row laptop:px-5 laptop:gap-5 laptop:mb-5',
-
+        // path.includes('changelog') ? 'max-w-[1000px]' : 'max-w-[1280px]',
         className
       )}
       {...props}

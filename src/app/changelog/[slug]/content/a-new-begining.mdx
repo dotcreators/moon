@@ -1,0 +1,22 @@
+import { PostHeader } from '../components/post-header';
+import BannerImage from '../assets/new-begining-banner.webp';
+
+<PostHeader
+  image={BannerImage}
+  date={new Date()}
+  title="A new begining"
+  ver="2.0"
+/>
+
+<div className='bg-black-02 p-5 rounded-xl flex flex-col gap-8'>
+A lot of time has passed since dotcreators release, and almost from the very beginning we tried to maintain this project and improve it. And now, ready to present an updated version of the site. We have completely rewritten the entire codebase of the frontend, backend and the rest of the services are coming up as well. In addition, we have moved to our infrastructure because of which further support of the project will be a little easier (but not without problems, for example, all the tags are gone, and now we have to specify them again :0)
+
+We have slightly changed the way of viewing artists and also updated some components. Hopefully it will be a little more convenient to use dotcreators now. We also rewrote the way we get all the artists and (hopefully) there will be fewer moments when our data collection service won't work (like when it didn't work for almost a full month due to some api issues).
+
+Unfortunately, but for now we removed the ability to directly suggest artists due to the fact that it was affecting the stability of the data collection a lot, so.... Will try to figure something out and come back with a ready solution later.
+
+From the new functionality - pinned artists! Now your favorite artists will always be at your fingertips. We have also added the ability to check the status of our services, and especially our api worker, which does all the work of data collection.
+
+Thanks to everyone who uses our project and I hope it was at least a little bit useful to you :)
+
+</div>

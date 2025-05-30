@@ -1,5 +1,6 @@
 import UnoCSS from '@unocss/webpack';
 import presetIcons from '@unocss/preset-icons';
+import createMDX from '@next/mdx';
 import { NextConfig } from 'next';
 
 const nextConfig: NextConfig = {
@@ -21,6 +22,15 @@ const nextConfig: NextConfig = {
     SITE_URL: process.env.SITE_URL,
     UPTIME_API_TOKEN: process.env.UPTIME_API_TOKEN,
   },
+  pageExtensions: ['ts', 'tsx', 'js', 'jsx', 'md', 'mdx'],
 };
 
-export default nextConfig;
+const withMDX = createMDX({
+  extension: /\.(md|mdx)$/,
+  options: {
+    remarkPlugins: [],
+    rehypePlugins: [],
+  },
+});
+
+export default withMDX(nextConfig);
