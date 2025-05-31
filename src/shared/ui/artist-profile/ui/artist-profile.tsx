@@ -264,7 +264,7 @@ function Detailed({
             href={data.url}
             isImageExist={Boolean(data.images.banner)}
           >
-            <Icon ico="i-ri-arrow-right-up-line" className="text-lg" />
+            <Icon ico="i-ri-twitter-x-fill" className="text-lg" />
           </BannerLink>
         </div>
         {data.images.banner && (
