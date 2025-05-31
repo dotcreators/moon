@@ -102,7 +102,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                       className={twJoin(
                         'bg-black-03 text-gray-01 absolute rounded-md px-3 py-1',
                         'left-full ml-2',
-                        'laptop:right-full laptop:mr-2 laptop:left-auto laptop:ml-0'
+                        'tablet:right-full tablet:mr-2 tablet:left-auto laptop:ml-0'
                       )}
                     >
                       {item.chip}
