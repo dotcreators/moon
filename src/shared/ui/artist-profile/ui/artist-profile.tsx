@@ -304,8 +304,8 @@ function Detailed({
             <div className="flex flex-col">
               <p
                 className={twJoin(
-                  'font-mona-sans truncate text-xl text-ellipsis',
-                  'laptop:max-w-[170px]',
+                  'font-mona-sans truncate text-2xl text-ellipsis',
+                  'laptop:max-w-[150px]',
                   'desktop:max-w-[235px]'
                 )}
               >
@@ -327,7 +327,7 @@ function Detailed({
                       target="_blank"
                       className={twJoin(
                         'truncate text-ellipsis',
-                        'hover:text-red-01 transition-colors duration-200 ease-in-out'
+                        'hover:text-red-01 max-w-[150px] transition-colors duration-200 ease-in-out'
                       )}
                     >
                       {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
