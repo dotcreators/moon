@@ -57,10 +57,13 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           )}
         >
           <div className="flex flex-col gap-4">
-            <div className="!text-red-01 flex flex-row items-center gap-2">
+            <Link
+              href={'/'}
+              className="!text-red-01 flex flex-row items-center gap-2"
+            >
               <Icon ico="i-dotcreators-logo" className="text-xl" />
               <p className="font-mona-sans text-2xl">dotcreators</p>
-            </div>
+            </Link>
             <p className="max-w-[300px] text-sm">
               Track, share and grow together with a community of talented pixel
               artists
