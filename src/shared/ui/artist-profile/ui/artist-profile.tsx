@@ -311,24 +311,21 @@ function Detailed({
               >
                 {data.name}
               </p>
-              <div className="text-gray-01/80 flex max-w-[270px] flex-row items-center gap-1">
+              <div className="text-gray-01/80 flex max-w-[260px] items-center gap-1">
                 <Link
                   href={data.url}
                   target="_blank"
-                  className="hover:text-red-01 transition-colors duration-200 ease-in-out"
+                  className="hover:text-red-01 truncate transition-colors duration-200 ease-in-out"
                 >
                   @{data.username}
                 </Link>
                 {data.website && (
-                  <div className="laptop:hidden desktop:flex flex gap-1">
+                  <div className="laptop:hidden desktop:flex flex items-center gap-1">
                     <span>•</span>
                     <Link
                       href={data.website}
                       target="_blank"
-                      className={twJoin(
-                        'truncate text-ellipsis',
-                        'hover:text-red-01 max-w-[150px] transition-colors duration-200 ease-in-out'
-                      )}
+                      className="hover:text-red-01 truncate transition-colors duration-200 ease-in-out"
                     >
                       {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
                     </Link>
