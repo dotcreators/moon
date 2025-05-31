@@ -315,7 +315,7 @@ function Detailed({
                 <Link
                   href={data.url}
                   target="_blank"
-                  className="hover:text-red-01 truncate transition-colors duration-200 ease-in-out"
+                  className="hover:text-red-01 transition-colors duration-200 ease-in-out"
                 >
                   @{data.username}
                 </Link>
@@ -325,7 +325,7 @@ function Detailed({
                     <Link
                       href={data.website}
                       target="_blank"
-                      className="hover:text-red-01 truncate transition-colors duration-200 ease-in-out"
+                      className="hover:text-red-01 max-w-[100px] truncate transition-colors duration-200 ease-in-out"
                     >
                       {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
                     </Link>
