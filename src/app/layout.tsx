@@ -34,7 +34,7 @@ export const metadata: Metadata = {
       {
         width: 1280,
         height: 720,
-        url: '/summary_large_image.png',
+        url: '/summary_large_image.webp',
       },
     ],
   },
@@ -42,7 +42,7 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: 'dotcreators',
     description: description,
-    images: ['/summary_large_image.png'],
+    images: ['/summary_large_image.webp'],
   },
   icons: [
     {
@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     },
   ],
   other: {
-    'vk:image': '/summary_large_image.png',
+    'vk:image': '/summary_large_image.webp',
   },
 };
 
