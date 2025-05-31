@@ -11,7 +11,7 @@ type Version = {
 
 const CHANGELOG: Record<string, Version> = {
   '2.0': {
-    file: 'a-new-begining',
+    file: 'v2-0',
     title: 'A new begining!',
     date: '2025-05-30T11:25:21.422Z',
     banner: v20BannerImage,
