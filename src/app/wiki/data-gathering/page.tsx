@@ -16,30 +16,12 @@ function DataGathering() {
       <h1 className="text-3xl font-bold">Data Gathering</h1>
 
       <p className="bg-black-03 text-gray-01 w-fit rounded-xl p-3 px-5">
-        Last update: <span className="text-white">18.05.2025</span>
+        Last update: <span className="text-white">31.05.2025</span>
       </p>
 
       <div className="flex flex-col gap-6">
         <h2 className="text-xl">Information We Collect</h2>
         <div className="flex flex-col gap-6">
-          <div className="bg-black-03 flex flex-col gap-3 rounded-xl p-4">
-            <h3 className="text-lg">Anonymous Usage Data</h3>
-            <p className="text-gray-01">
-              To understand general usage trends we use Umami, an open-source,
-              privacy-focused analytics tool. Umami collects anonymized,
-              aggregated data about Website usage, including:
-            </p>
-            <ul className="text-gray-01 my-1 flex list-disc flex-col gap-2 pl-4">
-              <li>Number of visitors</li>
-              <li>Page views</li>
-              <li>General geographic regions (e.g., country-level data)</li>
-            </ul>
-            <p className="text-gray-01">
-              This data does not identify individual users and is used solely
-              for analytical purposes to enhance the user experience.
-            </p>
-          </div>
-
           <div className="bg-black-03 flex flex-col gap-3 rounded-xl p-4">
             <h3 className="text-lg">Information About Featured Artists</h3>
             <p className="text-gray-01">

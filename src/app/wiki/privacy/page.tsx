@@ -17,16 +17,34 @@ function PrivacyPage() {
       <h1 className="text-3xl font-bold">Privacy Policy</h1>
 
       <p className="bg-black-03 text-gray-01 w-fit rounded-xl p-3 px-5">
-        Last update: <span className="text-white">18.05.2025</span>
+        Last update: <span className="text-white">31.05.2025</span>
       </p>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-xl">No Personal Data Collection</h2>
+        <h2 className="text-xl">Visitor Data Collection</h2>
+        <div className="bg-black-03 flex flex-col gap-3 rounded-xl p-4">
+          <h3 className="text-lg">Anonymous Analytics</h3>
+          <p className="text-gray-01">
+            To better understand usage trends, we utilize Umami, an open-source,
+            privacy-focused analytics tool. Umami gathers anonymized, aggregated
+            data about website activity, including:
+          </p>
+          <ul className="text-gray-01 my-1 flex list-disc flex-col gap-2 pl-4">
+            <li>Number of visitors</li>
+            <li>Page views</li>
+            <li>General geographic regions (e.g., country-level data)</li>
+          </ul>
+          <p className="text-gray-01">
+            This information is fully anonymized, does not identify individual
+            users, and is used exclusively to improve the website and enhance
+            your experience.
+          </p>
+        </div>
         <p className="text-gray-01">
-          We do not collect or store any personally identifiable information
-          (such as names, email addresses, or IP addresses) from users of the
-          Website. Our platform is designed to operate without gathering
-          personal data from visitors.
+          We do not collect or store any personally identifiable information,
+          such as names, email addresses, or IP addresses, from website
+          visitors. Our platform is designed to prioritize privacy and operate
+          without gathering personal data.
         </p>
       </div>
 
