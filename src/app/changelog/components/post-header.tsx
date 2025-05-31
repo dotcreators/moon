@@ -22,7 +22,7 @@ function PostHeader({
 }: PostHeaderProps) {
   return (
     <section
-      className={twJoin('flex flex-col gap-5 pb-2', className)}
+      className={twJoin('flex flex-col gap-5 pb-5', className)}
       {...props}
     >
       <ImageLoader
@@ -38,7 +38,7 @@ function PostHeader({
           <h1 className="font-mona-sans text-xl">{title}</h1>
         </div>
         <p className="text-gray-01 w-fit">
-          {date.toLocaleDateString('en-EN', {
+          {new Date(date).toLocaleDateString('en-EN', {
             dateStyle: 'full',
           })}
         </p>

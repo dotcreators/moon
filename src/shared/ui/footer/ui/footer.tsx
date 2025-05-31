@@ -11,6 +11,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   const [status, setStatus] = useState<
     'operational' | 'downtime' | 'degraded' | 'maintenance' | null
   >(null);
+  const [statusLoading, setStatusLoading] = useState<boolean>(true);
 
   useEffect(() => {
     async function getStatus() {
@@ -21,8 +22,11 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           const data = await response.json();
           setStatus(data.status);
         }
+
+        setStatusLoading(false);
       } catch (e) {
         console.error(e);
+        setStatusLoading(false);
       }
     }
 
@@ -89,10 +93,21 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                   href={item.link}
                   target={item.target}
                   className={twJoin(
-                    'hover:text-red-01 inline-flex items-center gap-1',
+                    'hover:text-red-01 relative inline-flex w-fit items-center gap-1',
                     'transition-colors duration-200 ease-in-out'
                   )}
                 >
+                  {item.chip && (
+                    <span
+                      className={twJoin(
+                        'bg-black-03 text-gray-01 absolute rounded-md px-3 py-1',
+                        'left-full ml-2',
+                        'laptop:right-full laptop:mr-2 laptop:left-auto laptop:ml-0'
+                      )}
+                    >
+                      {item.chip}
+                    </span>
+                  )}
                   <span>{item.label}</span>
                   <Icon ico="i-ri-arrow-right-up-line" />
                 </Link>
@@ -119,32 +134,39 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
             </div>
           </div>
         </div>
+
         <div className="flex w-full flex-row justify-between gap-2">
-          <Link
-            href={LINK.status}
-            target="_blank"
-            className="bg-black-03 flex flex-row items-center gap-1.5 rounded-xl p-3 text-xs"
-          >
-            <div
-              className={twJoin(
-                'flex h-[14px] w-[14px] animate-pulse items-center justify-center rounded-full',
-                (!status || status === 'downtime' || status === 'degraded') &&
-                  'bg-red-01/20',
-                status === 'operational' && 'bg-green-01/20',
-                status === 'maintenance' && 'bg-yellow-01/20'
-              )}
-            >
-              <div
-                className={twJoin(
-                  'h-[6px] w-[6px] rounded-full',
-                  status === 'operational' && 'bg-green-01',
-                  (!status || status === 'downtime' || status === 'degraded') &&
-                    'bg-red-01',
-                  status === 'maintenance' && 'bg-yellow-01'
-                )}
-              />
-            </div>
-            <p>Services {status ? status : 'unknown'}</p>
+          <Link href={LINK.status} target="_blank" className="">
+            {statusLoading ? (
+              <div className="bg-black-04 h-[40px] w-[160px] animate-pulse rounded-xl" />
+            ) : (
+              <div className="bg-black-03 flex flex-row items-center gap-1.5 rounded-xl p-3 text-xs">
+                <div
+                  className={twJoin(
+                    'flex h-[14px] w-[14px] animate-pulse items-center justify-center rounded-full',
+                    (!status ||
+                      status === 'downtime' ||
+                      status === 'degraded') &&
+                      'bg-red-01/20',
+                    status === 'operational' && 'bg-green-01/20',
+                    status === 'maintenance' && 'bg-yellow-01/20'
+                  )}
+                >
+                  <div
+                    className={twJoin(
+                      'h-[6px] w-[6px] rounded-full',
+                      status === 'operational' && 'bg-green-01',
+                      (!status ||
+                        status === 'downtime' ||
+                        status === 'degraded') &&
+                        'bg-red-01',
+                      status === 'maintenance' && 'bg-yellow-01'
+                    )}
+                  />
+                </div>
+                <p>Services {status ? status : 'unknown'}</p>
+              </div>
+            )}
           </Link>
         </div>
       </div>
