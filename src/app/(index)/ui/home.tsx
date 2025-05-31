@@ -102,7 +102,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     >
       <PinnedArtists
         data={pinnedArtists}
-        className={twJoin('px-3 pt-5', 'laptop:px-5')}
+        className={twJoin('px-3 pt-5', 'laptop:mx-5 laptop:px-0')}
       />
 
       <section
