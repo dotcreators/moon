@@ -2,4 +2,4 @@
 
 ## Dotcreators Moon
 
-Frontend service of dotcreators project, written in Next.js. Learn more about Next: [Next.js Framework](https://nextjs.org/)
+Frontend of dotcreators project, written in Next.js. Learn more about Next: [Next.js Framework](https://nextjs.org/)
