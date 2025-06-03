@@ -5,10 +5,11 @@ import { $API } from '@/shared/utils/dotcreators-api';
 export async function generateMetadata({
   params,
 }: {
-  params: { slug: string };
+  params: Promise<{ slug: string }>;
 }): Promise<Metadata> {
   try {
-    const artist = await $API.getArtistProfileByUsername(params.slug);
+    const { slug } = await params;
+    const artist = await $API.getArtistProfileByUsername(slug);
 
     if (!artist) {
       return {
