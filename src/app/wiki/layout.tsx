@@ -15,9 +15,8 @@ export default function WikiLayout({
   return (
     <section
       className={twJoin(
-        'relative mx-auto flex max-w-[1280px] flex-col',
-        'mt-5 gap-3 px-3',
-        'laptop:flex-row laptop:px-5 laptop:mb-5 laptop:gap-5 laptop:mt-5'
+        'relative mx-auto mt-3 flex max-w-[1280px] flex-col gap-3 px-3',
+        'laptop:flex-row laptop:px-5 laptop:mb-5 laptop:gap-5'
       )}
     >
       <section

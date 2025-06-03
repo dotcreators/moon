@@ -13,8 +13,12 @@ import { useRouter } from 'next/navigation';
 import { $API } from '@/shared/utils/dotcreators-api';
 import { Response } from '@/shared/types/response';
 import { Search } from '@/shared/ui/search';
+import { ModalWrapper } from '@/shared/ui/modal';
+import { ArtistProfile } from '@/shared/ui/artist-profile';
 
 function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
+  const [isLoading, setIsLoading] = useState<boolean>(true);
+  const [isModalOpened, setIsModalOpened] = useState<boolean>(false);
   const [selectedTab, setSelectedTab] = useState<Tabs>('profile');
   const [artistsData, setArtistsData] = useState<Response<Artist[]> | null>(
     null
@@ -39,6 +43,14 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     setTotalItems,
     setTotalPages,
   } = useSearchStore();
+
+  useEffect(() => {
+    if (selectedArtist && window.matchMedia('(max-width: 1023px)').matches) {
+      setIsModalOpened(true);
+    } else {
+      setIsModalOpened(false);
+    }
+  }, [selectedArtist]);
 
   useEffect(() => {
     async function getArtistsProfilesPaginated() {
@@ -75,14 +87,18 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           setTotalItems(a.totalItems);
           setTotalPages(a.totalPages);
           setSelectedTab('profile');
-          setSelectedArtist(a.items[0]);
+          if (!window.matchMedia('(max-width: 1023px)').matches) {
+            setSelectedArtist(a.items[0]);
+          }
           setArtistsStoreData(a.items);
         } else {
           setArtistsData(null);
         }
+        setIsLoading(false);
       } catch (error) {
         console.error(error);
         setArtistsData(null);
+        setIsLoading(false);
       }
     }
 
@@ -100,9 +116,24 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       )}
       {...props}
     >
+      <ModalWrapper
+        isShowed={isModalOpened}
+        onClose={() => {
+          setIsModalOpened(false);
+          setSelectedArtist(null);
+        }}
+      >
+        {selectedArtist && (
+          <ArtistProfile.Detailed
+            data={selectedArtist}
+            className="overflow-hidden rounded-xl"
+          />
+        )}
+      </ModalWrapper>
+
       <PinnedArtists
         data={pinnedArtists}
-        className={twJoin('px-3 pt-5', 'laptop:mx-5 laptop:px-0')}
+        className={twJoin('px-3 pt-3', 'laptop:mx-5 laptop:px-0')}
       />
 
       <section
@@ -123,6 +154,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 
       <ArtistsViewer.Detailed
         data={selectedArtist}
+        isLoading={isLoading}
         selectedTab={selectedTab}
         onTabsSelected={setSelectedTab}
         className={twJoin('hidden px-3', 'laptop:flex laptop:pr-5 laptop:pl-0')}

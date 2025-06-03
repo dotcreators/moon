@@ -61,7 +61,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
               href={'/'}
               className="!text-red-01 flex flex-row items-center gap-2"
             >
-              <Icon ico="i-dotcreators-logo" className="text-xl" />
+              <Icon ico="i-dotcreators-logo" className="text-2xl" />
               <p className="font-mona-sans text-2xl">dotcreators</p>
             </Link>
             <p className="max-w-[300px] text-sm">

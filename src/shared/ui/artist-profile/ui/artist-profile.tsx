@@ -178,8 +178,9 @@ function ArtistProfile({
 function Detailed({
   className,
   data,
+  isSlug = false,
   ...props
-}: Omit<ArtistProfileProps, 'isOpen'>) {
+}: Omit<ArtistProfileProps, 'isOpen'> & { isSlug?: boolean }) {
   const [trendsData, setTrendsData] = useState<Trend[] | null>(null);
   const [isLoading, setIsLoading] = useState<boolean>(true);
   const [error, setError] = useState<{
@@ -239,7 +240,11 @@ function Detailed({
 
   return (
     <div
-      className={twJoin('bg-black-02 flex w-full flex-col', className)}
+      className={twJoin(
+        'bg-black-02 flex w-full flex-col',
+        isSlug && 'rounded-2xl',
+        className
+      )}
       {...props}
     >
       <div className="relative flex flex-col">
@@ -249,16 +254,27 @@ function Detailed({
             data.images.banner ? 'absolute top-3 right-3' : 'mx-3 mt-3 self-end'
           )}
         >
-          <BannerButton
-            onClick={() => handlePinClick(data)}
-            isImageExist={Boolean(data.images.banner)}
-          >
-            {pinnedArtists && !pinnedArtists.some(x => x.id === data.id) ? (
-              <Icon ico="i-ri-pushpin-fill" className={twJoin('text-lg')} />
-            ) : (
-              <Icon ico="i-ri-unpin-fill" className={twJoin('text-lg')} />
-            )}
-          </BannerButton>
+          {!isSlug && (
+            <BannerButton
+              onClick={() => handlePinClick(data)}
+              isImageExist={Boolean(data.images.banner)}
+            >
+              {pinnedArtists && !pinnedArtists.some(x => x.id === data.id) ? (
+                <Icon ico="i-ri-pushpin-fill" className={twJoin('text-lg')} />
+              ) : (
+                <Icon ico="i-ri-unpin-fill" className={twJoin('text-lg')} />
+              )}
+            </BannerButton>
+          )}
+
+          {!isSlug && (
+            <BannerLink
+              href={`/artists/${data.username}`}
+              isImageExist={Boolean(data.images.banner)}
+            >
+              <Icon ico="i-dotcreators-logo" className="text-base" />
+            </BannerLink>
+          )}
 
           <BannerLink
             href={data.url}
@@ -276,7 +292,7 @@ function Detailed({
             variant="03"
             className={twJoin(
               'rounded-xl',
-              'h-24 max-h-24 min-h-24',
+              'h-32 max-h-32 min-h-32',
               'tablet:h-32 tablet:max-h-32 tablet:min-h-32',
               'laptop:h-36 laptop:max-h-36 laptop:min-h-36',
               'desktop:h-42 desktop:max-h-42 desktop:min-h-42'
@@ -284,7 +300,7 @@ function Detailed({
           />
         )}
       </div>
-      <div className="flex w-full flex-col gap-4 p-5">
+      <div className="laptop:p-5 flex w-full flex-col gap-4 py-3">
         <div className="flex flex-row items-center gap-4">
           <ImageLoader
             src={data.images.avatar}
@@ -293,7 +309,7 @@ function Detailed({
             height={128}
             variant="03"
             className={twJoin(
-              'rounded-xl',
+              'h-[64px] min-h-[64px] w-[64px] min-w-[64px] rounded-xl',
               'tablet:h-[72px] tablet:min-h-[72px] tablet:w-[72px] tablet:min-w-[72px]',
               'laptop:h-[64px] laptop:min-h-[64px] laptop:w-[64px] laptop:min-w-[64px]',
               'desktop:h-[72px] desktop:min-h-[72px] desktop:w-[72px] desktop:min-w-[72px]'
@@ -333,7 +349,7 @@ function Detailed({
                 )}
               </div>
             </div>
-            <div className="flex flex-row items-center gap-6">
+            <div className="tablet:flex hidden flex-row items-center gap-6">
               <div className="flex flex-col">
                 <p className="font-mona-sans text-2xl">
                   {trimValue(data.followersCount)}
@@ -349,8 +365,23 @@ function Detailed({
             </div>
           </div>
         </div>
+
+        <div className="tablet:hidden grid grid-cols-2 flex-row items-center gap-3">
+          <div className="bg-black-03 flex flex-col rounded-xl p-3">
+            <p className="font-mona-sans text-2xl">
+              {trimValue(data.followersCount)}
+            </p>
+            <p className="text-gray-01/80">followers</p>
+          </div>
+          <div className="bg-black-03 flex flex-col rounded-xl p-3">
+            <p className="font-mona-sans text-2xl">
+              {trimValue(data.tweetsCount)}
+            </p>
+            <p className="text-gray-01/80">tweets</p>
+          </div>
+        </div>
         {data.website && (
-          <div className="desktop:hidden laptop:flex hidden">
+          <div className="desktop:hidden laptop:flex tablet:hidden flex">
             <p className="text-gray-01 text-sm">
               Website:{' '}
               <Link
@@ -367,12 +398,14 @@ function Detailed({
           </div>
         )}
         {data.bio && <FormatBio text={data.bio} className="my-2" />}
-        <ArtistProfile.Trends
-          artistData={data}
-          isLoading={isLoading}
-          error={error}
-          data={trendsData}
-        />
+        {!isSlug && (
+          <ArtistProfile.Trends
+            artistData={data}
+            isLoading={isLoading}
+            error={error}
+            data={trendsData}
+          />
+        )}
         {(data.tags || data.country) && <Components data={data} />}
       </div>
     </div>
@@ -431,7 +464,11 @@ function Trends({
 }: TrendsArtistProfileProps) {
   return (
     <div
-      className={twJoin('relative z-[1] h-[248px] w-full', className)}
+      className={twJoin(
+        'relative z-[1] h-[524px] w-full',
+        'tablet:h-[248px]',
+        className
+      )}
       {...props}
     >
       <Transition
@@ -445,7 +482,13 @@ function Trends({
         leaveTo="opacity-0"
         className={twJoin('absolute inset-0 z-[1]')}
       >
-        <div className="desktop:gap-5 flex h-full w-full flex-row gap-3">
+        <div
+          className={twJoin(
+            'flex h-full w-full flex-col gap-3',
+            'tablet:flex-row',
+            'desktop:gap-5'
+          )}
+        >
           {[0, 1].map(i => (
             <div
               key={`loader-${i}`}
@@ -474,7 +517,13 @@ function Trends({
         leaveTo="opacity-0"
         className={twJoin('absolute inset-0 z-[1]')}
       >
-        <div className="desktop:gap-5 flex h-full w-full flex-row gap-3">
+        <div
+          className={twJoin(
+            'flex h-full w-full flex-col gap-3',
+            'tablet:flex-row',
+            'desktop:gap-5'
+          )}
+        >
           <TrendChart
             artistData={artistData}
             data={data!}

@@ -17,7 +17,7 @@ function ArtistsViewer({
   ...props
 }: ArtistsViewerProps) {
   const handleOpen = (id: string): boolean => {
-    return selectedArtist && id === selectedArtist.id ? true : false;
+    return selectedArtist && selectedArtist.id === id ? true : false;
   };
 
   return (
@@ -30,12 +30,13 @@ function ArtistsViewer({
             <ArtistProfile.Skeleton key={index} />
           ))
         : data.items.map(item => (
-            <ArtistProfile
-              key={item.id}
-              data={item}
-              isOpen={handleOpen(item.id)}
-              withRanking={false}
-            />
+            <div key={item.id} className="flex w-full flex-col gap-3">
+              <ArtistProfile
+                data={item}
+                isOpen={handleOpen(item.id)}
+                withRanking={false}
+              />
+            </div>
           ))}
     </section>
   );
@@ -43,12 +44,14 @@ function ArtistsViewer({
 
 type ArtistsViewerDetailedProps = HTMLAttributes<HTMLDivElement> & {
   data: Artist | null;
+  isLoading: boolean;
   selectedTab: Tabs;
   onTabsSelected: (selectedTab: Tabs) => void;
 };
 
 function ArtistsViewerDetailed({
   data,
+  isLoading,
   selectedTab = 'profile',
   className,
   onTabsSelected,
@@ -93,18 +96,18 @@ function ArtistsViewerDetailed({
           </div>
         </div>
 
-        {!data ? (
+        {isLoading || !data ? (
           <ArtistProfile.SkeletonDetailed />
         ) : selectedTab === 'profile' ? (
           <ArtistProfile.Detailed
             key={data.id}
-            data={data!}
+            data={data}
             className="overflow-hidden rounded-xl"
           />
         ) : (
           <ArtistProfile.DetailedTrends
             key={data.id}
-            artistData={data!}
+            artistData={data}
             className="overflow-hidden rounded-xl"
           />
         )}
