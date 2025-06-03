@@ -106,6 +106,27 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [q, page, tags, sortBy, country, perPage, router]);
 
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    setIsLaptop(mediaQuery.matches);
+
+    const handleResize = () => {
+      setIsLaptop(mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleResize);
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (isLaptop) setSelectedArtist(artistsData ? artistsData.items[0] : null);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLaptop]);
+
   return (
     <div
       className={twJoin(

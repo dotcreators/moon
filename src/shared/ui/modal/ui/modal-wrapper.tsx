@@ -1,5 +1,5 @@
 import { Transition } from '@headlessui/react';
-import { HTMLAttributes, useEffect } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import { twJoin } from 'tailwind-merge';
 import Icon from '../../icon';
 import Button from '../../button';
@@ -16,6 +16,22 @@ function ModalWrapper({
   className,
   ...props
 }: ModalWrapperProps) {
+  const [isLaptop, setIsLaptop] = useState(false);
+
+  useEffect(() => {
+    const mediaQuery = window.matchMedia('(min-width: 1024px)');
+    setIsLaptop(mediaQuery.matches);
+
+    const handleResize = () => {
+      setIsLaptop(mediaQuery.matches);
+    };
+
+    mediaQuery.addEventListener('change', handleResize);
+    return () => {
+      mediaQuery.removeEventListener('change', handleResize);
+    };
+  }, []);
+
   useEffect(() => {
     if (isShowed) {
       document.body.style.overflow = 'hidden';
@@ -27,6 +43,11 @@ function ModalWrapper({
       document.body.style.overflow = '';
     };
   }, [isShowed]);
+
+  useEffect(() => {
+    if (isLaptop) onClose(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [isLaptop]);
 
   return (
     <Transition
