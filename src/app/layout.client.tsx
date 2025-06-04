@@ -5,7 +5,6 @@ import Navigation from '@/shared/ui/navigation';
 import Footer from '@/shared/ui/footer';
 import { twJoin } from 'tailwind-merge';
 import Script from 'next/script';
-import { ArtistModalProvider } from '@/shared/context/artist-modal-context';
 
 export default function ClientLayout({
   children,
@@ -28,9 +27,7 @@ export default function ClientLayout({
         style={inter.style}
       >
         <Navigation />
-        <ArtistModalProvider>
-          <main>{children}</main>
-        </ArtistModalProvider>
+        <main>{children}</main>
         <Footer />
       </body>
     </html>

@@ -99,7 +99,7 @@ function ArtistProfilePinned({
 
 function Skeleton() {
   return (
-    <div className="bg-black-02 flex h-[60px] w-[150px] flex-row items-center gap-2 rounded-xl p-3 px-4">
+    <div className="bg-black-02 border-black-02 flex h-[62px] w-[150px] flex-row items-center gap-2 rounded-xl border p-3 px-4">
       <div className="bg-black-03 h-[36px] w-[36px] animate-pulse rounded-lg" />
       <div className="flex animate-pulse flex-col gap-1">
         <div className="bg-black-03 h-[15px] w-[60px] rounded-full" />
