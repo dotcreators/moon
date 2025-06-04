@@ -7,8 +7,7 @@ import useDebounce from '@/shared/hooks/use-debounce';
 import { SEARCH_FILTERS_DATA } from '../components/search-filters-data';
 
 function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  const { q, setQ, country, setCountry, tags, setTags, sortBy, setSortBy } =
-    useSearchStore();
+  const { q, setQ, country, setCountry, sortBy, setSortBy } = useSearchStore();
   const [searchQ, setSearchQ] = useState<string>(q ?? '');
   const debouncedSearchQ = useDebounce(searchQ, 300);
 
@@ -34,6 +33,7 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         }
         type="search"
         placeholder="Input artist username..."
+        className="col-span-2"
       />
       <Select.Item
         items={SEARCH_FILTERS_DATA.sortBy}
@@ -57,7 +57,7 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           setCountry(Array.isArray(value) ? value[0] : value)
         }
       />
-      <Select.Item
+      {/* <Select.Item
         items={SEARCH_FILTERS_DATA.tags}
         label="Tags"
         isDefaultValueNode={true}
@@ -66,7 +66,7 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         onSelectedItem={(value: string | string[]) =>
           setTags(Array.isArray(value) ? value : [value])
         }
-      />
+      /> */}
     </div>
   );
 }
