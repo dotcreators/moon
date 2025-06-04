@@ -33,6 +33,7 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         }
         type="search"
         placeholder="Input artist username..."
+        className="col-span-2"
       />
       <Select.Item
         items={SEARCH_FILTERS_DATA.sortBy}
@@ -55,7 +56,6 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         onSelectedItem={(value: string | string[]) =>
           setCountry(Array.isArray(value) ? value[0] : value)
         }
-        className="col-span-2"
       />
       {/* <Select.Item
         items={SEARCH_FILTERS_DATA.tags}
