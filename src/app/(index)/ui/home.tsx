@@ -131,7 +131,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     <div
       className={twJoin(
         'relative flex w-full flex-col gap-3',
-        'laptop:grid-cols-2 laptop:grid laptop:max-w-[1280px] laptop:w-fit',
+        'laptop:grid-cols-2 laptop:grid laptop:max-w-[1280px] laptop:w-ffull',
         'laptop:mb-5 laptop:mx-auto laptop:gap-5',
         className
       )}
