@@ -56,8 +56,9 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         onSelectedItem={(value: string | string[]) =>
           setCountry(Array.isArray(value) ? value[0] : value)
         }
+        className="col-span-2"
       />
-      <Select.Item
+      {/* <Select.Item
         items={SEARCH_FILTERS_DATA.tags}
         label="Tags"
         isDefaultValueNode={true}
@@ -66,7 +67,7 @@ function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         onSelectedItem={(value: string | string[]) =>
           setTags(Array.isArray(value) ? value : [value])
         }
-      />
+      /> */}
     </div>
   );
 }
