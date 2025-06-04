@@ -7,8 +7,7 @@ import useDebounce from '@/shared/hooks/use-debounce';
 import { SEARCH_FILTERS_DATA } from '../components/search-filters-data';
 
 function Search({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
-  const { q, setQ, country, setCountry, tags, setTags, sortBy, setSortBy } =
-    useSearchStore();
+  const { q, setQ, country, setCountry, sortBy, setSortBy } = useSearchStore();
   const [searchQ, setSearchQ] = useState<string>(q ?? '');
   const debouncedSearchQ = useDebounce(searchQ, 300);
 
