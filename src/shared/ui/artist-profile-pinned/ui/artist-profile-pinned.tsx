@@ -41,7 +41,10 @@ function ArtistProfilePinned({
   return (
     <div className="group relative min-w-max cursor-pointer">
       <button
-        onClick={() => removePinnedArtist(data)}
+        onClick={() => {
+          removePinnedArtist(data);
+          savePinnedArtists();
+        }}
         className={twJoin(
           'bg-red-01 absolute -top-2 -right-2 z-[2] flex rounded-full p-1',
           'border-black-01 cursor-pointer border-4',
