@@ -1,0 +1,42 @@
+import { PostHeader } from '../components/post-header';
+import { PostWrapper } from '../components/post-wrapper';
+import { CHANGELOG } from './versions';
+
+<PostHeader
+  image={CHANGELOG['2.0'].banner}
+  date={CHANGELOG['2.0'].date}
+  title={CHANGELOG['2.0'].title}
+  ver={'2.0'}
+/>
+
+<PostWrapper>
+
+A lot of time has passed since dotcreators release and almost from very beginning
+we tried to maintain this project and improve it. And now, ready to present an updated
+version of site. We have completely rewritten entire codebase of frontend,
+backend and rest of services are coming up as well. In addition, we moved
+out to new our infrastructure and further project support will be a
+little easier...
+
+> but not without problems, for example, all tags are gone and now we have to specify them again :0
+
+We slightly changed way of viewing artists and also updated some components.
+Hopefully it will be a more convenient to use dotcreators now.
+We also rewrote the way we get all artists and (hopefully) there will be fewer
+moments when our data collection service won't work (like when it didn't work for
+almost a full month due to some api issues)
+
+Unfortunately, but for now we removed direct artists suggestion due to
+fact that it was affecting stability of data collection a lot, so... Will try
+to figure something out and come back with a ready solution later.
+
+### New features
+
+- Pinned artists. Now your favorite artists will always be at your fingertips,
+
+- We also added status check of our services, especially our API worker, which does
+  all work of data collection
+
+> Thanks to everyone who uses our project and I hope it was at least a little bit useful to you :)
+
+</PostWrapper>
