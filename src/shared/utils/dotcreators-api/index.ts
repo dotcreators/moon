@@ -83,9 +83,7 @@ async function getArtistProfileByUsername(username: string): Promise<Artist> {
 
 async function getArtistUsernames() {
   try {
-    const response = await fetch(
-      `${API.URL}/artists/search/username/usernames`
-    );
+    const response = await fetch(`${API.URL}/artists/usernames`);
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
