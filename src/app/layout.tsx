@@ -23,8 +23,11 @@ export const metadata: Metadata = {
   },
   robots: { index: true, follow: true },
   description: description,
-  keywords: description,
+  keywords: ['dotcreators', 'pixel artist', 'pixel art'],
   metadataBase: new URL('https://dotcreators.xyz'),
+  alternates: {
+    canonical: 'https://dotcreators.xyz',
+  },
   openGraph: {
     title: 'dotcreators',
     description,

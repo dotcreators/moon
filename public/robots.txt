@@ -1,0 +1,10 @@
+# *
+User-agent: *
+Allow: /
+
+# Host
+Host: https://dotcreators.xyz
+
+# Sitemaps
+Sitemap: https://dotcreators.xyz/sitemap.xml
+Sitemap: https://dotcreators.xyz/server-sitemap.xml

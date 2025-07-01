@@ -1,12 +1,12 @@
 {
   "name": "dotcreators-moon",
   "version": "1.2.0",
-  "private": true,
+  "private": false,
   "scripts": {
     "dev": "rm -rf .next && next dev",
     "build": "next build",
-    "start": "next start",
     "postbuild": "next-sitemap",
+    "start": "next start",
     "lint": "next lint"
   },
   "dependencies": {

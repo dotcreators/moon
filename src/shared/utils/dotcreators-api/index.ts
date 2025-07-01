@@ -81,8 +81,31 @@ async function getArtistProfileByUsername(username: string): Promise<Artist> {
   }
 }
 
+async function getArtistUsernames() {
+  try {
+    const response = await fetch(
+      `${API.URL}/artists/search/username/usernames`
+    );
+    if (!response.ok) {
+      throw new Error(`Error ${response.status}: ${response.statusText}`);
+    }
+
+    const data = await response.json();
+
+    if (!data) {
+      throw new Error('Invalid response data');
+    }
+
+    return data as { items: string[] };
+  } catch (error) {
+    console.error('Error fetching artist usernames:', error);
+    throw error;
+  }
+}
+
 export const $API = {
   getArtistsPaginated,
   getArtistProfile,
   getArtistProfileByUsername,
+  getArtistUsernames,
 };

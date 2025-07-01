@@ -1,7 +1,7 @@
 const FOOTER = {
   Support: [
     {
-      chip: 'New',
+      chip: null,
       label: 'Changelog',
       link: '/changelog',
       target: '_self',
