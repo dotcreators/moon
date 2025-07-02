@@ -7,7 +7,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   try {
     const d = await $API.getArtistUsernames();
     artistPaths = d.items.map(username => ({
-      url: `${process.env.SITE_URL}/artist/${username}`,
+      url: `${process.env.SITE_URL}/artists/${username}`,
       changeFrequency: 'weekly' as const,
       priority: 0.7,
       lastModified: new Date().toISOString(),
