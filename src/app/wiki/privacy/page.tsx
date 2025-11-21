@@ -17,17 +17,26 @@ function PrivacyPage() {
       <h1 className="text-3xl font-bold">Privacy Policy</h1>
 
       <p className="bg-black-03 text-gray-01 w-fit rounded-xl p-3 px-5">
-        Last update: <span className="text-white">31.05.2025</span>
+        Last update: <span className="text-white">21.11.2025</span>
       </p>
 
-      <div className="flex flex-col gap-3">
+      <div className="flex flex-col gap-6">
         <h2 className="text-xl">Visitor Data Collection</h2>
         <div className="bg-black-03 flex flex-col gap-3 rounded-xl p-4">
           <h3 className="text-lg">Anonymous Analytics</h3>
           <p className="text-gray-01">
-            To better understand usage trends, we utilize Umami, an open-source,
-            privacy-focused analytics tool. Umami gathers anonymized, aggregated
-            data about website activity, including:
+            To better understand usage trends, we utilize{' '}
+            <Link
+              href={'https://umami.is/'}
+              className={twJoin(
+                'text-red-01 inline-flex items-center gap-1',
+                'transition-colors duration-200 ease-in-out'
+              )}
+            >
+              Umami
+            </Link>
+            , an open-source, privacy-focused analytics tool. Umami gathers
+            anonymized, aggregated data about website activity, including:
           </p>
           <ul className="text-gray-01 my-1 flex list-disc flex-col gap-2 pl-4">
             <li>Number of visitors</li>
@@ -49,7 +58,7 @@ function PrivacyPage() {
       </div>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-xl">Opt-Out for Featured Artists</h2>
+        <h2 className="text-xl">Opt-out for Featured Artists</h2>
         <p className="text-gray-01">
           If you are an artists featured on our platform and would prefer not to
           have your public information displayed, you may contact us at any time
@@ -70,18 +79,27 @@ function PrivacyPage() {
       <div className="flex flex-col gap-3">
         <h2 className="text-xl">Cookies and Tracking Technologies</h2>
         <p className="text-gray-01">
-          We don`t use cookies minimal and tracking technologies solely for the
-          operation of our analytics system, as described in our Data Gathering
-          Policy. These technologies do not collect personal information and are
-          configured to respect user privacy.
+          We use cookies and tracking technologies solely for the operation of
+          our analytics system, as described in our Data Collection Policy.
+          These technologies do not collect personal information and are
+          configured with user privacy in mind.
         </p>
       </div>
 
       <div className="flex flex-col gap-3">
-        <h2 className="text-xl">Third-Party Links</h2>
+        <h2 className="text-xl">Third-party Links</h2>
         <p className="text-gray-01">
-          The Website contain links to third-party websites or services, such as
-          X profiles or other public platforms. We are not responsible for the
+          Website contain links to third-party websites or services, such as{' '}
+          <Link
+            href={'https://x.com/'}
+            className={twJoin(
+              'text-red-01 inline-flex items-center gap-1',
+              'transition-colors duration-200 ease-in-out'
+            )}
+          >
+            x.com (formerly twitter.com)
+          </Link>{' '}
+          profiles or other public platforms. We are not responsible for the
           privacy practices or content of these third-party sites. We encourage
           you to review the privacy policies of any external sites you visit.
         </p>
