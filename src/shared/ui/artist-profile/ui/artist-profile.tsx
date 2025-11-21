@@ -676,8 +676,8 @@ function Skeleton() {
         <div className="bg-black-03 h-[24px] w-[150px] rounded-full" />
       </div>
       <div className="flex animate-pulse flex-row items-center gap-4">
-        <div className="bg-black-03 h-[24px] w-[100px] rounded-full" />
-        <div className="bg-black-03 h-[24px] w-[70px] rounded-full" />
+        <div className="tablet:block bg-black-03 hidden h-[24px] w-[100px] rounded-full" />
+        <div className="bg-black-03 tablet:w-[70px] h-[24px] w-[70px] rounded-full" />
       </div>
     </div>
   );
