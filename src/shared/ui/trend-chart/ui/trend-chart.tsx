@@ -1,7 +1,7 @@
 import { Artist } from '@/shared/types/artist';
 import { Trend } from '@/shared/types/trend';
 import { trimValue } from '@/shared/utils/trim-value';
-import { HTMLAttributes, useEffect, useMemo, useState } from 'react';
+import { HTMLAttributes, useEffect, useState } from 'react';
 import {
   AreaChart,
   ResponsiveContainer,
