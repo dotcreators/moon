@@ -1,7 +1,7 @@
 import { Artist } from '@/shared/types/artist';
 import { Trend } from '@/shared/types/trend';
 import { trimValue } from '@/shared/utils/trim-value';
-import { HTMLAttributes, useEffect, useState } from 'react';
+import { HTMLAttributes, useEffect, useMemo, useState } from 'react';
 import {
   AreaChart,
   ResponsiveContainer,
@@ -16,7 +16,6 @@ import Icon from '@/shared/ui/icon';
 import { useTrendData } from '../models/use-trend-data';
 import { useGrowthDynamics } from '../models/use-growth-dynamics';
 import { useStrokeColor } from '../models/use-stroke-color';
-import { useFormattedValue } from '../models/use-formatted-value';
 
 type TrendChartProps = HTMLAttributes<HTMLDivElement> & {
   artistData: Artist;
@@ -38,7 +37,6 @@ function TrendChart({
   const { difference, percent } = useTrendData(data, trendBy);
   const growthDynamics = useGrowthDynamics(difference);
   const strokeColor = useStrokeColor(growthDynamics);
-  const formattedValue = useFormattedValue(trendBy, artistData);
 
   useEffect(() => {
     setTrendValue(percent);
@@ -57,6 +55,22 @@ function TrendChart({
         return <Icon ico="i-ri-arrow-down-s-line" className="!text-xl" />;
       }
     }
+  };
+
+  const diff = () => {
+    let r = 0;
+
+    if (trendBy === 'followers') {
+      const early = data[0].followersCount;
+      const lasts = data[data.length - 1].followersCount;
+      r = ((lasts - early) / early) * 100;
+    } else {
+      const early = data[0].tweetsCount;
+      const lasts = data[data.length - 1].tweetsCount;
+      r = ((lasts - early) / early) * 100;
+    }
+
+    return r;
   };
 
   return (
@@ -83,7 +97,7 @@ function TrendChart({
             )}
           >
             {showIcon()}
-            {formattedValue}%
+            {parseFloat(Math.abs(diff()).toFixed(3)).toString()}%
           </p>
         </div>
       </div>
