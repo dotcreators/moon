@@ -12,8 +12,8 @@ const nextConfig: NextConfig = {
   },
   images: {
     remotePatterns: [
-      { protocol: 'https', hostname: '**.twimg.com', port: '' },
-      { protocol: 'https', hostname: 'flagcdn.com', port: '' },
+      { protocol: 'https', hostname: '**.twimg.com' },
+      { protocol: 'https', hostname: 'flagcdn.com' },
     ],
   },
   env: {

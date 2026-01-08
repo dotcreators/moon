@@ -14,7 +14,6 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }));
   } catch (error) {
     console.error('Failed to fetch artist usernames:', error);
-    // Optionally, you can decide to continue with static routes or throw a custom error
   }
 
   const routes = ['', '/changelog', '/wiki'].map(route => ({

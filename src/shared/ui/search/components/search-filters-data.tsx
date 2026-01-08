@@ -88,10 +88,10 @@ const SEARCH_FILTERS_DATA = {
       value: 'new',
       node: <Select.ItemNode icon="i-ri-seedling-fill" label="New" />,
     },
-    {
-      value: 'ranking',
-      node: <Select.ItemNode icon="i-ri-diamond-fill" label="Ranking" />,
-    },
+    // {
+    //   value: 'ranking',
+    //   node: <Select.ItemNode icon="i-ri-diamond-fill" label="Ranking" />,
+    // },
   ],
   country: COUNTRY_CODES.map(item => ({
     value: item.value,
