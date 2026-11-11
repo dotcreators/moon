@@ -1,5 +1,7 @@
 import { Images } from './images';
 
+type TrackingStatus = 'active' | 'suspended' | 'not_found';
+
 type Artist = {
   id: string;
   twitterUserId: string;
@@ -21,6 +23,7 @@ type Artist = {
   updatedAt: Date;
   name: string | null;
   bio: string | null;
+  trackingStatus?: TrackingStatus;
 };
 
-export type { Artist };
+export type { Artist, TrackingStatus };

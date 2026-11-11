@@ -26,6 +26,7 @@ import Select from '../../search/components/select';
 import { SEARCH_FILTERS_DATA } from '../../search/components/search-filters-data';
 import { BannerLink } from '../components/banner-link';
 import { NewArtistBadge } from '../components/new-artist-badge';
+import { TrackingStatusBadge } from '../components/tracking-status-badge';
 
 type ArtistProfileProps = HTMLAttributes<HTMLDivElement> & {
   isOpen: boolean;
@@ -127,6 +128,7 @@ function ArtistProfile({
             />
             {data.country && <Flag country={data.country} />}
             <div className="flex min-w-0 flex-1 flex-row items-center gap-2">
+              <TrackingStatusBadge status={data.trackingStatus} />
               <NewArtistBadge createdAt={data.createdAt} />
               <p
                 className={twJoin(
@@ -335,6 +337,10 @@ function Detailed({
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
               <div className="flex flex-row items-center gap-2">
+                <TrackingStatusBadge
+                  status={data.trackingStatus}
+                  className="p-1.5 text-base"
+                />
                 <NewArtistBadge
                   createdAt={data.createdAt}
                   className="p-1.5 text-base"
