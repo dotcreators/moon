@@ -17,10 +17,12 @@ function TrendPlaceholder({
       {...props}
     >
       <Icon ico="line-chart-fill" className="text-gray-01 text-3xl" />
-      <p className="font-bold">Not enough data yet</p>
-      <p className="text-gray-01 max-w-72 text-sm">
-        Trends appear after {MIN_TREND_POINTS} days of tracking.
-      </p>
+      <div className="flex flex-col items-center gap-0.5">
+        <p className="font-bold">Not enough data yet</p>
+        <p className="text-gray-01 max-w-72 text-sm">
+          Trends appear after {MIN_TREND_POINTS} days of tracking.
+        </p>
+      </div>
     </div>
   );
 }

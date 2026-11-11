@@ -1,4 +1,4 @@
-import { twJoin } from 'tailwind-merge';
+import { twMerge } from 'tailwind-merge';
 import Icon from '@/shared/ui/icon';
 import { Tooltip } from '@/shared/ui/tooltip';
 import { isNewArtist } from '@/shared/utils/is-new-artist';
@@ -15,12 +15,15 @@ function NewArtistBadge({ createdAt, className }: NewArtistBadgeProps) {
     <Tooltip
       role="img"
       aria-label="New artist"
-      className={twJoin('text-green-01 shrink-0', className)}
+      className={twMerge(
+        'bg-green-01/10 text-green-01 shrink-0 rounded-md p-1 text-sm',
+        className
+      )}
       content={
         <div className="flex flex-col gap-0.5">
           <p className="text-green-01 font-bold">New artist</p>
           <p className="text-gray-01">
-            This artist was added recently, trend data is still being collected
+            This artist was added recently, some data is still being collected
           </p>
         </div>
       }

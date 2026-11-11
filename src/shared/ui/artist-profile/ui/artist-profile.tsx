@@ -3,6 +3,7 @@ import { twJoin } from 'tailwind-merge';
 import { Artist } from '@/shared/types/artist';
 import { Flag } from '@/shared/ui/flag';
 import { trimValue } from '@/shared/utils/trim-value';
+import { formatWebsite } from '@/shared/utils/format-website';
 import Icon from '@/shared/ui/icon';
 import useArtistStore from '@/shared/hooks/use-artist-store';
 import Link from 'next/link';
@@ -125,7 +126,8 @@ function ArtistProfile({
               )}
             />
             {data.country && <Flag country={data.country} />}
-            <div className="flex min-w-0 flex-1 flex-row items-center gap-1.5">
+            <div className="flex min-w-0 flex-1 flex-row items-center gap-2">
+              <NewArtistBadge createdAt={data.createdAt} />
               <p
                 className={twJoin(
                   'font-mona-sans min-w-0 truncate text-start text-sm',
@@ -134,7 +136,6 @@ function ArtistProfile({
               >
                 {data.name}
               </p>
-              <NewArtistBadge createdAt={data.createdAt} />
             </div>
           </div>
           <div
@@ -334,6 +335,10 @@ function Detailed({
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
               <div className="flex flex-row items-center gap-2">
+                <NewArtistBadge
+                  createdAt={data.createdAt}
+                  className="p-1.5 text-base"
+                />
                 <p
                   className={twJoin(
                     'font-mona-sans truncate text-2xl text-ellipsis',
@@ -343,10 +348,6 @@ function Detailed({
                 >
                   {data.name}
                 </p>
-                <NewArtistBadge
-                  createdAt={data.createdAt}
-                  className="text-xl"
-                />
               </div>
               <div className="text-gray-01/80 flex max-w-[260px] items-center gap-1">
                 <Link
@@ -364,7 +365,7 @@ function Detailed({
                       target="_blank"
                       className="hover:text-red-01 max-w-[100px] truncate transition-colors duration-200 ease-in-out"
                     >
-                      {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
+                      {formatWebsite(data.website)}
                     </Link>
                   </div>
                 )}
@@ -402,18 +403,18 @@ function Detailed({
           </div>
         </div>
         {data.website && (
-          <div className="desktop:hidden laptop:flex tablet:hidden flex">
-            <p className="text-gray-01 text-sm">
-              Website:{' '}
+          <div className="desktop:hidden laptop:flex tablet:hidden flex min-w-0">
+            <p className="text-gray-01 flex w-full min-w-0 items-baseline gap-1 text-sm">
+              <span className="shrink-0">Website:</span>
               <Link
                 href={data.website}
                 target="_blank"
                 className={twJoin(
-                  'text-red-01 truncate text-base text-ellipsis',
+                  'text-red-01 min-w-0 truncate text-base',
                   'hover:text-red-01 transition-colors duration-200 ease-in-out'
                 )}
               >
-                {data.website.replace(/https?:\/\/(www\.)?|\/$/g, '')}
+                {formatWebsite(data.website)}
               </Link>
             </p>
           </div>
