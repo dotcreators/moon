@@ -9,7 +9,11 @@ import Link from 'next/link';
 import { FormatBio } from '@/shared/ui/format-bio';
 import { Trend } from '@/shared/types/trend';
 import { $API } from '@/shared/utils/dotcreators-api';
-import { TrendChart } from '../../trend-chart';
+import {
+  MIN_TREND_POINTS,
+  TrendChart,
+  TrendPlaceholder,
+} from '../../trend-chart';
 import { Transition } from '@headlessui/react';
 import { ProfileComponent } from '../components/profile-component';
 import { COUNTRY_CODES } from '@/shared/constants/country-codes';
@@ -479,6 +483,8 @@ function Trends({
   data,
   ...props
 }: TrendsArtistProfileProps) {
+  const hasEnoughData = !!data && data.length >= MIN_TREND_POINTS;
+
   return (
     <div
       className={twJoin(
@@ -525,7 +531,21 @@ function Trends({
 
       <Transition
         as={'div'}
-        show={!isLoading && !!data}
+        show={!isLoading && !!data && !hasEnoughData}
+        enter="transition-opacity duration-200"
+        enterFrom="opacity-0"
+        enterTo="opacity-100"
+        leave="transition-opacity duration-200"
+        leaveFrom="opacity-100"
+        leaveTo="opacity-0"
+        className={twJoin('absolute inset-0 z-[1]')}
+      >
+        <TrendPlaceholder />
+      </Transition>
+
+      <Transition
+        as={'div'}
+        show={!isLoading && hasEnoughData}
         enter="transition-opacity duration-200"
         enterFrom="opacity-0"
         enterTo="opacity-100"
@@ -609,6 +629,8 @@ function DetailedTrends({
     return () => controller.abort();
   }, [artistData, trendsRange]);
 
+  const hasEnoughData = !!trendsData && trendsData.length >= MIN_TREND_POINTS;
+
   return (
     <div
       className={twJoin('bg-black-02 flex flex-col gap-5 p-5', className)}
@@ -661,7 +683,21 @@ function DetailedTrends({
 
         <Transition
           as={'div'}
-          show={!isLoading && !!trendsData}
+          show={!isLoading && !!trendsData && !hasEnoughData}
+          enter="transition-opacity duration-200"
+          enterFrom="opacity-0"
+          enterTo="opacity-100"
+          leave="transition-opacity duration-200"
+          leaveFrom="opacity-100"
+          leaveTo="opacity-0"
+          className={twJoin('absolute inset-0 z-[1]')}
+        >
+          <TrendPlaceholder />
+        </Transition>
+
+        <Transition
+          as={'div'}
+          show={!isLoading && hasEnoughData}
           enter="transition-opacity duration-200"
           enterFrom="opacity-0"
           enterTo="opacity-100"

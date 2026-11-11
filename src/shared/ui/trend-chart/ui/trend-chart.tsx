@@ -57,22 +57,6 @@ function TrendChart({
     }
   };
 
-  const diff = () => {
-    let r = 0;
-
-    if (trendBy === 'followers') {
-      const early = data[0].followersCount;
-      const lasts = data[data.length - 1].followersCount;
-      r = ((lasts - early) / early) * 100;
-    } else {
-      const early = data[0].tweetsCount;
-      const lasts = data[data.length - 1].tweetsCount;
-      r = ((lasts - early) / early) * 100;
-    }
-
-    return r;
-  };
-
   return (
     <div
       className={twJoin('flex h-full flex-col gap-2 text-xs', className)}
@@ -97,7 +81,7 @@ function TrendChart({
             )}
           >
             {showIcon()}
-            {parseFloat(Math.abs(diff()).toFixed(3)).toString()}%
+            {parseFloat(Math.abs(percent).toFixed(3)).toString()}%
           </p>
         </div>
       </div>

@@ -12,7 +12,7 @@ const useTrendData = (data: Trend[], trendBy: 'followers' | 'tweets') => {
         : data[lastIndex].tweetsCount;
 
     const difference = currentCount - initialCount;
-    const percent = ((currentCount - initialCount) / initialCount) * 100;
+    const percent = initialCount > 0 ? (difference / initialCount) * 100 : 0;
 
     return { difference, percent };
   }, [data, trendBy]);

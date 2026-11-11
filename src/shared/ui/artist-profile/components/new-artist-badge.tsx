@@ -11,12 +11,6 @@ type NewArtistBadgeProps = {
 function NewArtistBadge({ createdAt, className }: NewArtistBadgeProps) {
   if (!isNewArtist(createdAt)) return null;
 
-  const addedAt = new Date(createdAt).toLocaleDateString('en-US', {
-    month: 'long',
-    day: 'numeric',
-    year: 'numeric',
-  });
-
   return (
     <Tooltip
       role="img"
@@ -25,7 +19,9 @@ function NewArtistBadge({ createdAt, className }: NewArtistBadgeProps) {
       content={
         <div className="flex flex-col gap-0.5">
           <p className="text-green-01 font-bold">New artist</p>
-          <p className="text-gray-01">Added to dotcreators on {addedAt}</p>
+          <p className="text-gray-01">
+            This artist was added recently, trend data is still being collected
+          </p>
         </div>
       }
     >

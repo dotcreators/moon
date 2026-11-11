@@ -55,7 +55,7 @@ function Tooltip({ className, content, children, ...props }: TooltipProps) {
             style={{ top: position.top, left: position.left }}
             className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-full pb-2"
           >
-            <div className="bg-black-04 text-white-01 rounded-lg px-3 py-2 text-sm whitespace-nowrap shadow-lg">
+            <div className="bg-black-04 text-white-01 w-max max-w-64 rounded-lg px-3 py-2 text-sm shadow-lg">
               {content}
             </div>
           </div>,
