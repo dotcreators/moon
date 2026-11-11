@@ -1,9 +1,10 @@
 import { twJoin } from 'tailwind-merge';
-import Icon from '@/shared/ui/icon';
+import Icon, { type IconName } from '@/shared/ui/icon';
 import {
   ChangeEvent,
   HTMLAttributes,
   HTMLInputTypeAttribute,
+  ReactElement,
   ReactNode,
   useEffect,
   useRef,
@@ -148,7 +149,7 @@ function Item({
             {renderSelectedValue()}
           </div>
           <Icon
-            ico="i-ri-arrow-down-s-line"
+            ico="arrow-down-s-line"
             className={twJoin(
               'text-xl',
               'transition-transform duration-200 ease-in-out',
@@ -356,7 +357,7 @@ function ScrollItems({
             {renderSelectedValue()}
           </div>
           <Icon
-            ico="i-ri-arrow-down-s-line"
+            ico="arrow-down-s-line"
             className={twJoin(
               'text-xl',
               'transition-transform duration-200 ease-in-out',
@@ -389,7 +390,7 @@ function ScrollItems({
               )}
               {...props}
             >
-              <Icon ico="i-ri-search-2-line" className="text-xl" />
+              <Icon ico="search-2-line" className="text-xl" />
               <input
                 onChange={e => setSearchFilter(e.target.value)}
                 type={'search'}
@@ -404,7 +405,7 @@ function ScrollItems({
                 onClick={() => setSearchFilter('')}
                 className={twJoin('cursor-pointer')}
               >
-                <Icon ico="i-ri-close-fill" className="text-lg" />
+                <Icon ico="close-fill" className="text-lg" />
               </button>
             </div>
           )}
@@ -458,7 +459,7 @@ function ScrollItems({
 }
 
 type ItemNodeProps = HTMLAttributes<HTMLDivElement> & {
-  icon?: string | ReactNode;
+  icon?: IconName | ReactElement;
   label: string;
 };
 
@@ -509,7 +510,7 @@ function Input({
       )}
       {...props}
     >
-      <Icon ico="i-ri-search-2-line" className="text-xl" />
+      <Icon ico="search-2-line" className="text-xl" />
       <input
         onChange={onChange}
         type={type}
@@ -522,7 +523,7 @@ function Input({
       />
       {type === 'search' && (
         <button onClick={handleClear} className={twJoin('cursor-pointer')}>
-          <Icon ico="i-ri-close-fill" className="text-lg" />
+          <Icon ico="close-fill" className="text-lg" />
         </button>
       )}
     </section>

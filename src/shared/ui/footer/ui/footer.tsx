@@ -61,7 +61,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
               href={'/'}
               className="!text-red-01 flex flex-row items-center gap-2"
             >
-              <Icon ico="i-dotcreators-logo" className="text-2xl" />
+              <Icon ico="dotcreators-logo" className="text-2xl" />
               <p className="font-mona-sans text-2xl">dotcreators</p>
             </Link>
             <p className="max-w-[300px] text-sm">
@@ -76,7 +76,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                 className="text-red-01 inline-flex items-center gap-1"
               >
                 <span>open source</span>
-                <Icon ico="i-ri-arrow-right-up-line" />
+                <Icon ico="arrow-right-up-line" />
               </Link>
             </div>
           </div>
@@ -112,7 +112,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                     </span>
                   )}
                   <span>{item.label}</span>
-                  <Icon ico="i-ri-arrow-right-up-line" />
+                  <Icon ico="arrow-right-up-line" />
                 </Link>
               ))}
             </div>
@@ -131,7 +131,7 @@ function Footer({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
                   )}
                 >
                   <span>{item.label}</span>
-                  <Icon ico="i-ri-arrow-right-up-line" />
+                  <Icon ico="arrow-right-up-line" />
                 </Link>
               ))}
             </div>

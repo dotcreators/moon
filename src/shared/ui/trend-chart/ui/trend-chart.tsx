@@ -48,11 +48,11 @@ function TrendChart({
   const showIcon = () => {
     if (trendValue) {
       if (trendValue == 0) {
-        return <Icon ico="i-ri-equal-line" className="!text-xl" />;
+        return <Icon ico="equal-line" className="!text-xl" />;
       } else if (trendValue > 0) {
-        return <Icon ico="i-ri-arrow-up-s-line" className="!text-xl" />;
+        return <Icon ico="arrow-up-s-line" className="!text-xl" />;
       } else {
-        return <Icon ico="i-ri-arrow-down-s-line" className="!text-xl" />;
+        return <Icon ico="arrow-down-s-line" className="!text-xl" />;
       }
     }
   };

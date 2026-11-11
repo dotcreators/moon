@@ -33,7 +33,7 @@ export default function WikiLayout({
             isCentered={false}
           >
             <div className="flex flex-row items-center gap-2">
-              <Icon ico="i-ri-lock-fill" className="!text-gray-01" />
+              <Icon ico="lock-fill" className="!text-gray-01" />
               <p>Privacy Policy</p>
             </div>
           </Button.Link>
@@ -43,7 +43,7 @@ export default function WikiLayout({
             isCentered={false}
           >
             <div className="flex flex-row items-center gap-2">
-              <Icon ico="i-ri-archive-2-fill" className="!text-gray-01" />
+              <Icon ico="archive-2-fill" className="!text-gray-01" />
               <p>Data Gathering</p>
             </div>
           </Button.Link>

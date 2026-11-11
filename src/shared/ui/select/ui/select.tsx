@@ -29,11 +29,11 @@ function Select({
         >
           {selectedItem === item.value ? (
             <Icon
-              ico={'i-ri-checkbox-blank-circle-fill'}
+              ico={'checkbox-blank-circle-fill'}
               className="!text-red-01"
             />
           ) : (
-            <Icon ico={'i-ri-checkbox-blank-circle-line'} />
+            <Icon ico={'checkbox-blank-circle-line'} />
           )}
           {item.label && (
             <p

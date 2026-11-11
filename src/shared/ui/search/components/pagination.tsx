@@ -51,7 +51,7 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           disabled={page === 1}
         >
           <Icon
-            ico="i-ri-arrow-left-double-fill"
+            ico="arrow-left-double-fill"
             className={getIconStyles(page !== 1)}
           />
         </button>
@@ -63,7 +63,7 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           disabled={page === 1}
         >
           <Icon
-            ico="i-ri-arrow-left-s-line"
+            ico="arrow-left-s-line"
             className={getIconStyles(page !== 1)}
           />
         </button>
@@ -80,7 +80,7 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           disabled={page === totalPages}
         >
           <Icon
-            ico="i-ri-arrow-right-s-line"
+            ico="arrow-right-s-line"
             className={getIconStyles(page !== totalPages)}
           />
         </button>
@@ -92,7 +92,7 @@ function Pagination({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           disabled={page === totalPages}
         >
           <Icon
-            ico="i-ri-arrow-right-double-fill"
+            ico="arrow-right-double-fill"
             className={getIconStyles(page !== totalPages)}
           />
         </button>

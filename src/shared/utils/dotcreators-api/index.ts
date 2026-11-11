@@ -2,6 +2,7 @@ import { Artist } from '@/shared/types/artist';
 import { Response } from '@/shared/types/response';
 import { API } from './api.config';
 import { SearchParams } from '@/shared/types/search-params';
+import { Trend } from '@/shared/types/trend';
 
 async function getArtistsPaginated(
   params: SearchParams
@@ -39,17 +40,24 @@ async function getArtistsPaginated(
   }
 }
 
-async function getArtistProfile(twitterUserId: string): Promise<Artist> {
+async function getArtist(url: string): Promise<Artist | null> {
   try {
-    const response = await fetch(`${API.URL}/artists/search/${twitterUserId}`);
+    const response = await fetch(url);
+    if (response.status === 404) {
+      return null;
+    }
     if (!response.ok) {
       throw new Error(`Error ${response.status}: ${response.statusText}`);
     }
 
-    const data = await response.json();
+    const text = await response.text();
+    if (!text) {
+      return null;
+    }
 
-    if (!data) {
-      throw new Error('Invalid response data');
+    const data = JSON.parse(text);
+    if (!data || !data.id) {
+      return null;
     }
 
     return data as Artist;
@@ -59,26 +67,44 @@ async function getArtistProfile(twitterUserId: string): Promise<Artist> {
   }
 }
 
-async function getArtistProfileByUsername(username: string): Promise<Artist> {
-  try {
-    const response = await fetch(
-      `${API.URL}/artists/search/username/${username}`
-    );
-    if (!response.ok) {
-      throw new Error(`Error ${response.status}: ${response.statusText}`);
-    }
+async function getArtistProfile(twitterUserId: string): Promise<Artist | null> {
+  return getArtist(
+    `${API.URL}/artists/search/${encodeURIComponent(twitterUserId)}`
+  );
+}
 
-    const data = await response.json();
+async function getArtistProfileByUsername(
+  username: string
+): Promise<Artist | null> {
+  return getArtist(
+    `${API.URL}/artists/search/username/${encodeURIComponent(username)}`
+  );
+}
 
-    if (!data) {
-      throw new Error('Invalid response data');
-    }
+async function getArtistTrends(
+  twitterUserId: string,
+  perPage: number,
+  signal?: AbortSignal
+): Promise<Trend[]> {
+  const query = new URLSearchParams({
+    page: '1',
+    perPage: perPage.toString(),
+    twitterUserId,
+  });
 
-    return data as Artist;
-  } catch (error) {
-    console.error('Error fetching artist profile:', error);
-    throw error;
+  const response = await fetch(`${API.URL}/trends/search?${query.toString()}`, {
+    signal,
+  });
+  if (!response.ok) {
+    throw new Error(`Error ${response.status}: ${response.statusText}`);
   }
+
+  const data: Response<Trend[]> = await response.json();
+  if (!data.items) {
+    throw new Error('Invalid response data');
+  }
+
+  return data.items;
 }
 
 async function getArtistUsernames() {
@@ -106,4 +132,5 @@ export const $API = {
   getArtistProfile,
   getArtistProfileByUsername,
   getArtistUsernames,
+  getArtistTrends,
 };

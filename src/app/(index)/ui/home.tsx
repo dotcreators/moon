@@ -8,7 +8,9 @@ import { ArtistsViewer } from '../components/artists-viewer';
 import { HTMLAttributes, useEffect, useState } from 'react';
 import useArtistStore from '@/shared/hooks/use-artist-store';
 import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
-import useSearchStore from '@/shared/hooks/use-search-store';
+import useSearchStore, {
+  parseSearchFilters,
+} from '@/shared/hooks/use-search-store';
 import { useRouter } from 'next/navigation';
 import { $API } from '@/shared/utils/dotcreators-api';
 import { Response } from '@/shared/types/response';
@@ -31,7 +33,8 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   } = useArtistStore();
   const { pinnedArtists } = usePinnedArtistStore();
   const router = useRouter();
-  // const params: SearchParams = useParams();
+  const [isFiltersInitialized, setIsFiltersInitialized] =
+    useState<boolean>(false);
 
   const {
     page,
@@ -42,7 +45,14 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     tags,
     setTotalItems,
     setTotalPages,
+    setFilters,
   } = useSearchStore();
+
+  useEffect(() => {
+    setFilters(parseSearchFilters(new URLSearchParams(window.location.search)));
+    setIsFiltersInitialized(true);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   useEffect(() => {
     if (selectedArtist && window.matchMedia('(max-width: 1023px)').matches) {
@@ -53,6 +63,10 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   }, [selectedArtist]);
 
   useEffect(() => {
+    if (!isFiltersInitialized) return;
+
+    let isCancelled = false;
+
     async function getArtistsProfilesPaginated() {
       setArtistsData(null);
 
@@ -71,7 +85,10 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
       }
 
       try {
-        router.push(`?${query.toString()}`, { scroll: false });
+        const nextSearch = `?${query.toString()}`;
+        if (window.location.search !== nextSearch) {
+          router.replace(nextSearch, { scroll: false });
+        }
 
         const a = await $API.getArtistsPaginated({
           q: q ?? undefined,
@@ -82,13 +99,15 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           tags: tags ?? undefined,
         });
 
+        if (isCancelled) return;
+
         if (a.items && !a.errors) {
           setArtistsData(a);
           setTotalItems(a.totalItems);
           setTotalPages(a.totalPages);
           setSelectedTab('profile');
           if (!window.matchMedia('(max-width: 1023px)').matches) {
-            setSelectedArtist(a.items[0]);
+            setSelectedArtist(a.items[0] ?? null);
           }
           setArtistsStoreData(a.items);
         } else {
@@ -96,6 +115,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         }
         setIsLoading(false);
       } catch (error) {
+        if (isCancelled) return;
         console.error(error);
         setArtistsData(null);
         setIsLoading(false);
@@ -103,8 +123,12 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     }
 
     getArtistsProfilesPaginated();
+
+    return () => {
+      isCancelled = true;
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [q, page, tags, sortBy, country, perPage, router]);
+  }, [q, page, tags, sortBy, country, perPage, router, isFiltersInitialized]);
 
   const [isLaptop, setIsLaptop] = useState(false);
 
@@ -123,7 +147,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   }, []);
 
   useEffect(() => {
-    if (isLaptop) setSelectedArtist(artistsData ? artistsData.items[0] : null);
+    if (isLaptop) setSelectedArtist(artistsData?.items[0] ?? null);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isLaptop]);
 
@@ -163,7 +187,10 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
           'laptop:pr-0 laptop:pl-5 laptop:gap-5'
         )}
       >
-        <Search className={twJoin('bg-black-01')} />
+        <Search
+          key={isFiltersInitialized ? 'initialized' : 'default'}
+          className={twJoin('bg-black-01')}
+        />
         <div className="flex w-full flex-col">
           <ArtistsViewer.Default
             data={artistsData}

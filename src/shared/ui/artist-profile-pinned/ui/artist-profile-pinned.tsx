@@ -21,8 +21,13 @@ function ArtistProfilePinned({
   const { updatePinnedArtist, savePinnedArtists } = usePinnedArtistStore();
 
   const handlePinnedProfileClick = async (twitterUserId: string) => {
-    if (selectedArtist && selectedArtist.twitterUserId !== twitterUserId) {
-      setSelectedArtist(null);
+    if (selectedArtist && selectedArtist.twitterUserId === twitterUserId) {
+      return;
+    }
+
+    setSelectedArtist(null);
+
+    try {
       const p = await $API.getArtistProfile(twitterUserId);
       if (p) {
         setSelectedArtist(p);
@@ -35,6 +40,8 @@ function ArtistProfilePinned({
         });
         savePinnedArtists();
       }
+    } catch (error) {
+      console.error(error);
     }
   };
 
@@ -54,7 +61,7 @@ function ArtistProfilePinned({
             : 'scale-0 group-hover:scale-100'
         )}
       >
-        <Icon ico="i-ri-close-line" />
+        <Icon ico="close-line" />
       </button>
       <article
         onClick={() => handlePinnedProfileClick(data.twitterUserId)}

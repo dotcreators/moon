@@ -1,6 +1,5 @@
 import { Metadata, Viewport } from 'next';
 import './globals.css';
-import 'uno.css';
 import 'overlayscrollbars/overlayscrollbars.css';
 import ClientLayout from './layout.client';
 

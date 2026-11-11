@@ -71,7 +71,7 @@ function ModalWrapper({
           className="flex w-full flex-row items-center gap-2"
           variant="02"
         >
-          <Icon ico="i-ri-arrow-go-back-fill" />
+          <Icon ico="arrow-go-back-fill" />
           <p>Back to artists</p>
         </Button.Flat>
         <div className="mt-3">{children}</div>

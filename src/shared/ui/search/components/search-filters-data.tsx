@@ -7,38 +7,38 @@ const SEARCH_FILTERS_DATA = {
     {
       value: 'commissions',
       node: (
-        <Select.ItemNode icon="i-ri-vip-diamond-fill" label="Commissions" />
+        <Select.ItemNode icon="vip-diamond-fill" label="Commissions" />
       ),
     },
     {
       value: 'work offers',
       node: (
-        <Select.ItemNode icon="i-ri-vip-diamond-fill" label="Work offers" />
+        <Select.ItemNode icon="vip-diamond-fill" label="Work offers" />
       ),
     },
     {
       value: 'pixelart',
-      node: <Select.ItemNode icon="i-ri-square-fill" label="Pixelart" />,
+      node: <Select.ItemNode icon="square-fill" label="Pixelart" />,
     },
     {
       value: 'textmode',
-      node: <Select.ItemNode icon="i-ri-input-method-fill" label="Textmode" />,
+      node: <Select.ItemNode icon="input-method-fill" label="Textmode" />,
     },
     {
       value: 'lowpoly',
-      node: <Select.ItemNode icon="i-ri-shape-2-fill" label="Lowpoly" />,
+      node: <Select.ItemNode icon="shape-2-fill" label="Lowpoly" />,
     },
     {
       value: 'voxel',
-      node: <Select.ItemNode icon="i-ri-box-3-fill" label="Voxel" />,
+      node: <Select.ItemNode icon="box-3-fill" label="Voxel" />,
     },
     {
       value: 'gamedev',
-      node: <Select.ItemNode icon="i-ri-code-fill" label="Gamedev" />,
+      node: <Select.ItemNode icon="code-fill" label="Gamedev" />,
     },
     {
       value: 'animation',
-      node: <Select.ItemNode icon="i-ri-film-line" label="Animation" />,
+      node: <Select.ItemNode icon="film-line" label="Animation" />,
     },
   ],
   trendsRange: [
@@ -70,27 +70,27 @@ const SEARCH_FILTERS_DATA = {
   sortBy: [
     {
       value: 'username',
-      node: <Select.ItemNode icon="i-ri-at-line" label="Username" />,
+      node: <Select.ItemNode icon="at-line" label="Username" />,
     },
     {
       value: 'tweets',
-      node: <Select.ItemNode icon="i-ri-file-paper-fill" label="Tweets" />,
+      node: <Select.ItemNode icon="file-paper-fill" label="Tweets" />,
     },
     {
       value: 'followers',
-      node: <Select.ItemNode icon="i-ri-user-heart-fill" label="Followers" />,
+      node: <Select.ItemNode icon="user-heart-fill" label="Followers" />,
     },
     {
       value: 'trending',
-      node: <Select.ItemNode icon="i-ri-line-chart-fill" label="Trending" />,
+      node: <Select.ItemNode icon="line-chart-fill" label="Trending" />,
     },
     {
       value: 'new',
-      node: <Select.ItemNode icon="i-ri-seedling-fill" label="New" />,
+      node: <Select.ItemNode icon="seedling-fill" label="New" />,
     },
     // {
     //   value: 'ranking',
-    //   node: <Select.ItemNode icon="i-ri-diamond-fill" label="Ranking" />,
+    //   node: <Select.ItemNode icon="diamond-fill" label="Ranking" />,
     // },
   ],
   country: COUNTRY_CODES.map(item => ({

@@ -64,6 +64,4 @@ const usePinnedArtistStore = create<PinnedArtistStore>(set => ({
   },
 }));
 
-usePinnedArtistStore.getState().loadPinnedArtists();
-
 export default usePinnedArtistStore;

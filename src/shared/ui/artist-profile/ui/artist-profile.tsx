@@ -8,7 +8,7 @@ import useArtistStore from '@/shared/hooks/use-artist-store';
 import Link from 'next/link';
 import { FormatBio } from '@/shared/ui/format-bio';
 import { Trend } from '@/shared/types/trend';
-import { Response } from '@/shared/types/response';
+import { $API } from '@/shared/utils/dotcreators-api';
 import { TrendChart } from '../../trend-chart';
 import { Transition } from '@headlessui/react';
 import { ProfileComponent } from '../components/profile-component';
@@ -20,8 +20,7 @@ import ImageLoader from '../../image-loader';
 import Select from '../../search/components/select';
 import { SEARCH_FILTERS_DATA } from '../../search/components/search-filters-data';
 import { BannerLink } from '../components/banner-link';
-
-const API_URL = process.env.API_URL;
+import { NewArtistBadge } from '../components/new-artist-badge';
 
 type ArtistProfileProps = HTMLAttributes<HTMLDivElement> & {
   isOpen: boolean;
@@ -47,11 +46,11 @@ function ArtistProfile({
 
   const showIcon = () => {
     if (data.rankingChange === 0) {
-      return <Icon ico="i-ri-equal-line" className="!text-xl" />;
+      return <Icon ico="equal-line" className="!text-xl" />;
     } else if (data.rankingChange > 0) {
-      return <Icon ico="i-ri-arrow-up-s-line" className="!text-xl" />;
+      return <Icon ico="arrow-up-s-line" className="!text-xl" />;
     } else {
-      return <Icon ico="i-ri-arrow-down-s-line" className="!text-xl" />;
+      return <Icon ico="arrow-down-s-line" className="!text-xl" />;
     }
   };
 
@@ -122,14 +121,17 @@ function ArtistProfile({
               )}
             />
             {data.country && <Flag country={data.country} />}
-            <p
-              className={twJoin(
-                'font-mona-sans min-w-0 flex-1 truncate text-start text-sm',
-                'tablet:text-base'
-              )}
-            >
-              {data.name}
-            </p>
+            <div className="flex min-w-0 flex-1 flex-row items-center gap-1.5">
+              <p
+                className={twJoin(
+                  'font-mona-sans min-w-0 truncate text-start text-sm',
+                  'tablet:text-base'
+                )}
+              >
+                {data.name}
+              </p>
+              <NewArtistBadge createdAt={data.createdAt} />
+            </div>
           </div>
           <div
             className={twJoin(
@@ -161,7 +163,7 @@ function ArtistProfile({
               <p className="text-gray-01/80">posts</p>
             </div>
             <Icon
-              ico="i-ri-arrow-down-s-line"
+              ico="arrow-down-s-line"
               className={twJoin(
                 'text-xl',
                 'transition-transform duration-200 ease-in-out',
@@ -196,26 +198,35 @@ function Detailed({
 
   // TODO: move away data fetching
   useEffect(() => {
+    const controller = new AbortController();
+
     async function getArtistsData() {
-      const r = await fetch(
-        `${API_URL}/trends/search?page=1&perPage=7&twitterUserId=${data.twitterUserId}`
-      );
-      const d: Response<Trend[]> = await r.json();
+      setIsLoading(true);
+      setError(null);
 
-      if (d.errors) {
-        setError(d.errors);
-        setIsLoading(false);
-        return;
-      }
-
-      if (d.items && !d.errors) {
-        setTrendsData(d.items);
+      try {
+        const items = await $API.getArtistTrends(
+          data.twitterUserId,
+          7,
+          controller.signal
+        );
+        if (controller.signal.aborted) return;
+        setTrendsData(items);
+      } catch (e) {
+        if (controller.signal.aborted) return;
+        setTrendsData(null);
+        setError({
+          id: data.twitterUserId,
+          reason: e instanceof Error ? e.message : String(e),
+        });
       }
 
       setIsLoading(false);
     }
 
     getArtistsData();
+
+    return () => controller.abort();
   }, [data]);
 
   const handlePinClick = (value: Artist) => {
@@ -260,9 +271,9 @@ function Detailed({
               isImageExist={Boolean(data.images.banner)}
             >
               {pinnedArtists && !pinnedArtists.some(x => x.id === data.id) ? (
-                <Icon ico="i-ri-pushpin-fill" className={twJoin('text-lg')} />
+                <Icon ico="pushpin-fill" className={twJoin('text-lg')} />
               ) : (
-                <Icon ico="i-ri-unpin-fill" className={twJoin('text-lg')} />
+                <Icon ico="unpin-fill" className={twJoin('text-lg')} />
               )}
             </BannerButton>
           )}
@@ -272,7 +283,7 @@ function Detailed({
               href={`/artists/${data.username}`}
               isImageExist={Boolean(data.images.banner)}
             >
-              <Icon ico="i-dotcreators-logo" className="text-base" />
+              <Icon ico="dotcreators-logo" className="text-base" />
             </BannerLink>
           )}
 
@@ -280,7 +291,7 @@ function Detailed({
             href={data.url}
             isImageExist={Boolean(data.images.banner)}
           >
-            <Icon ico="i-ri-twitter-x-fill" className="text-lg" />
+            <Icon ico="twitter-x-fill" className="text-lg" />
           </BannerLink>
         </div>
         {data.images.banner && (
@@ -318,15 +329,21 @@ function Detailed({
 
           <div className="flex w-full flex-row items-center justify-between gap-4">
             <div className="flex flex-col">
-              <p
-                className={twJoin(
-                  'font-mona-sans truncate text-2xl text-ellipsis',
-                  'laptop:max-w-[150px]',
-                  'desktop:max-w-[235px]'
-                )}
-              >
-                {data.name}
-              </p>
+              <div className="flex flex-row items-center gap-2">
+                <p
+                  className={twJoin(
+                    'font-mona-sans truncate text-2xl text-ellipsis',
+                    'laptop:max-w-[150px]',
+                    'desktop:max-w-[235px]'
+                  )}
+                >
+                  {data.name}
+                </p>
+                <NewArtistBadge
+                  createdAt={data.createdAt}
+                  className="text-xl"
+                />
+              </div>
               <div className="text-gray-01/80 flex max-w-[260px] items-center gap-1">
                 <Link
                   href={data.url}
@@ -495,7 +512,7 @@ function Trends({
               className="bg-black-03 relative h-full w-full animate-pulse rounded-xl"
             >
               <Icon
-                ico="i-ri-loader-5-fill"
+                ico="loader-5-fill"
                 className={twJoin(
                   'text-gray-01 absolute animate-spin text-2xl',
                   'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'
@@ -561,28 +578,35 @@ function DetailedTrends({
   const [trendsRange, setTrendsRange] = useState<TrendsRange>('14');
 
   useEffect(() => {
+    const controller = new AbortController();
+
     async function getArtistsData() {
       setIsLoading(true);
+      setError(null);
 
-      const r = await fetch(
-        `${API_URL}/trends/search?page=1&perPage=${trendsRange}&twitterUserId=${artistData.twitterUserId}`
-      );
-      const d: Response<Trend[]> = await r.json();
-
-      if (d.errors) {
-        setError(d.errors);
-        setIsLoading(false);
-        return;
-      }
-
-      if (d.items && !d.errors) {
-        setTrendsData(d.items);
+      try {
+        const items = await $API.getArtistTrends(
+          artistData.twitterUserId,
+          Number(trendsRange),
+          controller.signal
+        );
+        if (controller.signal.aborted) return;
+        setTrendsData(items);
+      } catch (e) {
+        if (controller.signal.aborted) return;
+        setTrendsData(null);
+        setError({
+          id: artistData.twitterUserId,
+          reason: e instanceof Error ? e.message : String(e),
+        });
       }
 
       setIsLoading(false);
     }
 
     getArtistsData();
+
+    return () => controller.abort();
   }, [artistData, trendsRange]);
 
   return (
@@ -624,7 +648,7 @@ function DetailedTrends({
                 className="bg-black-03 relative h-full w-full animate-pulse rounded-xl"
               >
                 <Icon
-                  ico="i-ri-loader-5-fill"
+                  ico="loader-5-fill"
                   className={twJoin(
                     'text-gray-01 absolute animate-spin text-2xl',
                     'top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2'

@@ -11,7 +11,7 @@ function Navigation({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
     >
       <Link href={'/'}>
         <Icon
-          ico="i-dotcreators-logo"
+          ico="dotcreators-logo"
           className="!text-red-01 flex text-[32px]"
         />
       </Link>

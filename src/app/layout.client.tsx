@@ -5,12 +5,22 @@ import Navigation from '@/shared/ui/navigation';
 import Footer from '@/shared/ui/footer';
 import { twJoin } from 'tailwind-merge';
 import Script from 'next/script';
+import { useEffect } from 'react';
+import usePinnedArtistStore from '@/shared/hooks/use-pinned-artist-store';
 
 export default function ClientLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
 }>) {
+  const loadPinnedArtists = usePinnedArtistStore(
+    state => state.loadPinnedArtists
+  );
+
+  useEffect(() => {
+    loadPinnedArtists();
+  }, [loadPinnedArtists]);
+
   return (
     <html lang="en">
       <Script

@@ -23,7 +23,7 @@ function NotFound() {
         href={'/'}
         className="flex w-fit flex-row items-center gap-2"
       >
-        <Icon ico="i-ri-arrow-go-back-fill" />
+        <Icon ico="arrow-go-back-fill" />
         <p>Back</p>
       </Button.Link>
     </section>

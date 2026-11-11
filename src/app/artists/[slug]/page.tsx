@@ -1,4 +1,5 @@
 import { Metadata } from 'next';
+import { notFound } from 'next/navigation';
 import { ArtistSlug } from './ui/artist-slug';
 import { $API } from '@/shared/utils/dotcreators-api';
 
@@ -60,7 +61,7 @@ export default async function ArtistSlugPage({
 }) {
   const { slug } = await params;
   const a = await $API.getArtistProfileByUsername(slug);
-  if (!a) return 404;
+  if (!a) notFound();
 
   return <ArtistSlug data={a} />;
 }
