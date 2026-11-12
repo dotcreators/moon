@@ -18,13 +18,14 @@ import codeFill from '../assets/code-fill.svg';
 import diamondFill from '../assets/diamond-fill.svg';
 import dotcreatorsLogo from '../assets/dotcreators-logo.svg';
 import equalLine from '../assets/equal-line.svg';
+import fileDamageFill from '../assets/file-damage-fill.svg';
 import filePaperFill from '../assets/file-paper-fill.svg';
 import filmLine from '../assets/film-line.svg';
 import inputMethodFill from '../assets/input-method-fill.svg';
 import lineChartFill from '../assets/line-chart-fill.svg';
 import loader5Fill from '../assets/loader-5-fill.svg';
 import lockFill from '../assets/lock-fill.svg';
-import pauseCircleFill from '../assets/pause-circle-fill.svg';
+import pauseFill from '../assets/pause-fill.svg';
 import pushpinFill from '../assets/pushpin-fill.svg';
 import search2Line from '../assets/search-2-line.svg';
 import seedlingFill from '../assets/seedling-fill.svg';
@@ -55,13 +56,14 @@ const ICONS = {
   'diamond-fill': diamondFill,
   'dotcreators-logo': dotcreatorsLogo,
   'equal-line': equalLine,
+  'file-damage-fill': fileDamageFill,
   'file-paper-fill': filePaperFill,
   'film-line': filmLine,
   'input-method-fill': inputMethodFill,
   'line-chart-fill': lineChartFill,
   'loader-5-fill': loader5Fill,
   'lock-fill': lockFill,
-  'pause-circle-fill': pauseCircleFill,
+  'pause-fill': pauseFill,
   'pushpin-fill': pushpinFill,
   'search-2-line': search2Line,
   'seedling-fill': seedlingFill,

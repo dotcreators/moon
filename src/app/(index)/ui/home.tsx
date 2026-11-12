@@ -16,7 +16,6 @@ import { $API } from '@/shared/utils/dotcreators-api';
 import { Response } from '@/shared/types/response';
 import { Search } from '@/shared/ui/search';
 import { ModalWrapper } from '@/shared/ui/modal';
-import { ArtistProfile } from '@/shared/ui/artist-profile';
 
 function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
   const [isLoading, setIsLoading] = useState<boolean>(true);
@@ -56,6 +55,7 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
 
   useEffect(() => {
     if (selectedArtist && window.matchMedia('(max-width: 1023px)').matches) {
+      setSelectedTab('profile');
       setIsModalOpened(true);
     } else {
       setIsModalOpened(false);
@@ -169,9 +169,11 @@ function Home({ className, ...props }: HTMLAttributes<HTMLDivElement>) {
         }}
       >
         {selectedArtist && (
-          <ArtistProfile.Detailed
+          <ArtistsViewer.Detailed
             data={selectedArtist}
-            className="overflow-hidden rounded-xl"
+            isLoading={false}
+            selectedTab={selectedTab}
+            onTabsSelected={setSelectedTab}
           />
         )}
       </ModalWrapper>

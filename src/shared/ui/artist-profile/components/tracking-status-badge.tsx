@@ -4,9 +4,9 @@ import { Tooltip } from '@/shared/ui/tooltip';
 import { TrackingStatus } from '@/shared/types/artist';
 
 const STATUS_DESCRIPTION: Record<Exclude<TrackingStatus, 'active'>, string> = {
-  suspended: 'This profile is suspended on X, its data is not being updated',
+  suspended: 'This profile is suspended, its data is not being updated',
   not_found:
-    'This profile was not found on X, it may have been deleted or renamed. Its data is not being updated',
+    'This profile was not found, it may have been deleted or renamed. Its data is not being updated',
 };
 
 type TrackingStatusBadgeProps = {
@@ -32,7 +32,7 @@ function TrackingStatusBadge({ status, className }: TrackingStatusBadgeProps) {
         </div>
       }
     >
-      <Icon ico="pause-circle-fill" />
+      <Icon ico="pause-fill" />
     </Tooltip>
   );
 }

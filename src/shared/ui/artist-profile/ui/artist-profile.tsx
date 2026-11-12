@@ -119,6 +119,8 @@ function ArtistProfile({
               width={48}
               height={48}
               variant="03"
+              fallback={<Icon ico="file-damage-fill" className="text-base" />}
+              brokenClassName="rounded-md"
               className={twJoin(
                 'overflow-hidden rounded-full',
                 'max-h-[28px] min-h-[28px] max-w-[28px] min-w-[28px]',
@@ -202,6 +204,12 @@ function Detailed({
     removePinnedArtist,
     savePinnedArtists,
   } = usePinnedArtistStore();
+  const [failedBanner, setFailedBanner] = useState<string | null>(null);
+  const banner =
+    data.images.banner && data.images.banner !== failedBanner
+      ? data.images.banner
+      : null;
+  const hasBanner = Boolean(banner);
 
   // TODO: move away data fetching
   useEffect(() => {
@@ -269,13 +277,13 @@ function Detailed({
         <div
           className={twJoin(
             'z-[1] flex w-fit grow flex-row gap-2',
-            data.images.banner ? 'absolute top-3 right-3' : 'mx-3 mt-3 self-end'
+            hasBanner ? 'absolute top-3 right-3' : 'mx-3 mt-3 self-end'
           )}
         >
           {!isSlug && (
             <BannerButton
               onClick={() => handlePinClick(data)}
-              isImageExist={Boolean(data.images.banner)}
+              isImageExist={hasBanner}
             >
               {pinnedArtists && !pinnedArtists.some(x => x.id === data.id) ? (
                 <Icon ico="pushpin-fill" className={twJoin('text-lg')} />
@@ -288,26 +296,24 @@ function Detailed({
           {!isSlug && (
             <BannerLink
               href={`/artists/${data.username}`}
-              isImageExist={Boolean(data.images.banner)}
+              isImageExist={hasBanner}
             >
               <Icon ico="dotcreators-logo" className="text-base" />
             </BannerLink>
           )}
 
-          <BannerLink
-            href={data.url}
-            isImageExist={Boolean(data.images.banner)}
-          >
+          <BannerLink href={data.url} isImageExist={hasBanner}>
             <Icon ico="twitter-x-fill" className="text-lg" />
           </BannerLink>
         </div>
-        {data.images.banner && (
+        {banner && (
           <ImageLoader
-            src={data.images.banner}
+            src={banner}
             alt={''}
             width={1280}
             height={720}
             variant="03"
+            onError={() => setFailedBanner(banner)}
             className={twJoin(
               'rounded-xl',
               'h-32 max-h-32 min-h-32',
@@ -326,17 +332,18 @@ function Detailed({
             width={128}
             height={128}
             variant="03"
+            fallback={<Icon ico="file-damage-fill" className="text-2xl" />}
             className={twJoin(
-              'h-[64px] min-h-[64px] w-[64px] min-w-[64px] rounded-xl',
+              'bg-black-03 h-[64px] min-h-[64px] w-[64px] min-w-[64px] rounded-xl',
               'tablet:h-[72px] tablet:min-h-[72px] tablet:w-[72px] tablet:min-w-[72px]',
               'laptop:h-[64px] laptop:min-h-[64px] laptop:w-[64px] laptop:min-w-[64px]',
               'desktop:h-[72px] desktop:min-h-[72px] desktop:w-[72px] desktop:min-w-[72px]'
             )}
           />
 
-          <div className="flex w-full flex-row items-center justify-between gap-4">
-            <div className="flex flex-col">
-              <div className="flex flex-row items-center gap-2">
+          <div className="flex min-w-0 flex-1 flex-row items-center justify-between gap-4">
+            <div className="flex min-w-0 flex-1 flex-col">
+              <div className="flex min-w-0 flex-row items-center gap-2">
                 <TrackingStatusBadge
                   status={data.trackingStatus}
                   className="p-1.5 text-base"
@@ -345,39 +352,33 @@ function Detailed({
                   createdAt={data.createdAt}
                   className="p-1.5 text-base"
                 />
-                <p
-                  className={twJoin(
-                    'font-mona-sans truncate text-2xl text-ellipsis',
-                    'laptop:max-w-[150px]',
-                    'desktop:max-w-[235px]'
-                  )}
-                >
+                <p className="font-mona-sans min-w-0 truncate text-2xl">
                   {data.name}
                 </p>
               </div>
-              <div className="text-gray-01/80 flex max-w-[260px] items-center gap-1">
+              <div className="text-gray-01/80 flex min-w-0 items-center gap-1">
                 <Link
                   href={data.url}
                   target="_blank"
-                  className="hover:text-red-01 transition-colors duration-200 ease-in-out"
+                  className="hover:text-red-01 max-w-full shrink-0 truncate transition-colors duration-200 ease-in-out"
                 >
                   @{data.username}
                 </Link>
                 {data.website && (
-                  <div className="laptop:hidden desktop:flex flex items-center gap-1">
-                    <span>•</span>
+                  <>
+                    <span className="shrink-0">•</span>
                     <Link
                       href={data.website}
                       target="_blank"
-                      className="hover:text-red-01 max-w-[100px] truncate transition-colors duration-200 ease-in-out"
+                      className="hover:text-red-01 min-w-0 truncate transition-colors duration-200 ease-in-out"
                     >
                       {formatWebsite(data.website)}
                     </Link>
-                  </div>
+                  </>
                 )}
               </div>
             </div>
-            <div className="tablet:flex hidden flex-row items-center gap-6">
+            <div className="tablet:flex hidden shrink-0 flex-row items-center gap-6">
               <div className="flex flex-col">
                 <p className="font-mona-sans text-2xl">
                   {trimValue(data.followersCount)}
@@ -408,23 +409,6 @@ function Detailed({
             <p className="text-gray-01/80">tweets</p>
           </div>
         </div>
-        {data.website && (
-          <div className="desktop:hidden laptop:flex tablet:hidden flex min-w-0">
-            <p className="text-gray-01 flex w-full min-w-0 items-baseline gap-1 text-sm">
-              <span className="shrink-0">Website:</span>
-              <Link
-                href={data.website}
-                target="_blank"
-                className={twJoin(
-                  'text-red-01 min-w-0 truncate text-base',
-                  'hover:text-red-01 transition-colors duration-200 ease-in-out'
-                )}
-              >
-                {formatWebsite(data.website)}
-              </Link>
-            </p>
-          </div>
-        )}
         {data.bio && <FormatBio text={data.bio} className="my-2" />}
         {!isSlug && (
           <ArtistProfile.Trends

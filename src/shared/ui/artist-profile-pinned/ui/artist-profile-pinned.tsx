@@ -92,7 +92,8 @@ function ArtistProfilePinned({
           width={91}
           height={91}
           variant="03"
-          className="h-[36px] min-h-[36px] w-[36px] min-w-[36px] rounded-lg"
+          fallback={<Icon ico="file-damage-fill" className="text-base" />}
+          className="bg-black-03 h-[36px] min-h-[36px] w-[36px] min-w-[36px] rounded-lg"
         />
         <div className="flex flex-col">
           <p className="font-mona-sans max-w-[135px] truncate text-sm leading-tight text-ellipsis">

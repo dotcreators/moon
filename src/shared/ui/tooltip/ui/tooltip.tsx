@@ -1,4 +1,11 @@
-import { HTMLAttributes, ReactNode, useEffect, useRef, useState } from 'react';
+import {
+  HTMLAttributes,
+  ReactNode,
+  useEffect,
+  useLayoutEffect,
+  useRef,
+  useState,
+} from 'react';
 import { createPortal } from 'react-dom';
 import { twJoin } from 'tailwind-merge';
 
@@ -11,23 +18,50 @@ type TooltipPosition = {
   left: number;
 };
 
+const VIEWPORT_PADDING = 8;
+const TRIGGER_OFFSET = 8;
+
 function Tooltip({ className, content, children, ...props }: TooltipProps) {
   const triggerRef = useRef<HTMLSpanElement>(null);
+  const tooltipRef = useRef<HTMLDivElement>(null);
+  const [isOpen, setIsOpen] = useState(false);
   const [position, setPosition] = useState<TooltipPosition | null>(null);
 
-  const show = () => {
-    const rect = triggerRef.current?.getBoundingClientRect();
-    if (rect) {
-      setPosition({ top: rect.top, left: rect.left + rect.width / 2 });
-    }
+  const show = () => setIsOpen(true);
+
+  const hide = () => {
+    setIsOpen(false);
+    setPosition(null);
   };
 
-  const hide = () => setPosition(null);
+  useLayoutEffect(() => {
+    if (!isOpen) return;
+
+    const trigger = triggerRef.current?.getBoundingClientRect();
+    const tooltip = tooltipRef.current?.getBoundingClientRect();
+    if (!trigger || !tooltip) return;
+
+    const viewportWidth = document.documentElement.clientWidth;
+    const centeredLeft = trigger.left + trigger.width / 2 - tooltip.width / 2;
+    const maxLeft = viewportWidth - tooltip.width - VIEWPORT_PADDING;
+    const left = Math.max(VIEWPORT_PADDING, Math.min(centeredLeft, maxLeft));
+
+    const fitsAbove =
+      trigger.top - tooltip.height - TRIGGER_OFFSET >= VIEWPORT_PADDING;
+    const top = fitsAbove
+      ? trigger.top - tooltip.height - TRIGGER_OFFSET
+      : trigger.bottom + TRIGGER_OFFSET;
+
+    setPosition({ top, left });
+  }, [isOpen]);
 
   useEffect(() => {
-    if (!position) return;
+    if (!isOpen) return;
 
-    const handleViewportChange = () => setPosition(null);
+    const handleViewportChange = () => {
+      setIsOpen(false);
+      setPosition(null);
+    };
 
     window.addEventListener('scroll', handleViewportChange, true);
     window.addEventListener('resize', handleViewportChange);
@@ -35,7 +69,7 @@ function Tooltip({ className, content, children, ...props }: TooltipProps) {
       window.removeEventListener('scroll', handleViewportChange, true);
       window.removeEventListener('resize', handleViewportChange);
     };
-  }, [position]);
+  }, [isOpen]);
 
   return (
     <span
@@ -48,16 +82,19 @@ function Tooltip({ className, content, children, ...props }: TooltipProps) {
       onBlur={hide}
     >
       {children}
-      {position &&
+      {isOpen &&
         createPortal(
           <div
+            ref={tooltipRef}
             role="tooltip"
-            style={{ top: position.top, left: position.left }}
-            className="pointer-events-none fixed z-50 -translate-x-1/2 -translate-y-full pb-2"
+            style={{
+              top: position?.top ?? 0,
+              left: position?.left ?? 0,
+              visibility: position ? 'visible' : 'hidden',
+            }}
+            className="bg-black-04 text-white-01 pointer-events-none fixed z-50 w-max max-w-[min(16rem,calc(100vw-1rem))] rounded-lg px-3 py-2 text-sm shadow-lg"
           >
-            <div className="bg-black-04 text-white-01 w-max max-w-64 rounded-lg px-3 py-2 text-sm shadow-lg">
-              {content}
-            </div>
+            {content}
           </div>,
           document.body
         )}
